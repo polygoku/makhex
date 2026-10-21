@@ -14,10 +14,10 @@ try {
 }catch(e){console.error('Invalid smoke target: '+e.message);process.exit(2)}
 const local=/localhost|127\.0\.0\.1/.test(origin);
 const checks=[
-  {path:'/',contains:'BUILD'},
-  {path:'/projects/',contains:'Make the'},
-  {path:'/shop/',contains:'Find your'},
-  {path:'/community/',contains:'GITHUB DISCUSSIONS'},
+  {path:'/',contains:'class="site-header"'},
+  {path:'/projects/',contains:'id="projects-grid"'},
+  {path:'/shop/',contains:'id="catalog-grid"'},
+  {path:'/community/',contains:'id="thread-heading"'},
   {path:'/shop/esp32-s3-devkit/',contains:'CHECKOUT COMING SOON'},
   {path:'/projects/touch-weather-station/',contains:'DOWNLOAD BOM CSV'},
   {path:'/projects/touch-weather-station.csv',contains:'RESEARCH ONLY'},

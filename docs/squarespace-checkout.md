@@ -1,7 +1,7 @@
 # Squarespace Basic commerce integration
 
 ## Architecture
-Use the already-paid Squarespace Basic subscription as a separate hosted store. The Astro front-end runs on Cloudflare Workers at `https://makhex.com`; Squarespace can run at `https://shop.makhex.com` after the subdomain is verified with Squarespace's domain panel and Cloudflare DNS. These are **separate origins**, not a shared cart.
+Use the already-paid Squarespace Basic subscription as a separate hosted store. The Astro front-end runs on Cloudflare Workers at `https://makhex.com`; Squarespace is intended to run at `https://shop.makhex.com` **only after an account-specific primary-domain feasibility check**. Squarespace's documented restriction on using a same-site Squarespace-managed subdomain as primary may require a coordinated domain connection migration, not simple subdomain forwarding. These are **separate origins**, not a shared cart.
 
 ## Workflow
 1. Finish Squarespace site setup and confirm the public storefront URL (not `/config`).

@@ -7,5 +7,5 @@ interface Props{product:Product}
 const {product}=Astro.props;
 ---
 <article class="product-card"><a class="product-card-image" href={productUrl(product.slug)} aria-label={'View '+product.title}><ProductVisual product={product}/><span class="product-card-arrow" aria-hidden="true">↗</span></a>
-<div class="product-card-meta"><span>{product.category}</span><span>{commerceState(product).kind==='ready'?'BUY AT SQUARESPACE':'NOT YET FOR SALE'}</span></div>
+<div class="product-card-meta"><span>{product.category}</span><span>{commerceState(product).kind==='ready'?'AVAILABLE AT SQUARESPACE':'NOT YET FOR SALE'}</span></div>
 <a href={productUrl(product.slug)} class="product-title-link"><h3>{product.title}</h3></a><p>{product.descriptor}</p></article>

@@ -35,7 +35,7 @@ const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f)
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
  expect(html.includes('CHECKOUT COMING SOON'),'Product incorrectly shows live checkout: '+f);
- expect(!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified checkout link on '+f);
+ expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
 const discussionLinks=JSON.parse(fs.readFileSync('src/data/discussion-links.json','utf8'));
 expect(Object.keys(discussionLinks.products).length===12,'Expected 12 component discussions');

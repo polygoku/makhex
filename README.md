@@ -21,6 +21,9 @@ npm run dev
 npm run check
 npm run build
 npm run qa
+npm run test:launch
+npm run launch:audit # read-only GO/NO-GO; exit code 2 until providers are ready
+npx wrangler deploy --dry-run # validate static Workers bundle without account changes
 ```
 
 ## Site routes
@@ -45,7 +48,7 @@ Automated deployment can be enabled on main branch by setting repository secrets
 ## Squarespace shop integration
 The brochure/catalog is hosted on Cloudflare at `makhex.com`; the paid Squarespace Basic site continues separately. Once verified, assign Squarespace a shop subdomain such as `shop.makhex.com`. Add a real per-product `storePath: 'shop/p/verified-squarespace-slug'` to `src/data/products.ts` and set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`.
 
-**Fail closed:** A product without BOTH a verified public store base and a verified per-product path renders a disabled checkout CTA. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
+**Fail closed:** A product requires a qualified supplier variant, approved evidence ledger entry, verified public store base and exact public Squarespace product path; otherwise checkout remains disabled. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
 
 ## Community
 GitHub Discussions is the public forum: all **12 hardware candidates** and **10 project blueprints** now have dedicated threads. The thread map lives at `src/data/discussion-links.json` and can be refreshed idempotently via `node scripts/seed-discussions.mjs --apply` (requires an authenticated GitHub CLI). Every detail page and the `/community/` index links directly to its thread. Optional Giscus embeds are activated after GitHub App approval and public repo/category IDs are configured; the `specific` mapping uses the existing thread title to avoid creating parallel discussion threads.
@@ -58,6 +61,7 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Sprint 02 report](docs/sprint-02.md)
 - [Sprint 03 launch readiness report](docs/sprint-03.md)
 - [Sprint 04 tactile workbench redesign](docs/sprint-04-design.md)
+- [Sprint 05 production integration / launch gates](docs/sprint-05.md)
 - [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)
 - [Qualification gate](docs/catalog-qualification.md)
 - [Squarespace commerce workflow](docs/squarespace-checkout.md)

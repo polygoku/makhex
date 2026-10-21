@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "dnsZoneExport": { "verifiedAt": null, "evidenceIssueUrl": null },
+  "cloudflareZoneRecordCopy": { "verifiedAt": null, "evidenceIssueUrl": null },
+  "squarespaceShopPrimary": { "verifiedAt": null, "evidenceIssueUrl": null },
+  "dnsRollbackPlan": { "verifiedAt": null, "evidenceIssueUrl": null }
+}
