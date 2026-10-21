@@ -1,0 +1,4 @@
+---
+import Base from '../../layouts/Base.astro';import {projects} from '../../data/projects';
+---
+<Base title="Build guides"><section class="page-banner"><div class="wrap"><div class="eyebrow">BUILD LIBRARY / 01</div><h1>Start making<span class="lime">.</span></h1><p>Choose a guide, get your parts, and make something extraordinary.</p></div></section><section class="section"><div class="wrap project-grid">{projects.map((p,i)=><a class="project-tile" href={'/projects/'+p.slug+'/'}><div class={'project-tile-art art-'+(i%3)}><span class="feature-number">{String(i+1).padStart(2,'0')}</span><span class="feature-badge">{p.label}</span><div class="art-shape shape-a"></div><div class="art-shape shape-b"></div></div><div class="feature-meta"><span>{p.level} · {p.time}</span><span>↗</span></div><h2>{p.title}</h2><p>{p.intro}</p></a>)}</div></section></Base>

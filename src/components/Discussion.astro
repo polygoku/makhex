@@ -1,0 +1,7 @@
+---
+const {title}=Astro.props;
+const repoId=import.meta.env.PUBLIC_GISCUS_REPO_ID;
+const categoryId=import.meta.env.PUBLIC_GISCUS_CATEGORY_ID;
+---
+<section class="discussion"><div class="eyebrow">THE MAKER BENCH</div><h2>Build it together.</h2><p>Found a better wiring diagram, firmware fix or component swap? Bring it to the community.</p>{repoId&&categoryId?<div id="giscus-container" data-repo-id={repoId} data-category-id={categoryId}></div>:<div class="discussion-fallback"><b>Community integration is being prepared.</b><p>GitHub Discussions will appear here after discussions are enabled and the repository/category IDs are configured.</p><a class="btn btn-line" href="https://github.com/polygoku/makhex/discussions" target="_blank" rel="noopener">Open maker discussions ↗</a></div>}</section>
+{repoId&&categoryId&&<script is:inline define:vars={{repoId,categoryId}}>(function(){const s=document.createElement('script');Object.assign(s,{src:'https://giscus.app/client.js',async:true});for(const [k,v] of Object.entries({'data-repo':'polygoku/makhex','data-repo-id':repoId,'data-category':'General','data-category-id':categoryId,'data-mapping':'pathname','data-strict':'1','data-reactions-enabled':'1','data-emit-metadata':'0','data-input-position':'bottom','data-theme':'dark','data-lang':'en'}))s.setAttribute(k,v);s.crossOrigin='anonymous';document.getElementById('giscus-container')?.append(s)})()</script>}
