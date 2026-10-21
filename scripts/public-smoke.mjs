@@ -15,8 +15,8 @@ try {
 const local=/localhost|127\.0\.0\.1/.test(origin);
 const checks=[
   {path:'/',contains:'BUILD'},
-  {path:'/projects/',contains:'BUILD BLUEPRINTS'},
-  {path:'/shop/',contains:'RESEARCH CANDIDATES'},
+  {path:'/projects/',contains:'Make the'},
+  {path:'/shop/',contains:'Find your'},
   {path:'/community/',contains:'GITHUB DISCUSSIONS'},
   {path:'/shop/esp32-s3-devkit/',contains:'CHECKOUT COMING SOON'},
   {path:'/projects/touch-weather-station/',contains:'DOWNLOAD BOM CSV'},

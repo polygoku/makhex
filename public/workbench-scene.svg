@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" role="img" aria-labelledby="title desc">
+<title id="title">An imagined DIY touch weather station on a maker workbench</title>
+<desc id="desc">A cream 3D-printed ESP32 touchscreen gadget on a muted green gridded cutting mat, with a sensor breakout board, wires, orange knob, a screwdriver, and hardware. Concept artwork, not a verified real device.</desc>
+<defs>
+  <linearGradient id="mat" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#c7d4c3"/><stop offset=".55" stop-color="#b8cbbd"/><stop offset="1" stop-color="#a5bfad"/></linearGradient>
+  <pattern id="squares" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#f7f8ef" stroke-width="1" opacity=".46"/></pattern>
+  <pattern id="dots" width="140" height="140" patternUnits="userSpaceOnUse"><path d="M0 0v140M0 0h140" stroke="#ecf4e6" stroke-width="1.5" opacity=".44"/></pattern>
+  <linearGradient id="shell" x1=".1" y1="0" x2=".9" y2="1"><stop stop-color="#fffdf7"/><stop offset=".65" stop-color="#f3ede2"/><stop offset="1" stop-color="#ded8cc"/></linearGradient>
+  <linearGradient id="screen" x1="0" x2=".7" y1="0" y2="1"><stop stop-color="#355f52"/><stop offset="1" stop-color="#1d352d"/></linearGradient>
+  <linearGradient id="board" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#3d836e"/><stop offset="1" stop-color="#1e5545"/></linearGradient>
+  <linearGradient id="orange" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#ffa06c"/><stop offset=".55" stop-color="#fa6b34"/><stop offset="1" stop-color="#c64922"/></linearGradient>
+  <linearGradient id="metal" x1="0" x2="1" y1="0" y2="0"><stop stop-color="#838e8a"/><stop offset=".35" stop-color="#f3f0e8"/><stop offset=".6" stop-color="#86928d"/><stop offset="1" stop-color="#e2e4de"/></linearGradient>
+  <filter id="shadow" x="-40%" y="-40%" width="180%" height="200%"><feGaussianBlur in="SourceAlpha" stdDeviation="16"/><feOffset dy="17" dx="9"/><feComponentTransfer><feFuncA type="linear" slope=".29"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+<rect width="800" height="580" rx="24" fill="url(#mat)"/>
+<rect width="800" height="580" rx="24" fill="url(#squares)"/>
+<rect width="800" height="580" rx="24" fill="url(#dots)"/>
+<g opacity=".16" fill="none" stroke="#4c7864" stroke-width="1.5"><circle cx="705" cy="68" r="36"/><circle cx="705" cy="68" r="50"/><path d="M705 8v120M645 68h120"/></g>
+<!-- loose component bin and workbench details -->
+<g transform="translate(37 379) rotate(-17)" filter="url(#shadow)">
+  <rect x="0" y="0" width="112" height="150" rx="17" fill="#e5e0d5" stroke="#c0b9ad" stroke-width="4"/>
+  <rect x="8" y="8" width="96" height="133" rx="11" fill="#eee9df" stroke="#faf8ef" stroke-width="2"/>
+  <text x="17" y="30" font-family="Arial,sans-serif" font-size="12" fill="#726b61" font-weight="bold">SPARES</text>
+  <g fill="#89928a"><circle cx="30" cy="67" r="11"/><circle cx="66" cy="64" r="9"/><circle cx="43" cy="99" r="10"/><circle cx="81" cy="105" r="12"/></g>
+  <g stroke="#dbddd3" stroke-width="3"><path d="M25 67h10M30 62v10M60 64h12M66 58v12M37 99h12M43 93v12M75 105h12M81 99v12"/></g>
+</g>
+<!-- jumper wires on the mat -->
+<g fill="none" stroke-width="8" stroke-linecap="round" opacity=".95">
+  <path d="M424 350C440 423 598 315 633 435S734 520 753 447" stroke="#dd6841"/>
+  <path d="M413 354C458 451 583 339 620 447S709 526 750 474" stroke="#e6b441"/>
+  <path d="M409 358C470 444 571 362 599 447S678 528 739 488" stroke="#5689a0"/>
+</g>
+<!-- screwdriver -->
+<g transform="translate(70 111) rotate(36)" filter="url(#shadow)">
+  <rect x="0" y="-17" width="192" height="34" rx="14" fill="url(#orange)" stroke="#b94b2c" stroke-width="2"/>
+  <g stroke="#ffd4b9" stroke-width="4" opacity=".65"><path d="M18 -9v18M35 -9v18M52 -9v18M69 -9v18M86 -9v18"/></g>
+  <rect x="183" y="-10" width="128" height="20" rx="6" fill="url(#metal)"/>
+  <path d="M310 -10l45 10-45 10Z" fill="#8c9991"/>
+</g>
+<!-- main 3d printed touchscreen concept -->
+<g transform="rotate(-7 440 269)" filter="url(#shadow)">
+  <rect x="193" y="106" width="494" height="325" rx="29" fill="#aaa397" stroke="#9a9389" stroke-width="2"/>
+  <rect x="188" y="92" width="494" height="326" rx="29" fill="url(#shell)" stroke="#cac5ba" stroke-width="3"/>
+  <path d="M214 99h439a22 22 0 0 1 22 22v20H191v-20a22 22 0 0 1 23-22" fill="#fffef9" opacity=".65"/>
+  <rect x="215" y="122" width="334" height="240" rx="18" fill="#b6b7ac" stroke="#b7b0a5" stroke-width="2"/>
+  <rect x="221" y="128" width="322" height="228" rx="13" fill="url(#screen)" stroke="#192e28" stroke-width="5"/>
+  <path d="M236 144h292" stroke="#aacbbb" opacity=".25"/>
+  <g fill="#e9f5dc" font-family="Arial,sans-serif">
+    <text x="246" y="165" font-size="14" letter-spacing="3" font-weight="bold">MAKHEX / WEATHER LAB</text>
+    <text x="246" y="241" font-size="71" letter-spacing="-4" font-weight="bold">24.6°</text>
+    <text x="247" y="269" font-size="15" fill="#a9d2b0">Room temperature</text>
+  </g>
+  <g transform="translate(478 203)" stroke="#ffe2a0" fill="none" stroke-width="5" stroke-linecap="round">
+    <circle r="24" fill="#f7c870" stroke="none"/><path d="M0 -39v-11M0 39v11M-39 0h-11M39 0h11M-28 -28l-8-8M28 -28l8-8M-28 28l-8 8M28 28l8 8"/>
+  </g>
+  <rect x="244" y="288" width="275" height="1" fill="#7aa98c" opacity=".65"/>
+  <g font-family="Arial,sans-serif" font-size="14" fill="#e9f0df"><text x="246" y="318">HUMIDITY <tspan fill="#f7c870" font-weight="bold">48%</tspan></text><text x="404" y="318">PRESSURE <tspan fill="#f7c870" font-weight="bold">1012</tspan></text></g>
+  <g fill="#d1cbc0" stroke="#9a968a" stroke-width="2"><circle cx="220" cy="109" r="8"/><circle cx="651" cy="109" r="8"/><circle cx="215" cy="400" r="8"/><circle cx="651" cy="400" r="8"/></g>
+  <g stroke="#8f8e88" stroke-width="2"><path d="M216 109h8M220 105v8M647 109h8M651 105v8M211 400h8M215 396v8M647 400h8M651 396v8"/></g>
+  <g transform="translate(603 189)"><circle r="49" fill="#c5bdb0"/><circle r="43" fill="#eee5d8" stroke="#cbc1b3" stroke-width="2"/><circle r="37" fill="url(#orange)" stroke="#cc572b" stroke-width="2"/><circle r="25" fill="#fc8b59"/><path d="M0 -22v-10" stroke="#fff4d9" stroke-linecap="round" stroke-width="5"/><circle r="4" fill="#b94722"/></g>
+  <text x="572" y="260" font-size="10" font-weight="bold" font-family="Arial,sans-serif" letter-spacing="1.8" fill="#796c61">ADJUST</text>
+  <g fill="#a19b8e">
+    <circle cx="574" cy="326" r="3"/><circle cx="589" cy="326" r="3"/><circle cx="604" cy="326" r="3"/><circle cx="619" cy="326" r="3"/><circle cx="634" cy="326" r="3"/>
+    <circle cx="574" cy="341" r="3"/><circle cx="589" cy="341" r="3"/><circle cx="604" cy="341" r="3"/><circle cx="619" cy="341" r="3"/><circle cx="634" cy="341" r="3"/>
+  </g>
+  <text x="573" y="371" font-family="Arial,sans-serif" font-size="9" font-weight="bold" letter-spacing="2" fill="#a09a8e">PRINTED IN PLA</text>
+</g>
+<!-- separate sensor breakout board -->
+<g transform="translate(505 416) rotate(11 72 54)" filter="url(#shadow)">
+  <rect x="0" y="0" width="158" height="115" rx="7" fill="url(#board)" stroke="#184938" stroke-width="4"/>
+  <g stroke="#8cc48c" stroke-width="2" fill="none" opacity=".7"><path d="M22 23h36v30M125 30h-30v23M30 92h38V70M131 91H96V69"/></g>
+  <rect x="56" y="35" width="53" height="48" rx="5" fill="#1b312d" stroke="#b6beaa" stroke-width="3"/>
+  <text x="82" y="64" font-family="Arial,sans-serif" font-size="12" fill="#eee9cf" text-anchor="middle" font-weight="bold">BME</text>
+  <text x="82" y="77" font-family="Arial,sans-serif" font-size="10" fill="#eee9cf" text-anchor="middle">280</text>
+  <g fill="#d6c48c"><circle cx="18" cy="19" r="6"/><circle cx="140" cy="19" r="6"/><circle cx="18" cy="97" r="6"/><circle cx="140" cy="97" r="6"/></g>
+  <g fill="#f3c657"><rect x="-8" y="30" width="16" height="8"/><rect x="-8" y="48" width="16" height="8"/><rect x="-8" y="66" width="16" height="8"/></g>
+</g>
+<!-- craft details: a couple of fasteners -->
+<g transform="translate(727 299) rotate(-24)" filter="url(#shadow)"><ellipse rx="23" ry="13" fill="url(#metal)" stroke="#8b8f8a" stroke-width="2"/><path d="M-9 0h18M0 -9v18" stroke="#838c88" stroke-width="3"/></g>
+<g transform="translate(730 337) rotate(12)" filter="url(#shadow)"><ellipse rx="15" ry="10" fill="url(#metal)" stroke="#8b8f8a" stroke-width="2"/><path d="M-6 0h12M0 -6v12" stroke="#838c88" stroke-width="2"/></g>
+</svg>

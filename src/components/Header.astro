@@ -1,10 +1,15 @@
 ---
-const path=Astro.url.pathname;
+const current=Astro.url.pathname;
 const links=[{href:'/projects/',label:'Projects'},{href:'/shop/',label:'Components'},{href:'/community/',label:'Community'},{href:'/about/',label:'About'}];
 ---
-<header class="site-header"><div class="header-inner container">
-  <a href="/" class="brand" aria-label="MAKHEX homepage"><span class="brand-mark" aria-hidden="true">M<span class="brand-dot"></span></span><span>MAKHEX<span class="brand-period">.</span></span></a>
-  <nav class="nav-desktop" aria-label="Main navigation">{links.map(l=><a href={l.href} class:list={['nav-link',{active:path.startsWith(l.href)}]} aria-current={path.startsWith(l.href)?'page':undefined}>{l.label}</a>)}</nav>
-  <a href="/projects/" class="nav-cta">START BUILDING <span aria-hidden="true">↗</span></a>
-  <details class="mobile-menu"><summary aria-label="Open navigation"><span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span></summary><nav aria-label="Mobile navigation">{links.map(l=><a href={l.href}>{l.label}<span aria-hidden="true">↗</span></a>)}</nav></details>
-</div></header>
+<header class="site-header">
+ <div class="header-inner container">
+  <a href="/" class="brand" aria-label="MAKHEX home"><span class="brand-mark" aria-hidden="true"><span class="brand-pin pin-l"></span><span class="brand-chip">M</span><span class="brand-pin pin-r"></span></span><span class="brand-word">makhex<span class="brand-period">.</span></span></a>
+  <nav class="nav-desktop" aria-label="Main navigation">{links.map(l=><a class:list={['nav-link',{active:current.startsWith(l.href)}]} aria-current={current.startsWith(l.href)?'page':undefined} href={l.href}>{l.label}</a>)}</nav>
+  <a href="/projects/" class="nav-cta">Start a build <span class="cta-circle" aria-hidden="true">→</span></a>
+  <details class="mobile-menu">
+   <summary aria-label="Open menu"><span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span></summary>
+   <nav aria-label="Mobile navigation">{links.map(l=><a href={l.href}>{l.label}<span aria-hidden="true">↗</span></a>)}</nav>
+  </details>
+ </div>
+</header>
