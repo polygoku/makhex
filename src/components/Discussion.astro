@@ -1,10 +1,11 @@
 ---
-interface Props{context:string}
-const {context}=Astro.props;
+interface Props{context:string;discussionUrl?:string;discussionTitle?:string}
+const {context,discussionUrl,discussionTitle}=Astro.props;
+const targetDiscussion=discussionUrl||'https://github.com/polygoku/makhex/discussions';
 const repoId=(import.meta.env.PUBLIC_GISCUS_REPO_ID||'').trim();
 const categoryId=(import.meta.env.PUBLIC_GISCUS_CATEGORY_ID||'').trim();
 const ready=Boolean(repoId&&categoryId);
 ---
-<section class="discussion-block" aria-label="Project discussion"><div class="discussion-head"><div><span class="eyebrow">COMMUNITY / BUILD LOG</span><h2>Build it. Break it. Share it.</h2><p>Post wiring corrections, firmware fixes and what you learned building {context}.</p></div><a href="https://github.com/polygoku/makhex/discussions" target="_blank" rel="noopener noreferrer" class="btn btn-outline">OPEN THE FORUM ↗</a></div>
-{ready?<div class="giscus-frame"><script src="https://giscus.app/client.js" data-repo="polygoku/makhex" data-repo-id={repoId} data-category="General" data-category-id={categoryId} data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async is:inline></script></div>:
+<section class="discussion-block" aria-label="Project discussion"><div class="discussion-head"><div><span class="eyebrow">COMMUNITY / BUILD LOG</span><h2>Build it. Break it. Share it.</h2><p>Post wiring corrections, firmware fixes and what you learned building {context}.</p></div><a href={targetDiscussion} target="_blank" rel="noopener noreferrer" class="btn btn-outline">{discussionUrl?"JOIN THIS DISCUSSION ↗":"OPEN THE FORUM ↗"}</a></div>
+{ready?<div class="giscus-frame"><script src="https://giscus.app/client.js" data-repo="polygoku/makhex" data-repo-id={repoId} data-category="General" data-category-id={categoryId} data-mapping="specific" data-term={discussionTitle} data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async is:inline></script></div>:
 <p class="discussion-note">Public GitHub Discussions is open. Page-specific embedded comments appear after the Giscus app is enabled for this repository.</p>}</section>

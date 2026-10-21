@@ -31,6 +31,22 @@ for(const f of candidates){
  expect(html.includes('CHECKOUT COMING SOON'),'Product incorrectly shows live checkout: '+f);
  expect(!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified checkout link on '+f);
 }
-console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages');
+const discussionLinks=JSON.parse(fs.readFileSync('src/data/discussion-links.json','utf8'));
+expect(Object.keys(discussionLinks.products).length===12,'Expected 12 component discussions');
+expect(Object.keys(discussionLinks.projects).length===10,'Expected 10 project discussions');
+let mapped=0;
+for(const [type,records] of [['shop',discussionLinks.products],['projects',discussionLinks.projects]]){
+ for(const [slug,url] of Object.entries(records)){
+  const file=path.join(out,type,slug,'index.html');
+  expect(/^https:\/\/github\.com\/polygoku\/makhex\/discussions\/\d+$/.test(url),'Invalid discussion URL for '+slug);
+  expect(fs.existsSync(file),'Missing target page for discussion '+slug);
+  if(fs.existsSync(file)){
+   const html=fs.readFileSync(file,'utf8');
+   expect(html.includes('href="'+url+'"'),'Discussion thread not linked on '+type+'/'+slug);
+   mapped++;
+  }
+ }
+}
+console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' mapped maker discussions');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('PASS: generated routes, links, metadata and checkout truth gate');

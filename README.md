@@ -8,7 +8,7 @@ MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product r
 - Code-first frontend: implemented in Sprint 01
 - Product research: 12 candidates, NOT listed as verified or orderable
 - 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated
-- GitHub Discussions: public community link; page-specific Giscus waits for app approval
+- GitHub Discussions: **22 dedicated threads**, one per project or component, and a browsable community directory; optional inline Giscus waits for app approval
 - Squarespace: paid Basic plan retained; actual store product paths and checkout flow remain unverified
 - Cloudflare: config and opt-in CI/CD included; DNS and production deployment must be verified
 
@@ -48,7 +48,7 @@ The brochure/catalog is hosted on Cloudflare at `makhex.com`; the paid Squarespa
 **Fail closed:** A product without BOTH a verified public store base and a verified per-product path renders a disabled checkout CTA. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
 
 ## Community
-GitHub Discussions is the public forum, and every detail page links there. Optional Giscus embeds are activated when GitHub App access and public repo/category IDs are configured. A Giscus thread maps to the page's pathname and is not an independent database.
+GitHub Discussions is the public forum: all **12 hardware candidates** and **10 project blueprints** now have dedicated threads. The thread map lives at `src/data/discussion-links.json` and can be refreshed idempotently via `node scripts/seed-discussions.mjs --apply` (requires an authenticated GitHub CLI). Every detail page and the `/community/` index links directly to its thread. Optional Giscus embeds are activated after GitHub App approval and public repo/category IDs are configured; the `specific` mapping uses the existing thread title to avoid creating parallel discussion threads.
 
 ## Agent collaboration
 Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent should change live DNS, enable checkouts, fabricate supplier proof, publish credentials or add unsupported safety promises.
