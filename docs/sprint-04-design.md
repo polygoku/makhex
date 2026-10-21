@@ -37,3 +37,13 @@ Replace the generic cyber-brutalist, neon-on-black presentation with a friendly 
 ## Future content improvement
 
 To push further toward real, tactile gadgets, replace concept imagery with **owned/permissioned** product photography and build-progress photos after sourcing and physical assembly. Photograph bare PCB, wired prototype, enclosure revision and working device side by side. Do not republish arbitrary images found on other maker sites or imply unverified hero art is a shipping kit.
+
+## Post-approval polish
+
+PR #26 was approved and merged on October 21, 2026. The three small follow-up refinements are deliberately isolated from the approved redesign:
+
+1. Added 22px of desktop/tablet hero top breathing room (and mobile-safe spacing), giving the physical featured-build card a clear visual boundary beneath the sticky navigation.
+2. Repositioned the `Making` underline to `.25em` with `text-decoration-skip-ink:auto` to avoid the lowercase `g` descender.
+3. Changed the decorative ESP32-S3 and BME280 sensor pills to keyboard-focusable links to their exact component detail pages. Product pages retain the original research-only checkout block.
+
+QA: local Astro type/build checks succeeded with zero warnings, the route QA passed 28 pages/714 links/12 checkout holds, and headless Edge verified layout and actual component tag navigation at 320/390/768/1440px.
