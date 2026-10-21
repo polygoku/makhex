@@ -17,5 +17,10 @@ Use GitHub repo Settings → Secrets and variables → Actions.
 
 The `deploy.yml` job only runs when the enable variable is true. GitHub push to main then triggers an automatic build and deploy. Alternatively connect Workers Builds to GitHub from the Cloudflare dashboard with build command `npm run build` and deploy command `npx wrangler deploy`. Use one publishing pipeline, not both simultaneously.
 
+## Production staging guardrails
+The Cloudflare static asset `_headers` rules mark `*.workers.dev` previews `noindex` and attach CSP, MIME, framing and referrer headers. Verify a public deployment with `npm run smoke:public -- https://<your-worker>.<account>.workers.dev/`. A Cloudflare challenge (403), Squarespace 401 or missing route fails the smoke test, not a PASS. Manual browser testing at 320, 390 and 1440 widths is still required before DNS migration.
+
+See [Sprint 03 cutover guide](domain-cutover-runbook.md) for complete DNS, Squarespace primary shop-domain, credential and rollback requirements.
+
 ## Domain gates
 Do not attach `makhex.com` until the Workers preview is verified and the existing Squarespace shop URL is mapped for `shop.makhex.com`. Preserve all existing mail and verification DNS records.
