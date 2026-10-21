@@ -5,6 +5,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: makhex-production
+  cancel-in-progress: false
 jobs:
   deploy:
     if: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' }}
@@ -26,6 +29,7 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm run qa
+      - run: npx wrangler deploy --dry-run
       - run: npx wrangler deploy
       - name: Verify public website, when provisioned
         if: ${{ vars.PUBLIC_SMOKE_URL != '' }}
