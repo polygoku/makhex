@@ -1,0 +1,17 @@
+---
+import type {Project} from '../data/projects';
+interface Props{project:Project}
+const {project}=Astro.props;
+const family=project.category.toLowerCase().replace(/[^a-z]/g,'');
+---
+<div class={'project-art art-'+family} role="img" aria-label={'Illustration for '+project.title+'; concept artwork, not a verified product photo'}>
+ <div class="project-art-grid" aria-hidden="true"></div>
+ {project.category==='Displays' && <div class="art-device" aria-hidden="true"><div class="art-display"><span class="art-status">MAKHEX / ON</span><strong>{project.slug.includes('calendar')?'TUE 21':'24.6°'}</strong><small>{project.slug.includes('calendar')?'Good things ahead':'48% HUMIDITY'}</small></div><span class="art-device-knob"></span><span class="art-device-screw one"></span><span class="art-device-screw two"></span></div>}
+ {project.category==='Audio' && <div class="art-speaker" aria-hidden="true"><div class="art-speaker-grille"><span></span><span></span><span></span></div><div class="art-speaker-knob"></div><div class="art-speaker-indicator">♪</div></div>}
+ {project.category==='Wireless' && <div class="art-wireless" aria-hidden="true"><div class="art-antenna"><span></span><span></span><span></span></div><div class="art-pcb"><span class="art-pcb-chip">ESP<br/>32</span><span class="pcb-traces"></span></div></div>}
+ {project.category==='Sensors' && <div class="art-sensor" aria-hidden="true"><span class="art-sensor-wire wire-a"></span><span class="art-sensor-wire wire-b"></span><div class="art-sensor-board"><span class="art-sensor-chip">BME<br/>280</span></div><div class="art-sensor-dial">24°</div></div>}
+ {project.category==='Vision' && <div class="art-camera" aria-hidden="true"><div class="art-camera-body"><span class="art-camera-lens"><span></span></span></div><div class="art-camera-ribbon"></div></div>}
+ {project.category==='Lighting' && <div class="art-lights" aria-hidden="true">{Array.from({length:5}).map((_,i)=><span class={'art-led led-'+i}></span>)}</div>}
+ {project.category==='Automation' && <div class="art-button-device" aria-hidden="true"><div class="art-button-bezel"><span>PRESS</span></div><div class="art-button-led"></div></div>}
+ <span class="art-footnote" aria-hidden="true">MAKHEX / SKETCH {project.number}</span>
+</div>

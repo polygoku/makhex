@@ -57,6 +57,7 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Sprint 01 report](docs/sprint-01.md)
 - [Sprint 02 report](docs/sprint-02.md)
 - [Sprint 03 launch readiness report](docs/sprint-03.md)
+- [Sprint 04 tactile workbench redesign](docs/sprint-04-design.md)
 - [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)
 - [Qualification gate](docs/catalog-qualification.md)
 - [Squarespace commerce workflow](docs/squarespace-checkout.md)

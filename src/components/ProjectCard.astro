@@ -1,9 +1,19 @@
 ---
 import type{Project} from '../data/projects';
 import {projectUrl} from '../lib/catalog';
+import ProjectArtwork from './ProjectArtwork.astro';
 interface Props{project:Project}
 const {project}=Astro.props;
 ---
-<article class="project-card"><a href={projectUrl(project.slug)} class="project-card-link" aria-label={'Explore project '+project.title}><div class="project-top"><span>PROJECT / {project.number}</span><span class="project-arrow" aria-hidden="true">↗</span></div>
-<div class="project-graphic" aria-hidden="true"><div class="graphic-ring"><span>{project.signal.split('/')[0].trim()}</span></div><i></i><i></i><i></i></div>
-<div class="project-bottom"><div><span class="eyebrow">{project.eyebrow}</span><h3>{project.title}</h3><p>{project.summary}</p></div><span class="level-pill">{project.level}</span></div></a></article>
+<article class="project-card">
+  <a href={projectUrl(project.slug)} class="project-card-link" aria-label={'View project '+project.title}>
+    <div class="project-card-top"><span class="project-category">{project.category}</span><span class="project-number">BUILD {project.number}</span></div>
+    <ProjectArtwork project={project}/>
+    <div class="project-card-bottom">
+      <div class="project-card-tags"><span>{project.level}</span><span class="tag-divider" aria-hidden="true">·</span><span>{project.time}</span></div>
+      <div class="project-card-title-row"><h3>{project.title}</h3><span class="card-arrow" aria-hidden="true">↗</span></div>
+      <p>{project.summary}</p>
+      <span class="card-cta">See build &amp; parts list <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+</article>
