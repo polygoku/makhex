@@ -1,5 +1,1 @@
-{
-  "name": "makhex",
-  "compatibility_date": "2026-10-21",
-  "assets": {"directory": "./dist", "not_found_handling": "404-page"}
-}
+{"name":"makhex","compatibility_date":"2026-10-21","assets":{"directory":"./dist"}}

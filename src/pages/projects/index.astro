@@ -1,4 +1,16 @@
 ---
-import Base from '../../layouts/Base.astro';import {projects} from '../../data/projects';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import {projects} from '../../lib/catalog';
+const levels=['All','Beginner','Intermediate','Advanced'];
 ---
-<Base title="Build guides"><section class="page-banner"><div class="wrap"><div class="eyebrow">BUILD LIBRARY / 01</div><h1>Start making<span class="lime">.</span></h1><p>Choose a guide, get your parts, and make something extraordinary.</p></div></section><section class="section"><div class="wrap project-grid">{projects.map((p,i)=><a class="project-tile" href={'/projects/'+p.slug+'/'}><div class={'project-tile-art art-'+(i%3)}><span class="feature-number">{String(i+1).padStart(2,'0')}</span><span class="feature-badge">{p.label}</span><div class="art-shape shape-a"></div><div class="art-shape shape-b"></div></div><div class="feature-meta"><span>{p.level} · {p.time}</span><span>↗</span></div><h2>{p.title}</h2><p>{p.intro}</p></a>)}</div></section></Base>
+<BaseLayout title="Maker Projects | MAKHEX" description="Ten ESP32 project blueprints with parts lists, build sequences and engineering cautions.">
+<section class="page-hero container"><span class="eyebrow">THE LAB / 001—010</span><h1>MAKE THE<br/><em>NEXT THING.</em></h1><div class="page-hero-bottom"><p>From browser tab to workbench. Select a blueprint to see its bill of materials, approach and test notes.</p><span class="page-count">10 / BUILD BLUEPRINTS</span></div></section>
+<section class="container catalog-section"><div class="catalog-toolbar"><div class="filters" aria-label="Filter difficulty">{levels.map((level,i)=><button type="button" class:list={['filter-button',{selected:i===0}]} data-level-filter={level} aria-pressed={i===0}>{level}</button>)}</div><div class="toolbar-note">PLANNING STAGE / VALIDATION PENDING</div></div>
+<div class="project-grid projects-page-grid" id="projects-grid">{projects.map(p=><div data-level={p.level}><ProjectCard project={p}/></div>)}</div>
+<aside class="disclosure-box"><span class="eyebrow">BEFORE YOU BUILD</span><h2>Blueprints, not finished kits.</h2><p>These are starting plans and have not been tested end-to-end on a fixed hardware bundle. Confirm board revisions, electrical limits and SDK dependencies before construction.</p></aside></section>
+<script>
+const filters=[...document.querySelectorAll<HTMLButtonElement>('[data-level-filter]')];
+const cards=[...document.querySelectorAll<HTMLElement>('#projects-grid > [data-level]')];
+filters.forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.levelFilter;filters.forEach(f=>{f.classList.toggle('selected',f===b);f.setAttribute('aria-pressed',String(f===b))});cards.forEach(c=>{c.hidden=v!=='All'&&c.dataset.level!==v;});}));
+</script></BaseLayout>

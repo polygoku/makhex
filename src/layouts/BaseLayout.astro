@@ -1,0 +1,19 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+interface Props{title?:string;description?:string;noindex?:boolean;}
+const {title='MAKHEX — Build something real',description='Maker-first ESP32 projects, connected hardware and an open build community.',noindex=false}=Astro.props;
+const canonical=new URL(Astro.url.pathname,Astro.site).href;
+---
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="theme-color" content="#101512"/><meta name="description" content={description}/>
+<link rel="canonical" href={canonical}/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<meta property="og:type" content="website"/><meta property="og:title" content={title}/>
+<meta property="og:site_name" content="MAKHEX"/><meta property="og:description" content={description}/>
+<meta property="og:image" content={new URL('/og.svg',Astro.site).href}/><meta property="og:url" content={canonical}/>
+<meta name="twitter:card" content="summary_large_image"/>
+{noindex&&<meta name="robots" content="noindex,nofollow"/>}
+<title>{title}</title>
+</head><body><a class="skip-link" href="#main-content">Skip to content</a><Header/><main id="main-content"><slot/></main><Footer/></body></html>

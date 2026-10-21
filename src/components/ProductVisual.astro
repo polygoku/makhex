@@ -1,0 +1,15 @@
+---
+import type {Product} from '../data/products';
+interface Props{product:Product;large?:boolean}
+const {product,large=false}=Astro.props;
+---
+<div class:list={['product-visual','visual-'+product.visual,{'visual-large':large}]} role="img" aria-label={'Concept illustration for '+product.title+'; not an actual verified product photo'}>
+<div class="visual-grid" aria-hidden="true"></div><span class="visual-index" aria-hidden="true">MX / {product.category.toUpperCase()}</span>
+{product.visual==='chip'&&<div class="board-art" aria-hidden="true"><div class="pin-side left">{Array.from({length:8}).map(()=> <i></i>)}</div><div class="board-inner"><div class="board-port"></div><div class="chip-unit">ESP<span>®</span><small>{product.chip}</small></div><div class="board-led"></div></div><div class="pin-side right">{Array.from({length:8}).map(()=> <i></i>)}</div></div>}
+{product.visual==='screen'&&<div class="screen-art" aria-hidden="true"><div class="screen-top"><span>STATUS / ONLINE</span><b>●</b></div><div class="screen-main"><div class="screen-symbol">⌁</div><strong>{product.chip==='E-PAPER'?'12:45':'24.6°'}</strong><small>{product.chip==='E-PAPER'?'WED / OCT 21':'SYSTEM NOMINAL'}</small></div><div class="screen-bottom"><span></span><span></span><span></span><span></span></div></div>}
+{product.visual==='sensor'&&<div class="sensor-art" aria-hidden="true"><div class="sensor-core">{product.chip}</div><i class="sensor-hole h1"></i><i class="sensor-hole h2"></i><i class="sensor-hole h3"></i><i class="sensor-hole h4"></i></div>}
+{product.visual==='audio'&&<div class="audio-art" aria-hidden="true"><div class="audio-rings"><span></span><span></span><span></span><b>●</b></div></div>}
+{product.visual==='light'&&<div class="light-art" aria-hidden="true">{Array.from({length:6}).map((_,i)=><span class={'led led-'+i}></span>)}</div>}
+{product.visual==='power'&&<div class="power-art" aria-hidden="true"><div class="power-block">USB-C<span>5V ⟶ 3V3</span></div></div>}
+<div class="visual-bottom" aria-hidden="true"><span>ILLUSTRATIVE RENDER</span><span>CONCEPT / MX</span></div>
+</div>

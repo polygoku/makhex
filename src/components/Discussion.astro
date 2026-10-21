@@ -1,7 +1,10 @@
 ---
-const {title}=Astro.props;
-const repoId=import.meta.env.PUBLIC_GISCUS_REPO_ID;
-const categoryId=import.meta.env.PUBLIC_GISCUS_CATEGORY_ID;
+interface Props{context:string}
+const {context}=Astro.props;
+const repoId=(import.meta.env.PUBLIC_GISCUS_REPO_ID||'').trim();
+const categoryId=(import.meta.env.PUBLIC_GISCUS_CATEGORY_ID||'').trim();
+const ready=Boolean(repoId&&categoryId);
 ---
-<section class="discussion"><div class="eyebrow">THE MAKER BENCH</div><h2>Build it together.</h2><p>Found a better wiring diagram, firmware fix or component swap? Bring it to the community.</p>{repoId&&categoryId?<div id="giscus-container" data-repo-id={repoId} data-category-id={categoryId}></div>:<div class="discussion-fallback"><b>Community integration is being prepared.</b><p>GitHub Discussions will appear here after discussions are enabled and the repository/category IDs are configured.</p><a class="btn btn-line" href="https://github.com/polygoku/makhex/discussions" target="_blank" rel="noopener">Open maker discussions ↗</a></div>}</section>
-{repoId&&categoryId&&<script is:inline define:vars={{repoId,categoryId}}>(function(){const s=document.createElement('script');Object.assign(s,{src:'https://giscus.app/client.js',async:true});for(const [k,v] of Object.entries({'data-repo':'polygoku/makhex','data-repo-id':repoId,'data-category':'General','data-category-id':categoryId,'data-mapping':'pathname','data-strict':'1','data-reactions-enabled':'1','data-emit-metadata':'0','data-input-position':'bottom','data-theme':'dark','data-lang':'en'}))s.setAttribute(k,v);s.crossOrigin='anonymous';document.getElementById('giscus-container')?.append(s)})()</script>}
+<section class="discussion-block" aria-label="Project discussion"><div class="discussion-head"><div><span class="eyebrow">COMMUNITY / BUILD LOG</span><h2>Build it. Break it. Share it.</h2><p>Post wiring corrections, firmware fixes and what you learned building {context}.</p></div><a href="https://github.com/polygoku/makhex/discussions" target="_blank" rel="noopener noreferrer" class="btn btn-outline">OPEN THE FORUM ↗</a></div>
+{ready?<div class="giscus-frame"><script src="https://giscus.app/client.js" data-repo="polygoku/makhex" data-repo-id={repoId} data-category="General" data-category-id={categoryId} data-mapping="pathname" data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async is:inline></script></div>:
+<p class="discussion-note">Public GitHub Discussions is open. Page-specific embedded comments appear after the Giscus app is enabled for this repository.</p>}</section>
