@@ -25,6 +25,12 @@ for(const file of pages){
    links++;
  }
 }
+// Featured component labels must remain real accessible links, not inert decoration.
+const homeHtml=fs.readFileSync(path.join(out,'index.html'),'utf8');
+for(const [tag,href] of [['pin-one','/shop/esp32-s3-devkit/'],['pin-two','/shop/bme280-sensor/']]){
+  const linkedTag=new RegExp('<a\\b[^>]*class="[^"]*\\b'+tag+'\\b[^"]*"[^>]*href="'+href.replaceAll('/','\\/')+'"','i');
+  expect(linkedTag.test(homeHtml),'Featured '+tag+' must link to '+href);
+}
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
