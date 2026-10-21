@@ -47,6 +47,8 @@ for(const [type,records] of [['shop',discussionLinks.products],['projects',discu
   }
  }
 }
-console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' mapped maker discussions');
+for(const slug of Object.keys(discussionLinks.projects)){const file=path.join(out,'projects',slug+'.csv');expect(fs.existsSync(file),'Missing BOM CSV: '+slug);if(fs.existsSync(file)){const csv=fs.readFileSync(file,'utf8');expect(csv.includes('RESEARCH ONLY'),'Unqualified BOM missing sourcing disclaimer: '+slug);}}
+expect(fs.existsSync(path.join(out,'_headers')),'Cloudflare security headers file not present');
+console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' mapped maker discussions, '+Object.keys(discussionLinks.projects).length+' BOM CSV files');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('PASS: generated routes, links, metadata and checkout truth gate');

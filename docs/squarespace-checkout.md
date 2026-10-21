@@ -8,7 +8,7 @@ Use the already-paid Squarespace Basic subscription as a separate hosted store. 
 2. Create and verify a real, qualified product in Squarespace; configure taxes, shipping, stock and returns.
 3. Make sure the external storefront product page is accessible without admin login.
 4. In `src/data/products.ts`, set `storePath:'shop/p/actual-public-slug'` for that one qualified record.
-5. In Cloudflare/GitHub build variables, set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com` only after the subdomain is public. No slash path ending `/config`.
+5. In Cloudflare/GitHub build variables, set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com` and `PUBLIC_SQUARESPACE_ALLOWED_HOSTS=shop.makhex.com` only after the subdomain is public. No slash path ending `/config`.
 6. Confirm product page → external shop page → add to cart → checkout → payment/test order → fulfillment flows.
 7. Expand to other SKUs only after equivalent qualification.
 
