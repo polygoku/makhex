@@ -54,7 +54,10 @@ GitHub Discussions is the public forum: all **12 hardware candidates** and **10 
 Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent should change live DNS, enable checkouts, fabricate supplier proof, publish credentials or add unsupported safety promises.
 
 ## Project references
-- [Sprint report](docs/sprint-01.md)
+- [Sprint 01 report](docs/sprint-01.md)
+- [Sprint 02 report](docs/sprint-02.md)
+- [Sprint 03 launch readiness report](docs/sprint-03.md)
+- [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)
 - [Qualification gate](docs/catalog-qualification.md)
 - [Squarespace commerce workflow](docs/squarespace-checkout.md)
 - [Cloudflare deployment workflow](docs/cloudflare-setup.md)
