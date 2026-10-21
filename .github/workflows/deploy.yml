@@ -1,0 +1,24 @@
+name: MAKHEX Cloudflare deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  deploy:
+    if: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PUBLIC_SQUARESPACE_SHOP_URL: ${{ vars.PUBLIC_SQUARESPACE_SHOP_URL }}
+      PUBLIC_GISCUS_REPO_ID: ${{ vars.PUBLIC_GISCUS_REPO_ID }}
+      PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run deploy

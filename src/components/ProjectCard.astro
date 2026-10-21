@@ -1,0 +1,9 @@
+---
+import type{Project} from '../data/projects';
+import {projectUrl} from '../lib/catalog';
+interface Props{project:Project}
+const {project}=Astro.props;
+---
+<article class="project-card"><a href={projectUrl(project.slug)} class="project-card-link" aria-label={'Explore project '+project.title}><div class="project-top"><span>PROJECT / {project.number}</span><span class="project-arrow" aria-hidden="true">↗</span></div>
+<div class="project-graphic" aria-hidden="true"><div class="graphic-ring"><span>{project.signal.split('/')[0].trim()}</span></div><i></i><i></i><i></i></div>
+<div class="project-bottom"><div><span class="eyebrow">{project.eyebrow}</span><h3>{project.title}</h3><p>{project.summary}</p></div><span class="level-pill">{project.level}</span></div></a></article>

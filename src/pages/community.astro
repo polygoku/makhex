@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {products,projects} from '../lib/catalog';
+import links from '../data/discussion-links.json';
+---
+<BaseLayout title="Maker Community | MAKHEX" description="Share hardware test results, firmware improvements, BOM changes and better ESP32 builds through GitHub Discussions.">
+<section class="page-hero container"><span class="eyebrow">THE COMMON WORKBENCH / OPEN</span><h1>MADE BETTER<br/><em>TOGETHER.</em></h1><div class="page-hero-bottom"><p>Real builds have surprising pinouts, imperfect cables and glorious fixes. Help the next maker.</p><span class="page-count">PUBLIC / GITHUB DISCUSSIONS</span></div></section>
+<section class="section container community-page-layout"><div class="community-big"><span class="eyebrow">THE MAKER FORUM</span><h2>Have a question?<br/><em>Start a thread.</em></h2><p>Discuss a parts substitution, suggest a firmware change or post what your bench test revealed. You need a GitHub account to post.</p><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://github.com/polygoku/makhex/discussions">OPEN GITHUB DISCUSSIONS ↗</a></div>
+<div class="community-how"><div><span>01</span><h3>ASK</h3><p>List your board revision, firmware version and exact symptom.</p></div><div><span>02</span><h3>VERIFY</h3><p>Share a scope trace, measured voltage or reproducible log.</p></div><div><span>03</span><h3>IMPROVE</h3><p>Propose the fix and link it to a project or component.</p></div></div></section>
+<section class="container discussion-values"><div><span class="eyebrow">COMMUNITY STANDARD</span><h3>NO GUESSWORK DISGUISED AS FACT.</h3><p>Separate hypotheses from measurements, name exact hardware variants and do not publish private credentials.</p></div><div><span class="eyebrow">OPEN DEVELOPMENT</span><h3>SOURCE YOU CAN INSPECT.</h3><p>Contribute fixes through issues and pull requests, with reviewable build evidence.</p><a class="text-link" target="_blank" rel="noopener noreferrer" href="https://github.com/polygoku/makhex">SEE THE SOURCE ↗</a></div></section>
+<section class="section container thread-directory" aria-labelledby="thread-heading">
+<span class="eyebrow">22 OPEN WORKBENCHES</span><h2 id="thread-heading">Find your discussion.</h2><p>Every hardware candidate and project blueprint has a dedicated GitHub thread for pinouts, build logs, parts substitutions and tested improvements.</p>
+<div class="thread-columns">
+<div><h3>PROJECT BUILD LOGS</h3>{projects.map(p=><a href={(links.projects as Record<string,string>)[p.slug]} target="_blank" rel="noopener noreferrer"><span>{p.number}</span><strong>{p.title}</strong><span aria-hidden="true">↗</span></a>)}</div>
+<div><h3>HARDWARE BENCHES</h3>{products.map((p,i)=><a href={(links.products as Record<string,string>)[p.slug]} target="_blank" rel="noopener noreferrer"><span>{String(i+1).padStart(2,'0')}</span><strong>{p.title}</strong><span aria-hidden="true">↗</span></a>)}</div>
+</div></section></BaseLayout>

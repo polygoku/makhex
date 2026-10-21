@@ -1,4 +1,4 @@
 ---
-import Base from '../layouts/Base.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<Base title="Page not found"><section class="page-banner"><div class="wrap"><div class="eyebrow">404 / CONNECTION LOST</div><h1>Wrong circuit<span class="lime">.</span></h1><p>That page has gone missing. There's plenty more to build.</p><a class="btn btn-lime" href="/">Back to MAKHEX ↗</a></div></section></Base>
+<BaseLayout title="404 — Signal Lost | MAKHEX" noindex={true}><section class="page-hero container"><span class="eyebrow">ERROR / 404</span><h1>SIGNAL<br/><em>LOST.</em></h1><p>That route isn't in our build log.</p><a class="btn btn-primary" href="/">BACK TO HOME ↗</a></section></BaseLayout>

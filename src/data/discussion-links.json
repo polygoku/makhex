@@ -1,0 +1,28 @@
+{
+  "products": {
+    "esp32-s3-devkit": "https://github.com/polygoku/makhex/discussions/2",
+    "esp32-c3-supermini": "https://github.com/polygoku/makhex/discussions/3",
+    "esp32-c6-devkit": "https://github.com/polygoku/makhex/discussions/4",
+    "esp32-s3-touch-35": "https://github.com/polygoku/makhex/discussions/5",
+    "esp32-s3-camera": "https://github.com/polygoku/makhex/discussions/6",
+    "i2s-mems-mic": "https://github.com/polygoku/makhex/discussions/7",
+    "i2s-amplifier": "https://github.com/polygoku/makhex/discussions/8",
+    "bme280-sensor": "https://github.com/polygoku/makhex/discussions/9",
+    "sgp40-voc": "https://github.com/polygoku/makhex/discussions/10",
+    "epaper-29": "https://github.com/polygoku/makhex/discussions/11",
+    "ws2812-leds": "https://github.com/polygoku/makhex/discussions/12",
+    "usb-c-power-kit": "https://github.com/polygoku/makhex/discussions/13"
+  },
+  "projects": {
+    "touch-weather-station": "https://github.com/polygoku/makhex/discussions/14",
+    "voice-command-node": "https://github.com/polygoku/makhex/discussions/15",
+    "tiny-ble-presence": "https://github.com/polygoku/makhex/discussions/16",
+    "plant-health-monitor": "https://github.com/polygoku/makhex/discussions/17",
+    "camera-event-trigger": "https://github.com/polygoku/makhex/discussions/18",
+    "epaper-desk-calendar": "https://github.com/polygoku/makhex/discussions/19",
+    "indoor-voc-explorer": "https://github.com/polygoku/makhex/discussions/20",
+    "rgb-matrix-clock": "https://github.com/polygoku/makhex/discussions/21",
+    "espnow-remote": "https://github.com/polygoku/makhex/discussions/22",
+    "smart-desk-button": "https://github.com/polygoku/makhex/discussions/23"
+  }
+}
