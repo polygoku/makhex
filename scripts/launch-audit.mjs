@@ -12,7 +12,7 @@ import {products} from '../src/data/products.ts';
 const EVIDENCE_PATH=resolve('ops/launch-attestations.json');
 const DOMAIN='makhex.com';
 const SHOP='shop.makhex.com';
-const PREVIEW='https://makhex.sheer-cough.workers.dev/';
+const OWNED_WORKER='https://makhex.makhex-labs.workers.dev/';
 
 export function attestationValid(row){
  return Boolean(row&&Number.isFinite(Date.parse(row.verifiedAt||''))&&
@@ -102,7 +102,7 @@ export async function runAudit(env=process.env){
    append(checks,'cloudflareAccount',cloudflareReady?'PASS':'BLOCKED',cloudflareReady?'Account-scoped Workers token authenticated':'Cloudflare Workers API rejected token or account (HTTP '+api.status+')','website');
   }catch(e){append(checks,'cloudflareAccount','BLOCKED','Cloudflare Workers API verification unavailable: '+(e?.cause?.code||e?.message||'network error'),'website')}
  }
- const permanent=cleanWorkerUrl(env.MAKHEX_PERMANENT_WORKER_URL||'');
+ const permanent=cleanWorkerUrl(env.MAKHEX_PERMANENT_WORKER_URL||OWNED_WORKER);
  const owned=cloudflareReady&&ownedWorkerMatches(workerNames,workerSubdomain,permanent);
  append(checks,'workerOwnership',owned?'PASS':'BLOCKED',owned?'The MAKHEX Worker name and workers.dev hostname match this authenticated account':'No verified MAKHEX worker hostname belonging to the authenticated permanent account','website');
  if(!permanent){
@@ -112,12 +112,8 @@ export async function runAudit(env=process.env){
   const result=classifyHttp(site.status,site.body,site.host,new URL(permanent).hostname);
   append(checks,'permanentWorker',result.status,result.detail,'website');
  }
- const stage=await getResponse(PREVIEW,new URL(PREVIEW).hostname);
- const previewCheck=classifyHttp(stage.status,stage.body,stage.host,new URL(PREVIEW).hostname);
- const previewNoIndex=(stage.headers.get('x-robots-tag')||'').toLowerCase().includes('noindex');
- const previewSec=Boolean(stage.headers.get('content-security-policy')&&stage.headers.get('x-content-type-options')==='nosniff');
- append(checks,'temporaryPreview',previewCheck.status==='PASS'&&previewNoIndex&&previewSec?'PASS':'BLOCKED',
-  previewCheck.status==='PASS'?'Temporary preview responsive; CSP '+(previewSec?'present':'MISSING')+', noindex '+(previewNoIndex?'present':'MISSING'):previewCheck.detail,'preview');
+ // The former temporary preview expired; the permanent owned Worker is the source of truth.
+ // Do not make DNS readiness depend on any --temporary deployment.
  const pipelineReady=env.CLOUDFLARE_DEPLOY_ENABLED==='true'&&Boolean(cfAccount&&cfToken);
  append(checks,'githubDeployment',pipelineReady?'PASS':'BLOCKED',pipelineReady?'Deployment variable and credentials enabled for this audit':'GitHub deployment is not confirmed enabled with Cloudflare secrets; set only after permanent account ownership.','website');
  const sq=await getResponse('https://'+SHOP+'/',SHOP);
@@ -147,7 +143,7 @@ export async function runAudit(env=process.env){
  const commerceIds=['shopPublic','qualifiedCheckout'];
  const audit={
   checkedAt:new Date().toISOString(),
-  target:{makerSite:'https://'+DOMAIN+'/',commerceSite:'https://'+SHOP+'/',temporaryPreview:PREVIEW},
+  target:{makerSite:'https://'+DOMAIN+'/',commerceSite:'https://'+SHOP+'/',ownedWorker:permanent},
   preCutover:summarizeChecks(checks,precutoverIds),
   siteLive:summarizeChecks(checks,siteLiveIds),
   commerce:summarizeChecks(checks,commerceIds),

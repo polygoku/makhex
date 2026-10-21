@@ -19,6 +19,7 @@ jobs:
       PUBLIC_SQUARESPACE_ALLOWED_HOSTS: ${{ vars.PUBLIC_SQUARESPACE_ALLOWED_HOSTS }}
       PUBLIC_GISCUS_REPO_ID: ${{ vars.PUBLIC_GISCUS_REPO_ID }}
       PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
+      PUBLIC_SMOKE_URL: ${{ vars.PUBLIC_SMOKE_URL }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,13 +27,16 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci
+      - name: Verify permanent Cloudflare publishing configuration
+        shell: bash
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing scoped Cloudflare deploy token'; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing Cloudflare account ID'; exit 1; }
+          test "$PUBLIC_SMOKE_URL" = 'https://makhex.makhex-labs.workers.dev/' || { echo 'PUBLIC_SMOKE_URL must equal verified permanent Worker URL'; exit 1; }
       - run: npm run check
       - run: npm run build
       - run: npm run qa
       - run: npx wrangler deploy --dry-run
       - run: npx wrangler deploy
-      - name: Verify public website, when provisioned
-        if: ${{ vars.PUBLIC_SMOKE_URL != '' }}
-        env:
-          SMOKE_URL: ${{ vars.PUBLIC_SMOKE_URL }}
-        run: npm run smoke:public -- "$SMOKE_URL"
+      - name: Verify published permanent MAKHEX website
+        run: npm run smoke:public -- "$PUBLIC_SMOKE_URL"

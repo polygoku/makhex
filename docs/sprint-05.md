@@ -7,7 +7,7 @@
 - `www.makhex.com`: resolves through Squarespace; returned HTTP 401.
 - `shop.makhex.com`: no DNS record, host did not resolve.
 - Original Squarespace site origin `drum-deer-ax7k.squarespace.com`: HTTP 401 even without the custom domain.
-- Temporary Cloudflare site: `https://makhex.sheer-cough.workers.dev/` returned HTTP 200; this is NOT proof of a permanent account. The launch auditor also requires the exact MAKHEX Worker script and workers.dev hostname to match an authenticated permanent Cloudflare account.
+- Historical temporary Cloudflare URL: `https://makhex.sheer-cough.workers.dev/` (deprecated; not permanent). **Permanent owned Cloudflare Worker:** `https://makhex.makhex-labs.workers.dev/` deployed October 21, 2026, validated with 9/9 public smoke checks, valid HTTPS certificate, CSP and `noindex`. Launch audit confirms `cloudflareAccount`, `workerOwnership`, and `permanentWorker` PASS when run with the authenticated Wrangler token. GitHub auto-deploy still needs scoped token and Actions configuration.
 - XPS `wrangler whoami`: not authenticated; use `wrangler login` after claiming/connecting a durable Cloudflare account.
 - GitHub Actions Cloudflare deploy variable and secrets: absent at observation time.
 - 12 MAKHEX component products remain research-stage; no supplier-verified, purchase-qualified Squarespace products.

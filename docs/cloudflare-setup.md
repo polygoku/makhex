@@ -1,26 +1,46 @@
-# Cloudflare Workers setup
+# MAKHEX Cloudflare Workers hosting
 
-The app is a **static Astro site**; `wrangler.jsonc` has `assets.directory="./dist"` and needs no adapter or Worker script.
+## Permanent hosting — verified 2026-10-21
 
-## Preview deployment
-1. Connect an authorized Cloudflare account.
-2. Run `npm ci && npm run check && npm run build && npm run qa`.
-3. Authenticate `npx wrangler login` using your own Cloudflare account.
-4. Run `npx wrangler deploy`; save and test the actual `*.workers.dev` URL before claiming a deployment succeeded.
-5. Test desktop and mobile, network links, no empty images, external GitHub discussions and disabled checkout buttons.
+- **Owned account:** Cloudflare account authenticated through Wrangler on the XPS. No temporary preview claim is needed anymore.
+- **Permanent Worker script name:** `makhex` (matches `wrangler.jsonc`).
+- **Account workers.dev subdomain:** `makhex-labs`.
+- **Verified site:** https://makhex.makhex-labs.workers.dev/
+- **Checks:** valid HTTPS certificate, HTTP 200, CSP and other security headers, 9/9 public smoke checks, 28 generated pages, 714 internal links, 10 BOM exports, 22 maker discussions.
+- **Commerce:** all 12 unqualified products remain disabled for checkout.
+- **Important:** `makhex.com` still points to Squarespace; the permanent Worker is currently the public **staging** origin. The workers.dev site intentionally sends `X-Robots-Tag: noindex`.
 
-## Automatic CD
-Use GitHub repo Settings → Secrets and variables → Actions.
-- Secrets: `CLOUDFLARE_API_TOKEN` scoped for Workers deployment and `CLOUDFLARE_ACCOUNT_ID`.
-- Variable: `CLOUDFLARE_DEPLOY_ENABLED=true`.
-- Optional public variables: `PUBLIC_SQUARESPACE_SHOP_URL`, `PUBLIC_GISCUS_REPO_ID`, `PUBLIC_GISCUS_CATEGORY_ID`.
+## Running and verifying from XPS
 
-The `deploy.yml` job only runs when the enable variable is true. GitHub push to main then triggers an automatic build and deploy. Alternatively connect Workers Builds to GitHub from the Cloudflare dashboard with build command `npm run build` and deploy command `npx wrangler deploy`. Use one publishing pipeline, not both simultaneously.
+```sh
+git pull --ff-only origin main
+npm ci
+npm run check
+npm run build
+npm run qa
+npx wrangler whoami
+npx wrangler deploy
+npm run smoke:public -- https://makhex.makhex-labs.workers.dev/
+```
 
-## Production staging guardrails
-The Cloudflare static asset `_headers` rules mark `*.workers.dev` previews `noindex` and attach CSP, MIME, framing and referrer headers. Verify a public deployment with `npm run smoke:public -- https://<your-worker>.<account>.workers.dev/`. A Cloudflare challenge (403), Squarespace 401 or missing route fails the smoke test, not a PASS. Manual browser testing at 320, 390 and 1440 widths is still required before DNS migration.
+No account email/password/token should be recorded in a repository file.
 
-See [Sprint 03 cutover guide](domain-cutover-runbook.md) for complete DNS, Squarespace primary shop-domain, credential and rollback requirements.
+## GitHub automatic deployment — requires one secure owner token setup
 
-## Domain gates
-Do not attach `makhex.com` until the Workers preview is verified and the existing Squarespace shop URL is mapped for `shop.makhex.com`. Preserve all existing mail and verification DNS records.
+The GitHub deployment workflow is already prepared but must remain **disabled** until these items are configured. Cloudflare requires an account-scoped API token for unattended GitHub Actions deployment, rather than a one-time browser login.
+
+1. Cloudflare dashboard → **Manage account → Account API tokens → Create Token**. Name it `MAKHEX GitHub Deploy`. Grant only `Workers Scripts: Edit` for the intended account/Worker, plus any truly required static Workers deployment permission shown by Cloudflare. Do not grant DNS write access.
+2. GitHub repository `polygoku/makhex` → Settings → Secrets and variables → Actions. Create **repository secrets** `CLOUDFLARE_API_TOKEN` (the newly generated token, directly entered there) and `CLOUDFLARE_ACCOUNT_ID` (from the Cloudflare dashboard). Never paste the token into an issue or chat.
+3. Create **repository variables** `MAKHEX_PERMANENT_WORKER_URL` and `PUBLIC_SMOKE_URL`, each with the exact value `https://makhex.makhex-labs.workers.dev/`.
+4. Create repository variable `CLOUDFLARE_DEPLOY_ENABLED=true` **only after** both secrets and URLs are saved. On the next merge to main, `.github/workflows/deploy.yml` builds, runs all QA, validates the exact public origin, deploys the Worker, and tests nine public routes.
+5. Run **Actions → MAKHEX Cloudflare deploy → Run workflow** to verify the first automated deployment. Confirm both deployment and public smoke success in the Actions run logs. Only run one publishing pipeline (GitHub Actions **or** Workers Builds), never both for the same Worker.
+
+**Security:** The browser-based Wrangler OAuth token on the XPS is not suitable as a long-term GitHub deployment secret. Use an independently created narrow-scoped token. Do not set `CLOUDFLARE_DEPLOY_ENABLED` until it is ready. The workflow fails closed when its required token, account ID or exact verified Worker URL is missing.
+
+See [Cloudflare's current GitHub Actions documentation](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/) for required permissions.
+
+## Domain launch (separate gate)
+
+Do not attach `makhex.com` until the Squarespace shop is public and `shop.makhex.com` is a supported, confirmed Squarespace primary-domain configuration. Export the **entire** Squarespace DNS zone and preserve email/verification records before any authoritative nameserver change. See [domain-cutover-runbook.md](domain-cutover-runbook.md), [Squarespace checkout](squarespace-checkout.md) and [launch issue #30](https://github.com/polygoku/makhex/issues/30).
+
+The code-first Worker and the Squarespace store are intentionally separate origins. This does not require a Squarespace plan upgrade.

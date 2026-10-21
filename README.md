@@ -10,7 +10,7 @@ MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product r
 - 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated
 - GitHub Discussions: **22 dedicated threads**, one per project or component, and a browsable community directory; optional inline Giscus waits for app approval
 - Squarespace: paid Basic plan retained; actual store product paths and checkout flow remain unverified
-- Cloudflare: config and opt-in CI/CD included; DNS and production deployment must be verified
+- Cloudflare: **permanent Worker deployed and verified** at [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/); GitHub auto-deploy waits on scoped API token; custom-domain DNS migration pending
 
 ## Local development
 Requirements: Node.js 24+ and npm.
@@ -46,7 +46,7 @@ npm run deploy
 Automated deployment can be enabled on main branch by setting repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` and repo variable `CLOUDFLARE_DEPLOY_ENABLED=true`. Until that flag is enabled the workflow does not deploy. See [Cloudflare setup](docs/cloudflare-setup.md).
 
 ## Squarespace shop integration
-The brochure/catalog is hosted on Cloudflare at `makhex.com`; the paid Squarespace Basic site continues separately. Once verified, assign Squarespace a shop subdomain such as `shop.makhex.com`. Add a real per-product `storePath: 'shop/p/verified-squarespace-slug'` to `src/data/products.ts` and set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`.
+The brochure/catalog is **intended to be hosted** on Cloudflare at `makhex.com` (currently live on the permanent `makhex.makhex-labs.workers.dev` origin); the paid Squarespace Basic site continues separately. Once verified, assign Squarespace a shop subdomain such as `shop.makhex.com`. Add a real per-product `storePath: 'shop/p/verified-squarespace-slug'` to `src/data/products.ts` and set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`.
 
 **Fail closed:** A product requires a qualified supplier variant, approved evidence ledger entry, verified public store base and exact public Squarespace product path; otherwise checkout remains disabled. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
 
