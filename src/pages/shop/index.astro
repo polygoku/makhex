@@ -10,9 +10,5 @@ const cats=['All',...new Set(products.map(p=>p.category))];
 <div class="product-grid catalog-grid" id="catalog-grid">{products.map(p=><div data-category={p.category}><ProductCard product={p}/></div>)}</div>
 <aside class="disclosure-box"><span class="eyebrow">TRANSPARENCY FIRST</span><h2>Not a live checkout. Yet.</h2><p>All components are research candidates. MAKHEX will only enable Squarespace product links after a real supplier SKU, stock, specification, cost and fulfillment path are verified. Graphic illustrations are not actual product photos.</p></aside>
 </section>
-<script>
-const buttons=[...document.querySelectorAll<HTMLButtonElement>('[data-category-filter]')];
-const cards=[...document.querySelectorAll<HTMLElement>('#catalog-grid > [data-category]')];
-buttons.forEach(b=>b.addEventListener('click',()=>{const c=b.dataset.categoryFilter;buttons.forEach(a=>{a.classList.toggle('selected',a===b);a.setAttribute('aria-pressed',String(a===b));});cards.forEach(a=>{a.hidden=c!=='All'&&a.dataset.category!==c;});}));
-</script>
+<script is:inline src="/scripts/filter-components.js"></script>
 </BaseLayout>
