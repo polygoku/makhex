@@ -10,6 +10,10 @@
 - **Commerce:** all 12 unqualified products remain disabled for checkout.
 - **Sprint 08 update:** Registrar nameservers are now set to Cloudflare and both apex/`www` Worker Custom Domain routes are deployed. **Authoritative Cloudflare DNS resolves to proxied edge IPs, and HTTPS 200 with valid TLS and MAKHEX content was directly verified at both hosts.** Local DNS caches may temporarily follow the obsolete Squarespace redirect. `workers.dev` remains a verified fallback and intentionally sends `X-Robots-Tag: noindex`. See [Sprint 08](sprint-08.md).
 
+## DNSSEC restoration - verified October 22, 2026
+
+DNSSEC signing is enabled for `makhex.com` in Cloudflare and the matching third-party DS record is installed at Squarespace Registrar. The .com authoritative parent serves key tag **2371**, algorithm **13**, digest type **2**; the computed DS digest matches the Cloudflare DNSKEY. Cloudflare's dashboard confirms **"Success! makhex.com is protected with DNSSEC."** Validating resolver checks at 1.1.1.1, 8.8.8.8 and 9.9.9.9 passed 21/21 signed A, TXT, and CNAME lookups with `AD=true`. The Squarespace checkout hostname remains on its signed `shop` CNAME; existing email-security records and HTTPS availability are preserved. See [completed DNSSEC evidence](dnssec-restoration-status-2026-10-22.md).
+
 ## Running and verifying from XPS
 
 ```sh
