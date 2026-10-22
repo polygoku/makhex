@@ -12,7 +12,7 @@ const isGas=product.slug==='sgp40-voc';
 ---
 <div class:list={['product-visual','visual-'+product.visual,{'visual-large':large}]} role="img" aria-label={'Original illustrative hardware diagram of '+product.title+'. Exact supplier product photograph not yet approved.'}>
   <div class="visual-grid" aria-hidden="true"></div>
-  <span class="visual-index" aria-hidden="true">MX / {product.category.toUpperCase()}</span>
+
   <svg class="hardware-illustration" viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     {product.visual==='chip'&&
       <g transform={isCompact?'rotate(-12 320 220)':'rotate(-11 320 220)'}>
@@ -73,5 +73,5 @@ const isGas=product.slug==='sgp40-voc';
       <path d="M287 134Q291 221 268 308" stroke="#3b7052" stroke-width="8" stroke-linecap="round" fill="none"/>
     </g>}
   </svg>
-  <div class="visual-bottom" aria-hidden="true"><span>ORIGINAL TECHNICAL ILLUSTRATION</span><span>NOT AN ITEM PHOTO</span></div>
+
 </div>
