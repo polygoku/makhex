@@ -28,6 +28,17 @@ test("checks hidden zero-stock Doroppu import contract",()=>{
  assert.equal(report.ok,true,report.failures.join("; "));
  assert.equal(report.products,1);assert.equal(report.variants,1);
 });
+test("matches current Squarespace v3 28-column template",()=>{
+  const f=fixture();
+  assert.equal(SQUARESPACE_HEADER.length,28);
+  assert.equal(verifyDoroppuBundle(f.csv,f.manifest).ok,true);
+});
+test("rejects an unverified GTIN",()=>{
+  const f=fixture();
+  f.line[SQUARESPACE_HEADER.indexOf("GTIN")]="1234567890123";
+  f.csv=[SQUARESPACE_HEADER,f.line].map(a=>a.map(v=>/[",\r\n]/.test(v)?'"'+v.replaceAll('"','""')+'"':v).join(",")).join("\r\n")+"\r\n";
+  assert.equal(verifyDoroppuBundle(f.csv,f.manifest).ok,false);
+});
 test("rejects any nonzero inventory",()=>{
  const f=fixture();f.line[SQUARESPACE_HEADER.indexOf("Stock")]="8";
  const rows=[SQUARESPACE_HEADER,f.line];f.csv=rows.map(x=>x.map(v=>/[",\r\n]/.test(v)?'"'+v.replaceAll('"','""')+'"':v).join(",")).join("\n");
