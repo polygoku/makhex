@@ -7,7 +7,7 @@ MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product r
 ## Status
 - Code-first frontend: implemented in Sprint 01
 - Product research: 12 candidates, NOT listed as verified or orderable
-- 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated
+- 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
 - GitHub Discussions: **22 dedicated threads**, one per project or component, and a browsable community directory; optional inline Giscus waits for app approval
 - Squarespace: paid Basic plan retained; actual store product paths and checkout flow remain unverified
 - Cloudflare: **permanent Worker deployed and verified** at [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/); GitHub auto-deploy waits on scoped API token; custom-domain DNS migration pending
@@ -22,14 +22,17 @@ npm run check
 npm run build
 npm run qa
 npm run test:launch
+npm run test:cutover
 npm run launch:audit # read-only GO/NO-GO; exit code 2 until providers are ready
 npx wrangler deploy --dry-run # validate static Workers bundle without account changes
+# With two separate human-verified full DNS exports under ignored reports/:
+npm run dns:compare -- --source reports/squarespace-zone.json --target reports/cloudflare-zone.json
 ```
 
 ## Site routes
 - `/` homepage
 - `/projects/` filterable build gallery
-- `/projects/[slug]/` ten guides, step lists and mapped bills of materials
+- `/projects/[slug]/` ten guides, step lists, downloadable BOMs, and a browser-local parts-in-hand checklist
 - `/shop/` filterable component catalog
 - `/shop/[slug]/` twelve component files, compatible projects and supplier caution
 - `/community/` public maker discussion hub
@@ -43,7 +46,7 @@ npx wrangler login
 npm run deploy
 ```
 
-Automated deployment can be enabled on main branch by setting repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` and repo variable `CLOUDFLARE_DEPLOY_ENABLED=true`. Until that flag is enabled the workflow does not deploy. See [Cloudflare setup](docs/cloudflare-setup.md).
+Automated deployment requires repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, plus **both** `CLOUDFLARE_TOKEN_SCOPE_APPROVED=true` (only after least-privilege review) and `CLOUDFLARE_DEPLOY_ENABLED=true`. Until that flag is enabled the workflow does not deploy. See [Cloudflare setup](docs/cloudflare-setup.md).
 
 ## Squarespace shop integration
 The brochure/catalog is **intended to be hosted** on Cloudflare at `makhex.com` (currently live on the permanent `makhex.makhex-labs.workers.dev` origin); the paid Squarespace Basic site continues separately. Once verified, assign Squarespace a shop subdomain such as `shop.makhex.com`. Add a real per-product `storePath: 'shop/p/verified-squarespace-slug'` to `src/data/products.ts` and set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`.
@@ -57,11 +60,16 @@ GitHub Discussions is the public forum: all **12 hardware candidates** and **10 
 Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent should change live DNS, enable checkouts, fabricate supplier proof, publish credentials or add unsupported safety promises.
 
 ## Project references
+- [Roadmap: ESP32 maker store, launched in stages](docs/roadmap-2026.md)
+- [Sprint 06 checklist and DNS preflight](docs/sprint-06.md)
+- [DNS preservation evidence and comparison](docs/dns-cutover-evidence.md)
+- [First product pilot qualification checklist](docs/first-kit-qualification.md)
 - [Sprint 01 report](docs/sprint-01.md)
 - [Sprint 02 report](docs/sprint-02.md)
 - [Sprint 03 launch readiness report](docs/sprint-03.md)
 - [Sprint 04 tactile workbench redesign](docs/sprint-04-design.md)
 - [Sprint 05 production integration / launch gates](docs/sprint-05.md)
+- [Sprint 06 parts checklist and DNS comparison](docs/sprint-06.md)
 - [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)
 - [Qualification gate](docs/catalog-qualification.md)
 - [Squarespace commerce workflow](docs/squarespace-checkout.md)

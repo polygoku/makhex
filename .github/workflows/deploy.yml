@@ -10,7 +10,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   deploy:
-    if: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' }}
+    if: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED == 'true' && vars.CLOUDFLARE_TOKEN_SCOPE_APPROVED == 'true' }}
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -20,6 +20,7 @@ jobs:
       PUBLIC_GISCUS_REPO_ID: ${{ vars.PUBLIC_GISCUS_REPO_ID }}
       PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
       PUBLIC_SMOKE_URL: ${{ vars.PUBLIC_SMOKE_URL }}
+      CLOUDFLARE_TOKEN_SCOPE_APPROVED: ${{ vars.CLOUDFLARE_TOKEN_SCOPE_APPROVED }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,6 +31,7 @@ jobs:
       - name: Verify permanent Cloudflare publishing configuration
         shell: bash
         run: |
+          test "$CLOUDFLARE_TOKEN_SCOPE_APPROVED" = 'true' || { echo 'Cloudflare Worker token has not been reviewed for least privilege'; exit 1; }
           test -n "$CLOUDFLARE_API_TOKEN" || { echo 'Missing scoped Cloudflare deploy token'; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo 'Missing Cloudflare account ID'; exit 1; }
           test "$PUBLIC_SMOKE_URL" = 'https://makhex.makhex-labs.workers.dev/' || { echo 'PUBLIC_SMOKE_URL must equal verified permanent Worker URL'; exit 1; }

@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Discussion from '../../components/Discussion.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import ProjectArtwork from '../../components/ProjectArtwork.astro';
+import BuildPartsChecklist from '../../components/BuildPartsChecklist.astro';
 import {projects,productBySlug} from '../../lib/catalog';
 import discussionLinks from '../../data/discussion-links.json';
 import type{Project} from '../../data/projects';
@@ -19,7 +20,7 @@ const ld={'@context':'https://schema.org','@type':'HowTo',name:project.title,des
 <div class="project-detail-poster"><ProjectArtwork project={project}/><span class="detail-poster-caption">Concept sketch · proposed build, not yet bench-verified</span></div></section>
 <section class="container project-body-grid"><div><div class="content-section" id="bill-of-materials"><span class="eyebrow">01 / BILL OF MATERIALS</span><h2>What goes in.</h2><p>Mapped component candidates. Compatibility and suppliers await validation.</p>
 <div class="bom-table"><div class="bom-row bom-heading"><span>COMPONENT</span><span>ROLE</span><span>QTY</span></div>{materials.map(m=><div class="bom-row"><span>{m.product?<a href={'/shop/'+m.slug+'/'}>{m.product.title} ↗</a>:m.slug}</span><span>{m.why}</span><strong>{String(m.qty).padStart(2,'0')}</strong></div>)}</div>
-<div class="bom-total"><span>{materials.length} UNIQUE PART TYPES</span><span>{total} ITEMS</span></div></div>
+<div class="bom-total"><span>{materials.length} UNIQUE PART TYPES</span><span>{total} ITEMS</span></div><BuildPartsChecklist project={project}/></div>
 <div class="content-section"><span class="eyebrow">02 / THE APPROACH</span><h2>Build sequence.</h2><ol class="steps-list">{project.steps.map((s,i)=><li><span>{String(i+1).padStart(2,'0')}</span><p>{s}</p></li>)}</ol></div>
 <div class="warning-box prominent"><strong>⚑ ENGINEERING NOTE</strong><p>{project.caution}</p><small>Concept-stage plan; bench validation and firmware QA pending.</small></div></div>
 <aside class="project-aside"><div class="aside-card"><span class="eyebrow">THE QUICK SPEC</span><div><span>STATUS</span><strong>BLUEPRINT</strong></div><div><span>LEVEL</span><strong>{project.level.toUpperCase()}</strong></div><div><span>TIME</span><strong>{project.time.toUpperCase()}</strong></div><div><span>TECH</span><strong>{project.tech.join(' / ')}</strong></div></div>

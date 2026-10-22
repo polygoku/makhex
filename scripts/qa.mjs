@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {projects} from '../src/data/projects.ts';
 const out=path.resolve('dist');
 const failures=[];
 const expect=(ok,msg)=>{if(!ok)failures.push(msg)};
@@ -54,6 +55,17 @@ for(const [type,records] of [['shop',discussionLinks.products],['projects',discu
  }
 }
 for(const slug of Object.keys(discussionLinks.projects)){const file=path.join(out,'projects',slug+'.csv');expect(fs.existsSync(file),'Missing BOM CSV: '+slug);if(fs.existsSync(file)){const csv=fs.readFileSync(file,'utf8');expect(csv.includes('RESEARCH ONLY'),'Unqualified BOM missing sourcing disclaimer: '+slug);}}
+for(const project of projects){
+  const file=path.join(out,'projects',project.slug,'index.html');
+  if(!fs.existsSync(file))continue;
+  const html=fs.readFileSync(file,'utf8');
+  expect(html.includes('data-build-checklist'),'Workbench checklist missing: '+project.slug);
+  expect(html.includes('data-checklist-progress')&&html.includes('aria-live="polite"'),'Accessible checklist progress missing: '+project.slug);
+  expect(html.includes('data-checklist-reset'),'Checklist reset missing: '+project.slug);
+  const listed=[...html.matchAll(/data-part-slug="([^"]+)"/g)].map(m=>m[1]).sort();
+  const expected=project.materials.map(m=>m.slug).sort();
+  expect(JSON.stringify(listed)===JSON.stringify(expected),'Workbench checklist parts do not match BOM: '+project.slug);
+}
 expect(fs.existsSync(path.join(out,'_headers')),'Cloudflare security headers file not present');
 console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' mapped maker discussions, '+Object.keys(discussionLinks.projects).length+' BOM CSV files');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}

@@ -467,3 +467,32 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 /* Intrinsic card widths must never force the smallest project grid sideways. */
 .projects-page-grid > [data-level],.project-card,.project-card-link{min-width:0;max-width:100%}
 @media(max-width:700px){.project-grid,.projects-page-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Sprint 06: in-browser parts checklist — no commerce and no backend. */
+.workbench-checklist{margin-top:37px;padding:23px;background:#fffbf3;border:1px solid #dbc8af;border-radius:15px;box-shadow:0 5px 0 #e1d4c0;min-width:0}
+.workbench-checklist-head{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.workbench-checklist-head .eyebrow{margin:0 0 8px;color:#9a5436;font-size:10px}
+.workbench-checklist-head h3{font:800 27px/1.12 var(--display);color:#303b30;letter-spacing:-.045em;margin:0}
+.workbench-checklist-stamp{font:600 10px/1.5 var(--mono);letter-spacing:.06em;color:#49715a;border:1px solid #bed3bd;border-radius:8px;padding:5px 8px;background:#ecf4e8;white-space:nowrap}
+.workbench-checklist-intro{margin:12px 0 14px;color:#635f55;font:500 13px/1.6 var(--display)}
+.workbench-part-list{list-style:none;padding:0;margin:0}
+.workbench-part-list li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px 0;border-top:1px dashed #d6c9b7;min-width:0}
+.workbench-part-list li:last-child{border-bottom:1px dashed #d6c9b7}
+.workbench-part-list input{appearance:none;width:23px;height:23px;border:2px solid #ad9f8b;border-radius:6px;background:#fffdf8;position:relative;margin:0;cursor:pointer}
+.workbench-part-list input:checked{background:#3f755b;border-color:#3f755b}
+.workbench-part-list input:checked:after{content:'✓';position:absolute;left:4px;top:-3px;color:#fff;font-size:19px;font-weight:800}
+.workbench-part-list input:focus-visible{outline:3px solid #dc6d3b;outline-offset:3px}
+.workbench-part-list label{cursor:pointer;min-width:0;display:flex;flex-direction:column;gap:3px}
+.workbench-part-list label strong{font:700 13px/1.35 var(--display);color:#363a31;overflow-wrap:anywhere}
+.workbench-part-list label span{font:500 11px/1.4 var(--display);color:#787368}
+.workbench-part-list input:checked+label strong{text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:#869a8b;color:#728374}
+.workbench-part-list li>a{font:700 11px/1.3 var(--display);color:#ac512f;border-bottom:1px solid #d4ad96;white-space:nowrap;padding:5px 0;text-underline-offset:3px}
+.workbench-part-list li>a:hover{text-decoration:underline}
+.workbench-checklist-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:15px}
+.workbench-checklist-footer p{margin:0;color:#3e6f54;font:700 12px/1.5 var(--display)}
+.workbench-checklist-footer button{border:1px solid #baaa98;background:#fff4e3;color:#775e49;border-radius:8px;padding:8px 12px;box-shadow:0 2px 0 #d7c6b2;font:600 11px/1.2 var(--display);white-space:nowrap}
+.workbench-checklist-footer button:hover:not(:disabled){background:#fce8d1;transform:translateY(1px);box-shadow:0 1px 0 #d7c6b2}
+.workbench-checklist-footer button:disabled{opacity:.5;box-shadow:none}
+.workbench-checklist-disclaimer{display:flex;gap:8px;margin:18px 0 0;padding:12px;border-radius:9px;background:#f0ede3;color:#746758;font:500 11px/1.55 var(--display)}
+.workbench-checklist-disclaimer span{color:#bc653a;font-size:16px;line-height:1}
+@media(max-width:380px){.workbench-checklist{padding:16px 13px}.workbench-part-list li{gap:7px;grid-template-columns:24px minmax(0,1fr) auto}.workbench-part-list li>a{font-size:10px}.workbench-checklist-footer{flex-wrap:wrap}}
