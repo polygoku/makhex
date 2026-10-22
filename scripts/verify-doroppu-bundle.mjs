@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 export const SQUARESPACE_HEADER=[
  "Product ID [Non Editable]","Variant ID [Non Editable]","Product Type [Non Editable]",
- "Product Page","Product URL","Title","Description","SKU",
+ "Product Page","Product URL","Title","Description","SKU","GTIN","MPN",
  "Option Name 1","Option Value 1","Option Name 2","Option Value 2",
  "Option Name 3","Option Value 3","Price","Sale Price","On Sale",
  "Stock","Categories","Tags","Weight","Length","Width","Height",
@@ -53,9 +53,10 @@ export function verifyDoroppuBundle(csv,manifest){
  const pos=name=>SQUARESPACE_HEADER.indexOf(name);
  for(let i=0;i<body.length;i++){
   const cells=body[i],name="CSV row "+(i+2);
-  if(cells.length!==26){require(false,name+" has wrong column count");continue;}
+  if(cells.length!==28){require(false,name+" has wrong column count");continue;}
   const get=key=>cells[pos(key)]??"";
   require(get("Product ID [Non Editable]")===""&&get("Variant ID [Non Editable]")==="",name+" includes an existing product/variant ID");
+  require(get("GTIN")===""&&get("MPN")==="",name+" must not invent unverified GTIN/MPN values");
   require(get("Stock")==="0",name+" must remain stock 0");
   require(get("On Sale")==="No"&&get("Sale Price")==="",name+" contains a sale");
   require(/^\d{1,7}\.\d{2}$/.test(get("Price")),name+" has invalid retail price");
