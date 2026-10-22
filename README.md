@@ -2,15 +2,15 @@
 
 MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product research candidates, BOM-to-component linking, community discussion entry points, and a gated connection to Squarespace shopping.
 
-**Architecture:** Astro static site → Cloudflare Workers static assets, source/CI in GitHub, separate Squarespace commerce site (later `shop.makhex.com`). No Squarespace plan change required.
+**Architecture:** Astro static site → Cloudflare Workers static assets at `makhex.com` and `www.makhex.com` (production domain activation verification pending), source/CI in GitHub, and a separate, publicly available Squarespace site at `shop.makhex.com`. No Squarespace plan change required.
 
 ## Status
 - Code-first frontend: implemented in Sprint 01
 - Product research: 12 candidates, NOT listed as verified or orderable
 - 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
 - GitHub Discussions: **22 dedicated threads**, one per project or component, and a browsable community directory; optional inline Giscus waits for app approval
-- Squarespace: paid Basic plan retained; actual store product paths and checkout flow remain unverified
-- Cloudflare: **permanent Worker deployed and verified** at [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/); GitHub auto-deploy waits on scoped API token; custom-domain DNS migration pending
+- Squarespace: existing paid Basic site publicly available at `https://shop.makhex.com/` (HTTP 200); seven unrelated demo products Hidden; importing and checkout approval deferred
+- Cloudflare: permanent owned Worker and both production custom-domain triggers deployed. Squarespace registrar nameservers switched to Cloudflare; Cloudflare zone activation and apex/`www` HTTP/TLS validation pending. Permanent verified fallback: [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/). Automatic GitHub deployment remains disabled.
 
 ## Local development
 Requirements: Node.js 24+ and npm.
@@ -49,7 +49,7 @@ npm run deploy
 Automated deployment requires repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, plus **both** `CLOUDFLARE_TOKEN_SCOPE_APPROVED=true` (only after least-privilege review) and `CLOUDFLARE_DEPLOY_ENABLED=true`. Until that flag is enabled the workflow does not deploy. See [Cloudflare setup](docs/cloudflare-setup.md).
 
 ## Squarespace shop integration
-The maker catalog is live on the permanent Cloudflare Worker at `makhex.makhex-labs.workers.dev`; cutover of `makhex.com` is NOT yet authorized. The existing paid Squarespace Basic site has **`shop.makhex.com` Connected / Primary**, but remains **Private (HTTP 401)**. All existing sample products are Hidden. Preserve the Squarespace registrar and subscription. Before accepting sales, independently verify the public Squarespace shop, exact supplier/variant, shipping, taxes, returns and checkout transaction; only then configure a real per-product `storePath` in `src/data/products.ts` and `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`. A pending Cloudflare zone cannot use Workers Custom Domains until activation; active parent DNSSEC DS and old apex/www origins currently block nameserver migration.
+The existing paid Squarespace Basic site has **`shop.makhex.com` Connected / Primary** and is now **Public (HTTPS 200)**. All seven sample products remain Hidden. Squarespace remains domain registrar and shop host. The old parent DNSSEC DS was cleared, Cloudflare DNS web records were staged, registrar nameservers switched to Cloudflare, and both Worker custom-domain triggers deployed. As of the latest cutover check, however, Cloudflare is still Pending, apex/`www` publish staging `AAAA 100::`, and cached old records still redirect to Squarespace. **Do not call `makhex.com` live until Cloudflare activates and apex/`www` HTTPS content is verified.** The owned fallback at `https://makhex.makhex-labs.workers.dev/` remains HTTP 200. Checkout stays gated pending exact supplier, orderability, fulfillment, and authorized test evidence. See [Sprint 08 evidence](docs/sprint-08.md).
 
 **Fail closed:** A product requires a qualified supplier variant, approved evidence ledger entry, verified public store base and exact public Squarespace product path; otherwise checkout remains disabled. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
 
@@ -70,6 +70,7 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Sprint 04 tactile workbench redesign](docs/sprint-04-design.md)
 - [Sprint 05 production integration / launch gates](docs/sprint-05.md)
 - [Sprint 07 shop primary, DNSSEC and pilot sourcing findings](docs/sprint-07.md)
+- [Sprint 08 public shop, DNS migration, Worker triggers and remaining activation check](docs/sprint-08.md)
 - [Signed-in DNS cutover / rollback preflight](docs/dns-cutover-live-rollback.md)
 - [Freenove FNK0104N source and shipping evidence](docs/fnk0104n-vendor-evidence.md)
 - [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)

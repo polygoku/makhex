@@ -1,1 +1,19 @@
-{"name":"makhex","compatibility_date":"2026-10-21","assets":{"directory":"./dist"}}
+{
+  "name": "makhex",
+  "compatibility_date": "2026-10-21",
+  "assets": {
+    "directory": "./dist"
+  },
+  "routes": [
+    {
+      "pattern": "makhex.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.makhex.com",
+      "custom_domain": true
+    }
+  ],
+  "workers_dev": true,
+  "preview_urls": true
+}

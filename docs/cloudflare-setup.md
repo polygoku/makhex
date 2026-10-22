@@ -8,7 +8,7 @@
 - **Verified site:** https://makhex.makhex-labs.workers.dev/
 - **Checks:** valid HTTPS certificate, HTTP 200, CSP and other security headers, 9/9 public smoke checks, 28 generated pages, 714 internal links, 10 BOM exports, 22 maker discussions.
 - **Commerce:** all 12 unqualified products remain disabled for checkout.
-- **Important:** `makhex.com` still points to Squarespace; the permanent Worker is currently the public **staging** origin. The workers.dev site intentionally sends `X-Robots-Tag: noindex`.
+- **Sprint 08 update:** Registrar nameservers are now set to Cloudflare and both apex/`www` Worker Custom Domain routes are deployed, but the Cloudflare DNS zone is still **Pending** and apex/`www` HTTPS is not yet verified on Cloudflare. `workers.dev` remains a verified fallback and intentionally sends `X-Robots-Tag: noindex`. See [Sprint 08](sprint-08.md).
 
 ## Running and verifying from XPS
 
@@ -41,6 +41,6 @@ See [Cloudflare's current GitHub Actions documentation](https://developers.cloud
 
 ## Domain launch (separate gate)
 
-Do not attach `makhex.com` until the Squarespace shop is public and `shop.makhex.com` is a supported, confirmed Squarespace primary-domain configuration. Export the **entire** Squarespace DNS zone and preserve email/verification records before any authoritative nameserver change. See [domain-cutover-runbook.md](domain-cutover-runbook.md), [Squarespace checkout](squarespace-checkout.md) and [launch issue #30](https://github.com/polygoku/makhex/issues/30).
+The preceding prerequisites were completed October 21: Squarespace shop is Public (HTTPS 200), full registrar DNS was backed up, preserved records copied, old DNSSEC DS cleared, and registrar nameservers updated. **Final apex/`www` public go-live is conditional on Cloudflare zone activation, proxied edge DNS and correct HTTPS Worker page.** See [Sprint 08](sprint-08.md), [domain cutover runbook](domain-cutover-runbook.md), and [launch issue #30](https://github.com/polygoku/makhex/issues/30).
 
 The code-first Worker and the Squarespace store are intentionally separate origins. This does not require a Squarespace plan upgrade.

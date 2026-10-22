@@ -5,15 +5,15 @@
                           "evidenceIssueUrl":  "https://github.com/polygoku/makhex/issues/30"
                       },
     "cloudflareZoneRecordCopy":  {
-                                     "verifiedAt":  null,
-                                     "evidenceIssueUrl":  null
+                                     "verifiedAt":  "2026-10-22T02:40:07.0037589Z",
+                                     "evidenceIssueUrl":  "https://github.com/polygoku/makhex/issues/30"
                                  },
     "squarespaceShopPrimary":  {
                                    "verifiedAt":  "2026-10-22T01:46:25.7317873Z",
                                    "evidenceIssueUrl":  "https://github.com/polygoku/makhex/issues/29"
                                },
     "dnsRollbackPlan":  {
-                            "verifiedAt":  null,
-                            "evidenceIssueUrl":  null
+                            "verifiedAt":  "2026-10-22T02:40:07.0037589Z",
+                            "evidenceIssueUrl":  "https://github.com/polygoku/makhex/issues/30"
                         }
 }
