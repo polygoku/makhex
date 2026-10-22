@@ -114,8 +114,8 @@ export async function runAudit(env=process.env){
  }
  // The former temporary preview expired; the permanent owned Worker is the source of truth.
  // Do not make DNS readiness depend on any --temporary deployment.
- const pipelineReady=env.CLOUDFLARE_DEPLOY_ENABLED==='true'&&Boolean(cfAccount&&cfToken);
- append(checks,'githubDeployment',pipelineReady?'PASS':'BLOCKED',pipelineReady?'Deployment variable and credentials enabled for this audit':'GitHub deployment is not confirmed enabled with Cloudflare secrets; set only after permanent account ownership.','website');
+ const pipelineReady=env.CLOUDFLARE_DEPLOY_ENABLED==='true'&&env.CLOUDFLARE_TOKEN_SCOPE_APPROVED==='true'&&Boolean(cfAccount&&cfToken);
+ append(checks,'githubDeployment',pipelineReady?'PASS':'BLOCKED',pipelineReady?'Deployment, credential presence and independent least-privilege review all enabled':'GitHub deployment requires credentials, enabled flag and reviewed worker-scoped token; unverified broad tokens cannot pass.','website');
  const sq=await getResponse('https://'+SHOP+'/',SHOP);
  const shopResult=classifyHttp(sq.status,sq.body,sq.host,SHOP);
  append(checks,'shopPublic',shopResult.status,shopResult.status==='BLOCKED'&&sq.error?'Shop host not publicly reachable: '+sq.error:shopResult.detail,'website');
