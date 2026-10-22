@@ -496,3 +496,29 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .workbench-checklist-disclaimer{display:flex;gap:8px;margin:18px 0 0;padding:12px;border-radius:9px;background:#f0ede3;color:#746758;font:500 11px/1.55 var(--display)}
 .workbench-checklist-disclaimer span{color:#bc653a;font-size:16px;line-height:1}
 @media(max-width:380px){.workbench-checklist{padding:16px 13px}.workbench-part-list li{gap:7px;grid-template-columns:24px minmax(0,1fr) auto}.workbench-part-list li>a{font-size:10px}.workbench-checklist-footer{flex-wrap:wrap}}
+
+
+.reference-catalog-disclosure{max-width:900px;color:#645a4b;font-size:13px;line-height:1.7;margin:-12px 0 25px;padding:10px 14px 11px;background:#fff8ec;border-left:3px solid #e88955}
+/* Sprint 09: actual third-party build photographs, credited and distinguished from MAKHEX prototypes. */
+.real-reference-card-image{height:218px;position:relative;overflow:hidden;border-radius:11px;background:#e8e1d5;border:1px solid #d7ccbb;isolation:isolate}
+.real-reference-card-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s}
+.project-card:hover .real-reference-card-image img{transform:scale(1.035)}
+.real-reference-card-label{position:absolute;top:9px;left:9px;max-width:calc(100% - 18px);padding:6px 8px;background:#fffaf1ed;border:1px solid #c1b4a3;border-radius:5px;color:#435646;font:700 9px/1.3 var(--mono);letter-spacing:.015em}
+.real-reference-card-stage{position:absolute;bottom:0;left:0;right:0;display:block;padding:18px 11px 10px;background:linear-gradient(transparent,#18251ddd);font:700 11px/1.4 var(--display);color:white;text-shadow:0 1px 3px #0009}
+.project-detail-poster.real-reference-poster{position:relative;height:450px;padding:0;background:#e9e2d4;border:1px solid #b9ac9b;border-radius:13px;overflow:hidden;display:block}
+.real-reference-photo{display:block;width:100%;height:100%;object-fit:contain}
+.real-reference-poster-chip{position:absolute;top:15px;left:15px;background:#fffaf1ed;color:#324c3c;border:1px solid #b6a99b;padding:8px 11px;border-radius:7px;font:700 10px var(--mono)}
+.real-reference-poster .detail-poster-caption{position:absolute;display:block;bottom:0;left:0;right:0;margin:0;padding:28px 15px 14px;background:linear-gradient(transparent,#18251de7);color:white;font:600 12px var(--display)}
+.real-reference-explainer{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(245px,.9fr);gap:7%;padding-top:27px;padding-bottom:60px;border-top:1px solid #d6c5ae;border-bottom:1px solid #d6c5ae;margin-bottom:65px}
+.real-reference-explainer .eyebrow{margin-bottom:8px}
+.real-reference-explainer h2{font:800 clamp(28px,3vw,43px)/1.1 var(--display);letter-spacing:-.055em;color:#323b32;margin:0 0 15px}
+.real-reference-explainer>div:first-child>p{font-size:15px;line-height:1.7;color:#625f56;max-width:730px}
+.real-reference-explainer .reference-honesty{color:#875d3f;font-size:12px}
+.reference-provenance{background:#fffcf5;border:1px solid #d6cbbb;padding:21px;border-radius:12px;box-shadow:0 3px 0 #e0d7c9}
+.reference-provenance h3{font:800 22px/1.2 var(--display);margin:0 0 13px}
+.reference-provenance p{font-size:12px;color:#5d655b;margin:5px 0}
+.reference-provenance .text-link{margin-top:16px;font-size:12px}
+.reference-provenance .reference-image-origin{display:block;margin:15px 0 13px;font-size:11px;color:#a5482c;text-decoration:underline;text-underline-offset:4px}
+.reference-provenance small{display:block;font-size:10px;line-height:1.6;color:#807769}
+@media(max-width:850px){.real-reference-explainer{grid-template-columns:1fr;gap:22px}.project-detail-poster.real-reference-poster{height:360px}}
+@media(max-width:540px){.real-reference-card-image{height:205px}.project-detail-poster.real-reference-poster{height:310px}.real-reference-poster-chip{font-size:9px;max-width:90%}}
