@@ -18,14 +18,14 @@ Create a practical ESP32 workshop where someone can discover a real build idea, 
 | 04 | Completed | Approved warm Light / tactile workbench visual redesign and interactive featured component links |
 | 05 | Completed | Launch-readiness auditor, first permanent Cloudflare Worker, CI with protected deploy opt-in |
 | **06** | **Implemented / QA passed** | Track which BOM parts a builder already has without enabling sales, establish fail-closed full-zone record comparison, strengthen QA and write the next-stage roadmap |
-| 07 | Blocked on provider/account work | Least-privilege deploy token, GitHub automatic deployment; verify supported Squarespace shop subdomain/primary-domain path, full DNS export and rollback plan |
-| 08 | Blocked on supplier/checkout evidence | Qualify the first exact physical SKU, product photo/spec/stock and a real Squarespace test order with shipping/returns/fulfillment checks |
+| 07 | **Implemented / launch held** | Squarespace `shop.makhex.com` Connected/Primary; six demo products hidden; 11-record authoritative export, pending Cloudflare DNS staged, DNSSEC guard and first Freenove option price/freight evidence. DNS/checkout remain NO-GO |
+| 08 | Planned — vendor/orderability gate | Qualify exact FNK0104N supply terms, original media, physical board wiring, product draft and a separately authorized Squarespace end-to-end order/fulfillment test |
 | 09 | Planned | Bench-verifiable firmware builds, source code, board revisions, original photos/video and revised BOM evidence for flagship projects |
 | 10 | Planned | SEO/measurement, GitHub community loop, X/Hackaday/Reddit/YouTube launch content and budget-aware acquisition after shop tests |
 
 ## Dependencies and rules
 
-**Website launch:** own permanent Worker (done) → scoped CI/CD token (open #28) → supported real `shop.makhex.com` as Squarespace primary (open #29) → full DNS and mail preservation plus Cloudflare staged records (open #30) → witnessed cutover and 200/SSL/mobile checks. Keep Squarespace site private until its launch readiness is explicitly approved; do not force a site availability change as a shortcut.
+**Website launch:** own permanent Worker (done) → `shop.makhex.com` connected as Squarespace primary (done; **site still Private**) → full authoritative DNS snapshot and staged Cloudflare zone (done; DNS NO-GO) → remove/coordinate active Squarespace DS, route apex/www to Worker and verify public Squarespace shop → witnessed nameserver cutover and HTTP 200/SSL/mobile checks. GitHub auto-deploy is optional, with its separate existing token-scope guard unchanged. Keep Squarespace site private until its launch readiness is explicitly approved; do not force a site availability change as a shortcut.
 
 **Commerce launch:** exact supplier + board revision + true selectable variant + landed cost/stock/lead time + shipping/tax/refund/fulfillment tests in Squarespace → recorded reviewer evidence → release a *single* qualified item while every other item stays on HOLD (open #31).
 
@@ -38,8 +38,8 @@ Create a practical ESP32 workshop where someone can discover a real build idea, 
 ## Owners and next actions
 
 - Cloudflare & DevOps: [issue #28](https://github.com/polygoku/makhex/issues/28) — rotate the overly broad token to one Worker-scoped Editor token; set `CLOUDFLARE_TOKEN_SCOPE_APPROVED=true` only after independent evidence review, then enable GitHub deployment.
-- Squarespace store: [issue #29](https://github.com/polygoku/makhex/issues/29) — inspect domain billing/permission topology before attempting shop primary.
-- DNS: [issue #30](https://github.com/polygoku/makhex/issues/30) — export complete authoritative zone data, stage Cloudflare zone and compare using `npm run dns:compare`. No name server writes without a full rollback plan.
-- Hardware and commerce: [issue #31](https://github.com/polygoku/makhex/issues/31) — begin with an exact ESP32-S3 touch-display board candidate for the flagship Touch Weather Station, but keep it research-only until tested.
+- Squarespace store: [issue #29](https://github.com/polygoku/makhex/issues/29) — shop subdomain is connected and primary; finish launch content, keep templates Hidden, verify public HTTP 200 and SSL/redirects.
+- DNS: [issue #30](https://github.com/polygoku/makhex/issues/30) — 11 Squarespace records captured and 10 Cloudflare records staged. Comparator NO-GO: old Squarespace apex/www routes and active parent DS. Keep original nameservers until safe route, DNSSEC, SSL and rollback.
+- Hardware and commerce: [issue #31](https://github.com/polygoku/makhex/issues/31) — official Freenove FNK0104N evidence captured ($25.99, anonymous free China shipping quote), but resale authorization, checkout, returns and bench integration remain unverified. Keep Research/HOLD.
 
 Use `AGENTS.md`, `docs/catalog-qualification.md`, and `docs/domain-cutover-runbook.md` as mandatory safety gates. The code and first-party documentation are source-controlled; DNS/provider/checkout are not presumed complete merely because code is merged.

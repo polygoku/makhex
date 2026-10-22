@@ -49,7 +49,7 @@ npm run deploy
 Automated deployment requires repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, plus **both** `CLOUDFLARE_TOKEN_SCOPE_APPROVED=true` (only after least-privilege review) and `CLOUDFLARE_DEPLOY_ENABLED=true`. Until that flag is enabled the workflow does not deploy. See [Cloudflare setup](docs/cloudflare-setup.md).
 
 ## Squarespace shop integration
-The brochure/catalog is **intended to be hosted** on Cloudflare at `makhex.com` (currently live on the permanent `makhex.makhex-labs.workers.dev` origin); the paid Squarespace Basic site continues separately. Once verified, assign Squarespace a shop subdomain such as `shop.makhex.com`. Add a real per-product `storePath: 'shop/p/verified-squarespace-slug'` to `src/data/products.ts` and set `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`.
+The maker catalog is live on the permanent Cloudflare Worker at `makhex.makhex-labs.workers.dev`; cutover of `makhex.com` is NOT yet authorized. The existing paid Squarespace Basic site has **`shop.makhex.com` Connected / Primary**, but remains **Private (HTTP 401)**. All existing sample products are Hidden. Preserve the Squarespace registrar and subscription. Before accepting sales, independently verify the public Squarespace shop, exact supplier/variant, shipping, taxes, returns and checkout transaction; only then configure a real per-product `storePath` in `src/data/products.ts` and `PUBLIC_SQUARESPACE_SHOP_URL=https://shop.makhex.com`. A pending Cloudflare zone cannot use Workers Custom Domains until activation; active parent DNSSEC DS and old apex/www origins currently block nameserver migration.
 
 **Fail closed:** A product requires a qualified supplier variant, approved evidence ledger entry, verified public store base and exact public Squarespace product path; otherwise checkout remains disabled. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
 
@@ -69,7 +69,9 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Sprint 03 launch readiness report](docs/sprint-03.md)
 - [Sprint 04 tactile workbench redesign](docs/sprint-04-design.md)
 - [Sprint 05 production integration / launch gates](docs/sprint-05.md)
-- [Sprint 06 parts checklist and DNS comparison](docs/sprint-06.md)
+- [Sprint 07 shop primary, DNSSEC and pilot sourcing findings](docs/sprint-07.md)
+- [Signed-in DNS cutover / rollback preflight](docs/dns-cutover-live-rollback.md)
+- [Freenove FNK0104N source and shipping evidence](docs/fnk0104n-vendor-evidence.md)
 - [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)
 - [Qualification gate](docs/catalog-qualification.md)
 - [Squarespace commerce workflow](docs/squarespace-checkout.md)
