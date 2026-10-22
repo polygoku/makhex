@@ -8,11 +8,14 @@ import {projects,productBySlug} from '../../lib/catalog';
 import type{Project} from '../../data/projects';
 import {buildReferences} from '../../data/build-references';
 import {supplierResearch} from '../../data/supplier-research';
+import {plannedVariantForProject,projectBomMissingParts,formatUsd} from '../../data/catalog-staging';
 export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}));}
 interface Props{project:Project}
 const {project}=Astro.props;
 const reference=buildReferences[project.slug];
-const materials=project.materials.map(m=>({...m,product:productBySlug(m.slug),source:supplierResearch[m.slug]}));
+const materials=project.materials.map(m=>({...m,product:productBySlug(m.slug),source:supplierResearch[m.slug],planned:plannedVariantForProject(m.slug,project.slug)}));
+const plannedPartsSubtotal=materials.reduce((sum,m)=>sum+(m.planned?.plannedRetailUsd??0)*m.qty,0);
+const missingParts=projectBomMissingParts[project.slug]??[];
 const total=project.materials.reduce((n,m)=>n+m.qty,0);
 const ld={'@context':'https://schema.org','@type':'HowTo',name:project.title,description:project.summary,step:project.steps.map((text,i)=>({'@type':'HowToStep',position:i+1,text})),url:'https://makhex.com/projects/'+project.slug+'/'};
 ---
@@ -24,9 +27,11 @@ const ld={'@context':'https://schema.org','@type':'HowTo',name:project.title,des
 
 <span class="detail-poster-caption real-reference-poster-caption">Photo credit: {reference.builder}</span>
 </div> : <div class="project-detail-poster"><ProjectArtwork project={project}/><span class="detail-poster-caption">Concept sketch · proposed build, not yet bench-verified</span></div>}</section>
-<section class="container project-body-grid"><div><div class="content-section" id="bill-of-materials"><span class="eyebrow">01 / BILL OF MATERIALS</span><h2>What goes in.</h2><p>Each component has an AliExpress research source. Hardware compatibility, stock and shipping remain unverified; links are not MAKHEX checkout.</p>
-<div class="bom-table"><div class="bom-row bom-heading"><span>COMPONENT</span><span>ROLE</span><span>QTY</span></div>{materials.map(m=><div class="bom-row"><span>{m.product?<a href={'/shop/'+m.slug+'/'}>{m.product.title} ↗</a>:m.slug}{m.source&&<span class="bom-research"><a href={m.source.url} target="_blank" rel="noopener noreferrer nofollow">AliExpress source ↗</a><small>{m.source.gate==='HOLD'?'HARDWARE HOLD':'REVIEW REQUIRED'} · {m.source.projectOptions?.[project.slug]??m.source.selectedFormat}</small></span>}</span><span>{m.why}</span><strong>{String(m.qty).padStart(2,'0')}</strong></div>)}</div>
-<div class="bom-total"><span>{materials.length} UNIQUE PART TYPES</span><span>{total} ITEMS</span></div><BuildPartsChecklist project={project}/></div>
+<section class="container project-body-grid"><div><div class="content-section" id="bill-of-materials"><span class="eyebrow">01 / BILL OF MATERIALS</span><h2>What goes in.</h2><p>The selected components below have matching AliExpress references and provisional retail prices. Hardware, shipping and supplier fulfillment remain unverified; prices are planning estimates, not MAKHEX checkout.</p>
+<div class="bom-table"><div class="bom-row bom-heading"><span>COMPONENT</span><span>ROLE</span><span>QTY</span></div>{materials.map(m=><div class="bom-row"><span>{m.product?<a href={'/shop/'+m.slug+'/'}>{m.product.title} ↗</a>:m.slug}{m.source&&<span class="bom-research"><a href={m.source.url} target="_blank" rel="noopener noreferrer nofollow">AliExpress source ↗</a><small>{m.source.gate==='HOLD'?'HARDWARE HOLD':'REVIEW REQUIRED'} · {m.source.projectOptions?.[project.slug]??m.source.selectedFormat}</small></span>}</span><span>{m.why}{m.planned&&<small class="bom-line-estimate">{formatUsd(m.planned.plannedRetailUsd)} each · {formatUsd(m.planned.plannedRetailUsd*m.qty)} for this build</small>}</span><strong>{String(m.qty).padStart(2,'0')}</strong></div>)}</div>
+<div class="bom-total"><span>{materials.length} UNIQUE PART TYPES</span><span>{total} ITEMS</span></div>
+<div class="project-price-planner"><div><span class="eyebrow">ILLUSTRATIVE COMPONENT SUBTOTAL</span><strong>{formatUsd(plannedPartsSubtotal)}</strong></div><p>Includes only the mapped quantities above. Excludes shipping, tax, any missing parts and possible variant changes. All source options must pass checkout and hardware qualification.</p>{missingParts.length>0&&<div class="project-bom-gaps"><strong>Still needed to finish this build:</strong><ul>{missingParts.map(gap=><li>{gap}</li>)}</ul></div>}</div>
+<BuildPartsChecklist project={project}/></div>
 <div class="content-section"><span class="eyebrow">02 / THE APPROACH</span><h2>Build sequence.</h2><ol class="steps-list">{project.steps.map((s,i)=><li><span>{String(i+1).padStart(2,'0')}</span><p>{s}</p></li>)}</ol></div>
 <div class="warning-box prominent"><strong>⚑ ENGINEERING NOTE</strong><p>{project.caution}</p><small>Concept-stage plan; bench validation and firmware QA pending.</small></div></div>
 <aside class="project-aside"><div class="aside-card"><span class="eyebrow">THE QUICK SPEC</span><div><span>STATUS</span><strong>BLUEPRINT</strong></div><div><span>LEVEL</span><strong>{project.level.toUpperCase()}</strong></div><div><span>TIME</span><strong>{project.time.toUpperCase()}</strong></div><div><span>TECH</span><strong>{project.tech.join(' / ')}</strong></div></div>

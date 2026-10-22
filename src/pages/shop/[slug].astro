@@ -6,24 +6,45 @@ import {products,projects} from '../../lib/catalog';
 import {commerceState} from '../../lib/commerce';
 import type {Product} from '../../data/products';
 import {supplierResearch} from '../../data/supplier-research';
+import {stageFor,formatUsd,catalogSnapshotDate} from '../../data/catalog-staging';
 export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
 interface Props{product:Product}
 const {product}=Astro.props;
 const checkout=commerceState(product);
 const source=supplierResearch[product.slug];
+const stage=stageFor(product.slug);
 const related=projects.filter(p=>p.materials.some(m=>m.slug===product.slug)).slice(0,3);
-const ld={'@context':'https://schema.org','@type':'TechArticle',headline:product.title,description:product.description,author:{'@type':'Organization',name:'MAKHEX'},url:'https://makhex.com/shop/'+product.slug+'/'};
+const prices=stage?.variants.map(v=>v.plannedRetailUsd)??[];
+const minimum=prices.length?Math.min(...prices):null;
+const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.supplierModel??product.title,description:product.description,author:{'@type':'Organization',name:'MAKHEX'},url:'https://makhex.com/shop/'+product.slug+'/',about:{'@type':'Thing',name:stage?.supplierModel??product.title}};
 ---
-<BaseLayout title={product.title+' | MAKHEX'} description={product.description}>
+<BaseLayout title={(stage?.supplierModel??product.title)+' | MAKHEX Components'} description={product.description}>
 <div class="container breadcrumb"><a href="/">HOME</a><span>/</span><a href="/shop/">COMPONENTS</a><span>/</span><span>{product.title.toUpperCase()}</span></div>
-<section class="container detail-grid"><div><ProductVisual product={product} large/><div class="visual-legend"><span>CONCEPT ILLUSTRATION • NOT A LISTING PHOTO</span><span>FIG / MX</span></div></div>
-<div class="detail-content"><span class="eyebrow">{product.category.toUpperCase()} / COMPONENT FILE</span><h1>{product.title}</h1><p class="detail-subhead">{product.descriptor}</p>
-<div class="detail-status"><span class="live-dot amber"></span> {checkout.kind==='ready'?'QUALIFIED / SQUARESPACE CHECKOUT':'RESEARCH CANDIDATE / NOT FOR SALE'}</div><p class="detail-description">{product.description}</p>
-<div class="spec-list"><span class="eyebrow">CAPABILITIES / CLASS LEVEL</span>{product.specs.map((s,i)=><div><span>0{i+1}</span><p>{s}</p><span>↗</span></div>)}</div>
-<div class="purchase-panel"><span class="eyebrow">PURCHASING</span>{checkout.kind==='ready'?<a class="btn btn-primary" href={checkout.url} rel="noopener noreferrer">VIEW PRODUCT ON SQUARESPACE ↗</a>:<button class="btn btn-muted" type="button" disabled>CHECKOUT COMING SOON</button>}
-<small>{checkout.kind==='ready'?'Checkout takes place on the separate MAKHEX Squarespace site.':checkout.reason}</small></div>
-{source&&<div class="supplier-research-panel"><span class="eyebrow">ALIEXPRESS / SOURCE RESEARCH</span><p>Selected reference: {source.selectedFormat}. This is not a MAKHEX checkout; supplier stock, hardware identity and fulfillment remain unverified.</p><a href={source.url} target="_blank" rel="noopener noreferrer nofollow">VIEW ALIEXPRESS CANDIDATE ↗</a><small>{source.gate==='HOLD'?'HARDWARE HOLD':'REVIEW REQUIRED'} · {source.caution}</small></div>}
-<div class="warning-box"><strong>VARIANT VERIFICATION REQUIRED</strong><p>{product.notes}</p></div></div></section>
-{related.length>0&&<section class="section container"><div class="section-heading compact"><div><span class="eyebrow">FROM PART TO PROJECT</span><h2>Build with this.</h2></div><a class="text-link" href="/projects/">ALL PROJECTS ↗</a></div><div class="project-grid">{related.map(p=><ProjectCard project={p}/>)}</div></section>}
-<div class="container"><div class="disclosure-box"><span class="eyebrow">DISCUSS THIS COMPONENT</span><h2>Build notes live with the projects.</h2><p>Open a project using this component to ask questions and share measured results in MAKHEX's native discussion.</p><a class="text-link" href="/projects/">FIND A PROJECT DISCUSSION →</a></div></div><script type="application/ld+json" set:html={JSON.stringify(ld)}/>
+<section class="container detail-grid">
+  <div class="component-main-visual"><ProductVisual product={product} large/><div class="visual-legend"><span>ORIGINAL TECHNICAL ILLUSTRATION · NOT SUPPLIER PHOTOGRAPHY</span><span>FIG / MX</span></div>
+    <div class="component-view-note"><strong>Why an illustration?</strong><p>Exact supplier model, board revision and product photography must be verified before a listing is released. Illustrations are not evidence of the item shipped.</p></div>
+  </div>
+  <div class="detail-content">
+    <span class="eyebrow">{product.category.toUpperCase()} / SOURCING FILE</span>
+    <h1>{stage?.supplierModel??product.title}</h1>
+    <p class="detail-subhead">{product.descriptor}</p>
+    <div class:list={['detail-status',{'detail-status-hold':stage?.technicalGate==='HOLD'}]}><span class="live-dot amber"></span> {checkout.kind==='ready'?'QUALIFIED / SQUARESPACE CHECKOUT':stage?.technicalGate==='HOLD'?'HARDWARE HOLD / NOT FOR SALE':'SOURCE MATCHED / FULFILLMENT PENDING'}</div>
+    <p class="detail-description">{product.description}</p>
+    <div class="variant-planning">
+      <div class="variant-planning-head"><span class="eyebrow">SELECTED SUPPLIER VARIANTS</span><strong>{minimum===null?'PRICE TBD':formatUsd(minimum)}{prices.length>1?' +':''}</strong></div>
+      {stage?.variants.map(variant=><div class="variant-plan-line"><span>{variant.title}</span><strong>{formatUsd(variant.plannedRetailUsd)}</strong></div>)}
+      <p>Indicative MAKHEX retail prices from {catalogSnapshotDate}. <strong>Not an offer to sell.</strong> Shipping, tax, availability and total delivered price are not established.</p>
+    </div>
+    <div class="spec-list"><span class="eyebrow">CAPABILITIES / CLASS LEVEL</span>{product.specs.map((s,i)=><div><span>0{i+1}</span><p>{s}</p><span>↗</span></div>)}</div>
+    <div class="purchase-panel"><span class="eyebrow">AVAILABILITY</span>
+      {checkout.kind==='ready'?<a class="btn btn-primary" href={checkout.url} rel="noopener noreferrer">VIEW PRODUCT ON SQUARESPACE ↗</a>:<button class="btn btn-muted" type="button" disabled>CHECKOUT COMING SOON</button>}
+      <small>{checkout.kind==='ready'?'Secure checkout on the separate MAKHEX Squarespace website.':'Squarespace record created privately with zero sellable inventory. We are verifying exact parts and delivery before opening sales.'}</small>
+    </div>
+    {source&&<div class="supplier-research-panel"><span class="eyebrow">ORIGINAL ALIEXPRESS SOURCE REFERENCE</span><p>Selected source: {source.selectedFormat}. This external reference is not a MAKHEX checkout and is not evidence of a completed sample order.</p><a href={source.url} target="_blank" rel="noopener noreferrer nofollow">INSPECT SUPPLIER CANDIDATE ↗</a><small>{source.gate==='HOLD'?'HARDWARE HOLD':'TECHNICAL REVIEW PENDING'} · {source.caution}</small></div>}
+    <div class="warning-box"><strong>COMPATIBILITY TO VERIFY</strong><p>{product.notes}</p></div>
+  </div>
+</section>
+{related.length>0&&<section class="section container"><div class="section-heading compact"><div><span class="eyebrow">USE THIS COMPONENT</span><h2>Projects that need it.</h2></div><a class="text-link" href="/projects/">ALL PROJECTS ↗</a></div><div class="project-grid">{related.map(p=><ProjectCard project={p}/>)}</div></section>}
+<div class="container"><div class="disclosure-box"><span class="eyebrow">DISCUSS THIS PART</span><h2>Build notes belong to makers.</h2><p>Open the associated project to ask questions, post measurements or suggest verified supplier alternatives in MAKHEX’s built-in discussion.</p><a class="text-link" href={related.length?'/projects/'+related[0].slug+'/#discussion':'/projects/'}>{related.length?'OPEN RELATED PROJECT DISCUSSION →':'BROWSE PROJECT DISCUSSIONS →'}</a></div></div>
+<script type="application/ld+json" set:html={JSON.stringify(ld)}/>
 </BaseLayout>
