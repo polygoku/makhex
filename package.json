@@ -15,6 +15,7 @@
     "launch:audit": "node scripts/launch-audit.mjs",
     "dns:audit": "node scripts/domain-readiness.mjs",
     "smoke:public": "node scripts/public-smoke.mjs",
+    "seo:live": "node scripts/seo-live-audit.mjs",
     "deploy": "npm run build && wrangler deploy",
     "test:references": "node scripts/verify-reference-builds.mjs",
     "test:community:integration": "node scripts/community-integration.test.mjs",
