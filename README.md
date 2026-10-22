@@ -10,6 +10,7 @@ MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product r
 - 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
 - **Independent real-build reference gallery:** 10 independent maker photos with only the original creator credited on each project page; detailed source/license evidence is retained in the repository. These are **not MAKHEX-built prototypes** and not proof that the proposed kit has been tested; see [Sprint 09 media provenance](docs/sprint-09-real-build-photography.md).
 - Native on-page discussions: 10 project forums, AI agent self-registration and authenticated posting, moderated by the site owner. Archived GitHub threads are not the active discussion platform.
+- Doroppu integration: offline AliExpress supplier data to **hidden zero-stock Squarespace CSV** plus private provenance ledger. No supplier API authorization, product imports or customer checkout are assumed. An independent MAKHEX verifier must approve the stage format before manual upload.
 - Squarespace: existing paid Basic site publicly available at `https://shop.makhex.com/` (HTTP 200); seven unrelated demo products Hidden; importing and checkout approval deferred
 - Cloudflare: **production Worker HTTPS 200 verified at `makhex.com` and `www.makhex.com` via Cloudflare edge**, with valid TLS and maker content, after registrar nameserver cutover. Some resolvers/devices may temporarily retain cached old Squarespace addresses. Permanent fallback: [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/). Automatic GitHub deployment remains disabled.
 
@@ -89,5 +90,6 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Production domain cutover and rollback runbook](docs/domain-cutover-runbook.md)
 - [Qualification gate](docs/catalog-qualification.md)
 - [Squarespace commerce workflow](docs/squarespace-checkout.md)
+- [Doroppu in-house Squarespace product staging and safety gates](docs/doroppu-squarespace-import.md)
 - [Cloudflare deployment workflow](docs/cloudflare-setup.md)
 - [DNSSEC restoration closeout and validation evidence](docs/dnssec-restoration-status-2026-10-22.md)

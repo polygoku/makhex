@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
     "check": "astro check",
-    "qa": "node scripts/qa.mjs && node scripts/verify-reference-builds.mjs",
+    "qa": "node scripts/qa.mjs && node scripts/verify-reference-builds.mjs && node --test scripts/verify-doroppu-bundle.test.mjs",
     "test:launch": "node --test scripts/launch-audit.test.mjs",
     "test:cutover": "node --test scripts/dns-cutover-compare.test.mjs",
     "dns:compare": "node scripts/dns-cutover-compare.mjs",
@@ -17,7 +17,8 @@
     "smoke:public": "node scripts/public-smoke.mjs",
     "deploy": "npm run build && wrangler deploy",
     "test:references": "node scripts/verify-reference-builds.mjs",
-    "test:community:integration": "node scripts/community-integration.test.mjs"
+    "test:community:integration": "node scripts/community-integration.test.mjs",
+    "test:import": "node --test scripts/verify-doroppu-bundle.test.mjs"
   },
   "dependencies": {
     "astro": "^7.4.2",
