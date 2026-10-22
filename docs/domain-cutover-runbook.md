@@ -6,8 +6,8 @@
 - Squarespace domain registration remains paid and under its existing owner. Only authoritative DNS hosting changes if full Cloudflare setup is selected.
 - The two origins DO NOT share their cart, login or product inventory.
 
-## Evidence at 2026-10-21
-The XPS lookup returned Squarespace nameservers (nsb1–nsb4.squarespacedns.com), four Squarespace A addresses at the apex, `www` CNAME `ext-sq.squarespace.com`, no `shop` DNS, and HTTP 401 on the root and www. Cloudflare Wrangler OAuth was not initially authenticated. A temporary Workers preview was blocked with Cloudflare challenge and is not a permanent deployment. Re-check all states before modifying any record.
+## Verified evidence at 2026-10-21
+The Squarespace site now lists **`shop.makhex.com` as Connected/Primary**, with authoritative CNAME to `ext-cust.squarespace.com`; HTTP 401 persists because Squarespace Site Availability is Private. All seven Squarespace catalog products (six irrelevant demo items and an unnamed draft) were set Hidden, without deleting or publishing them. The signed-in registrar panel exposed 11 records, staged Cloudflare zone 10 (with `shop` DNS-only); the old Squarespace apex `HTTPS` record with IP hints must be retired, not copied. Independent DS query found **ACTIVE parent DNSSEC delegation**. Cloudflare still has old Squarespace apex/www targets and zone status Pending. **Do not switch nameservers.** See [Sprint 07 detailed rollback preflight](dns-cutover-live-rollback.md).
 
 ## Required P0 gates
 1. User has an owned, permanent Cloudflare account and has approved account connection. Wrangler `whoami` confirms it. Do not transmit OAuth tokens.
@@ -16,8 +16,8 @@ The XPS lookup returned Squarespace nameservers (nsb1–nsb4.squarespacedns.com)
 4. Verify an actual Squarespace product and test cart/checkout/shipping/tax/returns/fulfillment behavior, on an approved variant. No checkout links before per-product qualification.
 5. Export ALL actual registrar DNS records (MX, SPF, DKIM, DMARC, TXT, CAA, verification, old subdomains) via Squarespace DNS panel. The local `scripts/dns-snapshot.ps1` captures only public answers and IS NOT a substitute for an authoritative zone export. Identify DNSSEC DS records before changing nameservers.
 6. Prepare the corresponding Cloudflare zone and clone ALL records; verify that mail and existing services will remain working.
-7. Choose a short rollback window with human operator available. Set `makhex.com` and `www.makhex.com` Workers Custom Domains on active Cloudflare zone, while preserving Squarespace `shop` records as DNS-only.
-8. Update registrar nameservers to the exact pair provided by that Cloudflare zone, ONLY after the zone, Worker, Squarespace shop, mail records and cutover checklist have passed.
+7. Choose a supervised rollback window and pre-stage an appropriate Worker cutover routing plan. **Workers Custom Domains require an active Cloudflare zone**, so a pending zone cannot simply attach them in advance. Keep `shop` DNS-only and never activate the default old Squarespace apex/www records as the maker origin. Document the chosen route-to-Custom-Domain transition in issue #30.
+8. Resolve active parent DS/DNSSEC with Squarespace registrar first and confirm independent propagation; only then update registrar nameservers to the exact Cloudflare pair once the Worker routing, shop HTTP 200, preserved DNS and rollback checks are ready.
 
 ## After nameserver cutover
 - Recheck public DNS resolution of apex, www and shop from multiple resolvers.

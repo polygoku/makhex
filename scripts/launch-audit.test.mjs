@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {attestationValid,classifyHttp,summarizeChecks,ownedWorkerMatches} from './launch-audit.mjs';
+import {attestationValid,classifyHttp,summarizeChecks,ownedWorkerMatches,classifyParentDs} from './launch-audit.mjs';
 
 test('owner evidence requires dated GitHub issue or PR',()=>{
  assert.equal(attestationValid({verifiedAt:null,evidenceIssueUrl:null}),false);
@@ -26,4 +26,13 @@ test('a temporary or wrong-account worker cannot count as permanent ownership',(
  assert.equal(ownedWorkerMatches(['other'],'owned-zone','https://makhex.owned-zone.workers.dev/'),false);
  assert.equal(ownedWorkerMatches(['makhex'],'owned-zone','https://makhex.sheer-cough.workers.dev/'),false);
  assert.equal(ownedWorkerMatches(['makhex'],'owned-zone','http://makhex.owned-zone.workers.dev/'),false);
+});
+
+test('parent DNSSEC DS must be absent and independently verified before cutover',()=>{
+ const question=[{name:'makhex.com',type:43}];
+ assert.equal(classifyParentDs({Status:0,Question:question,Answer:[{type:43,data:'33127 8 2 ABC'}]}).status,'BLOCKED');
+ assert.equal(classifyParentDs({Status:0,Question:question}).status,'PASS');
+ assert.equal(classifyParentDs({Status:0,Question:[{name:'example.com',type:43}]}).status,'BLOCKED');
+ assert.equal(classifyParentDs({Status:2,Question:question}).status,'BLOCKED');
+ assert.equal(classifyParentDs(null).status,'BLOCKED');
 });

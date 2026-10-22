@@ -1,6 +1,6 @@
 # DNS cutover record comparison — MAKHEX
 
-This is a **read-only preflight**, not a cutover tool and not a substitute for exporting the COMPLETE Squarespace DNS zone. Do not use a list returned by a public DNS resolver as a full authoritative zone export; hidden records, other subdomains, mail/verification details and DNSSEC DS may be missed.
+This is a **read-only preflight**, not a cutover tool and not a substitute for exporting the COMPLETE Squarespace DNS zone. Real October 21 provider evidence and safe migration sequence are in [dns-cutover-live-rollback.md](dns-cutover-live-rollback.md). Do not use a list returned by a public DNS resolver as a full authoritative zone export; hidden records, other subdomains, mail/verification details and DNSSEC DS may be missed.
 
 ## Inputs
 

@@ -2,7 +2,7 @@
 
 ## Current status
 
-**RESEARCH ONLY / NOT FOR SALE.** MAKHEX currently displays the `esp32-s3-touch-35` product candidate and the flagship `touch-weather-station` project. The downloadable BOM also references a BME280 sensor and USB bench-power accessories. None of these are vendor-verified, bench-qualified *as a kit*, or orderable through the paid Squarespace Basic site.
+**RESEARCH ONLY / NOT FOR SALE.** See [the dated official FNK0104N manufacturer / shipping evidence](fnk0104n-vendor-evidence.md). MAKHEX currently displays the `esp32-s3-touch-35` product candidate and the flagship `touch-weather-station` project. The downloadable BOM also references a BME280 sensor and USB bench-power accessories. None of these are vendor-verified, bench-qualified *as a kit*, or orderable through the paid Squarespace Basic site.
 
 ## Evidence required before any product launch
 

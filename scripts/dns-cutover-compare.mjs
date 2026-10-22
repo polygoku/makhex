@@ -40,8 +40,10 @@ export function validProvenance(snapshot,expected){
     snapshot.verifiedComplete===true&&Number.isFinite(Date.parse(snapshot.capturedAt||''))&&
     EVIDENCE.test(snapshot.evidenceIssueUrl||'')&&Array.isArray(snapshot.records)&&snapshot.records.length>0);
 }
-const changeable=(r)=>r.name===DOMAIN&&['A','AAAA','CNAME'].includes(r.type)||
-  r.name==='www.'+DOMAIN&&['A','AAAA','CNAME'].includes(r.type);
+// Apex HTTPS/SVCB from the old host contains Squarespace IP hints and must be
+// intentionally retired, not copied to Cloudflare. Preserve all other records.
+const changeable=(r)=>r.name===DOMAIN&&['A','AAAA','CNAME','HTTPS','SVCB'].includes(r.type)||
+  r.name==='www.'+DOMAIN&&['A','AAAA','CNAME','HTTPS','SVCB'].includes(r.type);
 const key=(r)=>[r.name,r.type,r.value].join('|');
 function tally(records){
   const map=new Map();
@@ -65,13 +67,33 @@ export function compareSnapshots(source,target){
       errors.push('MISSING_OR_CHANGED '+type+' '+name+' count='+String(n-got));
     }
   }
+  // Structural preservation alone is NOT safe to authorize delegation while
+  // the staging zone still sends www/apex visitors to the private Squarespace site.
+  const oldHosts=new Set(left.filter(r=>changeable(r)&&['A','AAAA','CNAME'].includes(r.type)).map(key));
+  if(right.some(r=>r.name===DOMAIN&&['A','AAAA','CNAME'].includes(r.type)&&oldHosts.has(key(r)))){
+    errors.push('APEX_STILL_POINTS_TO_OLD_SQUARESPACE_SITE');
+  }
+  if(right.some(r=>r.name==='www.'+DOMAIN&&['A','AAAA','CNAME'].includes(r.type)&&oldHosts.has(key(r)))){
+    errors.push('WWW_STILL_POINTS_TO_OLD_SQUARESPACE_SITE');
+  }
+  if(right.some(r=>r.name===DOMAIN&&['HTTPS','SVCB'].includes(r.type)&&/198\.(?:185\.159|49\.23)\./.test(r.value))){
+    errors.push('STALE_SQUARESPACE_APEX_HTTPS_HINTS');
+  }
+  // The DNSSEC DS is published at the parent zone, not in a normal DNS export.
+  // The source must attest a fresh parent-DS query. Never infer "no DS" from
+  // the absence of DS in the Squarespace DNS records table.
+  if(source.dnssecParentDsPresent===true)errors.push('PARENT_DNSSEC_DS_ACTIVE');
+  if(source.dnssecParentDsPresent!==true&&source.dnssecParentDsPresent!==false){
+    errors.push('PARENT_DNSSEC_DS_NOT_VERIFIED');
+  }
   const shop=right.filter(r=>r.name==='shop.'+DOMAIN&&['A','AAAA','CNAME'].includes(r.type));
   if(shop.length!==1)errors.push('SHOP_DNS_MUST_HAVE_SINGLE_DESTINATION');
   else{
     if(shop[0].proxied)errors.push('SHOP_DNS_MUST_BE_DNS_ONLY');
     if(shop[0].value.includes(DOMAIN))errors.push('SHOP_DNS_TARGET_MUST_NOT_REDIRECT_TO_APEX');
   }
-  if(left.some(r=>r.name===DOMAIN&&r.type==='DS'))warnings.push('DNSSEC_DS_REQUIRES_REGISTRAR_REVIEW');
+  if(left.some(r=>r.name===DOMAIN&&['HTTPS','SVCB'].includes(r.type)))warnings.push('OLD_APEX_HTTPS_SVCB_INTENTIONALLY_RETIRED');
+  warnings.push('CLOUDFLARE_WORKER_CUSTOM_DOMAIN_AND_ROLLBACK_MUST_BE_VERIFIED');
   warnings.push('CERTIFICATE_MAIL_CHECKOUT_AND_PRIMARY_DOMAIN_REQUIRE_SEPARATE_LIVE_CHECKS');
   return {ready:errors.length===0,errors,warnings,
     recordsCompared:[...sourceKeys.values()].reduce((a,b)=>a+b,0),
@@ -88,7 +110,7 @@ async function main(){
     process.exitCode=2;return;
   }
   let result;
-  try{result=compareSnapshots(JSON.parse(readFileSync(src,'utf8')),JSON.parse(readFileSync(dst,'utf8')));}
+  try{result=compareSnapshots(JSON.parse(readFileSync(src,'utf8').replace(/^\uFEFF/,'')),JSON.parse(readFileSync(dst,'utf8').replace(/^\uFEFF/,'')));}
   catch(e){console.error('NO-GO: DNS exports unavailable or invalid: '+e.message);process.exitCode=2;return;}
   mkdirSync(dirname(out),{recursive:true});
   writeFileSync(out,JSON.stringify({checkedAt:new Date().toISOString(),...result},null,2)+'\n');

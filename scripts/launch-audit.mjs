@@ -14,6 +14,14 @@ const DOMAIN='makhex.com';
 const SHOP='shop.makhex.com';
 const OWNED_WORKER='https://makhex.makhex-labs.workers.dev/';
 
+export function classifyParentDs(answer){
+ if(!answer||answer.Status!==0||!Array.isArray(answer.Question)||
+  !answer.Question.some(q=>Number(q.type)===43&&String(q.name||'').toLowerCase().replace(/\.$/,'')===DOMAIN))
+  return {status:'BLOCKED',detail:'Parent-zone DNSSEC DS lookup unavailable or unverified'};
+ const ds=(Array.isArray(answer.Answer)?answer.Answer:[]).filter(r=>Number(r.type)===43);
+ return ds.length?{status:'BLOCKED',detail:'Active parent DNSSEC DS record detected; update/remove before changing nameservers'}:
+  {status:'PASS',detail:'No parent DNSSEC DS record returned by independent resolver'};
+}
 export function attestationValid(row){
  return Boolean(row&&Number.isFinite(Date.parse(row.verifiedAt||''))&&
   /^https:\/\/github\.com\/polygoku\/makhex\/(?:issues|pull)\/\d+$/.test(row.evidenceIssueUrl||''));
@@ -122,6 +130,12 @@ export async function runAudit(env=process.env){
  const apex=await getResponse('https://'+DOMAIN+'/',DOMAIN);
  const apexResult=classifyHttp(apex.status,apex.body,apex.host,DOMAIN);
  append(checks,'apexLive',apexResult.status,apexResult.status==='BLOCKED'&&apex.error?'Apex not publicly reachable: '+apex.error:apexResult.detail,'live');
+ try{
+  const dsResp=await fetch('https://cloudflare-dns.com/dns-query?name=makhex.com&type=DS',{
+   headers:{Accept:'application/dns-json'},signal:AbortSignal.timeout(12500),cache:'no-store'});
+  const dsResult=classifyParentDs(dsResp.ok?await dsResp.json():null);
+  append(checks,'dnssecParentDelegation',dsResult.status,dsResult.detail,'website');
+ }catch(e){append(checks,'dnssecParentDelegation','BLOCKED','Unable to verify parent DS: '+(e?.cause?.code||e?.message||'network error'),'website')}
  const names=await nameServers();
  const isCF=names.length===2&&names.every(n=>n.endsWith('.ns.cloudflare.com'));
  append(checks,'cloudflareDelegation',isCF?'PASS':'BLOCKED',names.length?'Currently delegated to '+(isCF?'Cloudflare':names.join(', ')):'Unable to verify public nameservers','live');
@@ -138,7 +152,9 @@ export async function runAudit(env=process.env){
      /^https:\/\/github\.com\/polygoku\/makhex\/(?:issues|pull)\/\d+$/.test(a.evidenceIssueUrl);
  }).length;
  append(checks,'qualifiedCheckout',approved>0?'PASS':'BLOCKED',approved>0?approved+' product(s) with recorded checkout qualification':'No supplier-verified Squarespace product with completed fulfillment test; checkout remains disabled','commerce');
- const precutoverIds=['cloudflareAccount','workerOwnership','permanentWorker','githubDeployment','shopPublic','dnsZoneExport','cloudflareZoneRecordCopy','squarespaceShopPrimary','dnsRollbackPlan'];
+ // CI auto-deploy is optional; a verified manual Wrangler deployment may be used.
+ // Never remove the fail-closed flag for GitHub auto-deploy itself.
+ const precutoverIds=['cloudflareAccount','workerOwnership','permanentWorker','shopPublic','dnssecParentDelegation','dnsZoneExport','cloudflareZoneRecordCopy','squarespaceShopPrimary','dnsRollbackPlan'];
  const siteLiveIds=[...precutoverIds,'apexLive','cloudflareDelegation'];
  const commerceIds=['shopPublic','qualifiedCheckout'];
  const audit={
