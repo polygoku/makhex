@@ -8,6 +8,7 @@ MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product r
 - Code-first frontend: implemented in Sprint 01
 - Product research: 12 candidates, NOT listed as verified or orderable
 - 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
+- **Independent real-build reference gallery:** 10 credited builder photographs and links to original source repositories, shown beside candid build-stage and BOM mismatch notes. These are **not MAKHEX-built prototypes** and not proof that the proposed kit has been tested; see [Sprint 09 media provenance](docs/sprint-09-real-build-photography.md).
 - GitHub Discussions: **22 dedicated threads**, one per project or component, and a browsable community directory; optional inline Giscus waits for app approval
 - Squarespace: existing paid Basic site publicly available at `https://shop.makhex.com/` (HTTP 200); seven unrelated demo products Hidden; importing and checkout approval deferred
 - Cloudflare: **production Worker HTTPS 200 verified at `makhex.com` and `www.makhex.com` via Cloudflare edge**, with valid TLS and maker content, after registrar nameserver cutover. Some resolvers/devices may temporarily retain cached old Squarespace addresses. Permanent fallback: [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/). Automatic GitHub deployment remains disabled.
@@ -70,6 +71,7 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Sprint 04 tactile workbench redesign](docs/sprint-04-design.md)
 - [Sprint 05 production integration / launch gates](docs/sprint-05.md)
 - [Sprint 07 shop primary, DNSSEC and pilot sourcing findings](docs/sprint-07.md)
+- [Sprint 09 independent maker photographs and credit audit](docs/sprint-09-real-build-photography.md)
 - [Sprint 08 public shop, DNS migration, Worker triggers and remaining activation check](docs/sprint-08.md)
 - [Signed-in DNS cutover / rollback preflight](docs/dns-cutover-live-rollback.md)
 - [Freenove FNK0104N source and shipping evidence](docs/fnk0104n-vendor-evidence.md)
