@@ -1,11 +1,24 @@
 ---
 import type {Product} from '../data/products';
 import ProductVisual from './ProductVisual.astro';
-import {productUrl} from '../lib/catalog';
+import {productUrl,projects} from '../lib/catalog';
 import {commerceState} from '../lib/commerce';
+import {stageFor,formatUsd} from '../data/catalog-staging';
 interface Props{product:Product}
 const {product}=Astro.props;
+const stage=stageFor(product.slug);
+const checkout=commerceState(product);
+const projectCount=projects.filter(p=>p.materials.some(m=>m.slug===product.slug)).length;
+const startsAt=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
 ---
-<article class="product-card"><a class="product-card-image" href={productUrl(product.slug)} aria-label={'View '+product.title}><ProductVisual product={product}/><span class="product-card-arrow" aria-hidden="true">↗</span></a>
-<div class="product-card-meta"><span>{product.category}</span><span>{commerceState(product).kind==='ready'?'AVAILABLE AT SQUARESPACE':'NOT YET FOR SALE'}</span></div>
-<a href={productUrl(product.slug)} class="product-title-link"><h3>{product.title}</h3></a><p>{product.descriptor}</p></article>
+<article class="product-card product-card-v2">
+<a class="product-card-image" href={productUrl(product.slug)} aria-label={'Explore '+product.title}><ProductVisual product={product}/><span class="product-card-arrow" aria-hidden="true">↗</span></a>
+<div class="product-card-meta"><span>{product.category}</span><span class:list={['product-review-flag',{'product-hold-flag':stage?.technicalGate==='HOLD'}]}>{checkout.kind==='ready'?'READY TO ORDER':stage?.technicalGate==='HOLD'?'HARDWARE HOLD':'SOURCE MATCHED'}</span></div>
+<a href={productUrl(product.slug)} class="product-title-link"><h3>{stage?.supplierModel??product.title}</h3></a>
+<p>{product.descriptor}</p>
+<div class="product-card-footer">
+  <div><small>INDICATIVE PRICE</small><strong>{startsAt!==null?formatUsd(startsAt):'TBD'}</strong>{stage&&stage.variants.length>1&&<small class="product-price-note">FROM · {stage.variants.length} OPTIONS</small>}</div>
+  <div class="product-card-projects"><small>PROJECT USE</small><strong>{projectCount>0?String(projectCount).padStart(2,'0'):'—'}</strong></div>
+</div>
+<div class="product-card-disclaimer">{checkout.kind==='ready'?'Checkout hosted on Squarespace':'Shipping unverified · Not available to order'}</div>
+</article>

@@ -587,3 +587,54 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .supplier-research-panel p{color:#55594f;font-size:14px;margin:0}
 .supplier-research-panel a{color:#b65837;font-size:14px;font-weight:750;width:fit-content;text-decoration:underline;text-underline-offset:3px}
 .supplier-research-panel small{font-size:12px;color:#7a7366}
+
+/* Sprint 16: source-matched MAKHEX catalog (illustrations, not supplier photographs). */
+.product-visual .hardware-illustration{position:relative;z-index:1;width:100%;max-width:520px;height:88%;overflow:visible;display:block;filter:drop-shadow(0 12px 12px #273c3552)}
+.product-visual.visual-large .hardware-illustration{height:91%;max-width:680px}
+.product-card-v2{height:100%;display:flex;flex-direction:column}
+.product-card-v2 .product-title-link h3{line-height:1.18;letter-spacing:-.025em;margin-bottom:7px;overflow-wrap:anywhere}
+.product-card-v2 .product-card-meta{align-items:center;min-height:16px}
+.product-review-flag{color:#a75b32!important;font:700 9px/1.25 var(--mono)!important;letter-spacing:0}
+.product-hold-flag{color:#934034!important}
+.product-card-v2>p{min-height:39px;line-height:1.47}
+.product-card-footer{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;border-top:1px dashed #daccb9;margin:13px 4px 0;padding:11px 0 5px}
+.product-card-footer>div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.product-card-footer small{color:#827968;font:600 9px/1.5 var(--mono);letter-spacing:.015em}
+.product-card-footer strong{font:800 22px/1.1 var(--display);color:#32463a;letter-spacing:-.035em}
+.product-card-footer .product-price-note{font:500 9px var(--mono);color:#92765a}
+.product-card-footer .product-card-projects{text-align:right;align-items:flex-end}
+.product-card-footer .product-card-projects strong{font-size:19px;color:#bb603b}
+.product-card-disclaimer{color:#8d7869;font:500 10px/1.45 var(--display);margin:7px 4px 0}
+.maker-catalog-hero h1{font-size:clamp(45px,6.8vw,87px);line-height:.99}
+.catalog-readiness-bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px;border:1px solid #d5c6b3;border-radius:14px;padding:21px 23px;margin:0 0 30px;background:#fffaf3}
+.catalog-readiness-bar>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.catalog-readiness-bar>div strong{font:800 34px/1 var(--display);color:#b85731}
+.catalog-readiness-bar>div span{font:650 12px/1.5 var(--display);color:#5c6459}
+.catalog-readiness-bar>p{grid-column:1/-1;border-top:1px solid #e0d5c6;padding-top:10px;margin:0;color:#786e60;font-size:12px;line-height:1.6}
+.component-main-visual{min-width:0}
+.component-view-note{margin:21px 0 0;background:#fff8ec;border:1px solid #ded0ba;border-radius:11px;padding:15px 19px}
+.component-view-note strong{color:#3a5948;font-size:13px}
+.component-view-note p{color:#756b5d;font-size:12px;margin:5px 0 0;line-height:1.6}
+.detail-status-hold{border-color:#cf978d;background:#fff0ea;color:#9c4938}
+.variant-planning{border:1px solid #ccbeaa;background:#fffcf5;padding:18px 19px;border-radius:13px;margin:21px 0;box-shadow:0 3px 0 #ded1c0}
+.variant-planning-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.variant-planning-head .eyebrow{margin:0}
+.variant-planning-head>strong{color:#324d3d;font:800 26px/1.15 var(--display);white-space:nowrap}
+.variant-plan-line{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 0;border-bottom:1px dashed #d5c9b9}
+.variant-plan-line>span{color:#3d4940;font-size:13px;line-height:1.5}
+.variant-plan-line>strong{color:#b15a34;font:800 16px var(--display);white-space:nowrap}
+.variant-planning>p{color:#7a6f61;font:500 11px/1.7 var(--display);margin:11px 0 0}
+.variant-planning>p strong{color:#8f4c32}
+.bom-line-estimate{display:block;margin-top:6px;color:#ad5b35;font:650 11px/1.5 var(--display)}
+.project-price-planner{background:#fffaf3;border:1px solid #d7c7b3;border-radius:12px;padding:17px 19px;margin-top:20px}
+.project-price-planner>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.project-price-planner .eyebrow{margin:0}
+.project-price-planner>div:first-child>strong{font:800 28px/1.1 var(--display);color:#3b5c49}
+.project-price-planner>p{font:500 12px/1.7 var(--display);color:#777063;margin:13px 0 0}
+.project-bom-gaps{margin-top:14px;border-top:1px solid #dacfc1;padding-top:14px}
+.project-bom-gaps>strong{font:750 13px/1.5 var(--display);color:#9b4f35}
+.project-bom-gaps ul{margin:7px 0 0 18px;padding:0}
+.project-bom-gaps li{font:500 12px/1.65 var(--display);color:#6f665b}
+@media(max-width:890px){.product-card-footer strong{font-size:20px}.catalog-readiness-bar{gap:12px;padding:17px}.catalog-readiness-bar>div strong{font-size:27px}}
+@media(max-width:700px){.maker-catalog-hero h1{font-size:clamp(45px,9vw,65px)}.product-card-v2>p{min-height:0}.product-card-footer strong{font-size:19px}.product-card-footer small{font-size:8px}.product-visual .hardware-illustration{height:83%}.catalog-readiness-bar{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.catalog-readiness-bar>div strong{font-size:24px}.catalog-readiness-bar>div span{font-size:10px}.catalog-readiness-bar>p{font-size:11px}.variant-planning{padding:15px}.variant-planning-head>strong{font-size:22px}.project-price-planner>div:first-child>strong{font-size:23px}}
+@media(max-width:430px){.product-card-footer{flex-wrap:wrap}.product-card-footer .product-card-projects{margin-left:auto}.product-card-footer strong{font-size:17px}.product-card-v2 .product-title-link h3{font-size:15px}.product-review-flag{font-size:7.5px!important}.product-card-meta span:first-child{font-size:9px}}

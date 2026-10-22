@@ -2,14 +2,76 @@
 import type {Product} from '../data/products';
 interface Props{product:Product;large?:boolean}
 const {product,large=false}=Astro.props;
+const pins=Array.from({length:10},(_,i)=>i);
+const pixels=Array.from({length:64},(_,i)=>({x:i%8,y:Math.floor(i/8)}));
+const isCamera=product.slug==='esp32-s3-camera';
+const isCompact=product.slug==='esp32-c3-supermini';
+const isPaper=product.slug==='epaper-29';
+const isMicrophone=product.slug==='i2s-mems-mic';
+const isGas=product.slug==='sgp40-voc';
 ---
-<div class:list={['product-visual','visual-'+product.visual,{'visual-large':large}]} role="img" aria-label={'Concept illustration for '+product.title+'; not an actual verified product photo'}>
-<div class="visual-grid" aria-hidden="true"></div><span class="visual-index" aria-hidden="true">MX / {product.category.toUpperCase()}</span>
-{product.visual==='chip'&&<div class="board-art" aria-hidden="true"><div class="pin-side left">{Array.from({length:8}).map(()=> <i></i>)}</div><div class="board-inner"><div class="board-port"></div><div class="chip-unit">ESP<span>®</span><small>{product.chip}</small></div><div class="board-led"></div></div><div class="pin-side right">{Array.from({length:8}).map(()=> <i></i>)}</div></div>}
-{product.visual==='screen'&&<div class="screen-art" aria-hidden="true"><div class="screen-top"><span>STATUS / ONLINE</span><b>●</b></div><div class="screen-main"><div class="screen-symbol">⌁</div><strong>{product.chip==='E-PAPER'?'12:45':'24.6°'}</strong><small>{product.chip==='E-PAPER'?'WED / OCT 21':'SYSTEM NOMINAL'}</small></div><div class="screen-bottom"><span></span><span></span><span></span><span></span></div></div>}
-{product.visual==='sensor'&&<div class="sensor-art" aria-hidden="true"><div class="sensor-core">{product.chip}</div><i class="sensor-hole h1"></i><i class="sensor-hole h2"></i><i class="sensor-hole h3"></i><i class="sensor-hole h4"></i></div>}
-{product.visual==='audio'&&<div class="audio-art" aria-hidden="true"><div class="audio-rings"><span></span><span></span><span></span><b>●</b></div></div>}
-{product.visual==='light'&&<div class="light-art" aria-hidden="true">{Array.from({length:6}).map((_,i)=><span class={'led led-'+i}></span>)}</div>}
-{product.visual==='power'&&<div class="power-art" aria-hidden="true"><div class="power-block">USB-C<span>5V ⟶ 3V3</span></div></div>}
-<div class="visual-bottom" aria-hidden="true"><span>ILLUSTRATIVE RENDER</span><span>CONCEPT / MX</span></div>
+<div class:list={['product-visual','visual-'+product.visual,{'visual-large':large}]} role="img" aria-label={'Original illustrative hardware diagram of '+product.title+'. Exact supplier product photograph not yet approved.'}>
+  <div class="visual-grid" aria-hidden="true"></div>
+  <span class="visual-index" aria-hidden="true">MX / {product.category.toUpperCase()}</span>
+  <svg class="hardware-illustration" viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    {product.visual==='chip'&&
+      <g transform={isCompact?'rotate(-12 320 220)':'rotate(-11 320 220)'}>
+        <rect x={isCompact?236:190} y="56" width={isCompact?170:260} height="324" rx="16" fill="#1c4d43" stroke="#284135" stroke-width="13"/>
+        <rect x={isCompact?243:198} y="64" width={isCompact?156:244} height="308" rx="8" fill="none" stroke="#80b6a1" stroke-width="2" opacity=".65"/>
+        {pins.map(i=><g><rect x={isCompact?221:173} y={80+i*27} width="21" height="17" rx="3" fill="#d9b573"/><rect x={isCompact?405:446} y={80+i*27} width="21" height="17" rx="3" fill="#d9b573"/></g>)}
+        <path d="M258 113H384M258 133H384M260 317H383" fill="none" stroke="#5a987d" stroke-width="3" opacity=".7"/>
+        <rect x={isCompact?252:232} y="121" width={isCompact?138:175} height={isCompact?123:154} rx="10" fill={isCamera?'#132925':'#26352e'} stroke="#83bba4" stroke-width="4"/>
+        {isCamera? <g><circle cx="320" cy="185" r="62" fill="#161c21" stroke="#bac7bf" stroke-width="9"/><circle cx="320" cy="185" r="39" fill="#122c38" stroke="#3c6275" stroke-width="10"/><circle cx="320" cy="185" r="17" fill="#09202f" stroke="#447286" stroke-width="5"/><circle cx="309" cy="173" r="9" fill="#9dc9d1" opacity=".8"/></g>:
+        <g><path d="M256 149h113v77H256z" fill="#303a37" stroke="#56695f" stroke-width="3"/><path d="M264 153l20 9 22-8 19 7 31-8" fill="none" stroke="#b4bcb1" opacity=".7" stroke-width="3"/><text x="320" y="185" text-anchor="middle" fill="#dae8d2" font-size={isCompact?"24":"29"} font-family="Arial,sans-serif" font-weight="700">ESP32</text><text x="320" y="210" text-anchor="middle" fill="#87bc9e" font-size="18" font-family="monospace">{isCompact?'C3 MINI':product.slug==='esp32-c6-devkit'?'C6 · N8':'S3 · N8R8'}</text></g>}
+        <rect x="287" y={isCompact?322:335} width="66" height="24" rx="5" fill="#c0c6c1" stroke="#586b68" stroke-width="3"/>
+        <rect x="304" y={isCompact?330:342} width="33" height="10" rx="3" fill="#344e56"/>
+        <rect x={isCompact?260:211} y="277" width="34" height="22" rx="4" fill="#22342e" stroke="#aac9ab" stroke-width="2"/>
+        <circle cx={isCompact?373:417} cy="290" r="8" fill="#fcb846"/>
+        <path d="M260 105h110M260 306h105" stroke="#9bc5ad" stroke-width="1.5" stroke-dasharray="4 9" opacity=".8"/>
+      </g>}
+    {product.visual==='screen'&&<g transform="rotate(-8 320 225)">
+      <rect x="157" y="47" width="326" height="331" rx="15" fill="#22302a" stroke="#404c40" stroke-width="12"/>
+      <rect x="177" y="70" width="286" height="274" rx="5" fill={isPaper?'#f4eedb':'#102f2a'}/>
+      {isPaper?
+        <g fill="#26392f"><text x="195" y="112" font-size="15" font-family="monospace">OCTOBER / DESK</text><path d="M196 127H440" stroke="#405148" stroke-width="2"/><text x="320" y="209" font-size="92" text-anchor="middle" font-weight="700" font-family="Arial">22</text><text x="320" y="243" text-anchor="middle" font-size="20" font-family="monospace">THURSDAY</text><path d="M198 261H441" stroke="#405148"/><text x="202" y="296" font-size="15" font-family="monospace">LOW POWER / E-INK</text></g>:
+        <g><text x="201" y="111" font-size="14" fill="#9eccb5" font-family="monospace">WIFI ● TOUCH DASHBOARD</text><path d="M201 228 Q243 173 275 195 T349 162 T439 142" fill="none" stroke="#ee8050" stroke-width="7"/><path d="M201 231 Q243 180 275 203 T349 173 T439 152V313H201Z" fill="#204c44" opacity=".7"/><text x="213" y="281" font-size="59" fill="#f6bf7a" font-weight="700" font-family="Arial">24.6°</text><text x="214" y="312" font-size="15" fill="#b2d4c6" font-family="monospace">STATUS / SENSOR READY</text></g>}
+      <circle cx="320" cy="359" r="8" fill="#cfac69"/>
+    </g>}
+    {product.visual==='sensor'&&<g transform="rotate(-12 320 220)">
+      <rect x="190" y="94" width="260" height="255" rx="11" fill={isGas?'#624e61':'#2b694b'} stroke={isGas?'#b99dae':'#91bf7a'} stroke-width="10"/>
+      {[[209,112],[430,112],[209,330],[430,330]].map(([x,y])=><circle cx={x} cy={y} r="13" fill="#202d28" stroke="#c6bb8a" stroke-width="4"/>)}
+      <path d="M233 154L400 154M240 286L395 286M245 300L245 326M384 182V320" stroke="#91c6a6" stroke-width="4" fill="none" opacity=".5"/>
+      <rect x="246" y="177" width="148" height="112" rx="9" fill="#d3d3c6" stroke="#747e77" stroke-width="7"/>
+      {isGas?<g><rect x="260" y="191" width="120" height="83" rx="3" fill="#b6b6ab"/>{Array.from({length:5},(_,i)=><path d={'M'+(273+i*20)+' 199v68'} stroke="#73786f" stroke-width="6"/>)}</g>:
+       <g><rect x="260" y="192" width="120" height="83" rx="2" fill="#b0b9b3"/><rect x="272" y="204" width="96" height="60" rx="2" fill="#7e8c87"/><text x="320" y="243" font-size="20" text-anchor="middle" font-family="monospace" font-weight="700" fill="#f4f3e7">BME280</text></g>}
+      <text x="320" y="315" text-anchor="middle" font-size="20" fill="#e5f4df" font-family="monospace">{product.chip}</text>
+    </g>}
+    {product.visual==='audio'&&<g transform="rotate(-13 320 220)">
+      <rect x="183" y="93" width="274" height="262" rx="12" fill={isMicrophone?'#193d42':'#4a426a'} stroke={isMicrophone?'#65a3a4':'#a997d0'} stroke-width="11"/>
+      {pins.slice(0,6).map(i=><g><rect x="173" y={125+i*32} width="20" height="16" rx="3" fill="#d5b675"/><rect x="447" y={125+i*32} width="20" height="16" rx="3" fill="#d5b675"/></g>)}
+      {isMicrophone?
+       <g><circle cx="320" cy="214" r="91" fill="#c9cfc5" stroke="#81968b" stroke-width="10"/><circle cx="320" cy="214" r="69" fill="#909e99"/>{Array.from({length:48},(_,i)=><circle cx={320+52*Math.cos(i*Math.PI*2/48)} cy={214+52*Math.sin(i*Math.PI*2/48)} r="2.2" fill="#525f5b"/>)}<circle cx="320" cy="214" r="16" fill="#343c39"/><text x="320" y="331" font-family="monospace" font-size="19" text-anchor="middle" fill="#cbe2d6">INMP441 / I²S</text></g>:
+       <g><rect x="248" y="143" width="143" height="138" rx="13" fill="#252634" stroke="#c6b8dc" stroke-width="8"/>{Array.from({length:8},(_,i)=><path d={'M256 '+(165+i*13)+'H382'} stroke="#665d84" stroke-width="2"/>)}<text x="320" y="207" font-family="monospace" font-size="17" text-anchor="middle" fill="#ede5ef">MAX</text><text x="320" y="235" font-family="monospace" font-size="24" font-weight="700" text-anchor="middle" fill="#ede5ef">98357A</text><rect x="213" y="304" width="210" height="24" rx="7" fill="#318c72" stroke="#b4e1cb" stroke-width="4"/></g>}
+    </g>}
+    {product.visual==='light'&&<g transform="rotate(-10 320 220)">
+      <rect x="137" y="54" width="302" height="322" rx="15" fill="#24292d" stroke="#444d4b" stroke-width="12"/>
+      {pixels.map(pixel=><g>
+        <rect x={156+pixel.x*34.6} y={76+pixel.y*34.5} width="28" height="28" rx="5" fill="#e9e1c8" stroke="#abb0aa" stroke-width="2"/>
+        <circle cx={170+pixel.x*34.6} cy={90+pixel.y*34.5} r="8" fill={['#fa7a49','#e3c965','#75ada0','#d7a1b6'][Math.floor((pixel.x+pixel.y)/2)%4]}/>
+      </g>)}
+      <circle cx="501" cy="212" r="92" fill="#333634" stroke="#c2b7a0" stroke-width="12"/>
+      {Array.from({length:8},(_,i)=><g><circle cx={501+68*Math.cos(i*Math.PI/4)} cy={212+68*Math.sin(i*Math.PI/4)} r="22" fill="#f4eee1"/><circle cx={501+68*Math.cos(i*Math.PI/4)} cy={212+68*Math.sin(i*Math.PI/4)} r="13" fill={['#e89057','#9ec9a9','#c7a3c9','#d2c36e'][i%4]}/></g>)}
+      <circle cx="501" cy="212" r="31" fill="#222d2b" stroke="#c9a670" stroke-width="5"/>
+    </g>}
+    {product.visual==='power'&&<g transform="rotate(-10 320 220)">
+      <rect x="135" y="117" width="380" height="232" rx="18" fill="#f2eee3" stroke="#999d8f" stroke-width="9"/>
+      {Array.from({length:14},(_,i)=>Array.from({length:7},(_,j)=><circle cx={157+i*26} cy={154+j*26} r="4.3" fill="#9a9e96"/>))}
+      <rect x="196" y="80" width="250" height="52" rx="9" fill="#285d4d" stroke="#88b39d" stroke-width="6"/>
+      <rect x="306" y="69" width="49" height="22" rx="4" fill="#b8bec0" stroke="#42565b" stroke-width="4"/>
+      <rect x="214" y="94" width="51" height="23" rx="4" fill="#1e3430"/><text x="270" y="110" font-size="16" fill="#e4ebd5" font-family="monospace">USB-C</text>
+      <path d="M241 135Q166 202 163 268M398 136Q473 187 491 304" stroke="#e17c4b" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M287 134Q291 221 268 308" stroke="#3b7052" stroke-width="8" stroke-linecap="round" fill="none"/>
+    </g>}
+  </svg>
+  <div class="visual-bottom" aria-hidden="true"><span>ORIGINAL TECHNICAL ILLUSTRATION</span><span>NOT AN ITEM PHOTO</span></div>
 </div>
