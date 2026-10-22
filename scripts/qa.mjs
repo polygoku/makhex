@@ -43,7 +43,7 @@ for(const [tag,href] of [['pin-one','/shop/esp32-s3-devkit/'],['pin-two','/shop/
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
- expect(html.includes('CHECKOUT COMING SOON'),'Product incorrectly shows live checkout: '+f);
+ expect(html.includes('Coming soon'),'Product incorrectly shows live checkout: '+f); expect(!/aliexpress/i.test(html),'Supplier link exposed on product: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
 
@@ -63,7 +63,7 @@ for(const project of projects){
  }
  const bom=path.join(out,'projects',slug+'.csv');
  expect(fs.existsSync(bom),'Missing BOM CSV: '+slug);
- if(fs.existsSync(bom))expect(fs.readFileSync(bom,'utf8').includes('RESEARCH ONLY'),'Research BOM disclaimer missing: '+slug);
+ if(fs.existsSync(bom))expect(fs.readFileSync(bom,'utf8').includes('Unit price USD'),'BOM pricing missing: '+slug);
 }
 const communityHTML=fs.readFileSync(path.join(out,'community','index.html'),'utf8');
 for(const project of projects)expect(communityHTML.includes('/projects/'+project.slug+'/#discussion'),'Directory missing local forum: '+project.slug);

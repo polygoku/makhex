@@ -2,31 +2,26 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import {products} from '../../lib/catalog';
-import {catalogSnapshotDate} from '../../data/catalog-staging';
 const cats=['All',...new Set(products.map(p=>p.category))];
 ---
-<BaseLayout title="ESP32 Boards, Displays & Maker Components | MAKHEX" description="Explore 12 AliExpress-matched maker components, selected model variants, indicative pricing and the MAKHEX builds that use them. Checkout remains disabled pending supplier verification.">
-<section class="page-hero container maker-catalog-hero">
-  <span class="eyebrow">THE PARTS DRAWER / SOURCE-MATCHED HARDWARE</span>
-  <h1>Build something.<br/><em>Know every part.</em></h1>
-  <div class="page-hero-bottom">
-    <p>Explore the components behind our maker projects. Every item has a selected supplier option, project compatibility and an honest technical-review status.</p>
-    <span class="page-count">12 COMPONENT TYPES / 13 SUPPLIER VARIANTS</span>
-  </div>
-</section>
-<section class="container catalog-section">
-  <div class="catalog-readiness-bar" aria-label="Catalog availability">
-    <div><strong>12</strong><span>Matched component types</span></div>
-    <div><strong>10</strong><span>MAKHEX build projects</span></div>
-    <div><strong>0</strong><span>Released for checkout</span></div>
-    <p>Prices are planning estimates from the {catalogSnapshotDate} Squarespace staging snapshot. U.S. shipping, supplier orderability and fulfillment are not verified.</p>
-  </div>
-  <div class="catalog-toolbar">
-    <div class="filters" aria-label="Filter component categories">{cats.map((cat,i)=><button type="button" class:list={['filter-button',{selected:i===0}]} data-category-filter={cat} aria-pressed={i===0}>{cat}</button>)}</div>
-    <div class="toolbar-note">Research catalog · shipping under review</div>
-  </div>
-  <div class="product-grid catalog-grid" id="catalog-grid">{products.map(p=><div data-category={p.category}><ProductCard product={p}/></div>)}</div>
-  <aside class="disclosure-box"><span class="eyebrow">BEFORE YOU BUY</span><h2>Real source matches. No unverified promises.</h2><p>These 12 component types have matching AliExpress item references and are staged in the MAKHEX Squarespace shop as hidden, zero-inventory records. We do not take orders until exact parts, delivery pricing, returns and fulfillment have been tested. Product visuals are original technical illustrations, not seller photos or evidence of delivered hardware.</p><a class="text-link" href="/sourcing.json">VIEW MACHINE-READABLE SOURCING MAP ↗</a></aside>
-</section>
-<script is:inline src="/scripts/filter-components.js"></script>
+<BaseLayout title="ESP32 Boards, Displays & Maker Components | MAKHEX" description="Shop maker components for MAKHEX ESP32 projects. Free U.S. shipping. Browse boards, sensors, displays and building parts.">
+  <section class="page-hero container maker-catalog-hero minimal-catalog-hero">
+    <h1>Components.</h1>
+
+  </section>
+  <section class="container catalog-section">
+    <div class="minimal-catalog-banner">
+      <span>Free U.S. shipping</span>
+      <span>Checkout coming soon</span>
+    </div>
+    <div class="catalog-toolbar">
+      <div class="filters" aria-label="Filter component categories">
+        {cats.map((cat,i)=><button type="button" class:list={['filter-button',{selected:i===0}]} data-category-filter={cat} aria-pressed={i===0}>{cat}</button>)}
+      </div>
+    </div>
+    <div class="product-grid catalog-grid" id="catalog-grid">
+      {products.map(p=><div data-category={p.category}><ProductCard product={p}/></div>)}
+    </div>
+  </section>
+  <script is:inline src="/scripts/filter-components.js"></script>
 </BaseLayout>

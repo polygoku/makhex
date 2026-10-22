@@ -18,7 +18,7 @@ const checks=[
   {path:'/projects/',contains:'id="projects-grid"'},
   {path:'/shop/',contains:'id="catalog-grid"'},
   {path:'/community/',contains:'id="thread-heading"'},
-  {path:'/shop/esp32-s3-devkit/',contains:'CHECKOUT COMING SOON'},
+  {path:'/shop/esp32-s3-devkit/',contains:'Coming soon'},
   {path:'/projects/touch-weather-station/',contains:'DOWNLOAD BOM CSV'},
   {path:'/projects/touch-weather-station.csv',contains:'RESEARCH ONLY'},
   {path:'/robots.txt',contains:'makhex.com/sitemap-index.xml'},

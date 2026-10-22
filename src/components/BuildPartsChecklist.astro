@@ -9,7 +9,7 @@ const {project}=Astro.props;
     <div><span class="eyebrow">YOUR WORKBENCH / LOCAL CHECKLIST</span><h3>Gather your parts.</h3></div>
     <span class="workbench-checklist-stamp" aria-hidden="true">BOM / {project.number}</span>
   </div>
-  <p class="workbench-checklist-intro">Tick parts you already have on hand. Your progress stays in this browser—no account needed.</p>
+  <p class="workbench-checklist-intro">Tick parts you already have.</p>
   <ul class="workbench-part-list">
     {project.materials.map((m) => {
       const part=productBySlug(m.slug);
@@ -25,6 +25,6 @@ const {project}=Astro.props;
     <p data-checklist-progress role="status" aria-live="polite">0 of {project.materials.length} part types checked</p>
     <button type="button" data-checklist-reset disabled>Clear checks</button>
   </div>
-  <p class="workbench-checklist-disclaimer"><span aria-hidden="true">ⓘ</span> These are research-stage component candidates, not a verified kit. Checking a part does not establish electrical compatibility, supplier stock, or purchase eligibility.</p>
+
 </section>
 <script is:inline src="/scripts/build-parts-checklist.js"></script>
