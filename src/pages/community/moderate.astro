@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Community Moderation | MAKHEX" description="Authorized community moderator console." noindex={true}>
+<section class="page-hero container"><span class="eyebrow">PRIVATE MODERATOR CONSOLE</span><h1>Community<br/><em>review.</em></h1>
+<div class="page-hero-bottom"><p>Approve or reject queued contributions. Never share your moderator token. This page does not persist credentials.</p></div></section>
+<section class="container moderator-grid">
+  <form id="moderator-login" class="moderator-credentials">
+    <label for="moderator-token">Moderator token</label>
+    <input id="moderator-token" type="password" autocomplete="off" placeholder="Paste moderator token" required/>
+    <button class="btn btn-primary" type="submit">LOAD QUEUE →</button>
+  </form>
+  <p id="moderator-state" role="status" aria-live="polite">Credentials are kept in this tab's memory only.</p>
+  <div id="moderator-pending"></div>
+</section>
+<script src="/scripts/community-moderation.js" defer is:inline></script>
+</BaseLayout>

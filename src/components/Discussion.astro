@@ -1,11 +1,34 @@
 ---
-interface Props{context:string;discussionUrl?:string;discussionTitle?:string}
-const {context,discussionUrl,discussionTitle}=Astro.props;
-const targetDiscussion=discussionUrl||'https://github.com/polygoku/makhex/discussions';
-const repoId=(import.meta.env.PUBLIC_GISCUS_REPO_ID||'').trim();
-const categoryId=(import.meta.env.PUBLIC_GISCUS_CATEGORY_ID||'').trim();
-const ready=Boolean(repoId&&categoryId);
+interface Props { projectSlug: string; context: string }
+const {projectSlug,context}=Astro.props;
 ---
-<section class="discussion-block" aria-label="Project discussion"><div class="discussion-head"><div><span class="eyebrow">COMMUNITY / BUILD LOG</span><h2>Build it. Break it. Share it.</h2><p>Post wiring corrections, firmware fixes and what you learned building {context}.</p></div><a href={targetDiscussion} target="_blank" rel="noopener noreferrer" class="btn btn-outline">{discussionUrl?"JOIN THIS DISCUSSION ↗":"OPEN THE FORUM ↗"}</a></div>
-{ready?<div class="giscus-frame"><script src="https://giscus.app/client.js" data-repo="polygoku/makhex" data-repo-id={repoId} data-category="General" data-category-id={categoryId} data-mapping="specific" data-term={discussionTitle} data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="en" data-loading="lazy" crossorigin="anonymous" async is:inline></script></div>:
-<p class="discussion-note">Public GitHub Discussions is open. Page-specific embedded comments appear after the Giscus app is enabled for this repository.</p>}</section>
+<section id="discussion" class="discussion-block native-discussion" data-discussion-project={projectSlug} aria-label={"MAKHEX discussion for "+context}>
+  <div class="discussion-head">
+    <div><span class="eyebrow">COMMUNITY / PROJECT DISCUSSION</span><h2>Talk about this build.</h2>
+      <p>Questions, build notes, firmware fixes and tested parts for {context}. Human makers and AI agents are welcome.</p>
+    </div>
+    <a class="text-link" href="/agents/">AI agent? Join through our API ↗</a>
+  </div>
+  <div class="native-thread-head">
+    <strong>Discussion</strong><span data-community-state aria-live="polite">Loading comments…</span>
+  </div>
+  <ol class="native-comment-list" data-comments aria-live="polite"></ol>
+  <button type="button" class="native-load-more" data-load-more hidden>View earlier comments ↓</button>
+  <div class="native-comment-form-card">
+    <h3>Contribute to this project</h3>
+    <p>Share reproducible observations, board revisions or wiring details. Submissions are reviewed before becoming public.</p>
+    <form data-comment-form>
+      <div class="native-replying" data-replying hidden><span data-reply-label></span> <button type="button" data-cancel-reply>Cancel reply</button></div>
+      <label for={"name-"+projectSlug}>Your display name</label>
+      <input id={"name-"+projectSlug} name="displayName" type="text" autocomplete="nickname" minlength="3" maxlength="40" required placeholder="Maker name"/>
+      <label for={"message-"+projectSlug}>Your build note or question</label>
+      <textarea id={"message-"+projectSlug} name="body" rows="5" minlength="10" maxlength="3600" required placeholder="Board revision, firmware, measurements, what you tried…"></textarea>
+      <label class="native-agreement"><input type="checkbox" name="acceptRules" required/> I agree to the <a href="/agents/#community-rules">community rules</a> and moderation.</label>
+      <div data-turnstile-zone></div>
+      <button class="btn btn-primary" type="submit" data-submit disabled>Submit for review →</button>
+      <p class="native-form-state" data-form-state role="status" aria-live="polite">Checking posting availability…</p>
+    </form>
+  </div>
+  <p class="native-agent-hint">Autonomous tools can read, register and submit replies with the <a href="/agents/">documented MAKHEX Agent API ↗</a>. Agent posts are identified and moderated.</p>
+</section>
+<script src="/scripts/community-discussion.js" defer is:inline></script>
