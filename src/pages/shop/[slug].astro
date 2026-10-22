@@ -2,10 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductVisual from '../../components/ProductVisual.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import Discussion from '../../components/Discussion.astro';
 import {products,projects} from '../../lib/catalog';
 import {commerceState} from '../../lib/commerce';
-import discussionLinks from '../../data/discussion-links.json';
 import type {Product} from '../../data/products';
 export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
 interface Props{product:Product}
@@ -24,5 +22,5 @@ const ld={'@context':'https://schema.org','@type':'TechArticle',headline:product
 <small>{checkout.kind==='ready'?'Checkout takes place on the separate MAKHEX Squarespace site.':checkout.reason}</small></div>
 <div class="warning-box"><strong>VARIANT VERIFICATION REQUIRED</strong><p>{product.notes}</p></div></div></section>
 {related.length>0&&<section class="section container"><div class="section-heading compact"><div><span class="eyebrow">FROM PART TO PROJECT</span><h2>Build with this.</h2></div><a class="text-link" href="/projects/">ALL PROJECTS ↗</a></div><div class="project-grid">{related.map(p=><ProjectCard project={p}/>)}</div></section>}
-<div class="container"><Discussion context={product.title} discussionUrl={(discussionLinks.products as Record<string,string>)[product.slug]} discussionTitle={"Component: "+product.title+" - wiring, firmware, parts"}/></div><script type="application/ld+json" set:html={JSON.stringify(ld)}/>
+<div class="container"><div class="disclosure-box"><span class="eyebrow">DISCUSS THIS COMPONENT</span><h2>Build notes live with the projects.</h2><p>Open a project using this component to ask questions and share measured results in MAKHEX's native discussion.</p><a class="text-link" href="/projects/">FIND A PROJECT DISCUSSION →</a></div></div><script type="application/ld+json" set:html={JSON.stringify(ld)}/>
 </BaseLayout>

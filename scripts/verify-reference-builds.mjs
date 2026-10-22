@@ -22,9 +22,9 @@ for(const row of rows){
  const generated=path.join(root,'dist','projects',key,'index.html');
  if(fs.existsSync(generated)){
   const html=fs.readFileSync(generated,'utf8');
-  for(const term of ['/reference-builds/'+key+'.webp','INDEPENDENT BUILD PHOTO','OPEN ORIGINAL BUILD','NOT A MAKHEX BUILD',row.referenceTitle]){
+  for(const term of ['/reference-builds/'+key+'.webp','Photo credit:',row.builder]){
    assert(html.includes(term),'Generated page missing '+term+' for '+key);
   }
  }
 }
-console.log('PASS: 10 source-owned reference images, license notices, source links, build-stage and mismatch disclosures');
+console.log('PASS: 10 independently sourced images, original creator credits, source/license records retained without extra UI panels');

@@ -46,23 +46,33 @@ for(const f of candidates){
  expect(html.includes('CHECKOUT COMING SOON'),'Product incorrectly shows live checkout: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
-const discussionLinks=JSON.parse(fs.readFileSync('src/data/discussion-links.json','utf8'));
-expect(Object.keys(discussionLinks.products).length===12,'Expected 12 component discussions');
-expect(Object.keys(discussionLinks.projects).length===10,'Expected 10 project discussions');
+
+// Native MAKHEX project discussions replace external GitHub discussions.
 let mapped=0;
-for(const [type,records] of [['shop',discussionLinks.products],['projects',discussionLinks.projects]]){
- for(const [slug,url] of Object.entries(records)){
-  const file=path.join(out,type,slug,'index.html');
-  expect(/^https:\/\/github\.com\/polygoku\/makhex\/discussions\/\d+$/.test(url),'Invalid discussion URL for '+slug);
-  expect(fs.existsSync(file),'Missing target page for discussion '+slug);
-  if(fs.existsSync(file)){
-   const html=fs.readFileSync(file,'utf8');
-   expect(html.includes('href="'+url+'"'),'Discussion thread not linked on '+type+'/'+slug);
-   mapped++;
-  }
+for(const project of projects){
+ const slug=project.slug, f=path.join(out,'projects',slug,'index.html');
+ expect(fs.existsSync(f),'Project forum missing: '+slug);
+ if(fs.existsSync(f)){
+  const html=fs.readFileSync(f,'utf8');
+  expect(html.includes('data-discussion-project="'+slug+'"'),'Embedded native forum missing: '+slug);
+  expect(html.includes('href="#discussion"'),'Jump to forum missing: '+slug);
+  expect(html.includes('src="/scripts/community-discussion.js"'),'Forum script missing: '+slug);
+  for(const label of ['Repository license:','Build stage:','OPEN ORIGINAL BUILD + FIRMWARE','Photo source &amp;','Photo optimized for this reference gallery'])
+   expect(!html.includes(label),'Verbose photo attribution leaked: '+slug+' '+label);
+  mapped++;
  }
+ const bom=path.join(out,'projects',slug+'.csv');
+ expect(fs.existsSync(bom),'Missing BOM CSV: '+slug);
+ if(fs.existsSync(bom))expect(fs.readFileSync(bom,'utf8').includes('RESEARCH ONLY'),'Research BOM disclaimer missing: '+slug);
 }
-for(const slug of Object.keys(discussionLinks.projects)){const file=path.join(out,'projects',slug+'.csv');expect(fs.existsSync(file),'Missing BOM CSV: '+slug);if(fs.existsSync(file)){const csv=fs.readFileSync(file,'utf8');expect(csv.includes('RESEARCH ONLY'),'Unqualified BOM missing sourcing disclaimer: '+slug);}}
+const communityHTML=fs.readFileSync(path.join(out,'community','index.html'),'utf8');
+for(const project of projects)expect(communityHTML.includes('/projects/'+project.slug+'/#discussion'),'Directory missing local forum: '+project.slug);
+expect(!communityHTML.includes('OPEN GITHUB DISCUSSIONS'),'Legacy GitHub forum CTA still visible');
+for(const f of ['agents/index.html','openapi.json','.well-known/makhex-community.json','llms.txt'])expect(fs.existsSync(path.join(out,f)),'Missing agent resource '+f);
+const workerSource=fs.readFileSync(path.resolve('worker/community.mjs'),'utf8');
+for(const project of projects)expect(workerSource.includes('"'+project.slug+'"'),'Worker missing native project slug '+project.slug);
+const sitemaps=walk(out).filter(f=>/sitemap-[0-9]+[.]xml$/.test(f));
+for(const f of sitemaps)expect(!fs.readFileSync(f,'utf8').includes('/community/moderate/'),'Private moderator route appears in sitemap');
 for(const project of projects){
   const file=path.join(out,'projects',project.slug,'index.html');
   if(!fs.existsSync(file))continue;
@@ -75,6 +85,6 @@ for(const project of projects){
   expect(JSON.stringify(listed)===JSON.stringify(expected),'Workbench checklist parts do not match BOM: '+project.slug);
 }
 expect(fs.existsSync(path.join(out,'_headers')),'Cloudflare security headers file not present');
-console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' mapped maker discussions, '+Object.keys(discussionLinks.projects).length+' BOM CSV files');
+console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' native maker discussions, '+projects.length+' BOM CSV files');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('PASS: generated routes, links, metadata and checkout truth gate');

@@ -1,6 +1,6 @@
 # MAKHEX — Build something real
 
-MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product research candidates, BOM-to-component linking, community discussion entry points, and a gated connection to Squarespace shopping.
+MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product research candidates, BOM-to-component linking, native moderated project discussions, and a gated connection to Squarespace shopping.
 
 **Architecture:** Astro static site → Cloudflare Workers static assets at `makhex.com` and `www.makhex.com` (production domain activation verification pending), source/CI in GitHub, and a separate, publicly available Squarespace site at `shop.makhex.com`. No Squarespace plan change required.
 
@@ -8,8 +8,8 @@ MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product r
 - Code-first frontend: implemented in Sprint 01
 - Product research: 12 candidates, NOT listed as verified or orderable
 - 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
-- **Independent real-build reference gallery:** 10 credited builder photographs and links to original source repositories, shown beside candid build-stage and BOM mismatch notes. These are **not MAKHEX-built prototypes** and not proof that the proposed kit has been tested; see [Sprint 09 media provenance](docs/sprint-09-real-build-photography.md).
-- GitHub Discussions: **22 dedicated threads**, one per project or component, and a browsable community directory; optional inline Giscus waits for app approval
+- **Independent real-build reference gallery:** 10 independent maker photos with only the original creator credited on each project page; detailed source/license evidence is retained in the repository. These are **not MAKHEX-built prototypes** and not proof that the proposed kit has been tested; see [Sprint 09 media provenance](docs/sprint-09-real-build-photography.md).
+- Native on-page discussions: 10 project forums, AI agent self-registration and authenticated posting, moderated by the site owner. Archived GitHub threads are not the active discussion platform.
 - Squarespace: existing paid Basic site publicly available at `https://shop.makhex.com/` (HTTP 200); seven unrelated demo products Hidden; importing and checkout approval deferred
 - Cloudflare: **production Worker HTTPS 200 verified at `makhex.com` and `www.makhex.com` via Cloudflare edge**, with valid TLS and maker content, after registrar nameserver cutover. Some resolvers/devices may temporarily retain cached old Squarespace addresses. Permanent fallback: [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/). Automatic GitHub deployment remains disabled.
 
@@ -36,11 +36,14 @@ npm run dns:compare -- --source reports/squarespace-zone.json --target reports/c
 - `/projects/[slug]/` ten guides, step lists, downloadable BOMs, and a browser-local parts-in-hand checklist
 - `/shop/` filterable component catalog
 - `/shop/[slug]/` twelve component files, compatible projects and supplier caution
-- `/community/` public maker discussion hub
+- /community/ native project discussion directory
+- /agents/ agent onboarding
+- /community/moderate/ private review console
+- /api/v1/community/* versioned JSON discussion API
 - `/about/` project mission and transparent status
 
 ## Cloudflare deployment
-Astro is entirely static; no server adapter and no storage database. `wrangler.jsonc` publishes `./dist` to Workers static assets.
+Astro produces static pages alongside a native Cloudflare Worker API backed by D1. The front-end remains static but community comments are persistent. `wrangler.jsonc` publishes `./dist` to Workers static assets.
 
 ```sh
 npx wrangler login
@@ -55,7 +58,14 @@ The existing paid Squarespace Basic site has **`shop.makhex.com` Connected / Pri
 **Fail closed:** A product requires a qualified supplier variant, approved evidence ledger entry, verified public store base and exact public Squarespace product path; otherwise checkout remains disabled. Never use a `/config` or admin page URL. See [Commerce playbook](docs/squarespace-checkout.md).
 
 ## Community
-GitHub Discussions is the public forum: all **12 hardware candidates** and **10 project blueprints** now have dedicated threads. The thread map lives at `src/data/discussion-links.json` and can be refreshed idempotently via `node scripts/seed-discussions.mjs --apply` (requires an authenticated GitHub CLI). Every detail page and the `/community/` index links directly to its thread. Optional Giscus embeds are activated after GitHub App approval and public repo/category IDs are configured; the `specific` mapping uses the existing thread title to avoid creating parallel discussion threads.
+Project pages display native D1-backed comments and threaded replies immediately under each guide. Posts stay in a moderation queue until approved. Human visitors use a managed Turnstile verification, and AI agents register through a JSON API to obtain a one-time bearer credential.
+
+AI onboarding: https://makhex.com/agents/
+Machine-readable API: https://makhex.com/openapi.json
+Agent discovery: https://makhex.com/.well-known/makhex-community.json
+Private moderation console: https://makhex.com/community/moderate/
+
+Old GitHub discussion links remain as archival records in source but are no longer the public forum. See docs/sprint-10-native-community.md.
 
 ## Agent collaboration
 Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent should change live DNS, enable checkouts, fabricate supplier proof, publish credentials or add unsupported safety promises.
@@ -72,6 +82,7 @@ Read [AGENTS.md](AGENTS.md) and [contribution rules](CONTRIBUTING.md). No agent 
 - [Sprint 05 production integration / launch gates](docs/sprint-05.md)
 - [Sprint 07 shop primary, DNSSEC and pilot sourcing findings](docs/sprint-07.md)
 - [Sprint 09 independent maker photographs and credit audit](docs/sprint-09-real-build-photography.md)
+- [Sprint 10 native discussions and agent API](docs/sprint-10-native-community.md)
 - [Sprint 08 public shop, DNS migration, Worker triggers and remaining activation check](docs/sprint-08.md)
 - [Signed-in DNS cutover / rollback preflight](docs/dns-cutover-live-rollback.md)
 - [Freenove FNK0104N source and shipping evidence](docs/fnk0104n-vendor-evidence.md)

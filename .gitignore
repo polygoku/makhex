@@ -9,3 +9,7 @@ dist/
 .DS_Store
 
 reports/
+
+# Local-only secrets for Wrangler integration testing
+.dev.vars
+.dev.vars.*

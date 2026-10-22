@@ -499,6 +499,72 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 
 .reference-catalog-disclosure{max-width:900px;color:#645a4b;font-size:13px;line-height:1.7;margin:-12px 0 25px;padding:10px 14px 11px;background:#fff8ec;border-left:3px solid #e88955}
+
+
+/* Native, moderated MAKHEX discussions. Readable and keyboard-accessible on every project. */
+.native-discussion{margin:22px 0 85px;padding:42px;border:1px solid #d9cbbb;border-radius:18px;background:#fffaf1;box-shadow:0 5px 0 #dbd0bf}
+.native-discussion .discussion-head{border-bottom:1px solid #e0d3bf;padding-bottom:28px;margin-bottom:0;display:flex;gap:30px;align-items:center;justify-content:space-between}
+.native-discussion .discussion-head h2{font:800 clamp(29px,3.6vw,43px)/1.04 var(--display);letter-spacing:-.06em;color:#2f382f;margin:0 0 11px}
+.native-discussion .discussion-head p{color:#656359;font-size:15px;line-height:1.65;max-width:610px;margin:0}
+.native-discussion .discussion-head .text-link{flex-shrink:0}
+.native-thread-head{padding:23px 0 15px;display:flex;justify-content:space-between;gap:15px;align-items:center}
+.native-thread-head strong{font:800 17px var(--display)}
+.native-thread-head span{font:500 11px var(--mono);color:#777264}
+.native-comment-list{list-style:none;margin:0;padding:0}
+.native-comment,.native-empty-thread{background:#fffefa;border:1px solid #e5dacc;border-radius:10px;padding:18px 22px;margin-bottom:12px;overflow-wrap:anywhere}
+.native-comment-reply{margin-left:38px;border-left:3px solid #e5b58b}
+.native-comment-meta{display:flex;align-items:center;flex-wrap:wrap;gap:10px;color:#4c5849}
+.native-comment-meta strong{font:800 15px var(--display)}
+.native-comment-meta time{margin-left:auto;color:#8b8478;font:500 11px var(--mono)}
+.native-user-tag{color:#4d725e;border:1px solid #b3cdb9;border-radius:30px;background:#e8f2e7;padding:4px 8px;font:700 10px var(--display)}
+.native-user-tag.agent{color:#92512c;border-color:#e0b591;background:#fff0dd}
+.native-comment-body{white-space:pre-wrap;color:#4e5148;font:500 14px/1.74 var(--display);margin:15px 0 10px}
+.native-reply-button,.native-load-more{border:0;background:none;color:#aa512e;padding:7px 0;font:700 12px var(--display);cursor:pointer}
+.native-reply-button:hover,.native-load-more:hover{text-decoration:underline}
+.native-empty-thread{padding:24px;color:#70685e;font-size:14px}
+.native-load-more{width:100%;border:1px solid #d3b7a3;border-radius:8px;padding:13px;margin:9px 0 20px}
+.native-comment-form-card{background:#f1e9dc;border:1px solid #d9cbbc;border-radius:14px;margin-top:24px;padding:28px;max-width:900px}
+.native-comment-form-card h3{font:800 25px var(--display);letter-spacing:-.045em;color:#2c342b;margin:0 0 7px}
+.native-comment-form-card>p{font-size:13px;line-height:1.7;color:#6a675e;margin:0 0 23px}
+.native-comment-form-card form{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.native-comment-form-card form>label:not(.native-agreement){font:700 13px var(--display);color:#394439}
+.native-comment-form-card input[type="text"],.native-comment-form-card textarea{background:#fffef9;border:1px solid #b6aa9c;border-radius:8px;padding:12px 13px;width:100%;max-width:700px;font:500 14px/1.6 var(--display);color:#2b3028}
+.native-comment-form-card textarea{resize:vertical;min-height:140px}
+.native-comment-form-card .native-agreement{display:flex;gap:10px;align-items:start;font:500 12px/1.7 var(--display);color:#5e6259;margin:7px 0}
+.native-agreement input{width:17px;height:17px;margin:2px 0 0;flex-shrink:0}
+.native-agreement a{color:#a24d2e;text-decoration:underline}
+.native-comment-form-card [data-turnstile-zone]{min-height:24px;max-width:100%}
+.native-form-state{color:#766957;font:500 12px/1.6 var(--display);margin:4px 0}
+.native-agent-hint{border-top:1px dashed #dac8b4;padding-top:18px;margin-top:27px;font-size:13px;color:#686254}
+.native-agent-hint a{color:#aa512e;text-decoration:underline;text-underline-offset:4px}
+.native-replying{color:#784625;font-size:12px;background:#f9e0cc;padding:9px 12px;border-radius:8px}
+.native-replying button{background:none;border:0;color:#8c4228;text-decoration:underline;cursor:pointer;font-size:12px}
+.agent-onboarding{margin:40px auto 105px;max-width:1060px;display:grid;grid-template-columns:1fr .92fr;gap:38px}
+.agent-onboarding>section{background:#fffdf7;border:1px solid #ddd0c0;border-radius:14px;padding:30px}
+.agent-onboarding h2{font:800 28px var(--display);letter-spacing:-.055em;margin:0 0 18px}
+.agent-onboarding h3{font:800 18px var(--display)}
+.agent-onboarding p,.agent-onboarding li{font-size:14px;color:#646358;line-height:1.75}
+.agent-onboarding pre{overflow:auto;background:#26352d;color:#f8f4e8;padding:17px;border-radius:8px;font:12px/1.6 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.agent-onboarding .native-comment-form-card{margin:0;padding:20px}
+.agent-onboarding .native-comment-form-card button{align-self:flex-start}
+.agent-onboarding .agent-field{width:100%;padding:10px 12px;border:1px solid #beaa9b;border-radius:8px;background:#fff}
+.agent-onboarding .agent-form{display:flex;flex-direction:column;gap:12px}
+.agent-onboarding .agent-form label{font:700 13px var(--display)}
+.agent-onboarding .agent-token-output{border-top:1px solid #d1bea7;padding-top:20px;overflow-wrap:anywhere}
+.agent-onboarding .agent-token-output code{display:block;overflow-wrap:anywhere;margin:13px 0;padding:15px;border-radius:7px;background:#26352d;color:#dff4dc;font:12px/1.6 var(--mono)}
+.agent-onboarding details{border-top:1px solid #dfd0c2;padding:20px 0}
+.agent-onboarding details summary{font:800 16px var(--display);cursor:pointer}
+.agent-onboarding .agent-doc-wide{grid-column:1/-1}
+.moderator-grid{max-width:1000px;margin:55px auto 110px}
+.moderator-grid .native-comment{margin:20px 0}
+.moderator-actions{display:flex;gap:10px}
+.moderator-actions button{padding:10px 14px;border-radius:7px;border:1px solid #a79989;background:#fff5e6;cursor:pointer}
+.moderator-actions button:first-child{background:#dcefe2}
+.moderator-credentials{display:flex;gap:13px;margin-bottom:22px;max-width:720px}
+.moderator-credentials input{flex:1;min-width:0;padding:12px;border:1px solid #b8a895;border-radius:8px}
+@media(max-width:900px){.native-discussion{padding:28px}.native-discussion .discussion-head{flex-direction:column;align-items:flex-start;gap:15px}.agent-onboarding{grid-template-columns:1fr}}
+@media(max-width:550px){.native-discussion{padding:20px;margin:25px 0 60px}.native-comment,.native-empty-thread{padding:16px}.native-comment-reply{margin-left:14px}.native-comment-form-card{padding:18px}.native-comment-meta time{margin-left:0}.agent-onboarding>section{padding:19px}.moderator-credentials{flex-direction:column}}
+
 /* Sprint 09: actual third-party build photographs, credited and distinguished from MAKHEX prototypes. */
 .real-reference-card-image{height:218px;position:relative;overflow:hidden;border-radius:11px;background:#e8e1d5;border:1px solid #d7ccbb;isolation:isolate}
 .real-reference-card-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s}
@@ -509,16 +575,5 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .real-reference-photo{display:block;width:100%;height:100%;object-fit:contain}
 .real-reference-poster-chip{position:absolute;top:15px;left:15px;background:#fffaf1ed;color:#324c3c;border:1px solid #b6a99b;padding:8px 11px;border-radius:7px;font:700 10px var(--mono)}
 .real-reference-poster .detail-poster-caption{position:absolute;display:block;bottom:0;left:0;right:0;margin:0;padding:28px 15px 14px;background:linear-gradient(transparent,#18251de7);color:white;font:600 12px var(--display)}
-.real-reference-explainer{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(245px,.9fr);gap:7%;padding-top:27px;padding-bottom:60px;border-top:1px solid #d6c5ae;border-bottom:1px solid #d6c5ae;margin-bottom:65px}
-.real-reference-explainer .eyebrow{margin-bottom:8px}
-.real-reference-explainer h2{font:800 clamp(28px,3vw,43px)/1.1 var(--display);letter-spacing:-.055em;color:#323b32;margin:0 0 15px}
-.real-reference-explainer>div:first-child>p{font-size:15px;line-height:1.7;color:#625f56;max-width:730px}
-.real-reference-explainer .reference-honesty{color:#875d3f;font-size:12px}
-.reference-provenance{background:#fffcf5;border:1px solid #d6cbbb;padding:21px;border-radius:12px;box-shadow:0 3px 0 #e0d7c9}
-.reference-provenance h3{font:800 22px/1.2 var(--display);margin:0 0 13px}
-.reference-provenance p{font-size:12px;color:#5d655b;margin:5px 0}
-.reference-provenance .text-link{margin-top:16px;font-size:12px}
-.reference-provenance .reference-image-origin{display:block;margin:15px 0 13px;font-size:11px;color:#a5482c;text-decoration:underline;text-underline-offset:4px}
-.reference-provenance small{display:block;font-size:10px;line-height:1.6;color:#807769}
-@media(max-width:850px){.real-reference-explainer{grid-template-columns:1fr;gap:22px}.project-detail-poster.real-reference-poster{height:360px}}
+@media(max-width:850px){.project-detail-poster.real-reference-poster{height:360px}}
 @media(max-width:540px){.real-reference-card-image{height:205px}.project-detail-poster.real-reference-poster{height:310px}.real-reference-poster-chip{font-size:9px;max-width:90%}}

@@ -16,7 +16,8 @@
     "dns:audit": "node scripts/domain-readiness.mjs",
     "smoke:public": "node scripts/public-smoke.mjs",
     "deploy": "npm run build && wrangler deploy",
-    "test:references": "node scripts/verify-reference-builds.mjs"
+    "test:references": "node scripts/verify-reference-builds.mjs",
+    "test:community:integration": "node scripts/community-integration.test.mjs"
   },
   "dependencies": {
     "astro": "^7.4.2",
