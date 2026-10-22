@@ -27,38 +27,4 @@ const {project}=Astro.props;
   </div>
   <p class="workbench-checklist-disclaimer"><span aria-hidden="true">ⓘ</span> These are research-stage component candidates, not a verified kit. Checking a part does not establish electrical compatibility, supplier stock, or purchase eligibility.</p>
 </section>
-<script>
-  const panels=document.querySelectorAll<HTMLElement>('[data-build-checklist]');
-  for(const panel of panels){
-    const slug=panel.dataset.projectSlug;
-    if(!slug||!/^[a-z0-9-]+$/.test(slug))continue;
-    const checkboxes=Array.from(panel.querySelectorAll<HTMLInputElement>('input[type="checkbox"][data-part-slug]'));
-    const progress=panel.querySelector<HTMLElement>('[data-checklist-progress]');
-    const reset=panel.querySelector<HTMLButtonElement>('[data-checklist-reset]');
-    if(!progress||!reset||!checkboxes.length)continue;
-    const key='makhex:workbench:v1:'+slug;
-    try{
-      const data=JSON.parse(localStorage.getItem(key)||'[]');
-      if(Array.isArray(data)){
-        for(const checkbox of checkboxes){
-          checkbox.checked=data.includes(checkbox.dataset.partSlug);
-        }
-      }
-    }catch{/* Private mode or invalid storage: checklist remains usable in-memory */}
-    function render(save:boolean){
-      const marked=checkboxes.filter(x=>x.checked).map(x=>x.dataset.partSlug);
-      progress!.textContent=marked.length+' of '+checkboxes.length+' part types checked';
-      reset!.disabled=marked.length===0;
-      if(save){
-        try{localStorage.setItem(key,JSON.stringify(marked));}catch{/* Storage is optional */}
-      }
-    }
-    checkboxes.forEach(x=>x.addEventListener('change',()=>render(true)));
-    reset.addEventListener('click',()=>{
-      checkboxes.forEach(x=>{x.checked=false;});
-      render(true);
-      checkboxes[0]?.focus();
-    });
-    render(false);
-  }
-</script>
+<script is:inline src="/scripts/build-parts-checklist.js"></script>

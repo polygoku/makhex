@@ -18,6 +18,14 @@ for(const file of pages){
  const title=html.match(/<title>([^<]+)<\/title>/)?.[1]||'';
  expect(Boolean(title),'Missing title in '+file);
  expect(html.includes('rel="canonical"'),'Missing canonical in '+file);
+
+ for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){
+  const attrs=match[1],body=match[2].trim();
+  if(/\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))continue;
+  const src=attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i)?.[1];
+  expect(Boolean(src)||body.length===0,'CSP BLOCK: inline executable JavaScript on '+path.relative(out,file));
+  if(src?.startsWith('/'))expect(fs.existsSync(path.join(out,src.slice(1))),'CSP BLOCK: local script asset missing '+src+' on '+path.relative(out,file));
+ }
  for(const match of html.matchAll(/href="(\/[^"]*)"/g)){
    const href=match[1];if(href.startsWith('//'))continue;
    const dest=get(href);if(!dest)continue;
