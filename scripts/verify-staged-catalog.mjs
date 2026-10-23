@@ -40,7 +40,7 @@ for(const product of products){
  const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
  assert.ok(html.includes('Coming soon'),'Checkout disabled state missing: '+product.slug);
  assert.ok(html.includes('Free U.S. shipping'),'Customer shipping message missing: '+product.slug);
- assert.ok(html.includes('Illustration'),'Illustrative artwork not disclosed: '+product.slug);
+ assert.ok(html.includes('Supplier listing image'),'Unverified supplier-photo caption not visible: '+product.slug);
  assert.ok(html.includes(stage.supplierModel.replaceAll('&','&amp;')),'Exact model missing: '+product.slug);
  assert.ok(html.includes('disabled'),'Product should not accept payment: '+product.slug);
  assert.ok(!/aliexpress(?:\.com| source| candidate|\s*\/)/i.test(html),'Supplier leak in product page: '+product.slug);
