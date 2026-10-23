@@ -69,3 +69,13 @@ const publicJson=JSON.stringify(sourcing);
 for(const sensitive of ['aliexpress','sourceItemId','sourceUnitCost','supplierUnitCost','sourceVariantId','access_token','refresh_token'])
  assert.ok(!publicJson.toLowerCase().includes(sensitive.toLowerCase()),'Supplier detail exposed in public JSON: '+sensitive);
 console.log('MAKHEX SHOP PASS: 12 products, 13 2.5x prices, 10 project BOMs, free U.S. customer shipping, no supplier links, checkout gated');
+
+// Regression gate: supplier research, stock snapshots, and an N4-titled-as-N8
+// trial must never activate customer checkout by accident.
+const approvalsSource=fs.readFileSync(path.resolve('src/data/checkout-approvals.ts'),'utf8');
+assert.match(approvalsSource,/checkoutApprovals:\s*Readonly<Record<string,CheckoutApproval>>\s*=\s*Object\.freeze\(\{\}\)/,'Checkout approvals must remain explicitly empty pending end-to-end qualification');
+assert.equal(sourcing.checkoutAvailable,false,'Do not advertise checkout without qualified orders');
+const c6Stage=catalogStaging['esp32-c6-devkit'];
+assert.equal(c6Stage.buyerOrderabilityVerified,false,'C6 old N4 trial cannot be treated as orderable N8');
+assert.equal(c6Stage.shippingVerified,false,'C6 shipping must not be inferred from source listing');
+console.log('MAKHEX COMMERCE SAFETY PASS: checkout approval ledger empty; misidentified C6 trial cannot unlock cart');
