@@ -16,7 +16,7 @@ A microphone, a local command classifier and a speaker can become a push-to-talk
 
 ## Before you order, wire or power
 
-1. Select an electrically compatible 3.3 V I2S microphone, amplifier and speaker; the speaker and pushbutton are not yet in the kit.
+1. Select an electrically compatible 3.3 V I2S microphone, amplifier and speaker; the speaker is now a research component, but amplifier impedance, lead connector and enclosure compatibility need qualification. A dedicated hardware push-to-talk control is not yet included.
 2. Verify the board has sufficient PSRAM and use a hardware control with an unmistakable microphone-active indicator.
 
 ## Research-stage BOM
@@ -26,10 +26,11 @@ A microphone, a local command classifier and a speaker can become a push-to-talk
 | esp32-s3-devkit | 1 | Processor |
 | i2s-mems-mic | 1 | Audio input |
 | i2s-amplifier | 1 | Speaker driver |
+| speaker-4ohm-3w | 1 | External 4-ohm loudspeaker candidate |
 | usb-c-power-kit | 1 | Stable supply |
 
 **Missing or unqualified pieces — not included in subtotal:**
-- A compatible physical speaker must be chosen and added to the BOM.
+- The candidate 4-ohm, 3-watt speaker needs exact impedance/power and wiring verification. A dedicated PTT button has not been added.
 
 The catalog is research-only. Supplier stock, exact variant, compatibility, shipping to ZIP 11021, actual orderability, and fulfillment are **not qualified**. No automatic purchasing or public checkout release.
 
