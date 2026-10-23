@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProductVisual from '../../components/ProductVisual.astro';
+import ProductPhoto from '../../components/ProductPhoto.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import {products,projectsNewestFirst} from '../../lib/catalog';
 import {commerceState} from '../../lib/commerce';
@@ -21,8 +21,8 @@ const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.
   </div>
   <section class="container detail-grid clean-product-detail">
     <div class="component-main-visual">
-      <ProductVisual product={product} large/>
-      <p class="quiet-image-caption">Illustration</p>
+      <ProductPhoto product={product} large gallery/>
+      <p class="quiet-image-caption">Supplier listing image · exact variation and U.S. orderability unverified</p>
     </div>
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>
@@ -32,11 +32,11 @@ const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.
       {stage&&stage.variants.length>1&&<div class="clean-variant-options">
         {stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}
       </div>}
-      <div class="clean-product-action">
-        {checkout.kind==='ready'
-          ?<a class="btn btn-primary" href={checkout.url} rel="noopener noreferrer">SELECT OPTIONS & ADD TO CART ↗ ↗</a>
-          :<button class="btn btn-muted" type="button" disabled>Coming soon</button>}
-        {checkout.kind!=='ready'&&<p>Ordering opens after fulfillment testing.</p>}
+      <div class="clean-product-action" data-cart-product={product.slug}>
+        {stage&&stage.variants.length>1&&<label class="cart-choice-label">Choose a component option<select data-cart-choice aria-label="Component option">{stage.variants.map(v=><option value={v.title}>{v.title}</option>)}</select></label>}
+        <button class="btn btn-primary" type="button" data-cart-add data-cart-slug={product.slug} data-cart-option={stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">ADD TO PARTS CART +</button>
+        <p>The parts cart saves your list locally. This is not a paid order.</p>
+        {checkout.kind==='ready'?<a class="text-link" href={checkout.url} rel="noopener noreferrer">OPEN VERIFIED SQUARESPACE PRODUCT ↗</a>:<><button class="btn btn-muted" type="button" disabled>Coming soon · Checkout unavailable</button><p>Payment opens only after U.S. supplier and fulfillment testing passes.</p></>}
       </div>
       <div class="clean-product-specs">
         {product.specs.map(spec=><div>{spec}</div>)}
