@@ -20,7 +20,7 @@ jobs:
       - run: python -m pip install Pillow==11.3.0
       - name: Render direct-play first-party video and screenshots
         run: |
-          command -v ffmpeg
+          command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y ffmpeg)
           python scripts/render-build11-video.py
           ffprobe -v error -show_entries format=size,duration -of default=noprint_wrappers=1 public/demo/build11-en-concept.mp4
       - name: Commit static media to current PR branch
