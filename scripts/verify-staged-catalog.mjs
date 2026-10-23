@@ -75,6 +75,17 @@ assert.equal(sourcing.shipping.customerRateUsd,0);
 assert.equal(sourcing.shipping.country,'US');
 assert.equal(sourcing.components.length,16);
 assert.equal(sourcing.projects.length,11);
+assert.equal(sourcing.researchSubcomponents.length,4,'Build 11 true hardware breakdown must include core, camera, interaction and cable');
+const build11=sourcing.projects.find(p=>p.slug==='mosaico-learning-assistant');
+assert.equal(build11.cartPlan.parts.length,2,'Combo plan must only contain bundle and cable');
+assert.equal(build11.cartPlan.parts[0].slug,'esp-mosaico-vision-combo-kit');
+const alternate=sourcing.projectAlternativePlans['mosaico-learning-assistant'];
+assert.equal(alternate.parts.length,4,'Standalone research plan must list four components');
+assert(!alternate.parts.some(x=>x.slug==='esp-mosaico-vision-combo-kit'),'Standalone plan must not duplicate the bundle');
+for(const component of sourcing.researchSubcomponents){
+ assert.equal(component.availability,'RESEARCH_ONLY');
+ assert.equal(component.variants.length,0,'Do not invent purchasable supplier options');
+}
 assert.equal(sourcing.components.flatMap(p=>p.variants).length,13);
 assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,4,'Four new components must not have invented source prices');
 for(const project of sourcing.projects){

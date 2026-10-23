@@ -13,15 +13,35 @@ Original instructions: https://github.com/samyeei/mosaico-learning-assistant/blo
 
 Take a photo of a worksheet, choose which recognized problem to discuss, and ask spoken follow-up questions. The independent original is a cloud-connected Chinese-language learning aid, not proof that a MAKHEX kit works in English. This is educational maker research, not a promised homework-answer product. U.S. grades 1–12 equivalents, English prompts, speech models and content suitability need independent validation.
 
-## Correct hardware — not generic ESP32-S3
+## Hardware BOM derived from the source and manufacturer
 
-| Hardware | Quantity | Exact qualification |
-|---|---:|---|
-| ESP-Mosaico Vision Combo Kit | 1 | ESP32-S31 Core Unit V1.2, matching dedicated camera module and interaction module. Confirm official kit/revision, in-stock U.S. shipment and USB data-cable inclusion. |
-| Home 2.4 GHz Wi-Fi | 1 | User-supplied reliable connection, not a sellable BOM line |
-| Personal Qwen/DashScope API account | 1 | User-provided paid model usage, not included in hardware price |
+The original GitHub repository is an **application source tree**, not a retail bill of materials. Its user manual explicitly requires the ESP-Mosaico host and a camera on the left H2 connector; the microphone and speaker use onboard hardware. The rest of this table is an independent procurement decomposition corroborated by Espressif hardware guides.
 
-The board integrates a touchscreen, microphone, speaker and battery. The camera attaches to the **left H2 expansion connector** with power off. Do not substitute an ordinary ESP32-S3 kit, camera sensor or camera pinout.
+| Part | Qty | Required? | Included in current Vision Combo Kit? | Independent orderability |
+|---|---:|---|---|---|
+| ESP-Mosaico Core Unit V1.2 with ESP32-S31, 480×480 display, onboard microphone, speaker and battery | 1 | Yes | Yes | Separate AliExpress variant unverified |
+| ESP-Mosaico Camera Module for left H2 (current kit: SC101IOT V1.4) | 1 | Yes | Yes | Separate AliExpress variant unverified |
+| ESP-Mosaico Multi-function Interaction Module (buttons, PIR/light/IR/RGB LEDs) | 1 | Optional for question recognition; included in kit | Yes | Separate AliExpress variant unverified |
+| Data-capable USB-C cable, ~1 m | 1 | Yes for provisioning/development | Verify selected seller package | Candidate only, shipping/option unverified |
+| 2.4 GHz Wi-Fi and a Qwen/Model Studio account | Customer provides | Yes for original cloud functionality | No | Not a physical product |
+| Computer / phone for setup | Customer provides | Setup tool | No | Not a physical product |
+
+**Two mutually exclusive shopping plans** are available on MAKHEX:
+
+1. **Recommended**: one Vision Combo Kit + one USB-C data cable, unless the vendor confirms a cable is already in the box.
+2. **Separately sourced research**: one Core Unit, one matching H2 camera, one Interaction Module and one USB-C data cable. Those separate module SKUs are not yet verified for U.S. shipment.
+
+The MAKHEX cart automatically replaces an existing Vision Combo bundle when separate modules are selected, and vice versa. This avoids accidentally double-ordering the same boards.
+
+**Camera compatibility matters.** Camera V1.2 has an OV3640 sensor; V1.4 has an SC101IOT. Although both use the left H2 expansion connector, the legacy application has not been validated with both revisions. The current official kit includes SC101IOT per the vendor FAQ; independently verify the exact delivered PCB and the firmware driver. Do not substitute an ESP32-S3 camera board.
+
+Sources: [official mainboard V1.2](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp-mosaico/user_guide.html), [camera variants and pinout](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp-mosaico/user_guide_camera.html), [interaction module](https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32s31/esp-mosaico/user_guide_interact.html), and [manufacturer FAQ](https://mosaico.ai/en/faq).
+
+## Project media, permissions and independent demo
+
+The original repository includes cropped device images `docs/assets/controls.jpg` and `docs/assets/grade.jpg`, a generated cover, and a sample question-selection screenshot. The original README and release audit explicitly say the **raw video footage is not published**. Do not assume the creator's X post or device media can be copied into a commercial MAKHEX site without separate permission.
+
+MAKHEX's `/demo/build11-en-concept.mp4` and accompanying three JPEG stills are **independently designed illustrative screens**, with English captions and source in `scripts/render-build11-video.py`. They are not captures of the source project's firmware, nor actual hardware acceptance evidence. Keep original creator credit and references in this GitHub file rather than the customer-facing gallery.
 
 ## Original software compatibility
 

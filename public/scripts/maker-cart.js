@@ -6,6 +6,15 @@ const okSlug=s=>typeof s==='string'&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s);
 const okOption=s=>typeof s==='string'&&s.length>0&&s.length<=160;
 const key=item=>item.slug+'\u001f'+item.option;
 let catalogPromise,volatile=[];
+const findPart=(catalog,slug)=>catalog.components.find(p=>p.slug===slug)||(catalog.researchSubcomponents??[]).find(p=>p.slug===slug);
+const separateMosaico=new Set(['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module']);
+function excludeAlternative(items,added){
+ const newParts=new Set(added.map(x=>x.slug));
+ const replacingPlanCable=newParts.has('usb-c-data-cable');
+ if(newParts.has('esp-mosaico-vision-combo-kit'))return items.filter(x=>!separateMosaico.has(x.slug)&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
+ if([...newParts].some(slug=>separateMosaico.has(slug)))return items.filter(x=>x.slug!=='esp-mosaico-vision-combo-kit'&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
+ return items;
+}
 function read(){
  try{
   const raw=window.localStorage.getItem(STORE_KEY);
@@ -29,7 +38,7 @@ async function catalog(){
  return catalogPromise;
 }
 function check(c,item){
- const part=c.components.find(p=>p.slug===item.slug);
+ const part=findPart(c,item.slug);
  if(!part||!okOption(item.option))throw Error('Unknown component or option');
  const options=part.variants??[];
  if(options.length&&!options.some(v=>v.title===item.option))throw Error('Choose a listed option');
@@ -37,7 +46,7 @@ function check(c,item){
  if(!Number.isSafeInteger(item.quantity)||item.quantity<1||item.quantity>MAX_QUANTITY)throw Error('Invalid quantity');
 }
 function insert(current,items,c){
- const next=current.map(p=>({...p}));
+ const next=excludeAlternative(current,items).map(p=>({...p}));
  for(const item of items){
   check(c,item);
   const old=next.find(p=>key(p)===key(item));
@@ -65,10 +74,23 @@ document.addEventListener('click',async event=>{
   try{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
-   const items=project.parts.map(p=>({slug:p.slug,option:p.selectedOption??'Option pending',quantity:p.qty}));
+   const items=(project.cartPlan?.parts??project.parts).map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty}));
    save(insert(read(),items,c));
    flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
   }catch(e){flash(e.message||'Unable to add kit')}
+  finally{b.disabled=false}
+  return;
+ }
+ if(b.hasAttribute('data-cart-add-plan')){
+  b.disabled=true;
+  try{
+   const c=await catalog(),name=b.getAttribute('data-cart-add-plan');
+   const plan=c.projectAlternativePlans?.[name];
+   if(!plan)throw Error('Unrecognized component plan');
+   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty}));
+   save(insert(read(),items,c));
+   flash('Added '+items.length+' separate research components. Bundle duplicates removed.');
+  }catch(e){flash(e.message||'Could not add individual research components')}
   finally{b.disabled=false}
   return;
  }
@@ -80,7 +102,7 @@ document.addEventListener('click',async event=>{
  if(b.hasAttribute('data-cart-clear')){save([]);flash('Cart cleared.');return}
  if(b.hasAttribute('data-cart-copy')){
   try{
-   const c=await catalog(),rows=read().map(p=>p.quantity+' x '+(c.components.find(x=>x.slug===p.slug)?.title??p.slug)+' — '+p.option);
+   const c=await catalog(),rows=read().map(p=>p.quantity+' x '+(findPart(c,p.slug)?.title??p.slug)+' — '+p.option);
    if(!rows.length){flash('Cart is empty.');return}
    await navigator.clipboard.writeText('MAKHEX parts\n'+rows.join('\n'));
    flash('Parts list copied.');
@@ -102,16 +124,16 @@ async function render(){
  }
  let known=0,unknown=0,n=0;
  for(const item of cart){
-  const part=c.components.find(x=>x.slug===item.slug);if(!part)continue;
+  const part=findPart(c,item.slug);if(!part)continue;
   const variation=part.variants?.find(v=>v.title===item.option);
   const price=typeof variation?.priceUsd==='number'&&Number.isFinite(variation.priceUsd)?variation.priceUsd:null;
   const card=document.createElement('article');card.className='cart-line';
-  const imgLink=document.createElement('a');imgLink.href='/shop/'+encodeURIComponent(item.slug)+'/';imgLink.className='cart-line-photo';
-  const img=document.createElement('img');img.src='/product-media/'+item.slug+'.jpg';img.alt='Hardware supplier reference for '+part.title;img.loading='lazy';imgLink.append(img);
+  const imgLink=document.createElement('a');imgLink.href=part.url?.startsWith('https://makhex.com/')?part.url.replace('https://makhex.com',''):'/shop/'+encodeURIComponent(item.slug)+'/';imgLink.className='cart-line-photo';
+  const img=document.createElement('img');img.src=part.image??'/product-media/'+item.slug+'.jpg';img.alt='Hardware supplier reference for '+part.title;img.loading='lazy';imgLink.append(img);
   const info=document.createElement('div');info.className='cart-line-info';
   const name=document.createElement('a');name.href=imgLink.href;name.className='cart-line-title';name.textContent=part.title;
   const option=document.createElement('p');option.textContent=item.option;
-  const note=document.createElement('small');note.textContent='Exact option and U.S. shipping pending verification';
+  const note=document.createElement('small');note.textContent=part.availability==='RESEARCH_ONLY'?'Component identified in the kit; separate supplier SKU not verified':'Exact option and U.S. shipping pending verification';
   info.append(name,option,note);
   const controls=document.createElement('div');controls.className='cart-line-actions';
   const label=document.createElement('label');label.className='cart-quantity-label';label.textContent='Quantity';
