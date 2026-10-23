@@ -69,7 +69,7 @@ for(const project of projects){
 const mosaicoPage=path.join(out,'projects','mosaico-learning-assistant','index.html');
 if(fs.existsSync(mosaicoPage)){
  const html=fs.readFileSync(mosaicoPage,'utf8');
- expect(!/samyeei|samyeeiyu\\b.*(?=<\\/small>|<\\/p>|<\\/h[1-6]>)/i.test(html),'Mosaico creator credited in visible MAKHEX copy');
+ const readable=html.replace(/<script\\b[\\s\\S]*?<\\/script>/gi,' ').replace(/<style\\b[\\s\\S]*?<\\/style>/gi,' ').replace(/<[^>]+>/g,' ');\n expect(!/samyeei/i.test(readable),'Mosaico creator credited in visible MAKHEX copy');
  expect(html.includes('WATCH PROJECT DEMO'),'Mosaico original demo link not presented');
  expect(html.includes('PolyForm Noncommercial'),'Mosaico licensing caution missing');
 }
