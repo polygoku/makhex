@@ -711,3 +711,15 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .store-checkout-nav{font-weight:700;color:var(--teal);text-decoration:none}
 .store-checkout-nav:hover{text-decoration:underline}
 @media(max-width:850px){.guide-intro,.makhex-account-grid{grid-template-columns:1fr}.guide-intro{margin-top:20px}.guide-intro .content-section,.guide-links{padding:24px}}
+
+/* Home-page editorial feature: a single tactile field note, not an advertisement. */
+.home-blog-section{background:#f1ebdf}
+.home-blog-feature{background:#fff9ef;border:1px solid #cbbba8;border-radius:19px;box-shadow:0 5px 0 #d8c8b5;display:grid;grid-template-columns:150px minmax(0,1fr) 62px;gap:26px;padding:35px;align-items:center;transition:transform .18s,box-shadow .18s}
+.home-blog-feature:hover{transform:translateY(-3px);box-shadow:0 8px 0 #d8c8b5}
+.home-blog-feature-stamp{font:600 11px/1.8 var(--mono);color:#a95737;display:grid;gap:9px;align-self:start}
+.home-blog-feature-stamp span{color:#687c69;font-size:10px}
+.home-blog-feature-body{display:grid;gap:12px}
+.home-blog-feature-body strong{font:800 clamp(28px,3.5vw,46px)/1.11 var(--display);letter-spacing:-.055em;color:#2c382e}
+.home-blog-feature-body>span{max-width:670px;color:#6b635b;font:500 15px/1.6 var(--display)}
+.home-blog-feature-arrow{display:grid;place-items:center;background:#ee793f;border:1px solid #af5734;border-radius:12px;width:56px;height:56px;box-shadow:0 4px 0 #bc5632;color:#29342c;font:800 29px var(--display)}
+@media(max-width:720px){.home-blog-feature{grid-template-columns:1fr 48px;padding:25px;gap:17px}.home-blog-feature-stamp{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:17px}.home-blog-feature-arrow{width:46px;height:46px}.home-blog-feature-body strong{font-size:30px}}

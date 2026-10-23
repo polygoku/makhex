@@ -35,6 +35,8 @@ npm run dns:compare -- --source reports/squarespace-zone.json --target reports/c
 - `/` homepage
 - `/projects/` filterable build gallery
 - `/projects/[slug]/` ten guides, step lists, downloadable BOMs, and a browser-local parts-in-hand checklist
+- `/blog/` MAKHEX editorial index with creator-attributed electronics and robotics learning guides
+- `/blog/robotics-engineer-six-month-roadmap/` robotics learning roadmap, references, cautionary career context, and MAKHEX project and BOM entry points
 - `/shop/` filterable component catalog
 - `/shop/[slug]/` twelve component files, compatible projects and supplier caution
 - /community/ native project discussion directory

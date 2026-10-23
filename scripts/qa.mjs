@@ -84,6 +84,28 @@ for(const project of projects){
   const expected=project.materials.map(m=>m.slug).sort();
   expect(JSON.stringify(listed)===JSON.stringify(expected),'Workbench checklist parts do not match BOM: '+project.slug);
 }
+// MAKHEX editorial: every navigation entry and the first attributed long-form page must be built.
+const blogIndexFile=path.join(out,'blog','index.html');
+const articleFile=path.join(out,'blog','robotics-engineer-six-month-roadmap','index.html');
+expect(fs.existsSync(blogIndexFile),'MAKHEX blog index was not generated');
+expect(fs.existsSync(articleFile),'MAKHEX robotics guide was not generated');
+if(fs.existsSync(blogIndexFile)){
+ const html=fs.readFileSync(blogIndexFile,'utf8');
+ expect(html.includes('href="/blog/robotics-engineer-six-month-roadmap/"'),'Blog index missing first article');
+}
+if(fs.existsSync(articleFile)){
+ const html=fs.readFileSync(articleFile,'utf8');
+ for(const label of ['Ronin (@DeRonin_)','2026-10-23','application/ld+json','BlogPosting','/projects/espnow-remote/','/shop/','/community/']){
+  expect(html.includes(label),'MAKHEX robotics article missing editorial requirement: '+label);
+ }
+ expect(html.includes('not independently bench-verified kits')||html.includes('not independently bench-verified'),'Unqualified MAKHEX kits misrepresented');
+ expect(html.includes('Engineers, All Other'),'O*NET wage category qualification missing');
+}
+expect(homeHtml.includes('href="/blog/"')&&homeHtml.includes('href="/blog/robotics-engineer-six-month-roadmap/"'),'Homepage or header missing blog entry');
+for(const f of sitemaps){
+ const xml=fs.readFileSync(f,'utf8');
+ if(xml.includes('/blog/')){expect(xml.includes('/blog/robotics-engineer-six-month-roadmap/'),'Blog sitemap missing first post');break;}
+}
 expect(fs.existsSync(path.join(out,'_headers')),'Cloudflare security headers file not present');
 console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' native maker discussions, '+projects.length+' BOM CSV files');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
