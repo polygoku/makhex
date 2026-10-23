@@ -1,6 +1,8 @@
 import { products, type Product } from '../data/products';
 import { projects, type Project } from '../data/projects';
 export {products,projects};
+/** Display order only: newer build numbers first. Keep the canonical project data unchanged. */
+export const projectsNewestFirst: readonly Project[] = [...projects].sort((a,b)=>Number(b.number)-Number(a.number));
 export const productBySlug=(slug:string):Product|undefined=>products.find(p=>p.slug===slug);
 export const projectBySlug=(slug:string):Project|undefined=>projects.find(p=>p.slug===slug);
 export const productUrl=(slug:string)=>'/shop/'+encodeURIComponent(slug)+'/';

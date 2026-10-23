@@ -1,24 +1,36 @@
 ---
 import type {Project} from '../data/projects';
-interface Props{project:Project}
-const {project}=Astro.props;
+import ProjectArtwork from './ProjectArtwork.astro';
+import {productBySlug,productUrl} from '../lib/catalog';
+interface Props{project:Project;total:number}
+const {project,total}=Astro.props;
+const weatherScene=project.slug==='touch-weather-station';
+const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):undefined;
 ---
 <article class="featured-build" aria-labelledby="featured-build-name">
   <div class="featured-build-head">
-    <span class="feature-stamp"><span class="tiny-indicator" aria-hidden="true"></span> FROM THE WORKBENCH</span>
-    <span class="feature-count">PROJECT {project.number} / 10</span>
+    <span class="feature-stamp"><span class="tiny-indicator" aria-hidden="true"></span> LATEST BUILD / FROM THE WORKBENCH</span>
+    <span class="feature-count">BUILD {project.number} / {String(total).padStart(2,'0')}</span>
   </div>
-  <div class="featured-build-image">
-    <img src="/workbench-scene.svg" width="800" height="580" alt="Concept rendering of a cream-colored 3D-printed ESP32 touch weather station with an orange knob, sensor board, jumper wires and screwdriver on a green cutting mat." decoding="async" fetchpriority="high"/>
-    <a class="pin-label pin-one" href="/shop/esp32-s3-devkit/" aria-label="Explore ESP32-S3 Dev Board details">ESP32-S3 <span class="pin-dot" aria-hidden="true"></span></a>
-    <a class="pin-label pin-two" href="/shop/bme280-sensor/" aria-label="Explore BME280 environment sensor details">BME280 sensor <span class="pin-dot" aria-hidden="true"></span></a>
-    <span class="visual-disclaimer">Concept render · not yet bench-tested</span>
+  <div class:list={['featured-build-image',{'featured-build-latest':!weatherScene}]}>
+    {weatherScene
+      ? <>
+        <img src="/workbench-scene.svg" width="800" height="580" alt="Concept rendering of an ESP32 touch weather station with a knob and sensor board on a cutting mat." decoding="async" fetchpriority="high"/>
+        <a class="pin-label pin-one" href="/shop/esp32-s3-devkit/" aria-label="Explore ESP32-S3 Dev Board research details">ESP32-S3 <span class="pin-dot" aria-hidden="true"></span></a>
+        <a class="pin-label pin-two" href="/shop/bme280-sensor/" aria-label="Explore BME280 environment sensor research details">BME280 sensor <span class="pin-dot" aria-hidden="true"></span></a>
+      </>
+      : <>
+        <ProjectArtwork project={project}/>
+        {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Explore research details for '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
+      </>
+    }
+    <span class="visual-disclaimer">Concept illustration · not a verified product photo</span>
   </div>
   <div class="featured-build-footer">
     <div>
-      <span class="feature-eyebrow">THIS WEEK'S IDEA <span class="separator">/</span> {project.level} <span class="separator">/</span> {project.materials.length} part types</span>
+      <span class="feature-eyebrow">NEWEST PROJECT <span class="separator">/</span> {project.level} <span class="separator">/</span> {project.materials.length} part types</span>
       <h2 id="featured-build-name">{project.title}</h2>
-      <p>A little screen. A couple of sensors. A very satisfying desk project.</p>
+      <p>{project.signal} → {project.output}. Research blueprint; parts and firmware are not yet fully qualified.</p>
     </div>
     <a class="feature-next" href={'/projects/'+project.slug+'/'} aria-label={'Explore '+project.title}><span aria-hidden="true">→</span></a>
   </div>

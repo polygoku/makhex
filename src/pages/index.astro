@@ -3,9 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedBuild from '../components/FeaturedBuild.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ProductCard from '../components/ProductCard.astro';
-import {projects,products} from '../lib/catalog';
-const featured=projects[0];
-const picks=[...projects.filter(p=>p.featured),...projects.filter(p=>!p.featured)].slice(0,3);
+import {projects,projectsNewestFirst,products} from '../lib/catalog';
+const featured=projectsNewestFirst[0];
+const picks=projectsNewestFirst.slice(0,3);
 const components=products.filter(p=>p.featured).slice(0,4);
 ---
 <BaseLayout title="MAKHEX — Little parts. Big ideas." description="Find ESP32 maker project ideas, friendly build blueprints, mapped parts lists, and an open community sharing the messy, wonderful work of making.">
@@ -18,7 +18,7 @@ const components=products.filter(p=>p.featured).slice(0,4);
    <div class="hero-actions"><a class="btn btn-primary" href="/projects/">Explore the builds <span aria-hidden="true">→</span></a><a class="btn btn-outline" href="/shop/">Browse the parts <span aria-hidden="true">↗</span></a></div>
    <div class="hero-footnote"><span aria-hidden="true">✓</span> Build blueprints &amp; BOMs <span aria-hidden="true">✓</span> Honest workbench notes</div>
   </div>
-  <FeaturedBuild project={featured}/>
+  <FeaturedBuild project={featured} total={projects.length}/>
  </div>
  <div class="container workshop-tray" aria-label="MAKHEX at a glance">
   <span class="tray-prompt"><span class="tray-icon" aria-hidden="true">✳</span> MADE FOR MAKERS, TINKERERS &amp; CURIOUS MINDS</span>

@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductVisual from '../../components/ProductVisual.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import {products,projects} from '../../lib/catalog';
+import {products,projectsNewestFirst} from '../../lib/catalog';
 import {commerceState} from '../../lib/commerce';
 import type {Product} from '../../data/products';
 import {stageFor,formatUsd} from '../../data/catalog-staging';
@@ -11,7 +11,7 @@ interface Props{product:Product}
 const {product}=Astro.props;
 const checkout=commerceState(product);
 const stage=stageFor(product.slug);
-const related=projects.filter(p=>p.materials.some(m=>m.slug===product.slug)).slice(0,3);
+const related=projectsNewestFirst.filter(p=>p.materials.some(m=>m.slug===product.slug)).slice(0,3);
 const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
 const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.supplierModel??product.title,description:product.description,author:{'@type':'Organization',name:'MAKHEX'},url:'https://makhex.com/shop/'+product.slug+'/',about:{'@type':'Thing',name:stage?.supplierModel??product.title}};
 ---
