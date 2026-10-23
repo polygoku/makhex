@@ -1,6 +1,6 @@
 ---
 import type {Product} from '../data/products';
-import ProductVisual from './ProductVisual.astro';
+import ProductPhoto from './ProductPhoto.astro';
 import {productUrl} from '../lib/catalog';
 import {stageFor,formatUsd} from '../data/catalog-staging';
 interface Props{product:Product}
@@ -10,7 +10,7 @@ const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
 ---
 <article class="product-card product-card-v2 product-card-simple">
   <a class="product-card-image" href={productUrl(product.slug)} aria-label={'Explore '+product.title}>
-    <ProductVisual product={product}/>
+    <ProductPhoto product={product}/>
   </a>
   <div class="simple-product-info">
     <a class="product-title-link" href={productUrl(product.slug)}><h3>{stage?.supplierModel??product.title}</h3></a>
@@ -20,4 +20,5 @@ const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
     </div>
 
   </div>
+  <div class="cart-card-action"><button type="button" data-cart-add data-cart-slug={product.slug} data-cart-option={stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">Add to parts cart +</button></div>
 </article>
