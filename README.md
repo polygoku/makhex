@@ -1,17 +1,17 @@
 # MAKHEX — Build something real
 
-MAKHEX is a code-first ESP32 maker site with 10 project blueprints, 12 product research candidates, BOM-to-component linking, native moderated project discussions, and a gated connection to Squarespace shopping.
+MAKHEX is a code-first ESP32 maker site with 11 project blueprints, 16 product research candidates, BOM-to-component linking, native moderated project discussions, and a gated connection to Squarespace shopping.
 
 **Architecture:** Astro static site → Cloudflare Workers static assets at `makhex.com` and `www.makhex.com` (production routing and DNSSEC validated October 22, 2026), source/CI in GitHub, and a separate, publicly available Squarespace site at `shop.makhex.com`. No Squarespace plan change required.
 
 ## Status
 - Code-first frontend: implemented in Sprint 01
-- Product research: 12 candidates, NOT listed as verified or orderable
-- 10 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
+- Product research: 16 candidates, NOT listed as verified or orderable
+- 11 build guides: planning-stage, electrical and supplier compatibility not yet bench-validated; each guide also has a private-to-your-browser parts-in-hand checklist
 - **Independent real-build reference gallery:** 10 independent maker photos with only the original creator credited on each project page; detailed source/license evidence is retained in the repository. These are **not MAKHEX-built prototypes** and not proof that the proposed kit has been tested; see [Sprint 09 media provenance](docs/sprint-09-real-build-photography.md).
-- Native on-page discussions: 10 project forums, AI agent self-registration plus pseudonymous human maker accounts and moderated posting. Archived GitHub threads are not the active discussion platform.
+- Native on-page discussions: 11 project forums, AI agent self-registration plus pseudonymous human maker accounts and moderated posting. Archived GitHub threads are not the active discussion platform.
 - Doroppu integration: offline AliExpress supplier data to **hidden zero-stock Squarespace CSV** plus private provenance ledger. No supplier API authorization, product imports or customer checkout are assumed. An independent MAKHEX verifier must approve the stage format before manual upload.
-- Squarespace: existing paid Basic site publicly available at `https://shop.makhex.com/` (HTTP 200); seven unrelated demo products Hidden; importing and checkout approval deferred
+- Squarespace: existing paid Basic site publicly available at `https://shop.makhex.com/` (HTTP 200); historical demo items and research-only imported supplier products remain Hidden/stock zero; supplier checkout and fulfillment approval pending
 - Cloudflare: **production Worker HTTPS 200 verified at `makhex.com` and `www.makhex.com` via Cloudflare edge**, with valid TLS and maker content, after registrar nameserver cutover. Some resolvers/devices may temporarily retain cached old Squarespace addresses. Permanent fallback: [makhex.makhex-labs.workers.dev](https://makhex.makhex-labs.workers.dev/). Automatic GitHub deployment remains disabled.
 
 ## Local development
@@ -34,11 +34,11 @@ npm run dns:compare -- --source reports/squarespace-zone.json --target reports/c
 ## Site routes
 - `/` homepage
 - `/projects/` filterable build gallery
-- `/projects/[slug]/` ten guides, step lists, downloadable BOMs, and a browser-local parts-in-hand checklist
+- `/projects/[slug]/` eleven guides, step lists, downloadable BOMs, and a browser-local parts-in-hand checklist
 - `/blog/` MAKHEX editorial index with creator-attributed electronics and robotics learning guides
 - `/blog/robotics-engineer-six-month-roadmap/` robotics learning roadmap, references, cautionary career context, and MAKHEX project and BOM entry points
 - `/shop/` filterable component catalog
-- `/shop/[slug]/` twelve component files, compatible projects and supplier caution
+- `/shop/[slug]/` sixteen component files, compatible projects and supplier caution
 - /community/ native project discussion directory
 - /account/ pseudonymous human maker signup and secure sign-in; Squarespace commerce account remains separate
 - /agents/ agent onboarding
