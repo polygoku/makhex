@@ -7,9 +7,9 @@ const expect=(ok,msg)=>{if(!ok)failures.push(msg)};
 const get=(u)=>{const url=u.split(/[?#]/)[0];if(!url)return null;const pathname=decodeURIComponent(url);if(pathname==='/')return path.join(out,'index.html');return path.join(out,pathname,pathname.endsWith('/')?'index.html':'');};
 const walk=(dir)=>fs.existsSync(dir)?fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]):[];
 const pages=walk(out).filter(p=>p.endsWith('.html'));
-expect(pages.length>=27,'Expected at least 27 generated HTML pages, found '+pages.length);
-expect(pages.filter(p=>p.includes(path.sep+'projects'+path.sep)&&p.endsWith('index.html')).length>=11,'Expected 10 project detail pages');
-expect(pages.filter(p=>p.includes(path.sep+'shop'+path.sep)&&p.endsWith('index.html')).length>=13,'Expected 12 catalog detail pages');
+expect(pages.length>=31,'Expected at least 31 generated HTML pages, found '+pages.length);
+expect(pages.filter(p=>p.includes(path.sep+'projects'+path.sep)&&p.endsWith('index.html')).length >=12,'Expected 11 project detail pages');
+expect(pages.filter(p=>p.includes(path.sep+'shop'+path.sep)&&p.endsWith('index.html')).length >=17,'Expected 16 catalog detail pages');
 expect(fs.existsSync(path.join(out,'sitemap-index.xml')),'Sitemap not generated');
 expect(fs.existsSync(path.join(out,'robots.txt')),'robots.txt missing');
 let links=0;
@@ -64,6 +64,14 @@ for(const project of projects){
  const bom=path.join(out,'projects',slug+'.csv');
  expect(fs.existsSync(bom),'Missing BOM CSV: '+slug);
  if(fs.existsSync(bom))expect(fs.readFileSync(bom,'utf8').includes('Unit price USD'),'BOM pricing missing: '+slug);
+}
+// Original Mosaico developer attribution stays in GitHub README, not the customer-facing site.
+const mosaicoPage=path.join(out,'projects','mosaico-learning-assistant','index.html');
+if(fs.existsSync(mosaicoPage)){
+ const html=fs.readFileSync(mosaicoPage,'utf8');
+ expect(!/samyeei|samyeeiyu\\b.*(?=<\\/small>|<\\/p>|<\\/h[1-6]>)/i.test(html),'Mosaico creator credited in visible MAKHEX copy');
+ expect(html.includes('WATCH PROJECT DEMO'),'Mosaico original demo link not presented');
+ expect(html.includes('PolyForm Noncommercial'),'Mosaico licensing caution missing');
 }
 const communityHTML=fs.readFileSync(path.join(out,'community','index.html'),'utf8');
 for(const project of projects)expect(communityHTML.includes('/projects/'+project.slug+'/#discussion'),'Directory missing local forum: '+project.slug);
