@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { blogPosts } from '../../data/blog';
+import '../../styles/blog.css';
+const post = blogPosts.find((item) => item.slug === 'robotics-engineer-six-month-roadmap')!;
+const articleUrl = `https://makhex.com/blog/${post.slug}/`;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.description,
+  datePublished: post.published,
+  dateModified: post.updated,
+  inLanguage: 'en-US',
+  mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+  author: { '@type': 'Organization', name: 'MAKHEX', url: 'https://makhex.com/about/' },
+  publisher: { '@type': 'Organization', name: 'MAKHEX', url: 'https://makhex.com/' },
+  isBasedOn: post.sourceUrl,
+  creditText: 'Adapted and independently edited from Ronin (@DeRonin_) on X, September 2, 2026.',
+};
+const toc = [
+  { id: 'the-plan', name: 'The six-month plan' },
+  { id: 'month-1', name: '01 · Circuits + coding' },
+  { id: 'month-2', name: '02 · Motors + ESP32' },
+  { id: 'month-3', name: '03 · CAD + mechanisms' },
+  { id: 'month-4', name: '04 · ROS 2 + simulation' },
+  { id: 'month-5', name: '05 · Control + perception' },
+  { id: 'month-6', name: '06 · Robot learning' },
+  { id: 'makhex-path', name: 'Where MAKHEX fits' },
+  { id: 'honest-expectations', name: 'Costs + career reality' },
+  { id: 'portfolio', name: 'Your portfolio checklist' },
+];
+---
+<BaseLayout title="Learn Robotics in 6 Months: A Maker Roadmap | MAKHEX Blog" description={post.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <header class="article-header container">
+    <p class="article-breadcrumb"><a href="/blog/">← Blog</a> / Learning paths / Robotics</p>
+    <span class="eyebrow">A HANDS-ON FIELD GUIDE / 6 MONTHS</span>
+    <h1>Learn robotics in 6 months.<br/>One real build at a time.</h1>
+    <p class="article-subtitle">From your first multimeter reading to a robot that can move, sense, and learn: a practical roadmap for curious builders, with honest milestones and a MAKHEX-friendly ESP32 starting path.</p>
+    <div class="article-byline">
+      <strong>MAKHEX Editorial</strong><span aria-hidden="true">•</span><time datetime={post.published}>October 23, 2026</time><span aria-hidden="true">•</span><span>{post.readingMinutes} min read</span>
+    </div>
+    <div class="article-intro-note">
+      <strong>Credit where it belongs:</strong> This is an original MAKHEX adaptation inspired by <a href={post.sourceUrl} rel="noopener noreferrer">Ronin (@DeRonin_)'s September 2, 2026 robotics roadmap ↗</a>. We condensed, reorganized and contextualized the learning sequence for ESP32 makers, with revised resource links and more cautious cost and career claims. The original creator is not affiliated with MAKHEX.
+    </div>
+  </header>
+
+  <div class="container article-shell">
+    <aside class="article-aside" aria-label="Article table of contents">
+      <span>ON THIS PAGE</span>
+      <nav class="article-toc">{toc.map((item) => <a href={`#${item.id}`}>{item.name}</a>)}</nav>
+      <p>Builds, not badges. Keep an engineering log of every failed test and working fix.</p>
+      <p><a href="/projects/">Browse MAKHEX builds ↗</a></p>
+    </aside>
+    <article class="article-copy">
+      <p class="article-lede">The fastest way to understand robotics is to make something behave in the physical world. Code matters. So do loose connectors, noisy sensors, sagging power rails, and a motor that does not stop when you expect it to.</p>
+
+      <section id="the-plan">
+        <h2>The idea: six months of deliberate practice</h2>
+        <p>At roughly <strong>two to three hours a day</strong>, six months offers a useful foundation—if you build, test, and document rather than only watch tutorials. This is a <strong>portfolio-building plan</strong>, not a guaranteed path to a robotics engineering job, a substitute for an engineering degree, or a shortcut to senior-level expertise.</p>
+        <p>Robotics mixes software, embedded electronics, mechanics, sensing and control. Start wide enough to connect the pieces, then choose a specialty. Use Python for experimentation and C++ for embedded systems and performance-sensitive applications; learn to read datasheets, instrument faults and reproduce bugs.</p>
+        <p>The rule for every month is simple: <strong>ship an artifact</strong>. A GitHub repository, a wiring diagram, a measurement log and a short demonstration video are more persuasive than an untested claim.</p>
+      </section>
+
+      <section id="month-1" class="phase-section">
+        <span class="phase-number">MONTH 01 / START AT THE BENCH</span>
+        <h2>Electronics, Python and debugging</h2>
+        <p>Learn voltage, current, resistance, Ohm's law, dividers, digital inputs and power budgets. Simulate a circuit before buying it. Then practice with a breadboard, a multimeter and a low-voltage microcontroller development board. Keep mains electricity out of your beginner experiments.</p>
+        <ul>
+          <li><strong>Understand the circuit:</strong> read a schematic and identify ground, supply, pull-ups, resistors and signal pins.</li>
+          <li><strong>Build software habits:</strong> write small Python scripts, use the terminal, version changes in Git, and include photos plus test results in each README.</li>
+          <li><strong>Measure before guessing:</strong> check whether a power rail dips under load and learn why ESP32 pins generally require 3.3 V logic; an arbitrary 5 V signal may damage a GPIO.</li>
+        </ul>
+        <div class="resource-row"><a href="https://www.falstad.com/circuit/">Falstad circuit simulator ↗</a><a href="https://www.tinkercad.com/circuits">Tinkercad Circuits ↗</a><a href="https://www.allaboutcircuits.com/textbook/">All About Circuits ↗</a><a href="https://cs50.harvard.edu/python/">CS50 Python ↗</a><a href="https://missing.csail.mit.edu/">MIT Missing Semester ↗</a></div>
+        <p class="milestone"><strong>Proof of progress:</strong> draw a simple schematic, use a multimeter to find a wiring fault, and record how current draw or an unstable supply changes your result.</p>
+      </section>
+
+      <section id="month-2" class="phase-section">
+        <span class="phase-number">MONTH 02 / BRING IT TO LIFE</span>
+        <h2>Microcontrollers, sensors, motors and feedback</h2>
+        <p>Start with beginner Arduino examples if you need them, then move to an ESP32 development board. Learn GPIO, PWM, interrupts, I²C, SPI, serial logs and timers. An <strong>ESP32-S3</strong> is a useful connected sensing and interface platform, but it is not itself a motor driver or a replacement for a full robotics computer.</p>
+        <p>For a small DC motor, prefer an appropriately rated <strong>TB6612FNG or DRV8833</strong> module over a lossy legacy L298N, after checking <em>stall current, supply voltage and board-specific pinout</em>. Separate motor power as needed, connect grounds appropriately, and provide proper protection against motor transients. Never drive a motor directly from an ESP32 GPIO.</p>
+        <p>Try a line-following robot with reflectance sensors and encoder feedback. Tune proportional control first, then introduce derivative and integral terms where useful. A self-balancing robot is an excellent stretch project, not a mandatory beginner deliverable. Use an IMU and compare filtered sensor signals against raw readings.</p>
+        <div class="resource-row"><a href="https://toptechboy.com/arduino-lessons/">Paul McWhorter Arduino lessons ↗</a><a href="https://randomnerdtutorials.com/getting-started-with-esp32/">Random Nerd ESP32 guide ↗</a><a href="/projects/espnow-remote/">MAKHEX ESP-NOW remote ↗</a><a href="/projects/touch-weather-station/">MAKHEX touch + sensor blueprint ↗</a></div>
+        <p class="milestone"><strong>Proof of progress:</strong> demonstrate a repeatable closed-loop motor or position test, log the setpoint and actual response, and explain the overshoot or oscillation you measured.</p>
+      </section>
+
+      <section id="month-3" class="phase-section">
+        <span class="phase-number">MONTH 03 / MAKE THE MECHANISM</span>
+        <h2>CAD, fabrication and your first arm</h2>
+        <p>Pick one parametric CAD tool—<a href="https://www.onshape.com/">Onshape</a>, <a href="https://www.freecad.org/">FreeCAD</a> or <a href="https://www.autodesk.com/products/fusion-360/personal">Fusion for personal use</a>—and stick with it long enough to build fully constrained parts from datasheet dimensions. Understand tolerances, fasteners, loads and cable routing.</p>
+        <p>Print small test coupons before an entire enclosure. PLA is convenient for prototypes; PETG and TPU may suit some functional parts, but material choice depends on temperature, load, stiffness, environment and printer settings. A local makerspace can replace purchasing a printer.</p>
+        <p>If budget and access permit, explore the open-source <a href="https://github.com/TheRobotStudio/SO-ARM100">SO-100/SO-101 robot-arm ecosystem</a> and the <a href="https://huggingface.co/docs/lerobot/index">LeRobot documentation</a>. Leader–follower teleoperation is a useful bridge to month six. Confirm the specific bill of materials, motor revision and software compatibility; an arm pair is not included in MAKHEX's current catalog.</p>
+        <p class="milestone"><strong>Proof of progress:</strong> export an editable CAD model, print and fit one original gripper or bracket, and document dimensions and at least one design revision.</p>
+      </section>
+
+      <section id="month-4" class="phase-section">
+        <span class="phase-number">MONTH 04 / MAKE SYSTEMS TALK</span>
+        <h2>ROS 2, simulation and navigation</h2>
+        <p>Learn <strong>ROS 2</strong> concepts: nodes, topics, services, actions, launch files, transforms and recorded data. <a href="https://docs.ros.org/en/jazzy/Tutorials.html">ROS 2 Jazzy</a> on Ubuntu 24.04 is a well-supported learning pairing, with Jazzy maintenance through May 2029. ROS 1 tutorials using <code>roscore</code> or <code>catkin_make</code> describe a different, legacy system—do not mix those instructions into a ROS 2 setup.</p>
+        <p>Describe a robot using URDF/xacro, inspect its TF frames in RViz, and simulate sensors and motion in modern Gazebo. Move to <a href="https://control.ros.org/">ros2_control</a>, <a href="https://github.com/SteveMacenski/slam_toolbox">SLAM Toolbox</a> and <a href="https://docs.nav2.org/">Nav2</a> only after basic topics and transforms work. MuJoCo is an additional useful simulation tool for dynamics and learning.</p>
+        <p>Most exercises can run without physical hardware. For MAKHEX users, an ESP32 can be a sensor/actuator peripheral in a larger architecture—not a full replacement for a ROS 2 host machine.</p>
+        <div class="resource-row"><a href="https://docs.ros.org/en/jazzy/Tutorials.html">ROS 2 official tutorials ↗</a><a href="https://articulatedrobotics.xyz/tutorials/">Articulated Robotics ↗</a><a href="https://gazebosim.org/docs">Gazebo docs ↗</a><a href="https://docs.nav2.org/">Nav2 docs ↗</a></div>
+        <p class="milestone"><strong>Proof of progress:</strong> create a simulated robot with a valid transform tree, record a ROS bag, and demonstrate repeatable mapping or a simple navigation task.</p>
+      </section>
+
+      <section id="month-5" class="phase-section">
+        <span class="phase-number">MONTH 05 / UNDERSTAND THE MATH</span>
+        <h2>Control, kinematics and robot perception</h2>
+        <p>Revisit PID with actual measured step responses. Study stability, state-space models, observability and controllability before experimenting with LQR or model-predictive control. <a href="https://underactuated.csail.mit.edu/">MIT's Underactuated Robotics</a> provides a rigorous free route through this material.</p>
+        <p>For manipulators, learn forward and inverse kinematics, coordinate frames, Jacobians and singularities using <a href="https://modernrobotics.northwestern.edu/">Modern Robotics</a>. Calibrate a camera with <a href="https://docs.opencv.org/">OpenCV</a>; learn the distinction between an image coordinate and a position in robot space. Try point-cloud visualization with <a href="https://www.open3d.org/">Open3D</a> and, when ready, a simple <a href="https://moveit.picknik.ai/">MoveIt 2</a> motion-planning task.</p>
+        <p>Do not assume LQR will always outperform PID. Compare both on the <em>same</em> simulated plant, with measured error, settling time and control effort, and state your assumptions.</p>
+        <p class="milestone"><strong>Proof of progress:</strong> compare controllers on a cart-pole or similar model, explain a robot-arm singularity with a diagram, and show one camera-calibration result.</p>
+      </section>
+
+      <section id="month-6" class="phase-section">
+        <span class="phase-number">MONTH 06 / TEACH THE ROBOT</span>
+        <h2>Robot learning, evaluation and a portfolio</h2>
+        <p>Try the <a href="https://huggingface.co/docs/lerobot/index">Hugging Face LeRobot</a> workflow on a compatible robot: teleoperate, record a small set of demonstrations, train a behavior-cloning policy such as ACT, evaluate on previously unseen trials and log failures. <strong>Fifty demonstrations</strong> is a reasonable experiment target, not a guarantee of reliable learning; more data, better coverage or more compute may be necessary.</p>
+        <p>If the first policy struggles, record new demonstrations covering specific failures instead of repeating only successful cases. Measure task completion and failure modes over an explicit number of fresh test attempts. Explore open robot-learning systems such as SmolVLA, OpenVLA and NVIDIA's GR00T, but check current model documentation and hardware requirements before committing compute resources.</p>
+        <p>Choose a direction to deepen next: <strong>embedded systems and integration</strong>, <strong>mobile autonomy</strong>, or <strong>robot learning</strong>. The strongest choice is the one you can demonstrate repeatedly and improve with evidence.</p>
+        <div class="resource-row"><a href="https://huggingface.co/docs/lerobot/index">LeRobot docs ↗</a><a href="https://github.com/huggingface/lerobot">LeRobot source ↗</a><a href="https://mujoco.org/">MuJoCo ↗</a></div>
+        <p class="milestone"><strong>Proof of progress:</strong> publish a short robot-demo video, reproducible training/evaluation steps, a table of trial outcomes and an honest account of what still fails.</p>
+      </section>
+
+      <section id="makhex-path">
+        <h2>Where MAKHEX helps: start with small, real hardware</h2>
+        <p>A robotics journey does not have to begin with an expensive humanoid or robot arm. MAKHEX focuses on the <strong>ESP32 electronics, sensors, interfaces and documented experiments</strong> that teach many of the same embedded-system fundamentals.</p>
+        <div class="makhex-panel">
+          <h3>Your maker-to-robotics starter path</h3>
+          <ol>
+            <li><a href="/projects/smart-desk-button/">One-Press Smart Button</a> — understand GPIO, debouncing, state changes and clear feedback.</li>
+            <li><a href="/projects/tiny-ble-presence/">Tiny BLE Beacon</a> — test wireless advertisements, measure power, and learn radio limitations.</li>
+            <li><a href="/projects/touch-weather-station/">Touch Weather Station</a> — integrate I²C sensing with an interactive display and debug firmware/peripherals.</li>
+            <li><a href="/projects/espnow-remote/">ESP-NOW Wireless Remote</a> — explore device-to-device packets, retries and safe timeouts.</li>
+            <li><a href="/projects/camera-event-trigger/">Local Camera Event Trigger</a> — practice memory limits, image capture and simple edge events.</li>
+          </ol>
+          <p>Each blueprint links to a <strong>bill of materials</strong> and engineering notes. Visit the <a href="/shop/">MAKHEX components shelf</a> for board and sensor candidates, and <a href="/community/">maker discussions</a> to share debugging notes. Human contributors can <a href="/account/">create a MAKHEX maker account</a>, while <a href="/agents/">AI agents have a separate, clearly identified participation route</a>.</p>
+        </div>
+        <p><strong>Important qualification:</strong> As of this article's publication, MAKHEX's plans are starting blueprints, not independently bench-verified kits. Component research listings are not necessarily orderable, and neither motor-driver kits nor SO-101 arm kits are currently confirmed MAKHEX products. Check exact board revisions, voltage limits, compatibility and current purchase availability before buying. For specialized motors and robot arms, use documented original-maker parts lists and authorized suppliers.</p>
+      </section>
+
+      <section id="honest-expectations">
+        <h2>Budget, time and career reality</h2>
+        <p>Six months can lead to a convincing beginner portfolio; it will not make someone a senior engineer. Robotics roles vary widely. Many engineering positions request a bachelor's degree or equivalent experience, while technician, test, fabrication and data-collection roles may offer alternative entry points. Review each employer's actual requirements rather than assuming a no-degree guarantee.</p>
+        <p>Start with free simulators and software before purchasing hardware. A multimeter and basic development kit may fit a modest starter budget, but robots, printers, cameras, replacement parts and training compute can raise costs substantially. Prices and supplier availability change, so deliberately avoid treating any old kit quote as a current offer.</p>
+        <p>For U.S. compensation context, <a href="https://www.onetonline.org/link/localwages/17-2199.08">O*NET's Robotics Engineers page</a> shows a <strong>$122,930 national median for 2025</strong>, but explicitly uses Bureau of Labor Statistics data for the broader <em>Engineers, All Other</em> occupational group. It is <strong>not</strong> a robotics-specific starting salary or a promise about earnings. We excluded unsourced investment totals and sweeping predictions about which robotics specialty pays most.</p>
+      </section>
+
+      <section id="portfolio">
+        <h2>What to show after six months</h2>
+        <ul>
+          <li><strong>One clear demo video per flagship project</strong>, showing the hardware working and its intended task.</li>
+          <li><strong>A reproducible README</strong> with BOM, wiring, board revision, firmware/tool versions, installation and tests.</li>
+          <li><strong>Measurements</strong> such as latency, current consumption, positional error or completed trials—include units and test conditions.</li>
+          <li><strong>A failure log</strong> that describes what broke, how you isolated the cause, and what you changed.</li>
+          <li><strong>Honest limitations</strong>, including untested safety concerns and the difference between simulation and real-world behavior.</li>
+        </ul>
+        <p>If you have to choose between watching one more lecture and documenting one more repeatable bench experiment, build the experiment. Then share it so the next maker can make a better version.</p>
+        <div class="article-end-cta"><h3>Ready to start with a small board?</h3><p>Choose a MAKHEX ESP32 blueprint, follow its rough build sequence, review its materials and contribute test notes as you learn.</p><p><a href="/projects/">Explore the project shelf →</a> &nbsp; <a href="/shop/">Browse components →</a> &nbsp; <a href="/community/">Join maker discussions →</a></p></div>
+      </section>
+
+      <footer class="article-sources">
+        <h3>Original inspiration and editorial notes</h3>
+        <p>Adapted from <a href={post.sourceUrl}>Ronin (@DeRonin_), “How to become a Robotics Engineer in 6 months (RESOURCES),” September 2, 2026</a>. This MAKHEX edition is rewritten for an electronics-first maker audience, with updated qualification warnings and independent supporting links. All trademarks belong to their respective owners.</p>
+        <p>Technical reference checks: <a href="https://www.openrobotics.org/blog/2024/5/ros-jazzy-jalisco-released">Open Robotics, ROS 2 Jazzy release</a>; <a href="https://huggingface.co/docs/lerobot/index">Hugging Face LeRobot</a>; <a href="https://www.onetonline.org/link/localwages/17-2199.08">O*NET Robotics Engineers wages</a>. Published October 23, 2026.</p>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>

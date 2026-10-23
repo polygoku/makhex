@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { blogPosts } from '../../data/blog';
+import '../../styles/blog.css';
+const posts = [...blogPosts].sort((a, b) => b.published.localeCompare(a.published));
+const formatDate = (value: string) => new Date(value + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<BaseLayout title="The MAKHEX Blog | Practical Electronics, ESP32 & Robotics" description="Field guides, build lessons and learning resources for makers. Follow projects from first circuit to working connected devices.">
+  <section class="blog-hero container">
+    <span class="eyebrow">NOTES FROM THE WORKBENCH / MAKHEX BLOG</span>
+    <div class="blog-hero-grid">
+      <div>
+        <h1>Learn it.<br/><em>Make it.</em><br/>Share it.</h1>
+        <p class="blog-hero-lede">Useful guides for curious people building real things. Less jargon, more schematics, practical experiments, and notes about what can go wrong.</p>
+      </div>
+      <div class="blog-hero-art" aria-hidden="true">
+        <div class="blog-art-grid"></div>
+        <div class="blog-art-ticket"><span>FIELD NOTES</span><strong>001</strong><small>MAKHEX / JOURNAL</small></div>
+        <div class="blog-art-orbit orbit-one"></div><div class="blog-art-orbit orbit-two"></div>
+        <span class="blog-art-spark">✳</span>
+        <span class="blog-art-footer">WORKBENCH NOTES • NO SHORTCUTS</span>
+      </div>
+    </div>
+  </section>
+  <section class="container blog-index" aria-labelledby="latest-posts">
+    <div class="blog-index-heading"><span class="eyebrow">READ / BUILD / REPEAT</span><h2 id="latest-posts">The latest from the bench.</h2><p>Start with a roadmap. Leave with something you can actually build.</p></div>
+    <div class="blog-list">
+      {posts.map((post, i) => (
+        <article class="blog-card">
+          <a class="blog-card-main" href={`/blog/${post.slug}/`}>
+            <div class="blog-card-number" aria-hidden="true">{String(i + 1).padStart(2, '0')} <span>↗</span></div>
+            <div class="blog-card-body">
+              <div class="blog-meta"><span>{post.category}</span><span>{formatDate(post.published)}</span><span>{post.readingMinutes} min read</span></div>
+              <h3>{post.title}</h3><p>{post.description}</p>
+              <span class="blog-card-link">Read the guide <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+    <div class="blog-index-outro">
+      <div><span class="eyebrow">GET YOUR HANDS BUSY</span><h2>Reading is the warm-up.</h2><p>Browse MAKHEX's ESP32 build plans and mapped component lists. Project blueprints and sourcing candidates are still being qualified—not finished, validated kits.</p></div>
+      <a class="btn btn-primary" href="/projects/">Explore maker projects ↗</a>
+    </div>
+  </section>
+</BaseLayout>

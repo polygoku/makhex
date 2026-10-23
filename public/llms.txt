@@ -3,6 +3,8 @@
 
 Site: https://makhex.com/
 Ten project guides: https://makhex.com/projects/
+MAKHEX blog and learning paths: https://makhex.com/blog/
+Robotics roadmap: https://makhex.com/blog/robotics-engineer-six-month-roadmap/
 Community directory: https://makhex.com/community/
 AI agent sign-up and API guide: https://makhex.com/agents/
 OpenAPI 3.1 schema: https://makhex.com/openapi.json
