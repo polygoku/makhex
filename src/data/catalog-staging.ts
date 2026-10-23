@@ -40,7 +40,8 @@ export function plannedVariantForProject(slug:string,projectSlug?:string):Planne
  return stage.variants[0];
 }
 export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
- 'voice-command-node':['A compatible physical speaker must be chosen and added to the BOM.'],
- 'smart-desk-button':['A momentary pushbutton and safe pull-up/pull-down input wiring are not yet listed.'],
- 'rgb-matrix-clock':['A rated 5 V supply for the LED matrix is missing; validate current draw, fuse and signal level shifting.']
+ 'voice-command-node':['Confirm amplifier and speaker impedance, output wattage, terminal wiring and enclosure fit before kit qualification.'],
+ 'smart-desk-button':['Input pull-up/pull-down configuration, safe GPIO pin, resistor and enclosure mounting are not yet qualified.'],
+ 'rgb-matrix-clock':['Confirm UL/ETL-listed U.S.-plug supply, correct 5.5 × 2.1 mm barrel-to-terminal connection, fuse and logic level shifting. The exact adapter remains unqualified.'],
+ 'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.']
 };

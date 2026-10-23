@@ -16,7 +16,7 @@ Drive a WS2812 LED array as a colorful clock or status board. The important desi
 
 ## Before you order, wire or power
 
-1. Size a separate 5 V supply for the real LED count; the current BOM does not establish a rated matrix supply.
+1. Size a separate 5 V supply for the real LED count; a 5V/5A US plug supply candidate is in the BOM, but its safety listing, wiring and load regulation are not verified.
 2. Confirm ESP32-to-pixel logic compatibility and wiring length; add an appropriate level shifter if needed.
 
 ## Research-stage BOM
@@ -24,11 +24,12 @@ Drive a WS2812 LED array as a colorful clock or status board. The important desi
 | Component slug | Qty | Intended role |
 |---|---:|---|
 | esp32-c3-supermini | 1 | LED controller |
-| ws2812-leds | 1 | Pixel array |
+| ws2812-leds | 1 | 8×8 (64-pixel) matrix variant; not 8-LED ring |
+| 5v-5a-led-power | 1 | External US-plug regulated 5 V/5 A supply candidate |
 | usb-c-power-kit | 1 | Prototyping tools |
 
 **Missing or unqualified pieces — not included in subtotal:**
-- A rated 5 V supply for the LED matrix is missing; validate current draw, fuse and signal level shifting.
+- A power adapter is included as a research candidate, but its exact NRTL-listed US SKU, fused power connection, polarity, current margin and 3.3 V→5 V data level shifting need verification.
 
 The catalog is research-only. Supplier stock, exact variant, compatibility, shipping to ZIP 11021, actual orderability, and fulfillment are **not qualified**. No automatic purchasing or public checkout release.
 

@@ -16,13 +16,13 @@ export const GET:APIRoute=()=>{
     checkoutAvailable:false,
     components:products.map(product=>{
       const stage=stageFor(product.slug);
-      if(!stage)throw new Error('Missing retail product '+product.slug);
+      // Newly discovered products have no verified retail price or exact supplier option.
       return {
-        slug:product.slug,title:stage.supplierModel,
+        slug:product.slug,title:stage?.supplierModel??product.title,
         url:'https://makhex.com/shop/'+product.slug+'/',
-        variants:stage.variants.map(v=>({title:v.title,priceUsd:v.plannedRetailUsd})),
+        variants:stage?.variants.map(v=>({title:v.title,priceUsd:v.plannedRetailUsd}))??[],
         availability:'COMING_SOON',
-        hardwareReview:stage.technicalGate,
+        hardwareReview:stage?.technicalGate??'HOLD',
       };
     }),
     projects:projects.map(project=>{
@@ -35,7 +35,7 @@ export const GET:APIRoute=()=>{
         slug:project.slug,title:project.title,
         url:'https://makhex.com/projects/'+project.slug+'/',
         parts,
-        partsSubtotalUsd:Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100,
+        partsSubtotalUsd:parts.every(p=>p.lineTotalUsd!==null)?Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100:null,
         outstandingParts:projectBomMissingParts[project.slug]??[],
       };
     }),

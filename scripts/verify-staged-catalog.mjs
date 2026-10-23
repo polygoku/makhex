@@ -14,13 +14,22 @@ const expected={
  'epaper-29':[47.08],'ws2812-leds':[14.55,5.10],
  'usb-c-power-kit':[16.38]
 };
-assert.equal(products.length,12);
-assert.equal(projects.length,10);
+assert.equal(products.length,16);
+assert.equal(projects.length,11);
 assert.equal(Object.keys(catalogStaging).length,12);
 let optionCount=0;
 for(const product of products){
  const stage=catalogStaging[product.slug],prices=expected[product.slug];
- assert.ok(stage&&prices,'Staging record missing: '+product.slug);
+ if(!stage){
+  assert.ok(!prices,'New unqualified component must not have a fixed source price: '+product.slug);
+  assert.equal(product.status,'Research','Unqualified product cannot be published: '+product.slug);
+  const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
+  assert.ok(html.includes('Price pending'),'Product with no verified price must show Price pending: '+product.slug);
+  assert.ok(html.includes('Coming soon')&&html.includes('disabled'),'Unqualified product checkout must be disabled: '+product.slug);
+  assert.ok(!/aliexpress/i.test(html),'Public component must not expose source URL: '+product.slug);
+  continue;
+ }
+ assert.ok(prices,'Unreviewed previously staged product: '+product.slug);
  assert.equal(stage.shippingVerified,false);
  assert.equal(stage.buyerOrderabilityVerified,false);
  assert.equal(stage.variants.length,prices.length);
@@ -41,14 +50,16 @@ assert.equal(optionCount,13);
 assert.equal(Object.values(catalogStaging).filter(v=>v.technicalGate==='HOLD').length,3);
 assert.equal(plannedVariantForProject('ws2812-leds','smart-desk-button')?.plannedRetailUsd,5.10);
 assert.equal(plannedVariantForProject('ws2812-leds','rgb-matrix-clock')?.plannedRetailUsd,14.55);
-assert.equal(Object.keys(projectBomMissingParts).length,3);
+assert.equal(Object.keys(projectBomMissingParts).length,4);
 for(const project of projects){
  const html=fs.readFileSync(path.join(dist,'projects',project.slug,'index.html'),'utf8');
  assert.ok(html.includes('Parts subtotal'),'Parts subtotal missing: '+project.slug);
- assert.ok(html.includes('Free U.S. shipping'),'Shipping note missing from BOM: '+project.slug);
+ assert.ok(html.includes('U.S. delivery'),'Shipping qualification note missing from BOM: '+project.slug);
  assert.ok(!html.includes('AliExpress source'),'Supplier link exposed on project: '+project.slug);
  for(const m of project.materials)
-  assert.ok(plannedVariantForProject(m.slug,project.slug),'Unpriced BOM component '+m.slug);
+  assert.ok(products.some(p=>p.slug===m.slug),'Unknown BOM component '+m.slug);
+ if(project.materials.some(m=>!plannedVariantForProject(m.slug,project.slug)))
+  assert.ok(html.includes('Price pending'),'Project with unpriced BOM component must display pending subtotal: '+project.slug);
  const csv=fs.readFileSync(path.join(dist,'projects',project.slug+'.csv'),'utf8');
  assert.ok(csv.includes('Unit price USD')&&csv.includes('Line total USD'),'BOM CSV price fields missing');
  assert.ok(!/aliexpress/i.test(csv),'Source exposed in downloadable CSV: '+project.slug);
@@ -62,13 +73,17 @@ assert.equal(sourcing.schema,'makhex-catalog-v3');
 assert.equal(sourcing.checkoutAvailable,false);
 assert.equal(sourcing.shipping.customerRateUsd,0);
 assert.equal(sourcing.shipping.country,'US');
-assert.equal(sourcing.components.length,12);
-assert.equal(sourcing.projects.length,10);
+assert.equal(sourcing.components.length,16);
+assert.equal(sourcing.projects.length,11);
 assert.equal(sourcing.components.flatMap(p=>p.variants).length,13);
+assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,4,'Four new components must not have invented source prices');
+for(const project of sourcing.projects){
+ if(project.parts.some(p=>p.unitPriceUsd===null))assert.equal(project.partsSubtotalUsd,null,'Unpriced BOM must have null subtotal: '+project.slug);
+}
 const publicJson=JSON.stringify(sourcing);
 for(const sensitive of ['aliexpress','sourceItemId','sourceUnitCost','supplierUnitCost','sourceVariantId','access_token','refresh_token'])
  assert.ok(!publicJson.toLowerCase().includes(sensitive.toLowerCase()),'Supplier detail exposed in public JSON: '+sensitive);
-console.log('MAKHEX SHOP PASS: 12 products, 13 2.5x prices, 10 project BOMs, free U.S. customer shipping, no supplier links, checkout gated');
+console.log('MAKHEX SHOP PASS: 16 research products, 13 historical priced options, 11 project BOMs, no exposed supplier links, checkout gated');
 
 // Regression gate: supplier research, stock snapshots, and an N4-titled-as-N8
 // trial must never activate customer checkout by accident.
