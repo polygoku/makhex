@@ -1,0 +1,31 @@
+name: MAKHEX Cloudflare token audit
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Audit existing deploy credential without exposing token
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const key = process.env.CLOUDFLARE_API_TOKEN;
+          const account = process.env.CLOUDFLARE_ACCOUNT_ID;
+          if (!key || !account) throw Error('Cloudflare deploy token/account secret missing');
+          const headers = { Authorization: 'Bearer ' + key, Accept: 'application/json' };
+          const verification = await fetch('https://api.cloudflare.com/client/v4/user/tokens/verify', { headers, signal: AbortSignal.timeout(16000) });
+          if (!verification.ok) throw Error('Cloudflare token verification HTTP ' + verification.status);
+          const verifyJson = await verification.json();
+          if (verifyJson.success !== true || verifyJson.result?.status !== 'active') throw Error('Cloudflare token is not active');
+          console.log('PASS: repo secret token active');
+          const worker = await fetch('https://api.cloudflare.com/client/v4/accounts/' + encodeURIComponent(account) + '/workers/scripts/makhex', { headers, signal: AbortSignal.timeout(16000) });
+          if (!worker.ok) throw Error('Scoped token cannot read permanent Worker: HTTP ' + worker.status);
+          console.log('PASS: repository token can read the exact MAKHEX Worker in the configured account');
+          console.log('SCOPE REVIEW STILL REQUIRED: successful API calls do not prove the token excludes DNS and unrelated resources.');
+          NODE
