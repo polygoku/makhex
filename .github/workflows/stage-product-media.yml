@@ -1,0 +1,32 @@
+name: Stage reviewed MAKHEX listing photographs
+on:
+  push:
+    branches: [codex/media-cart-github-20261023]
+permissions:
+  contents: write
+jobs:
+  media:
+    if: ${{ github.repository == 'polygoku/makhex' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Prepare JPEG conversion
+        run: |
+          command -v convert || (sudo apt-get update && sudo apt-get install -y imagemagick)
+      - name: Download supplier hardware reference photos
+        run: node scripts/stage-supplier-media.mjs
+      - name: Commit optimized first-party references to feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- public/product-media/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Stage 16 optimized component listing reference images'
+            git push origin HEAD:refs/heads/codex/media-cart-github-20261023
+          fi
