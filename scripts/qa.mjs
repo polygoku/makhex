@@ -85,7 +85,14 @@ for(const p of products){
  }
 }
 const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');
-expect(build11Html.includes('/product-media/esp-mosaico-vision-combo-kit.jpg'),'Build 11 has no hardware image');
+expect(build11Html.includes('/demo/build11-english-lifestyle-wide.jpg'),'Build 11 approved English hero missing');
+for(const name of ['build11-english-lifestyle.jpg','build11-english-lifestyle-wide.jpg','build11-english-capture.jpg','build11-english-explanation.jpg','build11-english-followup.jpg']){
+ const file=path.join(out,'demo',name);
+ expect(fs.existsSync(file),'Missing Build 11 approved image: '+name);
+ if(fs.existsSync(file)){const b=fs.readFileSync(file);expect(b.length>30000&&b[0]===0xff&&b[1]===0xd8,'Invalid Build 11 optimized JPEG: '+name);}
+ expect(build11Html.includes('/demo/'+name),'Approved photo is not on Build 11 page: '+name);
+}
+expect(homeHtml.includes('/demo/build11-english-lifestyle-wide.jpg'),'Home must feature approved Build 11 art');
 expect(build11Html.includes('<video')&&build11Html.includes('/demo/build11-en-concept.mp4'),'Build 11 must have a locally served HTML5 video, not an X link');
 expect(build11Html.includes('ILLUSTRATIVE')||build11Html.includes('concept walkthrough'),'Build 11 video must be clearly marked as a simulation');
 expect(build11Html.includes('data-cart-add-plan="mosaico-learning-assistant"'),'Build 11 individual component sourcing option missing');
