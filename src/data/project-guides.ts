@@ -7,6 +7,7 @@ export interface ProjectGuide {
   demoGoals: string[];
   agentTasks: string[];
   video?: { url: string; title: string; creator: string };
+  source?: { url: string; creator: string; license: string; note: string };
 }
 export const projectGuides: Record<string, ProjectGuide> = {
   'touch-weather-station': {
@@ -80,5 +81,14 @@ export const projectGuides: Record<string, ProjectGuide> = {
     beforeYouStart: ['Add a separately sourced momentary pushbutton; it is missing from the current BOM.', 'Choose an ESP32-C3 GPIO that is not a boot strapping conflict on the actual board.'],
     demoGoals: ['Short and long presses are debounced consistently.', 'LED state distinguishes acknowledgement from timeout.', 'No API secret is stored in source or sent in a public request.'],
     agentTasks: ['Write a pin-selection and debounce test matrix.', 'Implement local no-op mock action before real network integration.']
+  },
+  'mosaico-learning-assistant': {
+    overview: 'An independent maker demonstrated a portable learning assistant on the ESP-Mosaico platform. Photograph a worksheet, pick a recognized question, see a step-by-step explanation, and ask a spoken follow-up. The original is a Chinese-language, cloud-connected reference implementation. MAKHEX provides an independent English-language hardware/build overview for U.S. makers; it is not a translated commercial firmware release or a ready-to-use English tutoring device.',
+    useCases: ['Hands-on AI vision and touchscreen prototyping with real ESP32-S31 hardware', 'Exploring guided explanations and follow-up questions on sample math problems', 'Learning secure Wi-Fi onboarding, speech recognition, synthesis and cloud-model integration', 'Planning an independently licensed, English-first educational device for U.S. users'],
+    beforeYouStart: ['Use the official ESP-Mosaico Vision Combo Kit, not a generic ESP32-S3 camera board. Confirm Core Unit V1.2, camera module revision and a USB data cable.', 'The original v1.0.0 image supports old Recovery ABI 1 / layout 4 only; DO NOT install on a current Vibe Mode 0.2 / ABI 2 device or bypass recovery checks.', 'The original author licenses the application under PolyForm Noncommercial 1.0.0. MAKHEX does not bundle, translate, redistribute, preinstall or commercially license the software.', 'A personal Alibaba Cloud Model Studio / Bailian (Qwen) account, supported region and paid API key are required for the original app. Verify service access from the United States and avoid sharing personal or student information.'],
+    demoGoals: ['Check that the dedicated camera preview works and the correct question can be selected before asking for an explanation.', 'Demonstrate a spoken follow-up and a visible transcript confirmation with non-sensitive test data on a licensed, compatible device.', 'Record firmware ABI, model region, language, camera revision and test results rather than claiming English support.', 'For a future U.S. product, establish commercial software rights or independently build a replacement and test English speech, UI, U.S. grades 1–12 and privacy before launch.'],
+    agentTasks: ['Start with builds/mosaico-learning-assistant/README.md and the original source; keep the noncommercial code and assets out of a commercial distribution.', 'Audit legacy Recovery ABI 1 versus current ABI 2, camera sensor variant, minimum flash and service-region dependencies. Never downgrade or erase a customer device.', 'Research authorization for a commercial English localization or specify a clean-room implementation and original UX/assets with applicable licenses.', 'Qualify an exact ESP-Mosaico hardware supplier and U.S.-delivery quote via private Doroppu records before requesting Squarespace checkout approval.'],
+    source: { url: 'https://github.com/samyeei/mosaico-learning-assistant', creator: 'samyeei', license: 'PolyForm Noncommercial 1.0.0', note: 'Original firmware and interface are not licensed for MAKHEX commercial redistribution. Source documentation is in Chinese.' },
+    video: { url: 'https://x.com/samyeeiyu/status/2113491864078991859', title: 'Creator’s original X demonstration', creator: 'samyeei (@samyeeiyu)' }
   }
 };
