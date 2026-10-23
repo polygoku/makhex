@@ -24,6 +24,14 @@ jobs:
         shell: bash
         run: |
           npm install --no-save --no-package-lock playwright-core
-          npm run preview -- --host 127.0.0.1 --port 4399 > /tmp/makhex-browser-preview.log 2>&1 &
-          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4399/ > /dev/null && break; sleep 1; done
+          ./node_modules/.bin/astro preview --host 127.0.0.1 --port 4399 > /tmp/makhex-browser-preview.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:4399/ > /dev/null; then break; fi
+            sleep 1
+          done
+          if ! curl -fsS http://127.0.0.1:4399/ > /dev/null; then
+            echo 'Astro preview did not start:'
+            cat /tmp/makhex-browser-preview.log
+            exit 1
+          fi
           node scripts/cart-browser.test.mjs
