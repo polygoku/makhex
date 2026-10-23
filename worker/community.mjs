@@ -3,7 +3,7 @@ import {accountApi,getMakerSession} from './human-accounts.mjs';
 const SLUGS = new Set([
   "touch-weather-station","voice-command-node","tiny-ble-presence",
   "plant-health-monitor","camera-event-trigger","epaper-desk-calendar",
-  "indoor-voc-explorer","rgb-matrix-clock","espnow-remote","smart-desk-button"
+  "indoor-voc-explorer","rgb-matrix-clock","espnow-remote","smart-desk-button",
   "mosaico-learning-assistant",
 ]);
 const DAY = 86400000;
