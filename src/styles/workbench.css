@@ -839,3 +839,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .mosaico-shopping-method button{margin-top:auto;white-space:normal;text-align:center}
 .mosaico-qualification-note{margin-bottom:8px}
 @media(max-width:720px){.project-demo-stills{grid-template-columns:1fr}.mosaico-shopping-method{grid-template-columns:1fr}.mosaico-hardware{padding:14px}.mosaico-hardware-heading{display:grid}.mosaico-kit-label{white-space:normal;justify-self:start}.mosaico-part{grid-template-columns:115px 1fr}.mosaico-part-art{min-height:130px}.mosaico-part-art img{height:125px}.mosaico-part-information{padding:12px}.mosaico-part h4{font-size:16px}.mosaico-part-add{padding:8px}}
+
+/* Build 11 approved English-language concept image media */
+.featured-build-image.build11-featured-photo>img{width:100%;height:100%;object-fit:cover;object-position:center 45%}
+.project-detail-poster.build11-approved-hero{background:#eee6d9;overflow:hidden}
+.project-detail-poster.build11-approved-hero img.real-reference-photo{width:100%;height:100%;object-fit:cover;object-position:50% 49%}
+.build11-approved-gallery{display:grid;grid-template-columns:minmax(210px,.7fr) minmax(0,2fr);gap:18px;align-items:start;margin-top:20px}
+.build11-approved-gallery figure{margin:0;background:#fffaf1;border:1px solid #d9cbb9;border-radius:12px;overflow:hidden}
+.build11-approved-gallery figcaption{font:800 12px/1.4 var(--display);color:#3a5546;padding:10px 12px}
+.build11-approved-main img{display:block;width:100%;height:auto;aspect-ratio:1122/1402;object-fit:cover}
+.build11-approved-gallery .build11-photo-stills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0}
+.build11-approved-gallery .build11-photo-stills img{display:block;width:100%;height:auto;aspect-ratio:941/1672;object-fit:contain;background:#fbf3e8}
+@media(max-width:900px){.build11-approved-gallery{grid-template-columns:1fr}.build11-approved-main{max-width:420px;margin-inline:auto!important}}
+@media(max-width:640px){.build11-approved-gallery .build11-photo-stills{grid-template-columns:1fr}.build11-approved-gallery .build11-photo-stills figure{max-width:460px;margin-inline:auto}.project-detail-poster.build11-approved-hero img.real-reference-photo{object-fit:contain}}

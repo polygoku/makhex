@@ -13,7 +13,7 @@ const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):und
     <span class="feature-stamp"><span class="tiny-indicator" aria-hidden="true"></span> LATEST BUILD / FROM THE WORKBENCH</span>
     <span class="feature-count">BUILD {project.number} / {String(total).padStart(2,'0')}</span>
   </div>
-  <div class:list={['featured-build-image',{'featured-build-latest':!weatherScene}]}>
+  <div class:list={['featured-build-image',{'featured-build-latest':!weatherScene,'build11-featured-photo':isMosaico}]}>
     {weatherScene
       ? <>
         <img src="/workbench-scene.svg" width="800" height="580" alt="Concept rendering of an ESP32 touch weather station with a knob and sensor board on a cutting mat." decoding="async" fetchpriority="high"/>
@@ -21,14 +21,14 @@ const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):und
         <a class="pin-label pin-two" href="/shop/bme280-sensor/" aria-label="Explore BME280 environment sensor research details">BME280 sensor <span class="pin-dot" aria-hidden="true"></span></a>
       </>
       : isMosaico ? <>
-        <img src="/product-media/esp-mosaico-vision-combo-kit.jpg" alt="Supplier hardware photograph of ESP-Mosaico touchscreen, camera and interaction modules" width="900" height="900" decoding="async" fetchpriority="high"/>
+        <img src="/demo/build11-english-lifestyle-wide.jpg" alt="Illustrative English-language AI learning assistant scanning a math problem on a worksheet" width="1122" height="701" decoding="async" fetchpriority="high"/>
         {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Explore '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
       </> : <>
         <ProjectArtwork project={project}/>
         {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Explore research details for '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
       </>
     }
-    <span class="visual-disclaimer">{isMosaico?'Supplier hardware reference · exact option unverified':'Concept illustration · not a verified product photo'}</span>
+    <span class="visual-disclaimer">{isMosaico?'English UI concept · AI-generated illustration, not device footage':'Concept illustration · not a verified product photo'}</span>
   </div>
   <div class="featured-build-footer">
     <div>

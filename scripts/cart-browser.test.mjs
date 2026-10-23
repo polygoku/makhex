@@ -10,11 +10,12 @@ page.on('pageerror',e=>errors.push(e.message));
 const waitCount=async n=>page.waitForFunction(v=>Number(document.querySelector('[data-cart-count]')?.textContent)===v,n,{timeout:10000});
 try{
  await page.goto(root+'/projects/mosaico-learning-assistant/',{waitUntil:'domcontentloaded'});
- assert.equal(await page.locator('.supplier-reference-poster img').count(),1);
- assert.equal(await page.locator('.supplier-reference-poster img').first().evaluate(e=>e.complete&&e.naturalWidth>150),true);
+ assert.equal(await page.locator('.build11-approved-hero img').count(),1);
+ assert.equal(await page.locator('.build11-approved-hero img').first().evaluate(e=>e.complete&&e.naturalWidth>150),true);
  assert.equal(await page.locator('.project-demo-local video').count(),1);
  assert.equal(await page.locator('.project-demo-local video source[src="/demo/build11-en-concept.mp4"]').count(),1);
  assert.equal(await page.locator('.project-demo-stills img').count(),3);
+ assert.equal(await page.locator('.build11-approved-gallery img').count(),4,'Approved hero and three English workflow images must render');
  assert.equal(await page.locator('.project-demo-local video').evaluate(e=>e.canPlayType('video/mp4')!==''),true);
  await page.locator('[data-cart-add-all="mosaico-learning-assistant"]').click();
  await waitCount(2);
