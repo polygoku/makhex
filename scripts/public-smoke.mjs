@@ -20,7 +20,7 @@ const checks=[
   {path:'/community/',contains:'id="thread-heading"'},
   {path:'/shop/esp32-s3-devkit/',contains:'Coming soon'},
   {path:'/projects/touch-weather-station/',contains:'DOWNLOAD BOM CSV'},
-  {path:'/projects/touch-weather-station.csv',contains:'RESEARCH ONLY'},
+  {path:'/projects/touch-weather-station.csv',contains:'"Unit price USD"'},
   {path:'/robots.txt',contains:'makhex.com/sitemap-index.xml'},
   {path:'/sitemap-index.xml',contains:'sitemap'},
 ];
