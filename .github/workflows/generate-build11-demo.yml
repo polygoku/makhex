@@ -21,7 +21,7 @@ jobs:
       - run: python -m pip install 'Pillow==11.3.0'
       - name: Render independent video without creator's original footage
         run: |
-          command -v ffmpeg
+          command -v ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y ffmpeg)
           python scripts/render-build11-video.py
           ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 public/demo/build11-en-concept.mp4
       - name: Commit compiled demo and stills
