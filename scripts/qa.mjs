@@ -34,12 +34,23 @@ for(const file of pages){
    links++;
  }
 }
-// Featured component labels must remain real accessible links, not inert decoration.
+// Newest build numbers appear first in the project gallery, homepage cards and hero.
+const newestFirst=[...projects].sort((a,b)=>Number(b.number)-Number(a.number));
+const expectedBuildNumbers=newestFirst.map(p=>Number(p.number));
+const projectGalleryHtml=fs.readFileSync(path.join(out,'projects','index.html'),'utf8');
+const renderedNumbers=html=>[...html.matchAll(/class="project-number">BUILD ([0-9]{2})/g)].map(m=>Number(m[1]));
+expect(expectedBuildNumbers[0]===11,'Build 11 must be the newest project');
+expect(JSON.stringify(renderedNumbers(projectGalleryHtml))===JSON.stringify(expectedBuildNumbers),'Project gallery not ordered 11 down to 01');
 const homeHtml=fs.readFileSync(path.join(out,'index.html'),'utf8');
-for(const [tag,href] of [['pin-one','/shop/esp32-s3-devkit/'],['pin-two','/shop/bme280-sensor/']]){
-  const linkedTag=new RegExp('<a\\b[^>]*class="[^"]*\\b'+tag+'\\b[^"]*"[^>]*href="'+href.replaceAll('/','\\/')+'"','i');
-  expect(linkedTag.test(homeHtml),'Featured '+tag+' must link to '+href);
-}
+expect(JSON.stringify(renderedNumbers(homeHtml))===JSON.stringify(expectedBuildNumbers.slice(0,3)),'Homepage project cards must show the newest three builds in order');
+const latest=newestFirst[0];
+expect(homeHtml.includes('BUILD '+latest.number+' / '+String(projects.length).padStart(2,'0')),'Homepage hero still features an outdated build');
+expect(homeHtml.includes('id="featured-build-name">'+latest.title+'</h2>'),'Homepage hero title does not match newest build');
+const leadHref='/shop/'+latest.materials[0].slug+'/';
+const linkedTag=new RegExp('<a\\b[^>]*class="[^"]*\\bpin-one\\b[^"]*"[^>]*href="'+leadHref.replaceAll('/','\\/')+'"','i');
+expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+leadHref);
+expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-station hero copy still shown for newer build');
+
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
@@ -76,6 +87,8 @@ if(fs.existsSync(mosaicoPage)){
 }
 const communityHTML=fs.readFileSync(path.join(out,'community','index.html'),'utf8');
 for(const project of projects)expect(communityHTML.includes('/projects/'+project.slug+'/#discussion'),'Directory missing local forum: '+project.slug);
+const discussionOrder=[...communityHTML.matchAll(/href="\/projects\/([a-z0-9-]+)\/#discussion"/g)].map(m=>m[1]);
+expect(JSON.stringify(discussionOrder)===JSON.stringify(newestFirst.map(p=>p.slug)),'Community project list must show newest discussions first');
 expect(!communityHTML.includes('OPEN GITHUB DISCUSSIONS'),'Legacy GitHub forum CTA still visible');
 for(const f of ['agents/index.html','openapi.json','.well-known/makhex-community.json','llms.txt'])expect(fs.existsSync(path.join(out,f)),'Missing agent resource '+f);
 const workerSource=fs.readFileSync(path.resolve('worker/community.mjs'),'utf8');
