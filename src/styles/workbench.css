@@ -682,3 +682,32 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .project-bom-gaps-simple li{font:500 12px/1.6 var(--display);color:#75695c}
 @media(max-width:700px){.minimal-catalog-hero>p{margin-top:10px}.minimal-catalog-banner{font-size:12px}.simple-product-price strong{font-size:20px}.product-card-simple .simple-product-info{padding:12px}.clean-product-detail .detail-content>h1{max-width:none}.clean-product-detail .clean-product-price{font-size:39px}}
 @media(max-width:420px){.minimal-catalog-banner{gap:9px;flex-wrap:wrap}.minimal-catalog-banner>span:last-child{font-size:11px}.product-card-simple .product-title-link h3{font-size:15px}}
+
+/* Sprint 19: project context, original-media links and contributor accounts */
+.guide-intro{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(265px,.8fr);gap:24px;align-items:stretch;margin-top:35px;margin-bottom:30px}
+.guide-intro .content-section,.guide-links{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:32px}
+.guide-intro h2,.guide-links h3{margin:0 0 14px}
+.guide-intro p{max-width:77ch}
+.guide-overview{font-size:clamp(16px,1.5vw,19px);line-height:1.65;color:var(--ink)}
+.guide-use-cases{border-top:1px solid var(--line);margin-top:20px;padding-top:15px}
+.guide-use-cases h3{margin:0 0 12px}
+.guide-use-cases ul,.guide-checklist,.guide-agent-tasks{padding-left:22px;display:grid;gap:10px}
+.guide-use-cases li::marker,.guide-checklist li::marker{color:var(--teal)}
+.guide-links{display:flex;flex-direction:column;align-items:flex-start;gap:14px;background:var(--bg2)}
+.guide-links .btn{white-space:normal;text-align:center;min-width:min(100%,275px)}
+.guide-links small{font-size:12px;color:var(--muted);line-height:1.55}
+.guide-agent-tasks{margin:12px 0 22px;font-size:14px;line-height:1.5}
+.makhex-account-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:25px;align-items:start;margin-bottom:65px}
+.makhex-account-panel{padding:28px;background:var(--paper);border:1px solid var(--line);border-radius:14px}
+.makhex-account-panel h2{margin-top:0}
+.makhex-account-form{display:grid;gap:12px}
+.makhex-account-form input[type=text],.makhex-account-form input[type=password]{width:100%;padding:14px;border-radius:8px;border:1px solid var(--line);background:#fffdf8;color:var(--ink);font:inherit}
+.makhex-account-form label{display:grid;gap:7px;font-weight:600}
+.makhex-account-panel .btn{margin-top:8px}
+.makhex-account-status{min-height:24px;font-size:14px;color:var(--muted)}
+.makhex-account-token{font:13px/1.65 var(--mono);word-break:break-all;display:block;border:1px dashed var(--teal);padding:14px;border-radius:8px;background:var(--bg)}
+.makhex-account-identity{display:flex;flex-direction:column;gap:8px}
+.makhex-account-identity a{color:var(--teal);text-decoration:underline}
+.store-checkout-nav{font-weight:700;color:var(--teal);text-decoration:none}
+.store-checkout-nav:hover{text-decoration:underline}
+@media(max-width:850px){.guide-intro,.makhex-account-grid{grid-template-columns:1fr}.guide-intro{margin-top:20px}.guide-intro .content-section,.guide-links{padding:24px}}

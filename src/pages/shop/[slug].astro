@@ -34,7 +34,7 @@ const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.
       </div>}
       <div class="clean-product-action">
         {checkout.kind==='ready'
-          ?<a class="btn btn-primary" href={checkout.url} rel="noopener noreferrer">Buy on MAKHEX ↗</a>
+          ?<a class="btn btn-primary" href={checkout.url} rel="noopener noreferrer">SELECT OPTIONS & ADD TO CART ↗ ↗</a>
           :<button class="btn btn-muted" type="button" disabled>Coming soon</button>}
         {checkout.kind!=='ready'&&<p>Ordering opens after fulfillment testing.</p>}
       </div>
