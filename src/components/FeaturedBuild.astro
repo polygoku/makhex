@@ -28,7 +28,7 @@ const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):und
         {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Explore research details for '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
       </>
     }
-    <span class="visual-disclaimer">Concept illustration · not a verified product photo</span>
+    <span class="visual-disclaimer">{isMosaico?'Supplier hardware reference · exact option unverified':'Concept illustration · not a verified product photo'}</span>
   </div>
   <div class="featured-build-footer">
     <div>
