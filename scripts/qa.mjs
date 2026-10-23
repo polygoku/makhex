@@ -45,7 +45,7 @@ const homeHtml=fs.readFileSync(path.join(out,'index.html'),'utf8');
 expect(JSON.stringify(renderedNumbers(homeHtml))===JSON.stringify(expectedBuildNumbers.slice(0,3)),'Homepage project cards must show the newest three builds in order');
 const latest=newestFirst[0];
 expect(homeHtml.includes('BUILD '+latest.number+' / '+String(projects.length).padStart(2,'0')),'Homepage hero still features an outdated build');
-expect(homeHtml.includes('id="featured-build-name">'+latest.title+'</h2>'),'Homepage hero title does not match newest build');
+expect(homeHtml.includes('id="featured-build-name">'+latest.title.replaceAll('&','&amp;')+'</h2>'),'Homepage hero title does not match newest build');
 const leadHref='/shop/'+latest.materials[0].slug+'/';
 const linkedTag=new RegExp('<a\\b[^>]*class="[^"]*\\bpin-one\\b[^"]*"[^>]*href="'+leadHref.replaceAll('/','\\/')+'"','i');
 expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+leadHref);
