@@ -1,0 +1,25 @@
+---
+import {mosaicoAssemblyParts} from '../data/mosaico-bom';
+---
+<section class="mosaico-hardware" aria-labelledby="mosaico-hardware-heading">
+ <div class="mosaico-hardware-heading"><div><span class="eyebrow">BUILD 11 / TRUE HARDWARE BOM</span><h3 id="mosaico-hardware-heading">Four components. One compatible system.</h3></div><span class="mosaico-kit-label">VISION COMBO CONTAINS 3 MODULES</span></div>
+ <p>The original software repository lists a device and camera requirement, rather than a commercial parts catalog. This independently researched BOM uses the manufacturer's hardware documentation. The recommended Vision Combo Kit already contains the core, camera, and interaction boards—<strong>do not order all three again if you select the kit</strong>.</p>
+ <div class="mosaico-parts-grid">
+ {mosaicoAssemblyParts.map((part,i)=><article class="mosaico-part">
+   <div class="mosaico-part-art"><img src={part.image} width="600" height="460" loading="lazy" alt={part.slug==='usb-c-data-cable'?'Illustration of a USB-C data cable':'Supplier combo-kit reference photograph; standalone module may vary'}/></div>
+   <div class="mosaico-part-information">
+     <span class="mosaico-part-sequence">{String(i+1).padStart(2,'0')} / {part.includedInVisionCombo?'INCLUDED IN VISION COMBO':'SEPARATE ACCESSORY'}</span>
+     <h4>{part.title}</h4>
+     <p>{part.role}</p><small>{part.details}</small>
+     <div class="mosaico-part-tags"><span>{part.requiredForOriginalDemo?'Required':'Optional for core workflow'}</span><span>Qty {part.quantity}</span></div>
+     <button type="button" class="mosaico-part-add" data-cart-add data-cart-slug={part.slug} data-cart-option="Option pending" data-cart-quantity={part.quantity} aria-label={'Save '+part.title+' as a standalone research component'}>Add individually to research cart +</button>
+   </div>
+ </article>)}
+ </div>
+ <div class="mosaico-shopping-method">
+  <div><strong>Option A · Recommended kit</strong><p>ESP-Mosaico Vision Combo Kit + one data cable. One kit contains all three modules. Exact camera revision, cable inclusion, freight and U.S. orderability remain unverified.</p><button class="btn btn-primary" type="button" data-cart-add-all="mosaico-learning-assistant">ADD COMBO KIT + DATA CABLE →</button></div>
+  <div><strong>Option B · Separate components</strong><p>Core Unit + H2 camera + Interaction Module + USB-C data cable. Standalone AliExpress options have not been verified; this builds a research list only.</p><button class="btn btn-outline" type="button" data-cart-add-plan="mosaico-learning-assistant">SAVE 4 INDIVIDUAL COMPONENTS →</button></div>
+ </div>
+ <p class="mosaico-qualification-note"><strong>Compatibility gate:</strong> The current official camera uses SC101IOT (V1.4). Original published learning firmware requires Recovery ABI 1/layout 4, and camera driver compatibility with the current kit has not been proven. No ready-to-use English firmware is included.</p>
+ <p class="mosaico-qualification-note"><strong>Not included in any physical kit:</strong> 2.4 GHz Wi-Fi, cloud-model account/API charges, personal computer/phone for setup, and commercial software rights.</p>
+</section>
