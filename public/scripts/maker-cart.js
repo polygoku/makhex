@@ -10,8 +10,9 @@ const findPart=(catalog,slug)=>catalog.components.find(p=>p.slug===slug)||(catal
 const separateMosaico=new Set(['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module']);
 function excludeAlternative(items,added){
  const newParts=new Set(added.map(x=>x.slug));
- if(newParts.has('esp-mosaico-vision-combo-kit'))return items.filter(x=>!separateMosaico.has(x.slug));
- if([...newParts].some(slug=>separateMosaico.has(slug)))return items.filter(x=>x.slug!=='esp-mosaico-vision-combo-kit');
+ const replacingPlanCable=newParts.has('usb-c-data-cable');
+ if(newParts.has('esp-mosaico-vision-combo-kit'))return items.filter(x=>!separateMosaico.has(x.slug)&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
+ if([...newParts].some(slug=>separateMosaico.has(slug)))return items.filter(x=>x.slug!=='esp-mosaico-vision-combo-kit'&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
  return items;
 }
 function read(){
