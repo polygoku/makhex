@@ -1,0 +1,9 @@
+---
+import type {Product} from '../data/products';
+interface Props{product:Product;large?:boolean;gallery?:boolean}
+const {product,large=false,gallery=false}=Astro.props;
+---
+<div class:list={['supplier-media',{'supplier-media-large':large}]} data-supplier-reference-image={product.slug}>
+ <img src={'/product-media/'+product.slug+'.jpg'} alt={'Supplier listing reference photo for '+product.title+'. Exact variant not verified.'} loading={large?'eager':'lazy'} decoding="async" width="900" height="900"/>
+ {gallery&&<a class="supplier-media-original" href={'/product-media/'+product.slug+'.jpg'} target="_blank" rel="noopener noreferrer">VIEW LARGER IMAGE ↗</a>}
+</div>

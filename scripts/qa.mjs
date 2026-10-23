@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {projects} from '../src/data/projects.ts';
+import {products} from '../src/data/products.ts';
 const out=path.resolve('dist');
 const failures=[];
 const expect=(ok,msg)=>{if(!ok)failures.push(msg)};
@@ -56,6 +57,43 @@ for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
  expect(html.includes('Coming soon'),'Product incorrectly shows live checkout: '+f); expect(!/aliexpress/i.test(html),'Supplier link exposed on product: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
+}
+
+// Supplier-reference image stage and local cart UI must be present for every BOM.
+const cart=path.join(out,'cart','index.html');
+expect(fs.existsSync(cart),'Parts-cart route missing');
+if(fs.existsSync(cart)){
+ const cartHtml=fs.readFileSync(cart,'utf8');
+ expect(cartHtml.includes('data-cart-lines')&&cartHtml.includes('data-cart-copy')&&cartHtml.includes('data-cart-clear'),'Cart controls missing');
+ expect(cartHtml.includes('Checkout not available yet')&&cartHtml.includes('disabled'),'Cart falsely advertises payment checkout');
+}
+expect(fs.existsSync(path.join(out,'scripts','maker-cart.js')),'Maker cart JS missing');
+expect(homeHtml.includes('href="/cart/"'),'Header must link to internal parts cart');
+for(const p of products){
+ const img=path.join(out,'product-media',p.slug+'.jpg');
+ expect(fs.existsSync(img),'Missing locally staged reference image '+p.slug);
+ if(fs.existsSync(img)){
+  const data=fs.readFileSync(img);
+  expect(data[0]===0xff&&data[1]===0xd8&&data.length>2500,'Invalid supplier JPEG '+p.slug);
+ }
+ const page=path.join(out,'shop',p.slug,'index.html');
+ if(fs.existsSync(page)){
+  const html=fs.readFileSync(page,'utf8');
+  expect(html.includes('/product-media/'+p.slug+'.jpg'),'Product image not shown '+p.slug);
+  expect(html.includes('data-cart-add'),'Product missing add-to-parts-cart control '+p.slug);
+  expect(html.includes('Coming soon')&&html.includes('disabled'),'Payment checkout improperly enabled '+p.slug);
+ }
+}
+const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');
+expect(build11Html.includes('/product-media/esp-mosaico-vision-combo-kit.jpg'),'Build 11 has no hardware image');
+expect(build11Html.includes('project-demo-poster')&&build11Html.includes('WATCH VIDEO DEMO'),'Build 11 video poster missing');
+expect(build11Html.includes('platform.twitter.com/embed/Tweet.html'),'Build 11 embedded X video missing');
+for(const p of projects){
+ const html=fs.readFileSync(path.join(out,'projects',p.slug,'index.html'),'utf8');
+ expect(html.includes('data-cart-add-all="'+p.slug+'"'),'Add all kit action missing '+p.slug);
+ const buttons=(html.match(/data-cart-add(?: |=|>)/g)||[]).length;
+ expect(buttons>=p.materials.length,'Some BOM lines have no individual Add control '+p.slug);
+ for(const m of p.materials)expect(html.includes('/product-media/'+m.slug+'.jpg'),'BOM part photo missing '+p.slug+'/'+m.slug);
 }
 
 // Native MAKHEX project discussions replace external GitHub discussions.

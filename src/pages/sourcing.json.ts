@@ -28,7 +28,7 @@ export const GET:APIRoute=()=>{
     projects:projectsNewestFirst.map(project=>{
       const parts=project.materials.map(m=>{
         const v=plannedVariantForProject(m.slug,project.slug);
-        return {slug:m.slug,qty:m.qty,unitPriceUsd:v?.plannedRetailUsd??null,
+        return {slug:m.slug,qty:m.qty,selectedOption:v?.title??null,unitPriceUsd:v?.plannedRetailUsd??null,
           lineTotalUsd:v?Math.round(v.plannedRetailUsd*m.qty*100)/100:null};
       });
       return {
