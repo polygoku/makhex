@@ -1,0 +1,45 @@
+name: MAKHEX release credential preflight
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    if: ${{ github.repository == 'polygoku/makhex' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      DEPLOY_ENABLED: ${{ vars.CLOUDFLARE_DEPLOY_ENABLED }}
+      TOKEN_APPROVED: ${{ vars.CLOUDFLARE_TOKEN_SCOPE_APPROVED }}
+    steps:
+      - name: Report safe readiness flags without showing credentials
+        shell: bash
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$ACCOUNT" ]; then
+            echo "Credential readiness: NOT SET"
+          else
+            echo "Credential readiness: SET"
+          fi
+          if [ "$DEPLOY_ENABLED" = "true" ] && [ "$TOKEN_APPROVED" = "true" ]; then
+            echo "Production auto-deploy owner flags: ENABLED"
+          else
+            echo "Production auto-deploy owner flags: DISABLED"
+          fi
+      - name: Read-only check of Cloudflare target credential
+        if: ${{ env.TOKEN != '' && env.ACCOUNT != '' }}
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          const token=process.env.TOKEN,account=process.env.ACCOUNT;
+          const headers={Authorization:'Bearer '+token,Accept:'application/json'};
+          const v=await fetch('https://api.cloudflare.com/client/v4/user/tokens/verify',{headers,signal:AbortSignal.timeout(16000)});
+          if(!v.ok)throw Error('Token verification HTTP '+v.status);
+          const j=await v.json();
+          if(j.success!==true||j.result?.status!=='active')throw Error('Cloudflare credential inactive');
+          console.log('Cloudflare token active');
+          const w=await fetch('https://api.cloudflare.com/client/v4/accounts/'+encodeURIComponent(account)+'/workers/scripts/makhex',{headers,signal:AbortSignal.timeout(16000)});
+          if(!w.ok)throw Error('Target Worker not readable: HTTP '+w.status);
+          console.log('Existing permanent MAKHEX Worker accessible');
+          NODE
