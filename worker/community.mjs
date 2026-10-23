@@ -1,4 +1,5 @@
 // Native MAKHEX maker discussions: Cloudflare Worker + D1.
+import {accountApi,getMakerSession} from './human-accounts.mjs';
 const SLUGS = new Set([
   "touch-weather-station","voice-command-node","tiny-ble-presence",
   "plant-health-monitor","camera-event-trigger","epaper-desk-calendar",
@@ -110,24 +111,33 @@ async function postComment(req,env,slug){
   if(!parent)return err(422,"Reply target is not a public comment for this project");
  }
  const ip=await ipKey(req,env);if(!ip)return err(503,"Posting unavailable");
- let name,kind,agentId=null;
+ let name,kind,agentId=null,humanId=null;
  if(req.headers.has("authorization")){
   const agent=await authAgent(req,env);if(!agent)return err(401,"Invalid bearer token");
   name=agent.display_name;kind="agent";agentId=agent.id;
   if(!(await limit(env,"agent-post:"+agentId,12)))return err(429,"Agent post limit reached",{"retry-after":"3600"});
  }else{
-  name=clean(data.displayName,40);
-  if(!validName(name))return err(422,"Guest name must be 3-40 characters");
-  if(!(await verifyTurnstile(req,env,clean(data.turnstileToken,2100))))
-    return err(403,"A verified Turnstile human challenge is required");
-  kind="human";
+  const maker=await getMakerSession(req,env);
+  if(maker){
+    if(req.headers.get('origin')!==new URL(req.url).origin)
+      return err(403,"Signed-in posting requires a same-origin request");
+    name=maker.display_name;kind="human";humanId=maker.id;
+    if(!(await limit(env,"maker-post:"+humanId,12)))
+      return err(429,"Maker post limit reached",{"retry-after":"3600"});
+  }else{
+    name=clean(data.displayName,40);
+    if(!validName(name))return err(422,"Guest name must be 3-40 characters");
+    if(!(await verifyTurnstile(req,env,clean(data.turnstileToken,2100))))
+      return err(403,"A verified Turnstile human challenge is required");
+    kind="human";
+  }
  }
  if(!(await limit(env,"ip-post:"+ip,20)) || !(await limit(env,"global-post",400)))
    return err(429,"Posting limit reached",{"retry-after":"3600"});
  const id=crypto.randomUUID(),now=Date.now();
  await env.COMMUNITY_DB.prepare(
-  "INSERT INTO comments(id,project_slug,parent_id,author_id,author_kind,display_name,body,status,created_at) VALUES (?,?,?,?,?,?,?,'pending',?)"
- ).bind(id,slug,parentId,agentId,kind,name,text,now).run();
+  "INSERT INTO comments(id,project_slug,parent_id,author_id,human_author_id,author_kind,display_name,body,status,created_at) VALUES (?,?,?,?,?,?,?,?,'pending',?)"
+ ).bind(id,slug,parentId,agentId,humanId,kind,name,text,now).run();
  return json({id,project:slug,status:"pending",author:name,authorKind:kind,createdAt:now,
   message:"Received for moderation; not publicly displayed until approved"},202);
 }
@@ -182,10 +192,11 @@ async function api(req,env){
  if(!env.COMMUNITY_DB)return err(503,"Community database unavailable");
  if(path==="/api/v1/community/health" && req.method==="GET")
   return json({ok:true,version:"v1",storage:"cloudflare-d1",agentRegistrationEnabled:Boolean(env.COMMUNITY_RATE_SALT),
-   humanPostingEnabled:Boolean(env.TURNSTILE_SITE_KEY&&env.TURNSTILE_SECRET),moderation:"approval-required"});
+   humanPostingEnabled:Boolean(env.TURNSTILE_SITE_KEY&&env.TURNSTILE_SECRET),makerAccountsEnabled:Boolean(env.TURNSTILE_SITE_KEY&&env.TURNSTILE_SECRET&&env.COMMUNITY_RATE_SALT),moderation:"approval-required"});
  if(path==="/api/v1/community/config" && req.method==="GET")
   return json({turnstileSiteKey:env.TURNSTILE_SECRET&&env.TURNSTILE_SITE_KEY?env.TURNSTILE_SITE_KEY:"",
    rules:"/agents/",agentDocs:"/agents/"});
+ if(path.startsWith("/api/v1/community/users"))return accountApi(req,env,{json,err,bodyJSON,clean,validName,ipKey,limit,verifyTurnstile});
  if(path==="/api/v1/community/agents"&&req.method==="POST")return register(req,env);
  if(path.startsWith("/api/v1/community/agents/me"))return account(req,env,path);
  if(path.startsWith("/api/v1/community/moderation/"))return moderate(req,env,path);

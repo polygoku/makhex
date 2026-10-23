@@ -1,11 +1,12 @@
 ---
 const current=Astro.url.pathname;
-const links=[{href:'/projects/',label:'Projects'},{href:'/shop/',label:'Components'},{href:'/community/',label:'Community'},{href:'/about/',label:'About'}];
+const links=[{href:'/projects/',label:'Projects'},{href:'/shop/',label:'Components'},{href:'/community/',label:'Community'},{href:'/account/',label:'Account'},{href:'/about/',label:'About'}];
 ---
 <header class="site-header">
  <div class="header-inner container">
   <a href="/" class="brand" aria-label="MAKHEX home"><span class="brand-mark" aria-hidden="true"><span class="brand-pin pin-l"></span><span class="brand-chip">M</span><span class="brand-pin pin-r"></span></span><span class="brand-word">makhex<span class="brand-period">.</span></span></a>
   <nav class="nav-desktop" aria-label="Main navigation">{links.map(l=><a class:list={['nav-link',{active:current.startsWith(l.href)}]} aria-current={current.startsWith(l.href)?'page':undefined} href={l.href}>{l.label}</a>)}</nav>
+  <a class="store-checkout-nav" href="https://shop.makhex.com/cart" rel="noopener noreferrer" aria-label="Shopping cart on MAKHEX Squarespace store">Cart ↗</a>
   <a href="/projects/" class="nav-cta">Start a build <span class="cta-circle" aria-hidden="true">→</span></a>
   <details class="mobile-menu">
    <summary aria-label="Open menu"><span class="menu-lines" aria-hidden="true"><i></i><i></i><i></i></span></summary>

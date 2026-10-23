@@ -14,7 +14,7 @@
   const replying=form.querySelector("[data-replying]");
   const replyLabel=form.querySelector("[data-reply-label]");
   const cancelReply=form.querySelector("[data-cancel-reply]");
-  let cursor=null,replyTo=null,challengeToken="",widgetId=null;
+  let cursor=null,replyTo=null,challengeToken="",widgetId=null,makerAccount=null;
   const say=(el,text)=>{el.textContent=text;};
   const apiPath=()=>base+"/projects/"+encodeURIComponent(slug)+"/comments";
   function renderComment(comment) {
@@ -71,6 +71,17 @@
   }
   async function initForm(){
     try{
+      const makerRes=await fetch(base+"/users/me",{credentials:"same-origin",cache:"no-store"});
+      if(makerRes.ok){
+        makerAccount=await makerRes.json();
+        const nameField=form.elements.displayName;
+        nameField.value=makerAccount.displayName;
+        nameField.readOnly=true;
+        zone.textContent="Signed in as "+makerAccount.displayName+". Posts are moderated before publication.";
+        submit.disabled=false;
+        say(formState,"Ready to contribute as your maker account.");
+        return;
+      }
       const res=await fetch(base+"/config",{cache:"no-store"});
       if(!res.ok)throw new Error("Configuration unavailable");
       const config=await res.json();
@@ -93,7 +104,7 @@
     }
   }
   form.addEventListener("submit",async e=>{
-    e.preventDefault();if(submit.disabled||!challengeToken)return;
+    e.preventDefault();if(submit.disabled||(!challengeToken&&!makerAccount))return;
     const name=form.elements.displayName.value.trim(),body=form.elements.body.value.trim();
     if(!name||!body||!form.elements.acceptRules.checked)return;
     submit.disabled=true;say(formState,"Submitting for review…");
@@ -108,7 +119,7 @@
     }catch(err){say(formState,err.message||"Unable to submit.");}
     finally{
       challengeToken="";if(window.turnstile&&widgetId!==null)window.turnstile.reset(widgetId);
-      submit.disabled=true;
+      submit.disabled=!makerAccount;
     }
   });
   loadComments(true);initForm();
