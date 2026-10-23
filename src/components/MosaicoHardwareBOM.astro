@@ -6,7 +6,7 @@ import {mosaicoAssemblyParts} from '../data/mosaico-bom';
  <p>The original software repository lists a device and camera requirement, rather than a commercial parts catalog. This independently researched BOM uses the manufacturer's hardware documentation. The recommended Vision Combo Kit already contains the core, camera, and interaction boards—<strong>do not order all three again if you select the kit</strong>.</p>
  <div class="mosaico-parts-grid">
  {mosaicoAssemblyParts.map((part,i)=><article class="mosaico-part">
-   <div class="mosaico-part-art"><img src={part.image} width="600" height="460" loading="lazy" alt={part.slug==='usb-c-data-cable'?'Illustration of a USB-C data cable':'Supplier combo-kit reference photograph; standalone module may vary'}/></div>
+   <div class="mosaico-part-art"><img src={part.image} width="600" height="460" loading="lazy" alt={part.slug==='usb-c-data-cable'?'Illustration of a USB-C data cable':'Independent component schematic illustration, not a verified product photo'}/></div>
    <div class="mosaico-part-information">
      <span class="mosaico-part-sequence">{String(i+1).padStart(2,'0')} / {part.includedInVisionCombo?'INCLUDED IN VISION COMBO':'SEPARATE ACCESSORY'}</span>
      <h4>{part.title}</h4>
