@@ -86,8 +86,15 @@ for(const p of products){
 }
 const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');
 expect(build11Html.includes('/product-media/esp-mosaico-vision-combo-kit.jpg'),'Build 11 has no hardware image');
-expect(build11Html.includes('project-demo-poster')&&build11Html.includes('WATCH VIDEO DEMO'),'Build 11 video poster missing');
-expect(build11Html.includes('platform.twitter.com/embed/Tweet.html'),'Build 11 embedded X video missing');
+expect(build11Html.includes('<video')&&build11Html.includes('/demo/build11-en-concept.mp4'),'Build 11 must have a locally served HTML5 video, not an X link');
+expect(build11Html.includes('ILLUSTRATIVE')||build11Html.includes('concept walkthrough'),'Build 11 video must be clearly marked as a simulation');
+expect(build11Html.includes('data-cart-add-plan="mosaico-learning-assistant"'),'Build 11 individual component sourcing option missing');
+for(const name of ['build11-en-poster.jpg','build11-en-concept.mp4','build11-en.vtt','build11-scene-01.jpg','build11-scene-02.jpg','build11-scene-03.jpg']){
+ const file=path.join(out,'demo',name);
+ expect(fs.existsSync(file),'Self-hosted Build 11 asset missing: '+name);
+}
+const originalVid=path.join(out,'demo','build11-en-concept.mp4');
+if(fs.existsSync(originalVid)){const bytes=fs.readFileSync(originalVid);expect(bytes.toString('ascii',4,8)==='ftyp'&&bytes.length>5000,'Invalid MP4 asset');}
 for(const p of projects){
  const html=fs.readFileSync(path.join(out,'projects',p.slug,'index.html'),'utf8');
  expect(html.includes('data-cart-add-all="'+p.slug+'"'),'Add all kit action missing '+p.slug);
@@ -120,7 +127,7 @@ if(fs.existsSync(mosaicoPage)){
  const html=fs.readFileSync(mosaicoPage,'utf8');
  const readable=html.replace(/<[^>]*>/g,' ');
  expect(!/samyeei/i.test(readable),'Mosaico creator credited in visible MAKHEX copy');
- expect(html.includes('WATCH PROJECT DEMO'),'Mosaico original demo link not presented');
+ expect(html.includes('/demo/build11-en-concept.mp4'),'Mosaico playable on-site English video not presented');
  expect(html.includes('PolyForm Noncommercial'),'Mosaico licensing caution missing');
 }
 const communityHTML=fs.readFileSync(path.join(out,'community','index.html'),'utf8');
