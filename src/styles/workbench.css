@@ -87,6 +87,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 .feature-count{color:#8e887a}
 .featured-build-image{position:relative;overflow:hidden;border-radius:12px;border:1px solid #bfd0bf;aspect-ratio:800/535;background:#bbd1bf}
 .featured-build-image img{display:block;width:100%;height:100%;object-fit:cover}
+/* Project-specific concept art fills the homepage feature without showing an unrelated build. */
+.featured-build-latest>.project-art{width:100%;height:100%;border:0;border-radius:0}
+.featured-build-latest .art-camera{transform:rotate(-8deg) scale(1.45)}
+.featured-build-latest .pin-one{left:5%;top:5%}
 .pin-label{position:absolute;z-index:2;color:#283a30;background:#fffaf1ed;padding:6px 9px;border:1px solid #aeb9aa;border-radius:7px;box-shadow:0 2px 5px #46574626;font:600 11px/1 var(--mono);pointer-events:auto;cursor:pointer;transition:background .15s ease,box-shadow .15s ease,transform .15s ease}
 .pin-label:hover,.pin-label:focus-visible{background:#fff0d9;box-shadow:0 3px 0 #cc9875;transform:translateY(-2px);text-decoration:underline;text-underline-offset:3px}
 .pin-one{left:35%;top:8%}.pin-two{right:2%;bottom:18%}
