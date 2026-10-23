@@ -16,7 +16,7 @@ Build a single physical button that triggers a low-risk local shortcut and signa
 
 ## Before you order, wire or power
 
-1. Add a separately sourced momentary pushbutton; it is missing from the current BOM.
+1. Choose a verified 6×6 mm normally-open momentary pushbutton; one is listed in research but exact fit and pin geometry remain unqualified.
 2. Choose an ESP32-C3 GPIO that is not a boot strapping conflict on the actual board.
 
 ## Research-stage BOM
@@ -24,11 +24,12 @@ Build a single physical button that triggers a low-risk local shortcut and signa
 | Component slug | Qty | Intended role |
 |---|---:|---|
 | esp32-c3-supermini | 1 | Input controller |
-| ws2812-leds | 1 | Status LED |
+| ws2812-leds | 1 | 8-pixel LED ring; not 8×8 matrix |
+| momentary-tactile-switch | 1 | Physical normally-open input |
 | usb-c-power-kit | 1 | Bench power |
 
 **Missing or unqualified pieces — not included in subtotal:**
-- A momentary pushbutton and safe pull-up/pull-down input wiring are not yet listed.
+- The 6×6 mm switch and LED ring are unqualified research variants. The switch needs a proven pull-up/pull-down scheme and boot-safe GPIO.
 
 The catalog is research-only. Supplier stock, exact variant, compatibility, shipping to ZIP 11021, actual orderability, and fulfillment are **not qualified**. No automatic purchasing or public checkout release.
 
