@@ -1,5 +1,5 @@
 import type {APIRoute} from 'astro';
-import {projects} from '../data/projects';
+import {projectsNewestFirst} from '../lib/catalog';
 import {products} from '../data/products';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 
@@ -25,7 +25,7 @@ export const GET:APIRoute=()=>{
         hardwareReview:stage?.technicalGate??'HOLD',
       };
     }),
-    projects:projects.map(project=>{
+    projects:projectsNewestFirst.map(project=>{
       const parts=project.materials.map(m=>{
         const v=plannedVariantForProject(m.slug,project.slug);
         return {slug:m.slug,qty:m.qty,unitPriceUsd:v?.plannedRetailUsd??null,
