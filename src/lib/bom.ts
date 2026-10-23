@@ -7,8 +7,8 @@ export function projectBomCsv(p:Project):string{
   for(const m of p.materials){
     const product=productBySlug(m.slug);
     const choice=plannedVariantForProject(m.slug,p.slug);
-    const unit=choice?.plannedRetailUsd??0;
-    rows.push([p.title,product?.title??m.slug,String(m.qty),unit.toFixed(2),(unit*m.qty).toFixed(2),m.why]);
+    const unit=choice?.plannedRetailUsd;
+    rows.push([p.title,product?.title??m.slug,String(m.qty),unit===undefined?'':unit.toFixed(2),unit===undefined?'':(unit*m.qty).toFixed(2),m.why]);
   }
   return '\uFEFF'+rows.map(r=>r.map(csv).join(',')).join('\r\n')+'\r\n';
 }
