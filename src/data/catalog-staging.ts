@@ -42,5 +42,6 @@ export function plannedVariantForProject(slug:string,projectSlug?:string):Planne
 export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
  'voice-command-node':['A compatible physical speaker must be chosen and added to the BOM.'],
  'smart-desk-button':['A momentary pushbutton and safe pull-up/pull-down input wiring are not yet listed.'],
- 'rgb-matrix-clock':['A rated 5 V supply for the LED matrix is missing; validate current draw, fuse and signal level shifting.']
+ 'rgb-matrix-clock':['A rated 5 V supply for the LED matrix is missing; validate current draw, fuse and signal level shifting.'],
+ 'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.']
 };
