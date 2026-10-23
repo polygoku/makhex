@@ -20,7 +20,7 @@ export const projectGuides: Record<string, ProjectGuide> = {
   'voice-command-node': {
     overview: 'A microphone, a local command classifier and a speaker can become a push-to-talk desk assistant. Keep the first milestone intentionally narrow: recognize a handful of fixed commands rather than promising general-purpose fully offline conversation. The referenced Dudley project is a hybrid voice system, not proof of an offline MAKHEX build.',
     useCases: ['Hands-free status or timer commands at a workbench', 'I2S microphone and amplifier experimentation', 'Latency and memory profiling of tiny on-device recognition models'],
-    beforeYouStart: ['Select an electrically compatible 3.3 V I2S microphone, amplifier and speaker; the speaker and pushbutton are not yet in the kit.', 'Verify the board has sufficient PSRAM and use a hardware control with an unmistakable microphone-active indicator.'],
+    beforeYouStart: ['Select an electrically compatible 3.3 V I2S microphone, amplifier and speaker; the speaker is included in the research BOM but its exact amp/connector pairing has not been qualified.', 'Verify the board has sufficient PSRAM and use a hardware control with an unmistakable microphone-active indicator.'],
     demoGoals: ['Record and play back intelligible audio without buffer underruns.', 'Recognize three documented commands under a measured noise condition.', 'The device visibly stops listening on timeout and never silently records.'],
     agentTasks: ['Document separate microphone and amplifier bring-up procedures before the combined firmware.', 'Record the recognition model, memory allocation and repeatable latency benchmark.']
   },
@@ -64,7 +64,7 @@ export const projectGuides: Record<string, ProjectGuide> = {
   'rgb-matrix-clock': {
     overview: 'Drive a WS2812 LED array as a colorful clock or status board. The important design exercise is power, not animation: establish an externally rated supply, common ground and safe pixel signal levels before increasing brightness.',
     useCases: ['A desk clock that changes display modes', 'A status indicator for local maker projects', 'Experimenting with LED animation and brightness limits'],
-    beforeYouStart: ['Size a separate 5 V supply for the real LED count; the current BOM does not establish a rated matrix supply.', 'Confirm ESP32-to-pixel logic compatibility and wiring length; add an appropriate level shifter if needed.'],
+    beforeYouStart: ['Size a separate 5 V supply for the real LED count; a candidate 5 V/5 A supply is listed, but its U.S. safety rating, wiring and under-load performance are not verified.', 'Confirm ESP32-to-pixel logic compatibility and wiring length; add an appropriate level shifter if needed.'],
     demoGoals: ['A small pixel subset lights without power or data faults.', 'Current draw at the imposed brightness cap stays under the measured supply limit.', 'Loss of time-sync is displayed distinctly from valid time.'],
     agentTasks: ['Calculate current budget from verified LED quantity and brightness constraints.', 'Provide firmware color order, power injection and safe startup behavior.']
   },
@@ -78,7 +78,7 @@ export const projectGuides: Record<string, ProjectGuide> = {
   'smart-desk-button': {
     overview: 'Build a single physical button that triggers a low-risk local shortcut and signals success or failure with an LED. The click behavior should work without exposing private credentials or executing unapproved internet actions.',
     useCases: ['A focus or timer shortcut for a workstation', 'One-touch logging of a harmless local event', 'Learning switch debounce and network retry feedback'],
-    beforeYouStart: ['Add a separately sourced momentary pushbutton; it is missing from the current BOM.', 'Choose an ESP32-C3 GPIO that is not a boot strapping conflict on the actual board.'],
+    beforeYouStart: ['The research BOM lists a 6 mm momentary switch; its exact fit and electrical configuration are not yet verified.', 'Choose an ESP32-C3 GPIO that is not a boot strapping conflict on the actual board.'],
     demoGoals: ['Short and long presses are debounced consistently.', 'LED state distinguishes acknowledgement from timeout.', 'No API secret is stored in source or sent in a public request.'],
     agentTasks: ['Write a pin-selection and debounce test matrix.', 'Implement local no-op mock action before real network integration.']
   },
