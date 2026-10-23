@@ -1,6 +1,7 @@
 import type {APIRoute} from 'astro';
 import {projectsNewestFirst} from '../lib/catalog';
 import {products} from '../data/products';
+import {mosaicoAssemblyParts,mosaicoCommercePlans} from '../data/mosaico-bom';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 
 // Customer-facing agent catalog: MAKHEX items and prices, never upstream links,
@@ -14,6 +15,9 @@ export const GET:APIRoute=()=>{
     currency:'USD',
     shipping:{country:'US',customerRateUsd:0,method:'Free U.S. Shipping'},
     checkoutAvailable:false,
+    // These are planning-only kit constituents; no validated standalone AliExpress SKUs.
+    researchSubcomponents:mosaicoAssemblyParts.map(part=>({slug:part.slug,title:part.title,variants:[],image:part.image,url:'https://makhex.com/projects/mosaico-learning-assistant/',availability:'RESEARCH_ONLY',includedInBundle:part.includedInVisionCombo})),
+    projectAlternativePlans:{'mosaico-learning-assistant':mosaicoCommercePlans.separate},
     components:products.map(product=>{
       const stage=stageFor(product.slug);
       // Newly discovered products have no verified retail price or exact supplier option.
@@ -37,6 +41,7 @@ export const GET:APIRoute=()=>{
         parts,
         partsSubtotalUsd:parts.every(p=>p.lineTotalUsd!==null)?Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100:null,
         outstandingParts:projectBomMissingParts[project.slug]??[],
+        ...(project.slug==='mosaico-learning-assistant'?{cartPlan:mosaicoCommercePlans.bundle}:{}),
       };
     }),
   };
