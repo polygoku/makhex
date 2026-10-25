@@ -143,6 +143,10 @@ const microduckHtml=fs.readFileSync(path.join(out,'projects','microduck-robot','
 for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','Price pending','does not redistribute']){
  expect(microduckHtml.includes(marker),'Build 12 missing real-robot/sourcing/CAD requirement: '+marker);
 }
+const memberPage=fs.readFileSync(path.join(out,'members','microduck-designs','index.html'),'utf8');
+expect(memberPage.includes('MAKHEX')&&memberPage.includes('maker sign-in'),'Private CAD member page must be published');
+expect(!memberPage.includes('Microduck-Print-FrankenDuck-20261015.rar'),'CAD download URL leaked to public page');
+expect(!fs.existsSync(path.join(out,'microduck-files')),'Protected CAD binaries must never appear as public assets');
 const sourceMedia=JSON.parse(fs.readFileSync(path.join(out,'demo','microduck','media-manifest.json'),'utf8'));
 expect(sourceMedia.videos.length===7,'Build 12 should retain all 7 source robot MP4s');
 for(let i=1;i<=7;i++){
