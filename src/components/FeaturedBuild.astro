@@ -6,6 +6,7 @@ interface Props{project:Project;total:number}
 const {project,total}=Astro.props;
 const weatherScene=project.slug==='touch-weather-station';
 const isMosaico=project.slug==='mosaico-learning-assistant';
+const isMicroduck=project.slug==='microduck-robot';
 const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):undefined;
 ---
 <article class="featured-build" aria-labelledby="featured-build-name">
@@ -20,6 +21,10 @@ const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):und
         <a class="pin-label pin-one" href="/shop/esp32-s3-devkit/" aria-label="Explore ESP32-S3 Dev Board research details">ESP32-S3 <span class="pin-dot" aria-hidden="true"></span></a>
         <a class="pin-label pin-two" href="/shop/bme280-sensor/" aria-label="Explore BME280 environment sensor research details">BME280 sensor <span class="pin-dot" aria-hidden="true"></span></a>
       </>
+      : isMicroduck ? <>
+        <img src="/demo/microduck/microduck-hero.jpg" alt="Real Microduck biped robot created by kissqy in a video demonstration" width="960" height="540" decoding="async" fetchpriority="high"/>
+        {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Research '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
+      </>
       : isMosaico ? <>
         <img src="/demo/build11-english-lifestyle-wide.jpg" alt="Illustrative English-language AI learning assistant scanning a math problem on a worksheet" width="1122" height="701" decoding="async" fetchpriority="high"/>
         {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Explore '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
@@ -28,7 +33,7 @@ const leadPart=project.materials[0]?productBySlug(project.materials[0].slug):und
         {leadPart&&<a class="pin-label pin-one" href={productUrl(leadPart.slug)} aria-label={'Explore research details for '+leadPart.title}>{leadPart.title}<span class="pin-dot" aria-hidden="true"></span></a>}
       </>
     }
-    <span class="visual-disclaimer">{isMosaico?'English UI concept · AI-generated illustration, not device footage':'Concept illustration · not a verified product photo'}</span>
+    <span class="visual-disclaimer">{isMicroduck?'Actual Microduck footage · kissqy / not a MAKHEX-assembled kit':isMosaico?'English UI concept · AI-generated illustration, not device footage':'Concept illustration · not a verified product photo'}</span>
   </div>
   <div class="featured-build-footer">
     <div>

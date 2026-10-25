@@ -6,6 +6,7 @@ import {products,projectsNewestFirst} from '../../lib/catalog';
 import {commerceState} from '../../lib/commerce';
 import type {Product} from '../../data/products';
 import {stageFor,formatUsd} from '../../data/catalog-staging';
+const microduckResearchSlugs=new Set(['feetech-hd1910','radxa-zero-3w','microduck-hat','microduck-imu','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-printed-parts','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit']);
 export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
 interface Props{product:Product}
 const {product}=Astro.props;
@@ -22,7 +23,7 @@ const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.
   <section class="container detail-grid clean-product-detail">
     <div class="component-main-visual">
       <ProductPhoto product={product} large gallery/>
-      <p class="quiet-image-caption">Supplier listing image · exact variation and U.S. orderability unverified</p>
+      <p class="quiet-image-caption">{microduckResearchSlugs.has(product.slug)?'MAKHEX technical illustration · no supplier image or exact option verified':'Supplier listing image · exact variation and U.S. orderability unverified'}</p>
     </div>
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>

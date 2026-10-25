@@ -43,5 +43,6 @@ export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
  'voice-command-node':['Confirm amplifier and speaker impedance, output wattage, terminal wiring and enclosure fit before kit qualification.'],
  'smart-desk-button':['Input pull-up/pull-down configuration, safe GPIO pin, resistor and enclosure mounting are not yet qualified.'],
  'rgb-matrix-clock':['Confirm UL/ETL-listed U.S.-plug supply, correct 5.5 × 2.1 mm barrel-to-terminal connection, fuse and logic level shifting. The exact adapter remains unqualified.'],
+ 'microduck-robot':['Original parts and photos support component research, but no exact supplier variant, U.S. ZIP 11021 checkout or fulfillment order has been qualified.','Custom HAT/IMU fabrication, pinout, PCB assembly and firmware require source-revision matching.','The optional 623ZZ roller configuration is not part of the standard walking-foot BOM.'],
  'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.']
 };

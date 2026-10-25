@@ -1,0 +1,57 @@
+{
+  "sourceRepo": "https://github.com/kissqy/Microduck-kissqy",
+  "originalCreator": "kissqy",
+  "mediaReuse": "Owner-confirmed cleared for MAKHEX republishing; original credit retained",
+  "videos": [
+    {
+      "file": "microduck-demo-01.mp4",
+      "source": "https://github.com/user-attachments/assets/0ec5b46b-1ec0-483a-a95d-3b3f307e155f",
+      "size": 1291293,
+      "sha256": "b00a9822b01d638970e21dbbf05b2e4af7bd3e47182323c7e46e045bfa3d4cbb",
+      "poster": "microduck-demo-01.jpg"
+    },
+    {
+      "file": "microduck-demo-02.mp4",
+      "source": "https://github.com/user-attachments/assets/71fc2c95-8499-49f6-924b-837df42814cf",
+      "size": 1114301,
+      "sha256": "4cce840d5ccd16624e2fd4dd8a2af91b1245853600410f465816c126e18a1ece",
+      "poster": "microduck-demo-02.jpg"
+    },
+    {
+      "file": "microduck-demo-03.mp4",
+      "source": "https://github.com/user-attachments/assets/d09a6bfe-7a28-4266-ba90-de2b331472ad",
+      "size": 1284353,
+      "sha256": "34470eabbcd06dfcd58a69fe45d69e56a795bd6038cc62838e0ea295b52f4e03",
+      "poster": "microduck-demo-03.jpg"
+    },
+    {
+      "file": "microduck-demo-04.mp4",
+      "source": "https://github.com/user-attachments/assets/a604c0e0-af01-413f-ab00-99ccd26db8d5",
+      "size": 924983,
+      "sha256": "3725711ecdf3bd47ac68a195ab1dfd87ccbd19130ab1df4b17b10036d28157ce",
+      "poster": "microduck-demo-04.jpg"
+    },
+    {
+      "file": "microduck-demo-05.mp4",
+      "source": "https://github.com/user-attachments/assets/4508d91c-e91c-40f4-8c3e-5ca5a3f959c3",
+      "size": 2696987,
+      "sha256": "16b269c432a350dd38fcb581b5cdf3e06c9703f085dc1023ceada23b409c8168",
+      "poster": "microduck-demo-05.jpg"
+    },
+    {
+      "file": "microduck-demo-06.mp4",
+      "source": "https://github.com/user-attachments/assets/fd0dfafd-dd02-4852-940c-33706c287e9d",
+      "size": 1535686,
+      "sha256": "38dd12aefb69d452535196c836abb48b1da967cb7d5196ae18d60360553fd12c",
+      "poster": "microduck-demo-06.jpg"
+    },
+    {
+      "file": "microduck-demo-07.mp4",
+      "source": "https://github.com/user-attachments/assets/693a3272-d814-42f6-86b3-be5cb3b35b0f",
+      "size": 2190800,
+      "sha256": "8098b12b7e22d06408da914f0e4dd10a191ce1ba29ed2b0cb7accffe1d18173f",
+      "poster": "microduck-demo-07.jpg"
+    }
+  ],
+  "plateCount": 5
+}
