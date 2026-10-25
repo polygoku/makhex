@@ -12,11 +12,11 @@ const expected={
  'i2s-mems-mic':[11.38],'i2s-amplifier':[17.63],
  'bme280-sensor':[11.08],'sgp40-voc':[37.63],
  'epaper-29':[47.08],'ws2812-leds':[14.55,5.10],
- 'usb-c-power-kit':[16.38]
+ 'usb-c-power-kit':[16.38], 'esp-mosaico-vision-combo-kit':[201.70], 'speaker-4ohm-3w':[6.35], 'momentary-tactile-switch':[3.55], '5v-5a-led-power':[29.18]
 };
 assert.equal(products.length,30);
 assert.equal(projects.length,12);
-assert.equal(Object.keys(catalogStaging).length,12);
+assert.equal(Object.keys(catalogStaging).length,16);
 let optionCount=0;
 for(const product of products){
  const stage=catalogStaging[product.slug],prices=expected[product.slug];
@@ -46,8 +46,8 @@ for(const product of products){
  assert.ok(!/aliexpress(?:\.com| source| candidate|\s*\/)/i.test(html),'Supplier leak in product page: '+product.slug);
  assert.ok(!/VIEW PRODUCT ON SQUARESPACE|CHECK OUT AT SQUARESPACE/.test(html),'Unapproved checkout URL: '+product.slug);
 }
-assert.equal(optionCount,13);
-assert.equal(Object.values(catalogStaging).filter(v=>v.technicalGate==='HOLD').length,3);
+assert.equal(optionCount,17);
+assert.equal(Object.values(catalogStaging).filter(v=>v.technicalGate==='HOLD').length,6);
 assert.equal(plannedVariantForProject('ws2812-leds','smart-desk-button')?.plannedRetailUsd,5.10);
 assert.equal(plannedVariantForProject('ws2812-leds','rgb-matrix-clock')?.plannedRetailUsd,14.55);
 assert.equal(Object.keys(projectBomMissingParts).length,5);
@@ -86,8 +86,8 @@ for(const component of sourcing.researchSubcomponents){
  assert.equal(component.availability,'RESEARCH_ONLY');
  assert.equal(component.variants.length,0,'Do not invent purchasable supplier options');
 }
-assert.equal(sourcing.components.flatMap(p=>p.variants).length,13);
-assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,18,'Four new components must not have invented source prices');
+assert.equal(sourcing.components.flatMap(p=>p.variants).length,17);
+assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,14,'Fourteen unqualified components must not have invented source prices');
 for(const project of sourcing.projects){
  if(project.parts.some(p=>p.unitPriceUsd===null))assert.equal(project.partsSubtotalUsd,null,'Unpriced BOM must have null subtotal: '+project.slug);
 }
