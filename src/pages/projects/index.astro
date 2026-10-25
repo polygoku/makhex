@@ -4,8 +4,8 @@ import ProjectCard from '../../components/ProjectCard.astro';
 import {projectsNewestFirst} from '../../lib/catalog';
 const levels=['All','Beginner','Intermediate','Advanced'];
 ---
-<BaseLayout title="Maker Projects | MAKHEX" description="ESP32 project blueprints with parts lists, build sequences and engineering cautions.">
-<section class="page-hero container"><span class="eyebrow">THE PROJECT SHELF / 11 IDEAS</span><h1>Make the<br/><em>next thing.</em></h1><div class="page-hero-bottom"><p>From browser tab to workbench. Select a blueprint to see its bill of materials, approach and test notes.</p><span class="page-count">11 hands-on ideas to explore</span></div></section>
+<BaseLayout title="Maker Projects | MAKHEX" description="Maker electronics and robotics builds with component lists, real community demos and source engineering links.">
+<section class="page-hero container"><span class="eyebrow">THE PROJECT SHELF / {projectsNewestFirst.length} IDEAS</span><h1>Make the<br/><em>next thing.</em></h1><div class="page-hero-bottom"><p>From browser tab to workbench. Select a blueprint to see its bill of materials, approach and test notes.</p><span class="page-count">{projectsNewestFirst.length} hands-on ideas to explore</span></div></section>
 <section class="container catalog-section"><div class="catalog-toolbar"><div class="filters" aria-label="Filter difficulty">{levels.map((level,i)=><button type="button" class:list={['filter-button',{selected:i===0}]} data-level-filter={level} aria-pressed={i===0}>{level}</button>)}</div><div class="toolbar-note">Starting ideas · lab testing still in progress</div></div>
 <p class="reference-catalog-disclosure">Photos show independent makers' actual hardware, not a MAKHEX-assembled kit. Board revisions, firmware and parts may differ; inspect each credited source before building.</p>
 <div class="project-grid projects-page-grid" id="projects-grid">{projectsNewestFirst.map(p=><div data-level={p.level}><ProjectCard project={p}/></div>)}</div>

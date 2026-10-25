@@ -40,7 +40,7 @@ const newestFirst=[...projects].sort((a,b)=>Number(b.number)-Number(a.number));
 const expectedBuildNumbers=newestFirst.map(p=>Number(p.number));
 const projectGalleryHtml=fs.readFileSync(path.join(out,'projects','index.html'),'utf8');
 const renderedNumbers=html=>[...html.matchAll(/class="project-number">BUILD ([0-9]{2})/g)].map(m=>Number(m[1]));
-expect(expectedBuildNumbers[0]===11,'Build 11 must be the newest project');
+expect(expectedBuildNumbers[0]===12,'Build 12 must be the newest project');
 expect(JSON.stringify(renderedNumbers(projectGalleryHtml))===JSON.stringify(expectedBuildNumbers),'Project gallery not ordered 11 down to 01');
 const homeHtml=fs.readFileSync(path.join(out,'index.html'),'utf8');
 expect(JSON.stringify(renderedNumbers(homeHtml))===JSON.stringify(expectedBuildNumbers.slice(0,3)),'Homepage project cards must show the newest three builds in order');
@@ -92,7 +92,7 @@ for(const name of ['build11-english-lifestyle.jpg','build11-english-lifestyle-wi
  if(fs.existsSync(file)){const b=fs.readFileSync(file);expect(b.length>30000&&b[0]===0xff&&b[1]===0xd8,'Invalid Build 11 optimized JPEG: '+name);}
  expect(build11Html.includes('/demo/'+name),'Approved photo is not on Build 11 page: '+name);
 }
-expect(homeHtml.includes('/demo/build11-english-lifestyle-wide.jpg'),'Home must feature approved Build 11 art');
+expect(homeHtml.includes('/demo/microduck/microduck-hero.jpg'),'Home must feature credited real Microduck footage still');
 expect(build11Html.includes('<video')&&build11Html.includes('/demo/build11-en-concept.mp4'),'Build 11 must have a locally served HTML5 video, not an X link');
 expect(build11Html.includes('ILLUSTRATIVE')||build11Html.includes('concept walkthrough'),'Build 11 video must be clearly marked as a simulation');
 expect(build11Html.includes('data-cart-add-plan="mosaico-learning-assistant"'),'Build 11 individual component sourcing option missing');
@@ -137,6 +137,41 @@ if(fs.existsSync(mosaicoPage)){
  expect(html.includes('/demo/build11-en-concept.mp4'),'Mosaico playable on-site English video not presented');
  expect(html.includes('PolyForm Noncommercial'),'Mosaico licensing caution missing');
 }
+// Build 12: the credited real-robot videos, CAD plate screenshots and exact-source
+// procurement links must be deployed as originals, without falsely enabling checkout.
+const microduckHtml=fs.readFileSync(path.join(out,'projects','microduck-robot','index.html'),'utf8');
+for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','Microduck-Print-FrankenDuck-20261015.rar','ProPrj_HAT_REVA_SCH_2026-10-15.epro2','ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2','AMP2.0','TPU','Price pending','does not redistribute']){
+ expect(microduckHtml.includes(marker),'Build 12 missing real-robot/sourcing/CAD requirement: '+marker);
+}
+const sourceMedia=JSON.parse(fs.readFileSync(path.join(out,'demo','microduck','media-manifest.json'),'utf8'));
+expect(sourceMedia.videos.length===7,'Build 12 should retain all 7 source robot MP4s');
+for(let i=1;i<=7;i++){
+ const basename='microduck-demo-'+String(i).padStart(2,'0');
+ const video=path.join(out,'demo','microduck',basename+'.mp4');
+ const poster=path.join(out,'demo','microduck',basename+'.jpg');
+ expect(fs.existsSync(video)&&fs.existsSync(poster),'Build 12 video/poster missing: '+basename);
+ if(fs.existsSync(video)){
+  const bytes=fs.readFileSync(video);
+  expect(bytes.length>100_000&&bytes.toString('ascii',4,8)==='ftyp','Build 12 source video corrupted: '+basename);
+ }
+ expect(microduckHtml.includes('/demo/microduck/'+basename+'.mp4'),'Build 12 original video not visible in gallery: '+basename);
+}
+for(let i=1;i<=5;i++) {
+ const pathName='plate-'+i+'.png';
+ const plate=path.join(out,'demo','microduck',pathName);
+ expect(fs.existsSync(plate)&&fs.statSync(plate).size>5000,'Original printed-part plate missing: '+pathName);
+ expect(microduckHtml.includes('/demo/microduck/'+pathName),'Print plate not rendered: '+pathName);
+}
+const sourceReference=fs.readFileSync(path.resolve('builds/microduck-robot/README.md'),'utf8');
+const cadReview=fs.readFileSync(path.resolve('docs/microduck-cad-review-20261025.md'),'utf8');
+for(const key of ['HD-1910-C001','Radxa ZERO 3W','VL53L5CX','AMP2.0','623ZZ']){
+ expect(sourceReference.includes(key),'Exact source part absent from build agent instructions: '+key);
+}
+for(const key of ['36/36','SHA-256','EasyEDA','millimeter','EH2.5','TPU']){
+ expect(cadReview.includes(key),'CAD review absent engineering validation: '+key);
+}
+expect(!microduckHtml.includes('Photo optimized for this reference gallery'),'Build 12 creator media wrapped in unwanted license panel');
+
 const communityHTML=fs.readFileSync(path.join(out,'community','index.html'),'utf8');
 for(const project of projects)expect(communityHTML.includes('/projects/'+project.slug+'/#discussion'),'Directory missing local forum: '+project.slug);
 const discussionOrder=[...communityHTML.matchAll(/href="\/projects\/([a-z0-9-]+)\/#discussion"/g)].map(m=>m[1]);

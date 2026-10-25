@@ -14,8 +14,8 @@ const expected={
  'epaper-29':[47.08],'ws2812-leds':[14.55,5.10],
  'usb-c-power-kit':[16.38]
 };
-assert.equal(products.length,16);
-assert.equal(projects.length,11);
+assert.equal(products.length,30);
+assert.equal(projects.length,12);
 assert.equal(Object.keys(catalogStaging).length,12);
 let optionCount=0;
 for(const product of products){
@@ -50,7 +50,7 @@ assert.equal(optionCount,13);
 assert.equal(Object.values(catalogStaging).filter(v=>v.technicalGate==='HOLD').length,3);
 assert.equal(plannedVariantForProject('ws2812-leds','smart-desk-button')?.plannedRetailUsd,5.10);
 assert.equal(plannedVariantForProject('ws2812-leds','rgb-matrix-clock')?.plannedRetailUsd,14.55);
-assert.equal(Object.keys(projectBomMissingParts).length,4);
+assert.equal(Object.keys(projectBomMissingParts).length,5);
 for(const project of projects){
  const html=fs.readFileSync(path.join(dist,'projects',project.slug,'index.html'),'utf8');
  assert.ok(html.includes('Parts subtotal'),'Parts subtotal missing: '+project.slug);
@@ -73,8 +73,8 @@ assert.equal(sourcing.schema,'makhex-catalog-v3');
 assert.equal(sourcing.checkoutAvailable,false);
 assert.equal(sourcing.shipping.customerRateUsd,0);
 assert.equal(sourcing.shipping.country,'US');
-assert.equal(sourcing.components.length,16);
-assert.equal(sourcing.projects.length,11);
+assert.equal(sourcing.components.length,30);
+assert.equal(sourcing.projects.length,12);
 assert.equal(sourcing.researchSubcomponents.length,4,'Build 11 true hardware breakdown must include core, camera, interaction and cable');
 const build11=sourcing.projects.find(p=>p.slug==='mosaico-learning-assistant');
 assert.equal(build11.cartPlan.parts.length,2,'Combo plan must only contain bundle and cable');
@@ -87,14 +87,14 @@ for(const component of sourcing.researchSubcomponents){
  assert.equal(component.variants.length,0,'Do not invent purchasable supplier options');
 }
 assert.equal(sourcing.components.flatMap(p=>p.variants).length,13);
-assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,4,'Four new components must not have invented source prices');
+assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,18,'Four new components must not have invented source prices');
 for(const project of sourcing.projects){
  if(project.parts.some(p=>p.unitPriceUsd===null))assert.equal(project.partsSubtotalUsd,null,'Unpriced BOM must have null subtotal: '+project.slug);
 }
 const publicJson=JSON.stringify(sourcing);
 for(const sensitive of ['aliexpress','sourceItemId','sourceUnitCost','supplierUnitCost','sourceVariantId','access_token','refresh_token'])
  assert.ok(!publicJson.toLowerCase().includes(sensitive.toLowerCase()),'Supplier detail exposed in public JSON: '+sensitive);
-console.log('MAKHEX SHOP PASS: 16 research products, 13 historical priced options, 11 project BOMs, no exposed supplier links, checkout gated');
+console.log('MAKHEX SHOP PASS: 30 catalog components (18 source-unqualified), 13 historical priced options, 12 project BOMs, no exposed supplier links, checkout gated');
 
 // Regression gate: supplier research, stock snapshots, and an N4-titled-as-N8
 // trial must never activate customer checkout by accident.

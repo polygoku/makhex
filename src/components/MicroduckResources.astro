@@ -1,0 +1,79 @@
+---
+const demos=Array.from({length:7},(_,i)=>({
+ number:String(i+1).padStart(2,'0'),
+ src:'/demo/microduck/microduck-demo-'+String(i+1).padStart(2,'0')+'.mp4',
+ poster:'/demo/microduck/microduck-demo-'+String(i+1).padStart(2,'0')+'.jpg'
+}));
+const printPlates=Array.from({length:5},(_,i)=>({
+ number:i+1,src:'/demo/microduck/plate-'+(i+1)+'.png',
+ label:i===4?'Plate 5 / TPU flexible soles and tire':'Plate '+(i+1)+' / rigid print layout'
+}));
+const upstream='https://github.com/kissqy/Microduck-kissqy';
+const resources=[
+ {name:'English build and firmware guides',description:'Original installation, assembly, calibration and running instructions',url:'https://kissqy.github.io/Microduck-kissqy/guides/'},
+ {name:'Complete FrankenDuck print archive',description:'October 15 original RAR: 36 STL models + five-plate 3MF project (14.54 MiB)',url:upstream+'/raw/refs/heads/main/hardware/3d-print-frankenduck/Microduck-Print-FrankenDuck-20261015.rar'},
+ {name:'Print details and SHA-256 manifest',description:'Material configuration, alternative battery holders, roller mount and independent hash list',url:upstream+'/tree/main/hardware/3d-print-frankenduck'},
+ {name:'HAT design / AMP2.0',description:'October 15 EasyEDA Pro schematic and PCB project (.epro2)',url:upstream+'/raw/refs/heads/main/hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2'},
+ {name:'IMU design / AMP2.0',description:'October 15 EasyEDA Pro schematic and PCB project (.epro2)',url:upstream+'/raw/refs/heads/main/hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2'},
+ {name:'Original EH2.5 board variants',description:'October 7 electronics / different connector pitch; not interchangeable',url:upstream+'/tree/main/hardware'},
+ {name:'Original duck-body shopping guide',description:'Original maker quantities, exact parts and optional roller configuration',url:upstream+'/blob/main/DUCK-SHOPPING-LIST.en.md'},
+ {name:'Detailed HAT + IMU electronics BOM',description:'Reference designators, revision history, BOM and pinouts',url:upstream+'/blob/main/hardware/AMP2.0-VERSION.en.md'}
+];
+---
+<section class="container microduck-resource-section" id="microduck-demo" aria-labelledby="microduck-resources-heading">
+  <div class="microduck-resource-intro">
+    <div><span class="eyebrow">BUILD 12 / ACTUAL HARDWARE</span><h2 id="microduck-resources-heading">Watch the duck. Explore the source.</h2><p>These are actual robot demonstrations shared by <strong>kissqy</strong>, not generated concept footage or an assembled MAKHEX kit. The full build uses a Radxa computer, not an ESP32.</p></div>
+    <a class="btn btn-outline" target="_blank" rel="noopener noreferrer" href={upstream}>CREDITED ORIGINAL REPOSITORY ↗</a>
+  </div>
+  <div class="microduck-demo-grid">
+    {demos.map(d=><figure class="microduck-demo-card">
+      <video controls playsinline preload="metadata" poster={d.poster} width="480" height="360" aria-label={'Microduck original robot demo clip '+d.number+', video by kissqy'}>
+        <source src={d.src} type="video/mp4"/>
+        Your browser does not support video playback.
+      </video>
+      <figcaption><span>REAL ROBOT / CLIP {d.number}</span><span>Creator: kissqy</span></figcaption>
+    </figure>)}
+  </div>
+  <div class="microduck-cad-intro" id="microduck-cad">
+    <span class="eyebrow">03 / DESIGN FILES</span>
+    <h2>Real source. Real revision controls.</h2>
+    <p>The source materials include a checksum-verified 3D print archive, alternative foot and battery-holder designs, and native EasyEDA Pro HAT and IMU schematic/PCB projects. Download original files directly from the credited author; MAKHEX does not redistribute the native design files or present them as a manufactured kit.</p>
+  </div>
+  <div class="microduck-plate-grid">
+    {printPlates.map(p=><figure><img src={p.src} loading="lazy" alt={'Original Microduck FrankenDuck printing arrangement '+p.label} width="480" height="300"/><figcaption>{p.label}</figcaption></figure>)}
+  </div>
+  <div class="microduck-file-grid" aria-label="Original creator engineering resources">
+    {resources.map(resource=><a class="microduck-file-card" href={resource.url} target="_blank" rel="noopener noreferrer">
+      <span class="microduck-file-title">{resource.name}<span aria-hidden="true">↗</span></span>
+      <span class="microduck-file-description">{resource.description}</span>
+    </a>)}
+  </div>
+  <div class="microduck-review-notes">
+    <div><strong>3D print configuration</strong><p>The saved 3MF project specifies millimeters and five print plates. Verify every imported model’s scale: individual STL coordinates differ by orders of magnitude. Set plate 5 to a TPU material profile; the source project stores PLA presets. Select <em>one</em> battery holder.</p></div>
+    <div><strong>Electronics revision</strong><p>For the October 15 AMP2.0 design, HAT J13/J14 and IMU J1 are 3-pin 2.0 mm bus sockets. HAT audio connectors are HP1.25. The October 7 EH2.5 projects are separate revisions. Check schematic, pin numbers, power, regulator and bootloader before assembly.</p></div>
+    <div><strong>Optional roller feet</strong><p>The interchangeable roller option uses <a href="/shop/bearing-623zz/">623ZZ bearings (3 × 10 × 4 mm)</a>. It is not part of the standard walking-foot BOM; add roller parts only after selecting that print configuration and verifying the quantity.</p></div>
+  </div>
+  <p class="microduck-source-note">Media credited to kissqy, original repo. MAKHEX media use authorized by the site owner. CAD and firmware have their own upstream terms. Hardware sourcing is research-stage: supplier stock, exact options, safe power wiring and U.S. orderability have not passed an end-to-end checkout test.</p>
+</section>
+<style>
+.microduck-resource-section{padding-top:clamp(1rem,4vw,3rem);padding-bottom:clamp(2rem,5vw,4rem)}
+.microduck-resource-intro{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.microduck-resource-intro>div{max-width:55rem}.microduck-resource-intro h2,.microduck-cad-intro h2{font-size:clamp(1.8rem,3.3vw,3.2rem);line-height:1.15;margin:.7rem 0}.microduck-resource-intro p,.microduck-cad-intro p{max-width:56rem;line-height:1.7}
+.microduck-demo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem}
+.microduck-demo-card{margin:0;min-width:0;border:1px solid rgba(40,58,51,.18);border-radius:13px;overflow:hidden;background:var(--paper,#f1ede4)}
+.microduck-demo-card video{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:#131e1d}
+.microduck-demo-card figcaption{display:flex;justify-content:space-between;gap:.3rem;padding:.7rem .8rem;font-size:.75rem;font-weight:600;letter-spacing:.025em}
+.microduck-cad-intro{margin:clamp(2.5rem,6vw,5rem) 0 1.4rem}
+.microduck-plate-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem}
+.microduck-plate-grid figure{min-width:0;margin:0;background:#f5f1e9;border:1px solid rgba(40,58,51,.18);border-radius:11px;overflow:hidden}
+.microduck-plate-grid img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain}
+.microduck-plate-grid figcaption{padding:.6rem;font-size:.72rem;line-height:1.35}
+.microduck-file-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1.5rem 0}
+.microduck-file-card{display:flex;flex-direction:column;gap:.6rem;padding:1rem 1.1rem;border:1px solid rgba(40,58,51,.2);border-radius:11px;text-decoration:none!important;color:inherit;background:#f8f4ea;transition:border-color .15s,transform .15s}
+.microduck-file-card:hover,.microduck-file-card:focus-visible{border-color:#bc7836;transform:translateY(-2px)}
+.microduck-file-title{display:flex;justify-content:space-between;gap:1rem;font-weight:750;font-size:1.02rem}.microduck-file-description{font-size:.82rem;line-height:1.5}
+.microduck-review-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.25rem 0}.microduck-review-notes>div{padding:1rem;background:#e5eadc;border-radius:9px}.microduck-review-notes strong{font-size:1rem}.microduck-review-notes p{margin:.7rem 0 0;line-height:1.6;font-size:.83rem}
+.microduck-source-note{line-height:1.6;font-size:.81rem;padding:1rem 0;border-top:1px solid rgba(40,58,51,.2)}
+@media(max-width:850px){.microduck-demo-grid,.microduck-review-notes{grid-template-columns:repeat(2,minmax(0,1fr))}.microduck-plate-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.microduck-demo-grid,.microduck-file-grid,.microduck-review-notes{grid-template-columns:1fr}.microduck-plate-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.microduck-resource-intro .btn{width:100%;text-align:center}}
+</style>
