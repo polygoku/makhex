@@ -18,6 +18,17 @@ Downloaded exactly **15,248,649 bytes**:
 File names, original plates and print settings:
 https://github.com/kissqy/Microduck-kissqy/tree/main/hardware/3d-print-frankenduck
 
+### Independent mesh topology analysis (Trimesh 5.2.0 / NumPy 2.5.4)
+
+Every extracted STL was independently parsed into a triangle mesh:
+
+- **36/36 STL meshes parse and are watertight** after normal STL vertex merging.
+- **36/36 meshes have consistent winding** and **36/36 show positive enclosed volume** under the same topology processing.
+- **11/36 files have near-zero standalone coordinate scale**, with bounding dimensions measured around 0.001–0.09 in source coordinate units; companion models measure tens of units. A likely meters/millimeters export inconsistency requires the exact slicer geometry check and possible explicit scale adjustment.
+- **5/36 meshes contain non-area/degenerate faces**, **40 degenerate triangles total**. The affected pieces are the left sole (1), right thigh outer shell (17), head lid (1), left thigh outer shell (15), and thick-latch battery holder (6). Inspect automatic slicer repairs and boundary/toolpath previews before fabricating them.
+
+Trimesh mesh validity is a useful **digital** screening check, not a guarantee of printability, overhang support, water tightness after slicing, material strength, servo clearances or safe mechanical loads. The original model files were **not modified** as part of this audit.
+
 ### 3D model format checks
 
 - All 36 listed STL binaries/files were present, readable and individually hash-verified. Some files use ASCII STL representation; not all can be interpreted using a binary STL header. Model mesh watertightness and dimensional fit were **not** proven.

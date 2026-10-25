@@ -51,7 +51,7 @@ Guide: https://github.com/kissqy/Microduck-kissqy/blob/main/hardware/AMP2.0-VERS
 
 ## CAD build checks and print material
 
-- Original ZIP/RAR archive content and individual STL hashes have been verified in MAKHEX's Oct 25 CAD review.
+- Original ZIP/RAR archive content and individual STL hashes have been verified in MAKHEX's Oct 25 CAD review. All 36 meshes are watertight after vertex processing, but five models contain non-area triangles and eleven have unusually small raw coordinate scales.
 - Prefer the **five-plate 3MF** for reproducible arrangement and sensible print units. Raw STL files have mixed *numerical coordinate ranges*. Verify dimensions per model in slicer, especially files with sub-0.1-unit dimensions.
 - The 3MF project declares **millimeter** units. The source's recorded machine was Bambu Lab P2S with BambuStudio 02.08.02.61, 0.4-mm nozzle, 0.20-mm layers; adjust hardware/profile locally.
 - Print **plate 5 with TPU**, despite saved PLA presets.
