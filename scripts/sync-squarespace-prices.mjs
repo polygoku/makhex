@@ -53,27 +53,36 @@ export function reviewedPrices(csv){
  }
  return result;
 }
-export function syncSource(source,priceMap,snapshot){
- const updated=source.replace(/export const catalogSnapshotDate='[^']+';/,
-   "export const catalogSnapshotDate='"+snapshot+"';");
- let result=updated,changed=0;
- for(const [slug,values] of Object.entries(priceMap)){
-   const anchor="'"+slug+"':{";
-   const begin=result.indexOf(anchor);
-   if(begin<0)throw Error('Missing staged product '+slug);
-   const end=result.indexOf('\n',begin);
-   if(end<0)throw Error('Bad product stage '+slug);
-   let segment=result.slice(begin,end),index=0;
-   segment=segment.replace(/plannedRetailUsd:\s*\d+(?:\.\d+)?/g,()=>{
-      if(index>=values.length)throw Error('Too many staged options '+slug);
-      return 'plannedRetailUsd:'+values[index++];
+export function syncSource(source, priceMap, snapshot) {
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(snapshot)) throw Error('Expected ISO snapshot date');
+ if(Object.keys(priceMap).length !== Object.keys(mapping).length ||
+   Object.keys(priceMap).some(slug => !Object.values(mapping).includes(slug)))
+   throw Error('Expected the exact reviewed MAKHEX product mapping');
+ const timestamp=/export const catalogSnapshotDate='[^']+';/;
+ if(!timestamp.test(source))throw Error('Missing catalog snapshot date');
+ const dated=source.replace(timestamp, "export const catalogSnapshotDate='"+snapshot+"';");
+ const touched=new Set();
+ const lines=dated.split(/\r?\n/).map(line=>{
+   const key=line.match(/^\s*'([a-z0-9-]+)':\{supplierModel:/)?.[1];
+   if(!key || !Object.hasOwn(priceMap,key))return line;
+   if(touched.has(key))throw Error('Duplicate catalog record '+key);
+   if((line.match(/supplierModel:/g)||[]).length!==1)
+     throw Error('Catalog records must each occupy their own line: '+key);
+   const values=priceMap[key];
+   if(!Array.isArray(values)||values.length===0||values.some(v=>!Number.isFinite(v)||v<=0||v>10000))
+     throw Error('Unqualified price '+key);
+   let i=0;
+   const changed=line.replace(/plannedRetailUsd:\s*\d+(?:\.\d+)?/g,()=>{
+     if(i>=values.length)throw Error('Too many staged options '+key);
+     return 'plannedRetailUsd:'+values[i++];
    });
-   if(index!==values.length)throw Error('Option count mismatch '+slug+' '+index+' vs '+values.length);
-   result=result.slice(0,begin)+segment+result.slice(end+1);
-   changed++;
- }
- if(changed!==Object.keys(mapping).length)throw Error('Incomplete price sync');
- return result;
+   if(i!==values.length)throw Error('Variant price count mismatch '+key+' '+i+' vs '+values.length);
+   touched.add(key);
+   return changed;
+ });
+ if(touched.size!==Object.keys(mapping).length)
+   throw Error('Missing catalog records: '+Object.values(mapping).filter(v=>!touched.has(v)).join(', '));
+ return lines.join('\n');
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===path.resolve(new URL(import.meta.url).pathname.replace(/^\/(?=[A-Z]:)/,''))){
  const [csvPath,sourcePath]=process.argv.slice(2);

@@ -94,7 +94,7 @@ for(const project of sourcing.projects){
 const publicJson=JSON.stringify(sourcing);
 for(const sensitive of ['aliexpress','sourceItemId','sourceUnitCost','supplierUnitCost','sourceVariantId','access_token','refresh_token'])
  assert.ok(!publicJson.toLowerCase().includes(sensitive.toLowerCase()),'Supplier detail exposed in public JSON: '+sensitive);
-console.log('MAKHEX SHOP PASS: 30 catalog components (18 source-unqualified), 13 historical priced options, 12 project BOMs, no exposed supplier links, checkout gated');
+console.log(`MAKHEX SHOP PASS: ${products.length} catalog components (${products.filter(p=>!catalogStaging[p.slug]).length} source-unqualified), ${optionCount} priced options, ${projects.length} project BOMs, no exposed supplier links, checkout gated`);
 
 // Regression gate: supplier research, stock snapshots, and an N4-titled-as-N8
 // trial must never activate customer checkout by accident.
