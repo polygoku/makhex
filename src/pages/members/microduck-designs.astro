@@ -2,12 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Microduck Design Library | MAKHEX" description="Authenticated maker access to original Microduck CAD, PCB and printing references.">
-<section class="page-hero container"><span class="eyebrow">MAKHEX / MEMBER WORKBENCH</span><h1>Microduck design<br/><em>library.</em></h1><div class="page-hero-bottom"><p>Sign in to your MAKHEX maker account to view the source CAD and PCB resource catalog. Original design downloads remain at the creator's repository until redistribution rights are cleared.</p><span class="page-count">DESIGN SOURCE / MEMBERS</span></div></section>
+<section class="page-hero container"><span class="eyebrow">MAKHEX / MEMBER WORKBENCH</span><h1>Microduck design<br/><em>library.</em></h1><div class="page-hero-bottom"><p>Sign in to your MAKHEX maker account to view the source CAD and PCB resource catalog. Original design archives and PCB files are now hosted in MAKHEX's private member storage; download requests require a valid maker sign-in.</p><span class="page-count">DESIGN SOURCE / MEMBERS</span></div></section>
 <section class="section container" aria-live="polite">
   <div id="design-library-status" role="status">Checking your maker account…</div>
   <div id="design-library-auth" hidden><p>You'll need a MAKHEX maker account to view the curated design-source links.</p><a class="btn btn-primary" href="/account/">CREATE ACCOUNT OR SIGN IN →</a></div>
   <div id="design-library-items" class="microduck-file-grid" hidden></div>
-  <p>Original creator: <a href="https://github.com/kissqy/Microduck-kissqy" target="_blank" rel="noopener noreferrer">kissqy / Microduck-kissqy</a>. All engineering rights remain governed by source-specific licenses. MAKHEX membership is not a commercial design license.</p>
+  <p>Original creator: <a href="https://github.com/kissqy/Microduck-kissqy" target="_blank" rel="noopener noreferrer">kissqy / Microduck-kissqy</a>. MAKHEX hosts the CAD copies under redistribution authorization reported by the site owner. The original creators retain their rights; downloading does not authorize commercial manufacturing.</p>
 </section>
 <script src="/scripts/member-design-library.js" is:inline defer></script>
 <style>.microduck-file-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1rem;margin:1.5rem 0}.microduck-file-grid>a{background:#f4efe4;border:1px solid #c8beb0;border-radius:12px;padding:1.4rem;display:block;text-decoration:none;color:inherit}.microduck-file-grid strong{display:block;margin-bottom:.6rem}.microduck-file-grid small{display:block;line-height:1.5}</style>

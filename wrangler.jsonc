@@ -1,34 +1,40 @@
 {
-    "name":  "makhex",
-    "compatibility_date":  "2026-10-22",
-    "main":  "./worker/community.mjs",
-    "assets":  {
-                   "directory":  "./dist",
-                   "binding":  "ASSETS",
-                   "run_worker_first":  [
-                                            "/api/*"
-                                        ]
-               },
-    "routes":  [
-                   {
-                       "pattern":  "makhex.com",
-                       "custom_domain":  true
-                   },
-                   {
-                       "pattern":  "www.makhex.com",
-                       "custom_domain":  true
-                   }
-               ],
-    "workers_dev":  true,
-    "preview_urls":  true,
-    "d1_databases":  [
-                         {
-                             "binding":  "COMMUNITY_DB",
-                             "database_name":  "makhex-community",
-                             "database_id":  "46bca577-96ca-4a26-be77-81bc07bba2ef"
-                         }
-                     ],
-    "vars":  {
-                 "TURNSTILE_SITE_KEY":  "0x4AAAAAAFgiqCX79Q3PoMyU"
-             }
+    "name": "makhex",
+    "compatibility_date": "2026-10-22",
+    "main": "./worker/community.mjs",
+    "assets": {
+        "directory": "./dist",
+        "binding": "ASSETS",
+        "run_worker_first": [
+            "/api/*"
+        ]
+    },
+    "routes": [
+        {
+            "pattern": "makhex.com",
+            "custom_domain": true
+        },
+        {
+            "pattern": "www.makhex.com",
+            "custom_domain": true
+        }
+    ],
+    "workers_dev": true,
+    "preview_urls": true,
+    "d1_databases": [
+        {
+            "binding": "COMMUNITY_DB",
+            "database_name": "makhex-community",
+            "database_id": "46bca577-96ca-4a26-be77-81bc07bba2ef"
+        }
+    ],
+    "vars": {
+        "TURNSTILE_SITE_KEY": "0x4AAAAAAFgiqCX79Q3PoMyU"
+    },
+    "kv_namespaces": [
+        {
+            "binding": "MICRODUCK_FILES",
+            "id": "e0f6e953a0ec48eea103e503b8b6f871"
+        }
+    ]
 }
