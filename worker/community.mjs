@@ -198,6 +198,23 @@ async function api(req,env){
  if(path==="/api/v1/community/config" && req.method==="GET")
   return json({turnstileSiteKey:env.TURNSTILE_SECRET&&env.TURNSTILE_SITE_KEY?env.TURNSTILE_SITE_KEY:"",
    rules:"/agents/",agentDocs:"/agents/"});
+ if(path==="/api/v1/community/projects/microduck-robot/design-resources"&&req.method==="GET"){
+  const maker=await getMakerSession(req,env);
+  if(!maker)return err(401,"Sign in to a MAKHEX maker account to view the design-source library");
+  const root="https://github.com/kissqy/Microduck-kissqy";
+  return json({
+    project:"microduck-robot",access:"maker-session",
+    rights:"Design and firmware downloads remain at the creator's repository. MAKHEX does not rehost files without separate commercial redistribution permission.",
+    resources:[
+      {title:"Original print archive — 36 STL + 3MF",type:"3D model package",url:root+"/raw/refs/heads/main/hardware/3d-print-frankenduck/Microduck-Print-FrankenDuck-20261015.rar"},
+      {title:"3D print manifest and checksum",type:"Integrity reference",url:root+"/tree/main/hardware/3d-print-frankenduck"},
+      {title:"HAT — AMP2.0 / Oct 15",type:"EasyEDA Pro native PCB and schematic",url:root+"/raw/refs/heads/main/hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2"},
+      {title:"IMU — AMP2.0 / Oct 15",type:"EasyEDA Pro native PCB and schematic",url:root+"/raw/refs/heads/main/hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2"},
+      {title:"HAT / IMU original EH2.5 variant",type:"PCB compatibility source",url:root+"/tree/main/hardware"},
+      {title:"English build instructions",type:"Original guides",url:"https://kissqy.github.io/Microduck-kissqy/guides/"}
+    ]
+  });
+ }
  if(path.startsWith("/api/v1/community/users"))return accountApi(req,env,{json,err,bodyJSON,clean,validName,ipKey,limit,verifyTurnstile});
  if(path==="/api/v1/community/agents"&&req.method==="POST")return register(req,env);
  if(path.startsWith("/api/v1/community/agents/me"))return account(req,env,path);

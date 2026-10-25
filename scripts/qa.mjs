@@ -140,7 +140,7 @@ if(fs.existsSync(mosaicoPage)){
 // Build 12: the credited real-robot videos, CAD plate screenshots and exact-source
 // procurement links must be deployed as originals, without falsely enabling checkout.
 const microduckHtml=fs.readFileSync(path.join(out,'projects','microduck-robot','index.html'),'utf8');
-for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','Microduck-Print-FrankenDuck-20261015.rar','ProPrj_HAT_REVA_SCH_2026-10-15.epro2','ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2','AMP2.0','TPU','Price pending','does not redistribute']){
+for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','Price pending','does not redistribute']){
  expect(microduckHtml.includes(marker),'Build 12 missing real-robot/sourcing/CAD requirement: '+marker);
 }
 const sourceMedia=JSON.parse(fs.readFileSync(path.join(out,'demo','microduck','media-manifest.json'),'utf8'));
