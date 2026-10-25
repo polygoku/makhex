@@ -8,6 +8,7 @@ import {parseCsv, reviewedPrices, syncSource} from './sync-squarespace-prices.mj
 const root=path.dirname(fileURLToPath(new URL('../package.json',import.meta.url)));
 const stageFile=path.join(root,'src/data/catalog-staging.ts');
 const staged=fs.readFileSync(stageFile,'utf8');
+const normalizedStaged=staged.replace(/\r\n?/g,'\n');
 const sourceMap=Object.fromEntries(
   [...staged.matchAll(/^\s*'([a-z0-9-]+)':\{supplierModel:.*$/gm)]
     .filter(m=>m[0].includes('plannedRetailUsd:'))
@@ -25,7 +26,7 @@ test('current catalog has 16 distinct priced component families and 17 options',
 test('applying the same Squarespace catalog twice is idempotent and preserves all newlines',()=>{
   const once=syncSource(staged,sourceMap,'2026-10-25');
   const twice=syncSource(once,sourceMap,'2026-10-25');
-  assert.equal(once,staged);
+  assert.equal(once,normalizedStaged);
   assert.equal(twice,once);
   assert.equal([...twice.matchAll(/^\s*'([a-z0-9-]+)':\{supplierModel:/gm)].length,16);
 });
@@ -43,7 +44,7 @@ test('rejects incomplete mapping, invalid amounts, merged stage entries and bad 
   assert.throws(()=>syncSource(staged,truncated,'2026-10-25'),/exact reviewed/);
   assert.throws(()=>syncSource(staged,{...sourceMap,'speaker-4ohm-3w':[-2]},'2026-10-25'),/Unqualified price/);
   assert.throws(()=>syncSource(staged,sourceMap,'October 25'),/ISO snapshot/);
-  const merged=staged.replace(/\},\n  '(?=speaker-4ohm-3w)/,'},  \'');
+  const merged=normalizedStaged.replace(/\},\n  '(?=speaker-4ohm-3w)/,'},  \'');
   assert.throws(()=>syncSource(merged,sourceMap,'2026-10-25'),/own line/);
 });
 
@@ -52,7 +53,7 @@ test('authenticated Squarespace CSV and public catalog remain identical when an 
     const file=process.env.MAKHEX_OWNER_SQUARESPACE_CSV;
     const fresh=reviewedPrices(fs.readFileSync(file,'utf8'));
     assert.deepEqual(fresh,sourceMap);
-    assert.equal(syncSource(staged,fresh,'2026-10-25'),staged);
+    assert.equal(syncSource(staged,fresh,'2026-10-25'),normalizedStaged);
   });
 
 test('CSV parses quoted multiline and rejects sales candidates with positive stock',()=>{
