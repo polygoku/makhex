@@ -1,0 +1,244 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "microduck-robot",
+  "number": "12",
+  "title": "Microduck — AI Walking Robot",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/kissqy/Microduck-kissqy",
+  "sourceLicense": "Multiple component licenses and original work terms",
+  "sourceCommit": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+  "upstreamDesignFiles": [
+    "docs/assets/assembly-battery-holder.stl",
+    "hardware/ProPrj_HAT_REVA_SCH_2026-10-07.epro2",
+    "hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2",
+    "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-07.epro2",
+    "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2"
+  ],
+  "media": {
+    "referencePhoto": null,
+    "credit": "kissqy",
+    "externalVideo": null,
+    "hostedVideos": [
+      "/demo/microduck/microduck-demo-01.mp4",
+      "/demo/microduck/microduck-demo-02.mp4",
+      "/demo/microduck/microduck-demo-03.mp4",
+      "/demo/microduck/microduck-demo-04.mp4",
+      "/demo/microduck/microduck-demo-05.mp4",
+      "/demo/microduck/microduck-demo-06.mp4",
+      "/demo/microduck/microduck-demo-07.mp4"
+    ]
+  },
+  "design": {
+    "status": "source-linked member-gated CAD, not physically qualified",
+    "url": "https://github.com/kissqy/Microduck-kissqy"
+  },
+  "parts": [
+    {
+      "slug": "feetech-hd1910",
+      "quantity": 15,
+      "role": "Original HD-1910-C001 actuators",
+      "title": "Feetech HD-1910-C001 Serial Bus Servo",
+      "photo": "/product-media/feetech-hd1910.jpg",
+      "publicUrl": "/shop/feetech-hd1910/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "radxa-zero-3w",
+      "quantity": 1,
+      "role": "Original 2GB no-eMMC main computer",
+      "title": "Radxa ZERO 3W, 2GB (no eMMC)",
+      "photo": "/product-media/radxa-zero-3w.jpg",
+      "publicUrl": "/shop/radxa-zero-3w/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "microduck-hat",
+      "quantity": 1,
+      "role": "AMP2.0 robot HAT control PCB",
+      "title": "Microduck HAT Custom Controller PCB",
+      "photo": "/product-media/microduck-hat.jpg",
+      "publicUrl": "/shop/microduck-hat/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "microduck-imu",
+      "quantity": 1,
+      "role": "Custom STM32-based IMU board",
+      "title": "Microduck STM32 IMU Controller PCB",
+      "photo": "/product-media/microduck-imu.jpg",
+      "publicUrl": "/shop/microduck-imu/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "imx219-160-camera",
+      "quantity": 1,
+      "role": "160-degree vision module",
+      "title": "IMX219 160° Camera Module",
+      "photo": "/product-media/imx219-160-camera.jpg",
+      "publicUrl": "/shop/imx219-160-camera/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "vl53l5cx-v2",
+      "quantity": 1,
+      "role": "V2 8×8 distance-sensing breakout",
+      "title": "VL53L5CX V2 8×8 ToF Sensor",
+      "photo": "/product-media/vl53l5cx-v2.jpg",
+      "publicUrl": "/shop/vl53l5cx-v2/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "npf550-power-kit",
+      "quantity": 1,
+      "role": "Two batteries plus charger kit",
+      "title": "NP-F550 Battery & Dual Charger Kit",
+      "photo": "/product-media/npf550-power-kit.jpg",
+      "publicUrl": "/shop/npf550-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "microduck-printed-parts",
+      "quantity": 1,
+      "role": "Printed FrankenDuck chassis set / 3MF",
+      "title": "Microduck FrankenDuck 3D-Printed Shell",
+      "photo": "/product-media/microduck-printed-parts.jpg",
+      "publicUrl": "/shop/microduck-printed-parts/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "bearing-6700",
+      "quantity": 5,
+      "role": "10×15×3 mm bearings; purchase reference",
+      "title": "6700 Open Thin-Wall Bearing",
+      "photo": "/product-media/bearing-6700.jpg",
+      "publicUrl": "/shop/bearing-6700/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "bearing-et2216",
+      "quantity": 12,
+      "role": "16×22×4 mm bearings; purchase reference",
+      "title": "ET2216 Thin-Wall Bearing",
+      "photo": "/product-media/bearing-et2216.jpg",
+      "publicUrl": "/shop/bearing-et2216/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "speaker-4ohm-3w",
+      "quantity": 1,
+      "role": "3525-compatible 4Ω 3W speaker",
+      "title": "Mini 4 Ω / 3 W Speaker",
+      "photo": "/product-media/speaker-4ohm-3w.jpg",
+      "publicUrl": "/shop/speaker-4ohm-3w/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 6.35
+    },
+    {
+      "slug": "microduck-fasteners",
+      "quantity": 1,
+      "role": "M2/M2.6 screw assortment",
+      "title": "Microduck M2/M2.6 Fastener Set",
+      "photo": "/product-media/microduck-fasteners.jpg",
+      "publicUrl": "/shop/microduck-fasteners/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "amp20-servo-cables",
+      "quantity": 1,
+      "role": "10 and 20 cm AMP2.0 servo cables",
+      "title": "AMP2.0 3-Pin Servo Cable Set",
+      "photo": "/product-media/amp20-servo-cables.jpg",
+      "publicUrl": "/shop/amp20-servo-cables/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    },
+    {
+      "slug": "microduck-wiring-kit",
+      "quantity": 1,
+      "role": "22AWG harness wire and heat shrink",
+      "title": "Microduck 22AWG Wiring & Heat Shrink",
+      "photo": "/product-media/microduck-wiring-kit.jpg",
+      "publicUrl": "/shop/microduck-wiring-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": null
+    }
+  ],
+  "preflight": [
+    "Match the HD-1910-C001 servo, Radxa ZERO 3W 2GB/no-eMMC/header and the October 15 AMP2.0 HAT and IMU projects. This is NOT an ESP32 build.",
+    "Read the 3MF five-plate print layout and verify geometry scale; some standalone STLs use tiny coordinate ranges. Use TPU for the sole/tire plate, not the saved PLA preset.",
+    "Select either HUB-clamping or snap-fit battery holder, and confirm the designed IMU mounting pattern and bearing sizes.",
+    "Treat original purchases as historical engineering examples, not proof of U.S. stock, current price or drop-ship orderability.",
+    "Do not apply battery or servo power until polarities, grounds, fuse, 3-pin pinouts and total stall-current budget are verified."
+  ],
+  "steps": [
+    "Open the credited original English guide, confirm the exact October 15 AMP2.0 connector variant and print-layout release.",
+    "Download the original five-plate 3MF and STL source set. Inspect model scale, PLA versus TPU materials and choose one battery holder before slicing.",
+    "Assemble the 15 HD-1910-C001 servos and correct bearings with the printed chassis, securing cables with strain relief.",
+    "Inspect or fabricate the original HAT and IMU PCB revisions; flash the correct STM32 IMU firmware before connecting the servo bus.",
+    "Mount the Radxa ZERO 3W, IMX219 camera, VL53L5CX V2 sensor, speaker and protected NP-F550 supply.",
+    "Validate battery voltage/polarity, bus-pin mapping, connector pitch and independent power-up of each device.",
+    "Configure source-matched Linux/robot software, then calibrate servo IDs and joint limits without loading the legs.",
+    "Run conservative support/standing tests before source-guided walking and optional roller/reinforcement-learning demos."
+  ],
+  "acceptance": [
+    "Check that each servo ID and range matches the rig without linkage binding.",
+    "Bring up the IMU and HAT with connector/supply checks before loading the printed robot.",
+    "Record safe stand, walk and recovery behavior in a bounded test area.",
+    "Verify camera, ToF and battery power with source-matched drivers.",
+    "Cross-check printed foot configuration and optional roller bearings against the 3MF source."
+  ],
+  "agentTasks": [
+    "Start with builds/microduck-robot/README.md and follow upstream release URLs; do not use generic ESP32 firmware.",
+    "Reconcile exact supplier options against HD-1910-C001, Radxa ZERO 3W no-eMMC, IMX219 160-degree lens, VL53L5CX V2 and AMP2.0 connector variant.",
+    "Inspect EasyEDA Pro .epro2 schematic/PCB before manufacturing and run ERC/DRC with the current BOM and board revisions.",
+    "Check the RAR/SHA256 manifest and 3MF units, PLA/TPU plate selection and mechanical fit. Do not infer exact print quantity from 36 STL filenames.",
+    "Keep Squarespace/Doroppu import/checkout disabled until verified exact supplier variants and U.S. test orders."
+  ],
+  "caution": "Advanced electromechanical build with lithium-ion batteries, moving servos and custom PCBs. This is an attributed independent project, not a bench-tested MAKHEX kit. Do not replace Radxa with an ESP32, mix EH2.5/AMP2.0 connectors or assume raw STL units equal millimeters."
+}

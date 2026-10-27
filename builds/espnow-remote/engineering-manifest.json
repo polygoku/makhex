@@ -1,0 +1,79 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "espnow-remote",
+  "number": "09",
+  "title": "ESP-NOW Wireless Remote",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/ncmreynolds/sticky",
+  "sourceLicense": "LGPL-2.1",
+  "sourceCommit": "b58ed099d3bde7f70bcb61902868418367be6a6a",
+  "upstreamDesignFiles": [
+    "STLs/stickyDefaultBottomSection.stl",
+    "STLs/stickyDefaultTopSection.stl",
+    "STLs/stickyFasciaVariant1.stl"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/espnow-remote.webp",
+    "credit": "ncmreynolds",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/ncmreynolds/sticky"
+  },
+  "parts": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 2,
+      "role": "Transmitter and receiver",
+      "title": "ESP32-C3 SuperMini",
+      "photo": "/product-media/esp32-c3-supermini.jpg",
+      "publicUrl": "/shop/esp32-c3-supermini/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 10.98
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 2,
+      "role": "Bench supplies",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Use matching ESP32-C3 boards and firmware versions on both ends.",
+    "Never connect the demo to a safety-critical actuator or lock."
+  ],
+  "steps": [
+    "Flash both boards with compatible firmware.",
+    "Exchange peer identifiers securely.",
+    "Send packets with sequence IDs.",
+    "Measure drops and retry behavior.",
+    "Add authentication and safe timeout fallback."
+  ],
+  "acceptance": [
+    "Peer pairing is documented and repeatable.",
+    "Each button event carries a sequence number and acknowledgement.",
+    "Loss of link returns the receiver to a harmless idle state."
+  ],
+  "agentTasks": [
+    "Publish compatible sender/receiver firmware and a measurement script.",
+    "Document channel, pairing, auth and timeout assumptions."
+  ],
+  "caution": "Not for safety-critical remote control or actuators."
+}

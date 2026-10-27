@@ -1,0 +1,95 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "plant-health-monitor",
+  "number": "04",
+  "title": "Connected Plant Monitor",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/ConnerWill/esp32-plant",
+  "sourceLicense": "GPL-3.0",
+  "sourceCommit": "284af7c31e6bce2de528f599f36ba47192eefc66",
+  "upstreamDesignFiles": [
+    "3D-models/DHT22-case/DHT22_bottom.stl",
+    "3D-models/DHT22-case/DHT22_top.stl",
+    "3D-models/ESP32-housing/ESP32-housing.3mf",
+    "3D-models/ESP32-housing/ESP32-housing.FCStd",
+    "3D-models/ESP32-housing/ESP32-housing.stl",
+    "3D-models/MQ-135-case/MQ2-Bottom-02.stl",
+    "3D-models/MQ-135-case/MQ2-Top-02.stl"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/plant-health-monitor.webp",
+    "credit": "ConnerWill",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/ConnerWill/esp32-plant"
+  },
+  "parts": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "Wi-Fi controller",
+      "title": "ESP32-C3 SuperMini",
+      "photo": "/product-media/esp32-c3-supermini.jpg",
+      "publicUrl": "/shop/esp32-c3-supermini/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 10.98
+    },
+    {
+      "slug": "bme280-sensor",
+      "quantity": 1,
+      "role": "Ambient sensing",
+      "title": "BME280 Environment Sensor",
+      "photo": "/product-media/bme280-sensor.jpg",
+      "publicUrl": "/shop/bme280-sensor/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 11.08
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench supply",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Confirm the BME280, not BMP280, part number and correct 3.3 V supply.",
+    "Select a safe Wi-Fi-only local dashboard with no exposed internet control endpoint."
+  ],
+  "steps": [
+    "Verify the BME280 wiring and supply.",
+    "Read temperature and humidity.",
+    "Publish a small read-only local dashboard.",
+    "Mark stale readings and connection failures.",
+    "Optionally add a separately qualified soil probe."
+  ],
+  "acceptance": [
+    "Room readings update at the chosen interval with units.",
+    "Power interruption and sensor disconnect are distinguished in the UI.",
+    "A calibration limitation note is visible next to readings."
+  ],
+  "agentTasks": [
+    "Create a read-only local web page with age-of-data indication.",
+    "Provide serial logs and troubleshooting for common I2C address differences."
+  ],
+  "caution": "Ambient humidity is not soil moisture. Do not infer watering status without a soil sensor."
+}

@@ -1,0 +1,323 @@
+{
+  "generatedAt": "2026-10-27T18:59:29.403Z",
+  "source": "GitHub public repository tree readback",
+  "projects": [
+    {
+      "slug": "touch-weather-station",
+      "repo": "https://github.com/Damov/esp32_weather_forecast_screen",
+      "upstreamSha": "d5bcb4ca34e482d4091002b480df6bb5aa9072c2",
+      "upstreamCommit": "d5bcb4ca34e482d4091002b480df6bb5aa9072c2",
+      "designFiles": [
+        "printable_3D_model/assembly.3mf",
+        "printable_3D_model/step/Back_Lid.STEP",
+        "printable_3D_model/step/Front_Lid.STEP",
+        "printable_3D_model/step/Mounting_Radar.STEP",
+        "printable_3D_model/step/Stand.STEP"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "README.md",
+        "USER_GUIDE.md",
+        "docs/licensing/sources/certificates/README.txt",
+        "firmware/README.md",
+        "printable_3D_model/README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "voice-command-node",
+      "repo": "https://github.com/muhammedsaban/dudley",
+      "upstreamSha": "61e7e08e53593db093a663f49a375c982a2e7530",
+      "upstreamCommit": "61e7e08e53593db093a663f49a375c982a2e7530",
+      "designFiles": [
+        "hardware/enclosure/dudley-enclosure.scad"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "README.md",
+        "android/README.md",
+        "docs/integrations/SPOTIFY_GUIDE.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "tiny-ble-presence",
+      "repo": "https://github.com/BrunoGG69/Spottr",
+      "upstreamSha": "84c41ea06001f933619bf7672d484fcbd66c7eb5",
+      "upstreamCommit": "84c41ea06001f933619bf7672d484fcbd66c7eb5",
+      "designFiles": [
+        "cad/SPOTTR_CARD_BODY.stl",
+        "cad/SPOTTR_SCANNER_BOX_BODY.stl",
+        "cad/SPOTTR_SCANNER_TOP_LID_BODY.stl",
+        "cad/SPOTTR_TOP_LID_BODY.stl",
+        "cad/step-files/SPOTTR_BADGE.step",
+        "cad/step-files/SPOTTR_SCANNER.step"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "plant-health-monitor",
+      "repo": "https://github.com/ConnerWill/esp32-plant",
+      "upstreamSha": "284af7c31e6bce2de528f599f36ba47192eefc66",
+      "upstreamCommit": "284af7c31e6bce2de528f599f36ba47192eefc66",
+      "designFiles": [
+        "3D-models/DHT22-case/DHT22_bottom.stl",
+        "3D-models/DHT22-case/DHT22_top.stl",
+        "3D-models/ESP32-housing/ESP32-housing.3mf",
+        "3D-models/ESP32-housing/ESP32-housing.FCStd",
+        "3D-models/ESP32-housing/ESP32-housing.stl",
+        "3D-models/MQ-135-case/MQ2-Bottom-02.stl",
+        "3D-models/MQ-135-case/MQ2-Top-02.stl"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "3D-models/DHT22-case/README.txt",
+        "3D-models/MQ-135-case/README.txt",
+        "docs/README.md",
+        "grafana/README.md",
+        "src/main/README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "camera-event-trigger",
+      "repo": "https://github.com/bernardoeugster/espseccam",
+      "upstreamSha": "94a43104daf148dbbf95af91cf6563b9ff44d9b2",
+      "upstreamCommit": "94a43104daf148dbbf95af91cf6563b9ff44d9b2",
+      "designFiles": [
+        "hardware/enclosure/CAD/Archive/Mark I ESPSECCAM Circuit Support (discontinued).FCStd",
+        "hardware/enclosure/CAD/Archive/Mark II ESPSECCAM LID.FCStd",
+        "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.FCStd",
+        "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.step",
+        "hardware/enclosure/CAD/Mark III ESPSECCAM LID.FCStd",
+        "hardware/enclosure/CAD/Mark III ESPSECCAM LID.step"
+      ],
+      "pdfFiles": [
+        "docs/ESP32_Security_Camera.pdf"
+      ],
+      "instructions": [
+        "README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "epaper-desk-calendar",
+      "repo": "https://github.com/trandi/e-paper-calendar",
+      "upstreamSha": "ac1036823d663cf95093bc501bffe17fc1436b9c",
+      "upstreamCommit": "ac1036823d663cf95093bc501bffe17fc1436b9c",
+      "designFiles": [
+        "freecad/ePaperCalendar_Box.FCStd"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "indoor-voc-explorer",
+      "repo": "https://github.com/koenvervloesem/esphome-air-quality-monitor",
+      "upstreamSha": "acff085bf7ee94120aadeeb3bae73f3d337e15e5",
+      "upstreamCommit": "acff085bf7ee94120aadeeb3bae73f3d337e15e5",
+      "designFiles": [],
+      "pdfFiles": [],
+      "instructions": [],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "rgb-matrix-clock",
+      "repo": "https://github.com/l0calgost/ledclock",
+      "upstreamSha": "dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f",
+      "upstreamCommit": "dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f",
+      "designFiles": [
+        "ledclock/models/3d-print/Colon_Diffusor_Lid_v52.3mf",
+        "ledclock/models/3d-print/Colon_Segment_Lid_v52.3mf",
+        "ledclock/models/3d-print/Colon_Segment_v54.3mf",
+        "ledclock/models/3d-print/Diffusor Lid_v52.3mf",
+        "ledclock/models/3d-print/Digit_Lid_v52.3mf",
+        "ledclock/models/3d-print/Digit_Segment_v52.3mf",
+        "ledclock/models/3d-print/End_Segment_Lid_v52.3mf",
+        "ledclock/models/3d-print/End_Segment_v52.3mf",
+        "ledclock/models/3d-print/Start_Segment_Lid_v52.3mf",
+        "ledclock/models/3d-print/Start_Segment_v52.3mf",
+        "usermods/word-clock-matrix/Word Clock Baffle.stl"
+      ],
+      "pdfFiles": [
+        "ledclock/datasheets/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf",
+        "ledclock/datasheets/nxg-04_en_10031380.pdf",
+        "ledclock/datasheets/nxg-t_en_10030915.pdf",
+        "ledclock/datasheets/sc-caps.pdf",
+        "ledclock/datasheets/ws2812b.pdf"
+      ],
+      "instructions": [
+        "images/Readme.md",
+        "ledclock/assembly-guide.md",
+        "ledclock/gerber/readme.md",
+        "ledclock/users-guide.md",
+        "readme-wled.md",
+        "readme.md",
+        "usermods/ADS1115_v2/readme.md",
+        "usermods/Animated_Staircase/README.md",
+        "usermods/Artemis_reciever/readme.md",
+        "usermods/BH1750_v2/readme.md",
+        "usermods/BME280_v2/README.md",
+        "usermods/Battery/readme.md",
+        "usermods/Cronixie/readme.md",
+        "usermods/DHT/readme.md",
+        "usermods/EXAMPLE_v2/readme.md",
+        "usermods/EleksTube_IPS/readme.md",
+        "usermods/Enclosure_with_OLED_temp_ESP07/assets/readme.md",
+        "usermods/Enclosure_with_OLED_temp_ESP07/readme.md",
+        "usermods/Fix_unreachable_netservices_v2/readme.md",
+        "usermods/Internal_Temperature_v2/readme.md",
+        "usermods/JSON_IR_remote/readme.md",
+        "usermods/LDR_Dusk_Dawn_v2/README.md",
+        "usermods/PIR_sensor_switch/readme.md",
+        "usermods/PWM_fan/readme.md",
+        "usermods/RTC/readme.md",
+        "usermods/RelayBlinds/readme.md",
+        "usermods/SN_Photoresistor/readme.md",
+        "usermods/ST7789_display/README.md",
+        "usermods/Si7021_MQTT_HA/readme.md",
+        "usermods/TTGO-T-Display/README.md",
+        "usermods/Temperature/readme.md",
+        "usermods/VL53L0X_gestures/readme.md",
+        "usermods/Wemos_D1_mini+Wemos32_mini_shield/readme.md",
+        "usermods/audioreactive/readme.md",
+        "usermods/battery_keypad_controller/README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "espnow-remote",
+      "repo": "https://github.com/ncmreynolds/sticky",
+      "upstreamSha": "b58ed099d3bde7f70bcb61902868418367be6a6a",
+      "upstreamCommit": "b58ed099d3bde7f70bcb61902868418367be6a6a",
+      "designFiles": [
+        "STLs/stickyDefaultBottomSection.stl",
+        "STLs/stickyDefaultTopSection.stl",
+        "STLs/stickyFasciaVariant1.stl"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "smart-desk-button",
+      "repo": "https://github.com/aamat09/baby-tracker-suite",
+      "upstreamSha": "28ad8d11ae8719f47d0f073007ca4e96645f082e",
+      "upstreamCommit": "28ad8d11ae8719f47d0f073007ca4e96645f082e",
+      "designFiles": [
+        "baby-remote/kicad/baby-remote.kicad_pcb",
+        "baby-remote/kicad/baby-remote.kicad_sch",
+        "baby-remote/scad/baby-remote-back-cover.scad",
+        "baby-remote/scad/baby-remote-back-cover.stl",
+        "baby-remote/scad/baby-remote-label-plate-base.stl",
+        "baby-remote/scad/baby-remote-label-plate-letters.stl",
+        "baby-remote/scad/baby-remote-label-plate.scad",
+        "baby-remote/scad/baby-remote-label-plate.stl",
+        "baby-remote/scad/baby-remote-pcb-case.scad",
+        "baby-remote/scad/baby-remote-pcb-case.stl",
+        "baby-remote/scad/baby-remote-pcb.scad",
+        "baby-remote/scad/baby-remote-pcb.stl",
+        "baby-remote/scad/button_plunger.stl",
+        "baby-remote/scad/dims.scad",
+        "baby-remote/scad/led_window.stl"
+      ],
+      "pdfFiles": [
+        "baby-remote/labels/baby-remote-labels.pdf"
+      ],
+      "instructions": [
+        "README.md",
+        "baby-remote/README.md",
+        "baby-remote/kicad/fab/README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "mosaico-learning-assistant",
+      "repo": "https://github.com/samyeei/mosaico-learning-assistant",
+      "upstreamSha": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+      "upstreamCommit": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+      "designFiles": [],
+      "pdfFiles": [],
+      "instructions": [
+        "README.md",
+        "docs/BUILD_CN.md",
+        "docs/README.md",
+        "projects/learning_assistant/README.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    },
+    {
+      "slug": "microduck-robot",
+      "repo": "https://github.com/kissqy/Microduck-kissqy",
+      "upstreamSha": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+      "upstreamCommit": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+      "designFiles": [
+        "docs/assets/assembly-battery-holder.stl",
+        "hardware/ProPrj_HAT_REVA_SCH_2026-10-07.epro2",
+        "hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2",
+        "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-07.epro2",
+        "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2"
+      ],
+      "pdfFiles": [],
+      "instructions": [
+        "README.en.md",
+        "README.md",
+        "docs/ASSEMBLY-NOTES.en.md",
+        "docs/ASSEMBLY-NOTES.md",
+        "docs/BUILD-TOOLS.en.md",
+        "docs/BUILD-TOOLS.md",
+        "docs/MICRODUCK-BUILD-GUIDE.en.md",
+        "docs/MICRODUCK-BUILD-GUIDE.md",
+        "docs/README.en.md",
+        "docs/README.md",
+        "hardware/3d-print-frankenduck/README.en.md",
+        "hardware/3d-print-frankenduck/README.md",
+        "hardware/README.en.md",
+        "hardware/README.md",
+        "microduck-hd1910/README.en.md",
+        "microduck-hd1910/README.md",
+        "microduck-hd1910/docs/BUILD.en.md",
+        "microduck-hd1910/docs/BUILD.md",
+        "microduck-hd1910/firmware/BUILDING-V167.en.md",
+        "microduck-hd1910/firmware/BUILDING-V167.md",
+        "microduck-hd1910/firmware/README-R17.en.md",
+        "microduck-hd1910/firmware/README-R17.zh-CN.md",
+        "microduck-hd1910/firmware/README.en.md",
+        "microduck-hd1910/firmware/README.md",
+        "microduck-hd1910/firmware/console/README.en.md",
+        "microduck-hd1910/firmware/console/README.md",
+        "microduck-hd1910/firmware/console/README.zh-CN.md",
+        "microduck-hd1910/firmware/console/USER-GUIDE.en.md",
+        "microduck-hd1910/firmware/console/verification/README.en.md",
+        "microduck-hd1910/firmware/console/verification/README.md",
+        "microduck-hd1910/firmware/deploy/README.md",
+        "microduck-hd1910/firmware/deploy/dev-key/README.md",
+        "microduck-hd1910/firmware/deploy/trusted_keys/README.md",
+        "microduck-hd1910/firmware/docs/README.md",
+        "microduck-hd1910/firmware/firmware/imu-source/README.en.md"
+      ],
+      "scanned": true,
+      "scanError": null
+    }
+  ]
+}

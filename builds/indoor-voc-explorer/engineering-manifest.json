@@ -1,0 +1,99 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "indoor-voc-explorer",
+  "number": "07",
+  "title": "Indoor VOC Explorer",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/koenvervloesem/esphome-air-quality-monitor",
+  "sourceLicense": "MIT",
+  "sourceCommit": "acff085bf7ee94120aadeeb3bae73f3d337e15e5",
+  "upstreamDesignFiles": [],
+  "media": {
+    "referencePhoto": "/reference-builds/indoor-voc-explorer.webp",
+    "credit": "Koen Vervloesem",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/koenvervloesem/esphome-air-quality-monitor"
+  },
+  "parts": [
+    {
+      "slug": "esp32-s3-devkit",
+      "quantity": 1,
+      "role": "Controller",
+      "title": "ESP32-S3 Dev Board",
+      "photo": "/product-media/esp32-s3-devkit.jpg",
+      "publicUrl": "/shop/esp32-s3-devkit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 55
+    },
+    {
+      "slug": "sgp40-voc",
+      "quantity": 1,
+      "role": "VOC sensor",
+      "title": "SGP40 VOC Sensor",
+      "photo": "/product-media/sgp40-voc.jpg",
+      "publicUrl": "/shop/sgp40-voc/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 37.63
+    },
+    {
+      "slug": "bme280-sensor",
+      "quantity": 1,
+      "role": "Compensation",
+      "title": "BME280 Environment Sensor",
+      "photo": "/product-media/bme280-sensor.jpg",
+      "publicUrl": "/shop/bme280-sensor/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 11.08
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench supply",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Verify SGP40 and BME280 supply/bus wiring on the exact board.",
+    "Choose a VOC index library with documented warm-up and state persistence."
+  ],
+  "steps": [
+    "Verify each sensor on its own.",
+    "Supply humidity and temperature compensation.",
+    "Log timestamped data with warm-up status.",
+    "Render relative trend visualizations.",
+    "Explain error and sensor baseline behavior."
+  ],
+  "acceptance": [
+    "VOC trend and compensation readings appear with timestamps.",
+    "Warm-up and out-of-range conditions are shown instead of hidden.",
+    "No CO2 concentration or safety alarm is inferred from VOC data."
+  ],
+  "agentTasks": [
+    "State the exact VOC algorithm and supported conditions.",
+    "Supply test logs for sensor warm-up, disconnect and compensation."
+  ],
+  "caution": "Not a calibrated CO₂, particulate or life-safety monitor."
+}

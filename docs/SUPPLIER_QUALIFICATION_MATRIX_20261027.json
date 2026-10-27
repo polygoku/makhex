@@ -1,0 +1,314 @@
+{
+  "generatedAt": "2026-10-27T19:02:41.504Z",
+  "summary": {
+    "total": 30,
+    "candidates": 26,
+    "exact": 1,
+    "datedZipQuotes": 1,
+    "rightsEvidence": 0,
+    "datedCheckoutReviews": 1,
+    "currentlyQualified": 0
+  },
+  "rows": [
+    {
+      "slug": "esp32-s3-devkit",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "esp32-c3-supermini",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "esp32-c6-devkit",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "esp32-s3-touch-35",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "esp32-s3-camera",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "i2s-mems-mic",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "i2s-amplifier",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "bme280-sensor",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "sgp40-voc",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "epaper-29",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "ws2812-leds",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "esp-mosaico-vision-combo-kit",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "speaker-4ohm-3w",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "momentary-tactile-switch",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "5v-5a-led-power",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "feetech-hd1910",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "radxa-zero-3w",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "microduck-hat",
+      "candidate": false,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "NO_VERIFIED_LISTING_CANDIDATE"
+    },
+    {
+      "slug": "microduck-imu",
+      "candidate": false,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "NO_VERIFIED_LISTING_CANDIDATE"
+    },
+    {
+      "slug": "imx219-160-camera",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "vl53l5cx-v2",
+      "candidate": true,
+      "exact": true,
+      "zip": true,
+      "media": false,
+      "checkout": true,
+      "current": false,
+      "status": "MEDIA_RIGHTS_UNVERIFIED"
+    },
+    {
+      "slug": "npf550-power-kit",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "bearing-6700",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "bearing-et2216",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "bearing-623zz",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "microduck-printed-parts",
+      "candidate": false,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "NO_VERIFIED_LISTING_CANDIDATE"
+    },
+    {
+      "slug": "microduck-fasteners",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    },
+    {
+      "slug": "amp20-servo-cables",
+      "candidate": false,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "NO_VERIFIED_LISTING_CANDIDATE"
+    },
+    {
+      "slug": "microduck-wiring-kit",
+      "candidate": true,
+      "exact": false,
+      "zip": false,
+      "media": false,
+      "checkout": false,
+      "current": false,
+      "status": "SOURCE_OPTION_UNVERIFIED"
+    }
+  ]
+}
