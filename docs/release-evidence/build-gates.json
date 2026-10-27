@@ -1,22 +1,8 @@
 {
-  "generatedAt": "2026-10-27T20:48:30.387Z",
+  "generatedAt": "2026-10-27T20:48:59.923Z",
   "buildCount": 12,
   "uniqueBomPartCount": 28,
-  "unmappedCatalogParts": [
-    "amp20-servo-cables",
-    "bearing-6700",
-    "bearing-et2216",
-    "feetech-hd1910",
-    "imx219-160-camera",
-    "microduck-fasteners",
-    "microduck-hat",
-    "microduck-imu",
-    "microduck-printed-parts",
-    "microduck-wiring-kit",
-    "npf550-power-kit",
-    "radxa-zero-3w",
-    "vl53l5cx-v2"
-  ],
+  "unmappedCatalogParts": [],
   "notGuaranteedOrderable": 28,
   "missingMediaForBom": [],
   "individual": [

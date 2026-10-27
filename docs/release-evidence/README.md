@@ -1,6 +1,6 @@
 # Reproducibility and commerce release gates
 
-Generated 2026-10-27T20:48:30.387Z. The 12 projects reference **28 unique part slugs**. Every supplier/order flag defaults to false until verified from external evidence.
+Generated 2026-10-27T20:48:59.923Z. The 12 projects reference **28 unique part slugs**. Every supplier/order flag defaults to false until verified from external evidence.
 
 | Build | BOM types | Missing photo slugs | Unpriced slugs | Build certified | Purchase certified |
 |---|---:|---|---|---|---|
