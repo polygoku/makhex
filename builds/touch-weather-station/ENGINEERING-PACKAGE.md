@@ -64,4 +64,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 2. Provide a minimal sensor example and LVGL build instructions with a reproducible flash log.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

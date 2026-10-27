@@ -66,4 +66,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 2. Provide serial logs and troubleshooting for common I2C address differences.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

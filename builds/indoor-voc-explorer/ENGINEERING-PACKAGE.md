@@ -61,4 +61,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 2. Supply test logs for sensor warm-up, disconnect and compensation.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

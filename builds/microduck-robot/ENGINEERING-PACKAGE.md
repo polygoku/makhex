@@ -86,4 +86,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 5. Keep Squarespace/Doroppu import/checkout disabled until verified exact supplier variants and U.S. test orders.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

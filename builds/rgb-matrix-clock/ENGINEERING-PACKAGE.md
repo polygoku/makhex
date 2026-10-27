@@ -76,4 +76,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 2. Provide firmware color order, power injection and safe startup behavior.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

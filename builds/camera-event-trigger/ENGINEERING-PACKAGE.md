@@ -65,4 +65,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 2. Offer deterministic fixture tests for false triggers under varying light.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

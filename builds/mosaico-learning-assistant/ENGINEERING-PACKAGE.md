@@ -66,4 +66,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 4. Qualify an exact ESP-Mosaico hardware supplier and U.S.-delivery quote via private Doroppu records before requesting Squarespace checkout approval.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-

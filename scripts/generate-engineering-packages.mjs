@@ -84,7 +84,7 @@ for(const project of projects){
  '',
  'A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.',''];
  const dir=path.join(root,'builds',project.slug);
- fs.writeFileSync(path.join(dir,'ENGINEERING-PACKAGE.md'),md.join('\n')+'\n');
+ fs.writeFileSync(path.join(dir,'ENGINEERING-PACKAGE.md'),md.join('\n').trimEnd()+'\n');
  fs.writeFileSync(path.join(dir,'engineering-manifest.json'),JSON.stringify(profile,null,2)+'\n');
  matrix.push({slug:project.slug,number:project.number,types:parts.length,pricedTypes:parts.filter(p=>p.pricePlanningSnapshot!==null).length,hostedVideos:media.hostedVideos.length,physicalReferencePhoto:!!media.referencePhoto,verifiedOrderableTypes:0,benchCertified:false});
 }

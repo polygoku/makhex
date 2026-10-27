@@ -76,4 +76,3 @@ Match each part to its exact AliExpress variant and genuine product image; verif
 2. Implement local no-op mock action before real network integration.
 
 A machine-readable engineering-manifest.json accompanies these notes. Supplier credentials, customer PII and unverified success claims do not belong here.
-
