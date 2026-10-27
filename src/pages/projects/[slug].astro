@@ -6,6 +6,7 @@ import MosaicoHardwareBOM from '../../components/MosaicoHardwareBOM.astro';
 import MicroduckResources from '../../components/MicroduckResources.astro';
 import ProjectArtwork from '../../components/ProjectArtwork.astro';
 import BuildPartsChecklist from '../../components/BuildPartsChecklist.astro';
+import BuildResourceStatus from '../../components/BuildResourceStatus.astro';
 import {projects,productBySlug} from '../../lib/catalog';
 import type{Project} from '../../data/projects';
 import {buildReferences} from '../../data/build-references';
@@ -62,7 +63,7 @@ const ld={'@context':'https://schema.org','@type':'HowTo',name:project.title,des
 <p class="project-price-note">Planned research prices only · U.S. delivery, tax, and missing parts not verified. No checkout until qualified.</p>
 </>}
 {missingParts.length>0&&<div class="project-bom-gaps-simple"><strong>Still needed</strong><ul>{missingParts.map(gap=><li>{gap}</li>)}</ul></div>}
-<BuildPartsChecklist project={project}/></div>
+<BuildPartsChecklist project={project}/><BuildResourceStatus project={project}/></div>
 <div class="content-section"><span class="eyebrow">BEFORE POWER-UP</span><h2>Check these first.</h2><ul class="guide-checklist">{guide.beforeYouStart.map(s=><li>{s}</li>)}</ul></div>
 <div class="content-section"><span class="eyebrow">02 / THE APPROACH</span><h2>Build sequence.</h2><ol class="steps-list">{project.steps.map((s,i)=><li><span>{String(i+1).padStart(2,'0')}</span><p>{s}</p></li>)}</ol></div>
 <div class="content-section"><span class="eyebrow">SUCCESS CRITERIA</span><h2>Know when it works.</h2><ul class="guide-checklist">{guide.demoGoals.map(s=><li>{s}</li>)}</ul></div>

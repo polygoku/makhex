@@ -1,0 +1,167 @@
+{
+  "auditedAt": "2026-10-27T18:36:59.140Z",
+  "scope": "Main branch source and local assets; supplier qualification unverified",
+  "totals": {
+    "projects": 12,
+    "hostedVideos": 2,
+    "referencePhotos": 10,
+    "localDesigns": 0,
+    "verifiedOrderableBuilds": 0
+  },
+  "projects": [
+    {
+      "number": 1,
+      "slug": "touch-weather-station",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "voice-command-node",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "tiny-ble-presence",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 4,
+      "slug": "plant-health-monitor",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 5,
+      "slug": "camera-event-trigger",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 6,
+      "slug": "epaper-desk-calendar",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 7,
+      "slug": "indoor-voc-explorer",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 8,
+      "slug": "rgb-matrix-clock",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 9,
+      "slug": "espnow-remote",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 10,
+      "slug": "smart-desk-button",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 0,
+      "referencePhoto": true,
+      "issues": [
+        "No local design/model artifact",
+        "No hosted project video",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 11,
+      "slug": "mosaico-learning-assistant",
+      "readme": 2,
+      "designs": 0,
+      "hostedVideos": 1,
+      "referencePhoto": false,
+      "issues": [
+        "No local design/model artifact",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    },
+    {
+      "number": 12,
+      "slug": "microduck-robot",
+      "readme": 1,
+      "designs": 0,
+      "hostedVideos": 7,
+      "referencePhoto": false,
+      "issues": [
+        "No local design/model artifact",
+        "No independently verified full BOM/supplier checkout"
+      ]
+    }
+  ]
+}
