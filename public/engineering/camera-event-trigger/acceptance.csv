@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Photograph PCB, camera markings and PSRAM part","Record exact hardware IDs and vendor pin map","Sensor, lens, PSRAM and required rails known","NOT_RUN",""
+"02","Capture single color-bar or static test frame","Check frame dimensions, JPEG SOI/EOI and heap","Frame decodes and heap margin is recorded","NOT_RUN",""
+"03","Run repeatable known-scene event trigger","Use fixed lighting and move test card through field","Changes produce timestamped events at documented threshold","NOT_RUN",""
+"04","Record false positives under 10 minutes of stable scene","No movement, stable lighting","False-event count measured and documented","NOT_RUN",""
+"05","Verify obvious active indicator and deletion","Toggle capture state and clear local log","Indicator always matches capture; data deleted locally","NOT_RUN",""

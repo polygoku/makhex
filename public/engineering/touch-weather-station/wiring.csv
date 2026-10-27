@@ -1,0 +1,7 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"USB data/power host","touch board USB connector","5 V input only through rated onboard USB connector","Check board silk and power path; never backfeed 5 V into 3V3"
+"touch board regulated 3V3","BME280 VCC","3.3 V logic/supply","Check selected breakout current and its regulator before wiring"
+"touch board GND","BME280 GND","0 V shared reference","Continuity check while unpowered"
+"touch board spare SDA pad (unresolved)","BME280 SDA","I2C; 3.3 V with pullups","Map schematic; do not reuse active LCD/touch GPIO"
+"touch board spare SCL pad (unresolved)","BME280 SCL","I2C; 3.3 V with pullups","Check sensor address 0x76 or 0x77, no bus conflicts"
+"integrated LCD and capacitive touch","board-local LCD/touch IC","PCB internal buses","No guessed display GPIO: read exact vendor PCB revision and panel IC"

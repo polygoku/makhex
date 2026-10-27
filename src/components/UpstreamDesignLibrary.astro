@@ -1,0 +1,42 @@
+---
+import index from '../../docs/UPSTREAM_DESIGN_ASSET_INDEX.json';
+interface Props { slug:string }
+const {slug}=Astro.props;
+const item=index.projects.find(p=>p.slug===slug);
+const restricted=slug==='microduck-robot';
+const sourceLink=(file:string)=>item?.repo&&item?.upstreamCommit?
+  item.repo.replace(/\/$/,'')+'/blob/'+item.upstreamCommit+'/'+file.split('/').map(encodeURIComponent).join('/'):'#';
+const files=(item?.designFiles??[]).slice(0,10);
+const pdfs=(item?.pdfFiles??[]).slice(0,5);
+---
+<section class="content-section source-model-library" id="design-files" aria-label="Original creator design documents and models">
+  <span class="eyebrow">ORIGINAL MAKER / DESIGN DOCUMENTS</span>
+  <h2>Models, schematics &amp; downloads.</h2>
+  <p class="source-model-caution">Source-owned engineering assets are linked to their original creator and pinned repository revision. They may fit <strong>different hardware</strong> from the MAKHEX research BOM. No printable/fabrication compatibility or redistribution rights are implied.</p>
+  {item?.upstreamCommit&&<p class="source-model-revision">Reference source revision: <code>{item.upstreamCommit.slice(0,12)}</code></p>}
+  {restricted ?
+    <div class="source-model-gated">
+      <strong>Microduck original CAD / PCB project library</strong>
+      <p>Open the MAKHEX maker-account design library. This project uses signed-in access for the original 3MF/STL and HAT/IMU files; do not use the public index as an alternative delivery route.</p>
+      <a class="btn btn-outline" href="/members/microduck-designs/">OPEN MEMBER DESIGN LIBRARY ↗</a>
+    </div>
+  : files.length+pdfs.length>0 ?
+    <div class="source-model-grid">
+      {files.map(file=><a href={sourceLink(file)} target="_blank" rel="noopener noreferrer" class="source-model-item" title={file}><span class="source-model-file">DESIGN / {file.split('.').pop()?.toUpperCase()}</span><strong>{file.split('/').at(-1)}</strong><small>View pinned original file ↗</small></a>)}
+      {pdfs.map(file=><a href={sourceLink(file)} target="_blank" rel="noopener noreferrer" class="source-model-item" title={file}><span class="source-model-file">DOCUMENT / PDF</span><strong>{file.split('/').at(-1)}</strong><small>View pinned original PDF ↗</small></a>)}
+    </div>
+  : <p>No native fabrication CAD or 3D models were found in the indexed upstream repository tree for this reference. Do not assume a model is included with the MAKHEX BOM.</p>}
+  {item?.repo&&<p class="source-model-footer">Review the <a href={item.repo} target="_blank" rel="noopener noreferrer">credited original creator repository ↗</a> for all source files, build revisions and usage terms. Only the first {files.length+pdfs.length} design/document files appear above.</p>}
+</section>
+<style>
+.source-model-library{margin-top:2rem}.source-model-caution{line-height:1.65;max-width:60rem}
+.source-model-revision{font-size:.81rem;color:#647069}.source-model-revision code{font-family:monospace}
+.source-model-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:1rem 0}
+.source-model-item{display:flex;flex-direction:column;min-width:0;padding:1rem;border:1px solid rgba(40,58,51,.2);border-radius:9px;text-decoration:none!important;background:#f7f3eb;color:inherit;gap:.35rem}
+.source-model-file{font-size:.7rem;letter-spacing:.08em;color:#727165;font-weight:700}
+.source-model-item strong{font-size:.88rem;overflow-wrap:anywhere}
+.source-model-item small{font-size:.8rem}.source-model-item:hover{border-color:#c87a3e}
+.source-model-gated{padding:1rem;background:#f7f3eb;border-radius:9px}
+.source-model-gated p,.source-model-footer{font-size:.85rem;line-height:1.55}
+@media(max-width:620px){.source-model-grid{grid-template-columns:1fr}}
+</style>

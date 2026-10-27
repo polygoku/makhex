@@ -1,0 +1,6 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"GPIO6 (proposed)","Momentary button terminal A","Input with internal pull-up","Not GPIO2/8/9 C3 boot-strapping pins"
+"Momentary button terminal B","ESP32-C3 GND","Press pulls GPIO6 low","Confirm which pins connect internally on four-pin switch"
+"GPIO3 (proposed)","5 V tolerant buffer input","3.3 V data","Level-shifter required when driving 5 V LED ring"
+"Buffer output","8-pixel LED DIN","5 V WS2812-style serial data","Confirm selected LED option is addressable RGB"
+"Regulated LED 5 V / GND","LED ring VCC/GND","Independent current-rated power","Keep grounds common; do not draw LED load from GPIO"

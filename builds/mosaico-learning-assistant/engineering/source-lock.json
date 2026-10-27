@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "slug": "mosaico-learning-assistant",
+  "buildNumber": "11",
+  "title": "AI Photo & Voice Learning Assistant",
+  "reference": {
+    "repository": "samyeei/mosaico-learning-assistant",
+    "commit": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+    "licenseMetadata": "NOASSERTION",
+    "url": "https://github.com/samyeei/mosaico-learning-assistant/tree/3fcdf1c176bff2c2d3614b9419837179536e4a41"
+  },
+  "hardware": {
+    "candidate": "ESP-Mosaico ESP32-S31 Core Unit V1.2, LEFT H2 camera module (V1.4 SC101IOT candidate), onboard speaker/microphone",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "original third-party software",
+    "commit": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+    "reference": "https://github.com/samyeei/mosaico-learning-assistant/tree/3fcdf1c176bff2c2d3614b9419837179536e4a41",
+    "deviceFlashed": false,
+    "commercialRightsVerified": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp-mosaico-vision-combo-kit",
+      "quantity": 1,
+      "role": "ESP32-S31 touchscreen core with dedicated left-slot camera; interaction module included"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Cloud-region/model/account cost, privacy, child data and noncommercial firmware rights are distinct software release gates."
+  ],
+  "cad": {
+    "sourceFiles": [],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Photograph Core PCB ID, camera module and ABI",
+      "procedure": "Read factory diagnostic/version screens without flashing",
+      "acceptance": "Core v1.2, camera model and recovery ABI logged",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Prove camera preview on factory-authorized compatible firmware",
+      "procedure": "Use non-identifying sample worksheet",
+      "acceptance": "Correct orientation and stable image recorded",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Test Wi-Fi onboarding and signed-in cloud model in permitted environment",
+      "procedure": "Use personal test account, scrub all keys from evidence",
+      "acceptance": "Connection error/success logged without secret exposure",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Test recognition + spoken followup with synthetic worksheet",
+      "procedure": "Record transcript quality and response latency",
+      "acceptance": "Measured English behavior; do not assume translation shipped",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Review legal and data protections for commercialization",
+      "procedure": "Record license approval, data retention and student-data impact",
+      "acceptance": "No commercial deployment until software rights and privacy requirements satisfied",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

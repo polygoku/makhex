@@ -1,0 +1,125 @@
+{
+  "createdAt": "2026-10-27T20:57:21.599Z",
+  "references": [
+    {
+      "slug": "touch-weather-station",
+      "repo": "Damov/esp32_weather_forecast_screen",
+      "defaultBranch": "main",
+      "commit": "d5bcb4ca34e482d4091002b480df6bb5aa9072c2",
+      "license": "MIT",
+      "archived": false,
+      "site": "https://github.com/Damov/esp32_weather_forecast_screen",
+      "description": "ESP32 touchscreen weather display with live forecasts, multilingual controls and presence sensing."
+    },
+    {
+      "slug": "voice-command-node",
+      "repo": "muhammedsaban/dudley",
+      "defaultBranch": "main",
+      "commit": "61e7e08e53593db093a663f49a375c982a2e7530",
+      "license": "MIT",
+      "archived": false,
+      "site": "https://github.com/muhammedsaban/dudley",
+      "description": "ESP32 S3 and AI powered edge cloud hybrid voice assistant with custom hardware and real time audio pipeline."
+    },
+    {
+      "slug": "tiny-ble-presence",
+      "repo": "BrunoGG69/Spottr",
+      "defaultBranch": "master",
+      "commit": "84c41ea06001f933619bf7672d484fcbd66c7eb5",
+      "license": "AGPL-3.0",
+      "archived": false,
+      "site": "https://github.com/BrunoGG69/Spottr",
+      "description": "Spottr is an open-source indoor presence tracking system built on ESP32-C3 and Bluetooth Low Energy"
+    },
+    {
+      "slug": "plant-health-monitor",
+      "repo": "ConnerWill/esp32-plant",
+      "defaultBranch": "main",
+      "commit": "284af7c31e6bce2de528f599f36ba47192eefc66",
+      "license": "GPL-3.0",
+      "archived": false,
+      "site": "https://github.com/ConnerWill/esp32-plant",
+      "description": "ESP32 Plant Monitor with API and OLED"
+    },
+    {
+      "slug": "camera-event-trigger",
+      "repo": "bernardoeugster/espseccam",
+      "defaultBranch": "main",
+      "commit": "94a43104daf148dbbf95af91cf6563b9ff44d9b2",
+      "license": "MIT",
+      "archived": false,
+      "site": "https://github.com/bernardoeugster/espseccam",
+      "description": "Battery-powered ESP32-CAM security camera with Telegram control, PIR wakeup, deep sleep, Wi-Fi setup, role-based access, multilingual UI, sunrise/sunset flash control, and 3D-printed enclosure."
+    },
+    {
+      "slug": "epaper-desk-calendar",
+      "repo": "trandi/e-paper-calendar",
+      "defaultBranch": "main",
+      "commit": "ac1036823d663cf95093bc501bffe17fc1436b9c",
+      "license": "Apache-2.0",
+      "archived": false,
+      "site": "https://github.com/trandi/e-paper-calendar",
+      "description": "Simple ESP32 run ePaper board, displaying daily appointments from a Google Calendar"
+    },
+    {
+      "slug": "indoor-voc-explorer",
+      "repo": "koenvervloesem/esphome-air-quality-monitor",
+      "defaultBranch": "main",
+      "commit": "acff085bf7ee94120aadeeb3bae73f3d337e15e5",
+      "license": "MIT",
+      "archived": false,
+      "site": "https://github.com/koenvervloesem/ESPHome-Air-Quality-Monitor",
+      "description": "ESPHome configuration for a DIY indoor air quality monitor for CO₂ concentration, PM2.5 and PM10 concentrations, and temperature, humidity and pressure"
+    },
+    {
+      "slug": "rgb-matrix-clock",
+      "repo": "l0calgost/ledclock",
+      "defaultBranch": "main",
+      "commit": "dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f",
+      "license": "MIT",
+      "archived": false,
+      "site": "https://github.com/l0calgost/ledclock",
+      "description": "A customizable 7-segment style Wi-Fi connected clock powered by WLED."
+    },
+    {
+      "slug": "espnow-remote",
+      "repo": "ncmreynolds/sticky",
+      "defaultBranch": "main",
+      "commit": "b58ed099d3bde7f70bcb61902868418367be6a6a",
+      "license": "LGPL-2.1",
+      "archived": false,
+      "site": "https://github.com/ncmreynolds/sticky",
+      "description": "Sticky is a 3D printed remote control handset for robotics projects. It uses an ESP32 and 2.4Ghz Wifi/ESP-Now for communication rather than conventional remote control RX/TX hardware."
+    },
+    {
+      "slug": "smart-desk-button",
+      "repo": "aamat09/baby-tracker-suite",
+      "defaultBranch": "main",
+      "commit": "28ad8d11ae8719f47d0f073007ca4e96645f082e",
+      "license": "MIT",
+      "archived": false,
+      "site": "https://github.com/aamat09/baby-tracker-suite",
+      "description": "Baby care tracking suite: HA dashboards, n8n workflows, PostgreSQL, ESP32-C3 remote with 3D-printed enclosure"
+    },
+    {
+      "slug": "mosaico-learning-assistant",
+      "repo": "samyeei/mosaico-learning-assistant",
+      "defaultBranch": "main",
+      "commit": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+      "license": "NOASSERTION",
+      "archived": false,
+      "site": "https://github.com/samyeei/mosaico-learning-assistant",
+      "description": "ESP-Mosaico 学习助手：拍题选题、语音追问与朗读。v1.1.0 支持 Vibe Mode 0.2 / ABI 2。源码公开，禁止商用（PolyForm Noncommercial 1.0.0）。"
+    },
+    {
+      "slug": "microduck-robot",
+      "repo": "kissqy/Microduck-kissqy",
+      "defaultBranch": "main",
+      "commit": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+      "license": "NOASSERTION",
+      "archived": false,
+      "site": "https://github.com/kissqy/Microduck-kissqy",
+      "description": "🦆 Microduck 飞特 HD1910 机器人鸭复刻：单脚独立实机、现成动作模型、中文中控、自制 HAT/IMU 与三步教程。正常复刻无需训练。Feetech HD1910 Microduck replica: one-legged balance, ready-to-use models, Chinese console, custom HAT/IMU & 3-step build guides. No training required."
+    }
+  ]
+}

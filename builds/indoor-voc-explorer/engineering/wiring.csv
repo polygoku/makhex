@@ -1,0 +1,5 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"ESP32-S3 3V3","SGP40 VCC and BME280 VCC","3.3 V only","Breakout-specific regulators and load check"
+"ESP32-S3 GND","SGP40 GND and BME280 GND","Shared reference","Continuity check"
+"GPIO4 (proposed)","SGP40 SDA and BME280 SDA","3.3 V I2C","SGP40 address 0x59, BME280 0x76/0x77"
+"GPIO5 (proposed)","SGP40 SCL and BME280 SCL","3.3 V I2C","Pullups to 3V3 only, avoid duplicate strong pullups"

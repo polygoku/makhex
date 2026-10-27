@@ -1,0 +1,7 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Verify 3MF/RAR and four .epro2 hashes from archived review","Compare SHA256 manifest with source; inspect 3MF unit and print plates","All archive hashes match, mm units, TPU plate 5; no unreviewed files mixed","NOT_RUN",""
+"02","Perform EasyEDA Pro ERC/DRC on matched Oct 15 revisions","Export rule reports and review regulator/trace widths","Zero unreviewed electrical/design violations","NOT_RUN",""
+"03","Measure 15 servo IDs, torque-free joints, current and polarity","One-by-one unloaded bench test with overcurrent protection","Every ID unique and current within documented limits","NOT_RUN",""
+"04","Print one diagnostic joint and fit hardware before batch","Measure servo pocket, bearing bores and sample part scale","Measured physical fit and non-interfering travel","NOT_RUN",""
+"05","Bring up IMU, camera, ToF and Radxa software independently","Capture firmware/kernel versions and sensor logs","Source-matched devices enumerate and deliver valid data","NOT_RUN",""
+"06","Run tethered stand then bounded low-speed gait","Log battery, temperatures, gait frames and emergency cutoff","Safe calibrated standing and recoverable walking; no uncontrolled tip hazard","NOT_RUN",""

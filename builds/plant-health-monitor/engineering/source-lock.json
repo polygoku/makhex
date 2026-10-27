@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "slug": "plant-health-monitor",
+  "buildNumber": "04",
+  "title": "Connected Plant Monitor",
+  "reference": {
+    "repository": "ConnerWill/esp32-plant",
+    "commit": "284af7c31e6bce2de528f599f36ba47192eefc66",
+    "licenseMetadata": "GPL-3.0",
+    "url": "https://github.com/ConnerWill/esp32-plant/tree/284af7c31e6bce2de528f599f36ba47192eefc66"
+  },
+  "hardware": {
+    "candidate": "ESP32-C3 SuperMini candidate, BME280 breakout (not BMP280)",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32c3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/i2c/i2c_tools",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "Wi-Fi controller"
+    },
+    {
+      "slug": "bme280-sensor",
+      "quantity": 1,
+      "role": "Ambient sensing"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench supply"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Optional soil moisture probe is NOT included and no watering recommendation may be generated from BME280 alone."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "3D-models/DHT22-case/DHT22_bottom.stl",
+        "size": 248484,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/DHT22-case/DHT22_bottom.stl"
+      },
+      {
+        "path": "3D-models/DHT22-case/DHT22_top.stl",
+        "size": 113884,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/DHT22-case/DHT22_top.stl"
+      },
+      {
+        "path": "3D-models/ESP32-housing/ESP32-housing.3mf",
+        "size": 40491,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/ESP32-housing/ESP32-housing.3mf"
+      },
+      {
+        "path": "3D-models/ESP32-housing/ESP32-housing.FCStd",
+        "size": 229225,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/ESP32-housing/ESP32-housing.FCStd"
+      },
+      {
+        "path": "3D-models/ESP32-housing/ESP32-housing.stl",
+        "size": 211084,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/ESP32-housing/ESP32-housing.stl"
+      },
+      {
+        "path": "3D-models/MQ-135-case/MQ2-Bottom-02.stl",
+        "size": 107884,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/MQ-135-case/MQ2-Bottom-02.stl"
+      },
+      {
+        "path": "3D-models/MQ-135-case/MQ2-Top-02.stl",
+        "size": 77784,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/MQ-135-case/MQ2-Top-02.stl"
+      },
+      {
+        "path": "schematics/esp32-plant.fzz",
+        "size": 163626,
+        "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/schematics/esp32-plant.fzz"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Read sensor chip identity",
+      "procedure": "Scan I2C and read BME280 ID register 0xD0",
+      "acceptance": "Chip returns 0x60; BMP280 is rejected",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Read calibrated temperature, RH and pressure",
+      "procedure": "Compare with reference thermometer/hygrometer/barometer and serial log",
+      "acceptance": "All units and calibration limitations displayed; log actual deviations",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Publish local dashboard without internet endpoint",
+      "procedure": "Use local Wi-Fi only and check network exposure",
+      "acceptance": "Timestamp and all three values present",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Power-cycle while preserving honest timestamps",
+      "procedure": "Disconnect/reconnect power and inspect UI",
+      "acceptance": "No stale value represented as new data",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Simulate sensor disconnect with system powered off before disconnect",
+      "procedure": "Restart with absent sensor and inspect dashboard",
+      "acceptance": "Explicit unavailable state; no watering advice",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

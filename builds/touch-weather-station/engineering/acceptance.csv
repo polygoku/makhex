@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Record shipped PCB markings, display/touch controller IDs and schematic revision","Photograph front/back; reconcile accessible GPIO and 3V3 rail","All controller identifiers, pin mappings and voltage limits recorded","NOT_RUN",""
+"02","Detect exact BME280 before enabling dashboard","Read chip ID and calibrated temp/RH/pressure over mapped I2C","Chip ID 0x60 and three valid values; fail instead of substituting BMP280","NOT_RUN",""
+"03","Verify display and touch on a matched driver","Render touch targets and capture serial initialization logs","Every target can be selected without invalid pixels or unregistered presses","NOT_RUN",""
+"04","Run a 30-minute touch and sensor soak","Log timestamp, values, touch count, heap and faults","No lockup, values timestamped, sustained touch response","NOT_RUN",""
+"05","Unplug sensor while powered only if breakout connection is designed for hotplug; otherwise power-cycle with disconnected sensor","Observe UI stale-data behavior and error log","No fabricated reading; explicit disconnected or stale indication","NOT_RUN",""

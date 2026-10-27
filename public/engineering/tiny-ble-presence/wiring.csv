@@ -1,0 +1,4 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"Host USB connector","ESP32-C3 SuperMini USB","USB-supplied bench power","Check USB voltage and board regulator"
+"On-board 3V3 regulator","ESP32-C3 core","3.3 V logic","Measure under BLE burst load"
+"ESP32-C3 antenna region","Clear air space","2.4 GHz RF","No metal enclosure covering antenna without validation"

@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "slug": "epaper-desk-calendar",
+  "buildNumber": "06",
+  "title": "E-Paper Desk Calendar",
+  "reference": {
+    "repository": "trandi/e-paper-calendar",
+    "commit": "ac1036823d663cf95093bc501bffe17fc1436b9c",
+    "licenseMetadata": "Apache-2.0",
+    "url": "https://github.com/trandi/e-paper-calendar/tree/ac1036823d663cf95093bc501bffe17fc1436b9c"
+  },
+  "hardware": {
+    "candidate": "ESP32-C3 SuperMini candidate with 2.9-inch SPI e-paper; controller revision unresolved",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32c3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/spi_master/lcd",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "Controller"
+    },
+    {
+      "slug": "epaper-29",
+      "quantity": 1,
+      "role": "Display"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench power"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Exact e-paper controller, flex connector and refresh behavior must be identified. Upstream FreeCAD case is not proven to fit the proposed 2.9-inch panel."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "freecad/ePaperCalendar_Box.FCStd",
+        "size": 260249,
+        "url": "https://github.com/trandi/e-paper-calendar/blob/ac1036823d663cf95093bc501bffe17fc1436b9c/freecad/ePaperCalendar_Box.FCStd"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Photograph panel/FPC and read controller part number",
+      "procedure": "Compare with manufacturer waveform/application note",
+      "acceptance": "Controller ID and LUT/driver compatibility established",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Render checkerboard and full-black/white pages",
+      "procedure": "Capture images after full refresh and inspect ghosting",
+      "acceptance": "No stuck pixel region or ghosting beyond documented panel limit",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Set timezone and sync UTC from network",
+      "procedure": "Test near a local day boundary",
+      "acceptance": "Correct calendar date and daylight-saving behavior",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Remove Wi-Fi and restart",
+      "procedure": "Observe NTP offline handling",
+      "acceptance": "Time validity clearly indicated rather than made up",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Measure sleep current and safe refresh cadence",
+      "procedure": "Log current and 20 update cycles",
+      "acceptance": "Measurable current, no excessive repeated full refresh",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

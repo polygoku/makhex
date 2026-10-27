@@ -1,0 +1,275 @@
+{
+  "generatedAt": "2026-10-27T20:48:59.923Z",
+  "buildCount": 12,
+  "uniqueBomPartCount": 28,
+  "unmappedCatalogParts": [],
+  "notGuaranteedOrderable": 28,
+  "missingMediaForBom": [],
+  "individual": [
+    {
+      "build": "01",
+      "slug": "touch-weather-station",
+      "readme": true,
+      "bomTypes": 3,
+      "parts": [
+        "esp32-s3-touch-35",
+        "bme280-sensor",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "02",
+      "slug": "voice-command-node",
+      "readme": true,
+      "bomTypes": 5,
+      "parts": [
+        "esp32-s3-devkit",
+        "i2s-mems-mic",
+        "i2s-amplifier",
+        "speaker-4ohm-3w",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "03",
+      "slug": "tiny-ble-presence",
+      "readme": true,
+      "bomTypes": 2,
+      "parts": [
+        "esp32-c3-supermini",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "04",
+      "slug": "plant-health-monitor",
+      "readme": true,
+      "bomTypes": 3,
+      "parts": [
+        "esp32-c3-supermini",
+        "bme280-sensor",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "05",
+      "slug": "camera-event-trigger",
+      "readme": true,
+      "bomTypes": 2,
+      "parts": [
+        "esp32-s3-camera",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "06",
+      "slug": "epaper-desk-calendar",
+      "readme": true,
+      "bomTypes": 3,
+      "parts": [
+        "esp32-c3-supermini",
+        "epaper-29",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "07",
+      "slug": "indoor-voc-explorer",
+      "readme": true,
+      "bomTypes": 4,
+      "parts": [
+        "esp32-s3-devkit",
+        "sgp40-voc",
+        "bme280-sensor",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "08",
+      "slug": "rgb-matrix-clock",
+      "readme": true,
+      "bomTypes": 4,
+      "parts": [
+        "esp32-c3-supermini",
+        "ws2812-leds",
+        "5v-5a-led-power",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "09",
+      "slug": "espnow-remote",
+      "readme": true,
+      "bomTypes": 2,
+      "parts": [
+        "esp32-c3-supermini",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "10",
+      "slug": "smart-desk-button",
+      "readme": true,
+      "bomTypes": 4,
+      "parts": [
+        "esp32-c3-supermini",
+        "ws2812-leds",
+        "momentary-tactile-switch",
+        "usb-c-power-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "11",
+      "slug": "mosaico-learning-assistant",
+      "readme": true,
+      "bomTypes": 1,
+      "parts": [
+        "esp-mosaico-vision-combo-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    },
+    {
+      "build": "12",
+      "slug": "microduck-robot",
+      "readme": true,
+      "bomTypes": 14,
+      "parts": [
+        "feetech-hd1910",
+        "radxa-zero-3w",
+        "microduck-hat",
+        "microduck-imu",
+        "imx219-160-camera",
+        "vl53l5cx-v2",
+        "npf550-power-kit",
+        "microduck-printed-parts",
+        "bearing-6700",
+        "bearing-et2216",
+        "speaker-4ohm-3w",
+        "microduck-fasteners",
+        "amp20-servo-cables",
+        "microduck-wiring-kit"
+      ],
+      "missingMedia": [],
+      "unpriced": [
+        "feetech-hd1910",
+        "radxa-zero-3w",
+        "microduck-hat",
+        "microduck-imu",
+        "imx219-160-camera",
+        "vl53l5cx-v2",
+        "npf550-power-kit",
+        "microduck-printed-parts",
+        "bearing-6700",
+        "bearing-et2216",
+        "microduck-fasteners",
+        "amp20-servo-cables",
+        "microduck-wiring-kit"
+      ],
+      "firmwareTested": false,
+      "schematicVerified": false,
+      "cadVerified": false,
+      "fullSupplierVerified": false,
+      "productionPaidOrderVerified": false,
+      "trackingVerified": false,
+      "refundVerified": false
+    }
+  ]
+}

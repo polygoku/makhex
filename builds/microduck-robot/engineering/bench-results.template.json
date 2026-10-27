@@ -1,0 +1,62 @@
+{
+  "slug": "microduck-robot",
+  "status": "NOT_RUN",
+  "operator": null,
+  "testDate": null,
+  "boardManufacturer": null,
+  "boardSKU": null,
+  "pcbRevision": null,
+  "firmwareCommit": null,
+  "firmwareSha256": null,
+  "instrumentsAndCalibration": [],
+  "tests": [
+    {
+      "id": "01",
+      "status": "NOT_RUN",
+      "measuredValues": {},
+      "evidenceFiles": [],
+      "reviewer": null
+    },
+    {
+      "id": "02",
+      "status": "NOT_RUN",
+      "measuredValues": {},
+      "evidenceFiles": [],
+      "reviewer": null
+    },
+    {
+      "id": "03",
+      "status": "NOT_RUN",
+      "measuredValues": {},
+      "evidenceFiles": [],
+      "reviewer": null
+    },
+    {
+      "id": "04",
+      "status": "NOT_RUN",
+      "measuredValues": {},
+      "evidenceFiles": [],
+      "reviewer": null
+    },
+    {
+      "id": "05",
+      "status": "NOT_RUN",
+      "measuredValues": {},
+      "evidenceFiles": [],
+      "reviewer": null
+    },
+    {
+      "id": "06",
+      "status": "NOT_RUN",
+      "measuredValues": {},
+      "evidenceFiles": [],
+      "reviewer": null
+    }
+  ],
+  "signoff": {
+    "electrical": null,
+    "software": null,
+    "mechanical": null,
+    "reviewer": null
+  }
+}

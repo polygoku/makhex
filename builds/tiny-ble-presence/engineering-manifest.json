@@ -1,0 +1,82 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "tiny-ble-presence",
+  "number": "03",
+  "title": "Tiny BLE Beacon",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/BrunoGG69/Spottr",
+  "sourceLicense": "AGPL-3.0",
+  "sourceCommit": "84c41ea06001f933619bf7672d484fcbd66c7eb5",
+  "upstreamDesignFiles": [
+    "cad/SPOTTR_CARD_BODY.stl",
+    "cad/SPOTTR_SCANNER_BOX_BODY.stl",
+    "cad/SPOTTR_SCANNER_TOP_LID_BODY.stl",
+    "cad/SPOTTR_TOP_LID_BODY.stl",
+    "cad/step-files/SPOTTR_BADGE.step",
+    "cad/step-files/SPOTTR_SCANNER.step"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/tiny-ble-presence.webp",
+    "credit": "BrunoGG69",
+    "externalVideo": "https://youtu.be/ntAMRt7f-G8",
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/BrunoGG69/Spottr"
+  },
+  "parts": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "BLE transmitter",
+      "title": "ESP32-C3 SuperMini",
+      "photo": "/product-media/esp32-c3-supermini.jpg",
+      "publicUrl": "/shop/esp32-c3-supermini/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 10.98
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Development supply",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Check the ESP32-C3 board revision and BLE stack support in your chosen ESP-IDF release.",
+    "Use a test identifier unrelated to any person, device owner or real-world asset."
+  ],
+  "steps": [
+    "Flash a supported BLE advertising example.",
+    "Set a non-identifying payload.",
+    "Verify visibility from a BLE scanner.",
+    "Measure active and sleep currents.",
+    "Document range and privacy tradeoffs."
+  ],
+  "acceptance": [
+    "A standard BLE scanner sees the advertised demo service.",
+    "Payload and transmit interval match the documented firmware.",
+    "Measured idle and transmit current are recorded with the meter setup."
+  ],
+  "agentTasks": [
+    "Publish a tiny NimBLE advertising project with reproducible scanner steps.",
+    "Include privacy limits, rotation interval and current-measurement methodology."
+  ],
+  "caution": "Never use a BLE beacon to secretly identify or track individuals."
+}

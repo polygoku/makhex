@@ -1,0 +1,126 @@
+{
+  "schema": "makhex-release-matrix-v1",
+  "generatedAt": "2026-10-27T19:12:03.942Z",
+  "projects": [
+    {
+      "slug": "touch-weather-station",
+      "number": "01",
+      "types": 3,
+      "pricedTypes": 3,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "voice-command-node",
+      "number": "02",
+      "types": 5,
+      "pricedTypes": 5,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "tiny-ble-presence",
+      "number": "03",
+      "types": 2,
+      "pricedTypes": 2,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "plant-health-monitor",
+      "number": "04",
+      "types": 3,
+      "pricedTypes": 3,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "camera-event-trigger",
+      "number": "05",
+      "types": 2,
+      "pricedTypes": 2,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "epaper-desk-calendar",
+      "number": "06",
+      "types": 3,
+      "pricedTypes": 3,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "indoor-voc-explorer",
+      "number": "07",
+      "types": 4,
+      "pricedTypes": 4,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "rgb-matrix-clock",
+      "number": "08",
+      "types": 4,
+      "pricedTypes": 4,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "espnow-remote",
+      "number": "09",
+      "types": 2,
+      "pricedTypes": 2,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "smart-desk-button",
+      "number": "10",
+      "types": 4,
+      "pricedTypes": 4,
+      "hostedVideos": 0,
+      "physicalReferencePhoto": true,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "mosaico-learning-assistant",
+      "number": "11",
+      "types": 1,
+      "pricedTypes": 1,
+      "hostedVideos": 1,
+      "physicalReferencePhoto": false,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    },
+    {
+      "slug": "microduck-robot",
+      "number": "12",
+      "types": 14,
+      "pricedTypes": 1,
+      "hostedVideos": 7,
+      "physicalReferencePhoto": false,
+      "verifiedOrderableTypes": 0,
+      "benchCertified": false
+    }
+  ]
+}

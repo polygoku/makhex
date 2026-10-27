@@ -1,0 +1,89 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "epaper-desk-calendar",
+  "number": "06",
+  "title": "E-Paper Desk Calendar",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/trandi/e-paper-calendar",
+  "sourceLicense": "Apache-2.0",
+  "sourceCommit": "ac1036823d663cf95093bc501bffe17fc1436b9c",
+  "upstreamDesignFiles": [
+    "freecad/ePaperCalendar_Box.FCStd"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/epaper-desk-calendar.webp",
+    "credit": "trandi",
+    "externalVideo": "https://youtu.be/xnUqWcdtqyU",
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/trandi/e-paper-calendar"
+  },
+  "parts": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "Controller",
+      "title": "ESP32-C3 SuperMini",
+      "photo": "/product-media/esp32-c3-supermini.jpg",
+      "publicUrl": "/shop/esp32-c3-supermini/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 10.98
+    },
+    {
+      "slug": "epaper-29",
+      "quantity": 1,
+      "role": "Display",
+      "title": "2.9″ E-Paper Display",
+      "photo": "/product-media/epaper-29.jpg",
+      "publicUrl": "/shop/epaper-29/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 47.08
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench power",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Match the 2.9-inch panel controller and FPC to its library; current supplier bundle is not yet verified.",
+    "Choose a reliable timezone and offline fallback when NTP cannot be reached."
+  ],
+  "steps": [
+    "Select the correct e-paper driver library.",
+    "Render a static test pattern.",
+    "Synchronize time and timezone safely.",
+    "Use correct refresh intervals and full-refresh maintenance.",
+    "Measure sleep current before battery testing."
+  ],
+  "acceptance": [
+    "A static test pattern renders cleanly.",
+    "Date/time remain correct through a restart and network loss.",
+    "Deep sleep and refresh intervals are measured and documented."
+  ],
+  "agentTasks": [
+    "Make controller-selection checks explicit before library recommendations.",
+    "Provide a safe demo without requiring personal calendar credentials."
+  ],
+  "caution": "Panel ghosting and burn-in may result from incorrect refresh behavior; consult module documentation."
+}

@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "slug": "microduck-robot",
+  "buildNumber": "12",
+  "title": "Microduck — AI Walking Robot",
+  "reference": {
+    "repository": "kissqy/Microduck-kissqy",
+    "commit": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+    "licenseMetadata": "NOASSERTION",
+    "url": "https://github.com/kissqy/Microduck-kissqy/tree/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb"
+  },
+  "hardware": {
+    "candidate": "Radxa ZERO 3W 2-GB/no-eMMC with AMP2.0 October 15 HAT, STM32 IMU and 15 HD-1910-C001 serial servos",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "original third-party software",
+    "commit": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+    "reference": "https://github.com/kissqy/Microduck-kissqy/tree/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+    "deviceFlashed": false,
+    "commercialRightsVerified": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "feetech-hd1910",
+      "quantity": 15,
+      "role": "Original HD-1910-C001 actuators"
+    },
+    {
+      "slug": "radxa-zero-3w",
+      "quantity": 1,
+      "role": "Original 2GB no-eMMC main computer"
+    },
+    {
+      "slug": "microduck-hat",
+      "quantity": 1,
+      "role": "AMP2.0 robot HAT control PCB"
+    },
+    {
+      "slug": "microduck-imu",
+      "quantity": 1,
+      "role": "Custom STM32-based IMU board"
+    },
+    {
+      "slug": "imx219-160-camera",
+      "quantity": 1,
+      "role": "160-degree vision module"
+    },
+    {
+      "slug": "vl53l5cx-v2",
+      "quantity": 1,
+      "role": "V2 8×8 distance-sensing breakout"
+    },
+    {
+      "slug": "npf550-power-kit",
+      "quantity": 1,
+      "role": "Two batteries plus charger kit"
+    },
+    {
+      "slug": "microduck-printed-parts",
+      "quantity": 1,
+      "role": "Printed FrankenDuck chassis set / 3MF"
+    },
+    {
+      "slug": "bearing-6700",
+      "quantity": 5,
+      "role": "10×15×3 mm bearings; purchase reference"
+    },
+    {
+      "slug": "bearing-et2216",
+      "quantity": 12,
+      "role": "16×22×4 mm bearings; purchase reference"
+    },
+    {
+      "slug": "speaker-4ohm-3w",
+      "quantity": 1,
+      "role": "3525-compatible 4Ω 3W speaker"
+    },
+    {
+      "slug": "microduck-fasteners",
+      "quantity": 1,
+      "role": "M2/M2.6 screw assortment"
+    },
+    {
+      "slug": "amp20-servo-cables",
+      "quantity": 1,
+      "role": "10 and 20 cm AMP2.0 servo cables"
+    },
+    {
+      "slug": "microduck-wiring-kit",
+      "quantity": 1,
+      "role": "22AWG harness wire and heat shrink"
+    }
+  ],
+  "supplementaryRequirements": [
+    "NP-F550 lithium battery, servo stall-current/fusing, printed TPU plate 5 and exact PCB BOM need physical validation. CAD redistribution remains governed by original permissions."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "docs/assets/assembly-battery-holder.stl",
+        "size": 821384,
+        "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/docs/assets/assembly-battery-holder.stl"
+      },
+      {
+        "path": "hardware/ProPrj_HAT_REVA_SCH_2026-10-07.epro2",
+        "size": 826814,
+        "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_HAT_REVA_SCH_2026-10-07.epro2"
+      },
+      {
+        "path": "hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2",
+        "size": 836584,
+        "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2"
+      },
+      {
+        "path": "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-07.epro2",
+        "size": 354451,
+        "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-07.epro2"
+      },
+      {
+        "path": "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2",
+        "size": 373893,
+        "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Verify 3MF/RAR and four .epro2 hashes from archived review",
+      "procedure": "Compare SHA256 manifest with source; inspect 3MF unit and print plates",
+      "acceptance": "All archive hashes match, mm units, TPU plate 5; no unreviewed files mixed",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Perform EasyEDA Pro ERC/DRC on matched Oct 15 revisions",
+      "procedure": "Export rule reports and review regulator/trace widths",
+      "acceptance": "Zero unreviewed electrical/design violations",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Measure 15 servo IDs, torque-free joints, current and polarity",
+      "procedure": "One-by-one unloaded bench test with overcurrent protection",
+      "acceptance": "Every ID unique and current within documented limits",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Print one diagnostic joint and fit hardware before batch",
+      "procedure": "Measure servo pocket, bearing bores and sample part scale",
+      "acceptance": "Measured physical fit and non-interfering travel",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Bring up IMU, camera, ToF and Radxa software independently",
+      "procedure": "Capture firmware/kernel versions and sensor logs",
+      "acceptance": "Source-matched devices enumerate and deliver valid data",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "06",
+      "name": "Run tethered stand then bounded low-speed gait",
+      "procedure": "Log battery, temperatures, gait frames and emergency cutoff",
+      "acceptance": "Safe calibrated standing and recoverable walking; no uncontrolled tip hazard",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

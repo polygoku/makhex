@@ -1,0 +1,113 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "voice-command-node",
+  "number": "02",
+  "title": "Offline Voice Command Node",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/muhammedsaban/dudley",
+  "sourceLicense": "MIT",
+  "sourceCommit": "61e7e08e53593db093a663f49a375c982a2e7530",
+  "upstreamDesignFiles": [
+    "hardware/enclosure/dudley-enclosure.scad"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/voice-command-node.webp",
+    "credit": "muhammedsaban",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/muhammedsaban/dudley"
+  },
+  "parts": [
+    {
+      "slug": "esp32-s3-devkit",
+      "quantity": 1,
+      "role": "Processor",
+      "title": "ESP32-S3 Dev Board",
+      "photo": "/product-media/esp32-s3-devkit.jpg",
+      "publicUrl": "/shop/esp32-s3-devkit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 55
+    },
+    {
+      "slug": "i2s-mems-mic",
+      "quantity": 1,
+      "role": "Audio input",
+      "title": "I²S MEMS Microphone",
+      "photo": "/product-media/i2s-mems-mic.jpg",
+      "publicUrl": "/shop/i2s-mems-mic/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 11.38
+    },
+    {
+      "slug": "i2s-amplifier",
+      "quantity": 1,
+      "role": "Speaker driver",
+      "title": "I²S Speaker Amplifier",
+      "photo": "/product-media/i2s-amplifier.jpg",
+      "publicUrl": "/shop/i2s-amplifier/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 17.63
+    },
+    {
+      "slug": "speaker-4ohm-3w",
+      "quantity": 1,
+      "role": "External mini loudspeaker",
+      "title": "Mini 4 Ω / 3 W Speaker",
+      "photo": "/product-media/speaker-4ohm-3w.jpg",
+      "publicUrl": "/shop/speaker-4ohm-3w/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 6.35
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Stable supply",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Select an electrically compatible 3.3 V I2S microphone, amplifier and speaker; the speaker is included in the research BOM but its exact amp/connector pairing has not been qualified.",
+    "Verify the board has sufficient PSRAM and use a hardware control with an unmistakable microphone-active indicator."
+  ],
+  "steps": [
+    "Verify microphone and amplifier independently.",
+    "Check memory and firmware SDK compatibility.",
+    "Build push-to-talk with a visible recording indicator.",
+    "Benchmark a small on-device command recognizer.",
+    "Add error recovery and timeout handling."
+  ],
+  "acceptance": [
+    "Record and play back intelligible audio without buffer underruns.",
+    "Recognize three documented commands under a measured noise condition.",
+    "The device visibly stops listening on timeout and never silently records."
+  ],
+  "agentTasks": [
+    "Document separate microphone and amplifier bring-up procedures before the combined firmware.",
+    "Record the recognition model, memory allocation and repeatable latency benchmark."
+  ],
+  "caution": "General-purpose offline speech recognition is not practical on all ESP32 modules; verify model memory needs."
+}

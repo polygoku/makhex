@@ -1,0 +1,5 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"ESP-Mosaico LEFT H2 connector","Matching ESP-Mosaico camera module","Vendor-defined board-to-board signals","Power off before install; confirm SC101IOT versus OV3640 and correct H2 orientation"
+"ESP-Mosaico Core Unit","Onboard touch display","Factory internal interface","No invented GPIO map; preserve factory wiring"
+"ESP-Mosaico Core Unit","Onboard mic and speaker","Factory internal interface","No external microphone or speaker needed"
+"Rated USB-C data cable","ESP-Mosaico USB-C","Manufacturer-rated USB","Read recovery ABI/version without destructive flashing"

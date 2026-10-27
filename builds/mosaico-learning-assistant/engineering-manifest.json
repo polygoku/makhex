@@ -1,0 +1,73 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "mosaico-learning-assistant",
+  "number": "11",
+  "title": "AI Photo & Voice Learning Assistant",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/samyeei/mosaico-learning-assistant",
+  "sourceLicense": "PolyForm Noncommercial 1.0.0",
+  "sourceCommit": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+  "upstreamDesignFiles": [],
+  "media": {
+    "referencePhoto": null,
+    "credit": "samyeei",
+    "externalVideo": "https://x.com/samyeeiyu/status/2113491864078991859",
+    "hostedVideos": [
+      "/demo/build11-en-concept.mp4"
+    ]
+  },
+  "design": {
+    "status": "upstream reference firmware is noncommercial, commercial distribution not authorized",
+    "url": "https://github.com/samyeei/mosaico-learning-assistant"
+  },
+  "parts": [
+    {
+      "slug": "esp-mosaico-vision-combo-kit",
+      "quantity": 1,
+      "role": "ESP32-S31 touchscreen core with dedicated left-slot camera; interaction module included",
+      "title": "ESP-Mosaico Vision Combo Kit",
+      "photo": "/product-media/esp-mosaico-vision-combo-kit.jpg",
+      "publicUrl": "/shop/esp-mosaico-vision-combo-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 201.7
+    }
+  ],
+  "preflight": [
+    "Use the official ESP-Mosaico Vision Combo Kit, not a generic ESP32-S3 camera board. Confirm Core Unit V1.2, camera module revision and a USB data cable.",
+    "The original v1.0.0 image supports old Recovery ABI 1 / layout 4 only; DO NOT install on a current Vibe Mode 0.2 / ABI 2 device or bypass recovery checks.",
+    "The original author licenses the application under PolyForm Noncommercial 1.0.0. MAKHEX does not bundle, translate, redistribute, preinstall or commercially license the software.",
+    "A personal Alibaba Cloud Model Studio / Bailian (Qwen) account, supported region and paid API key are required for the original app. Verify service access from the United States and avoid sharing personal or student information."
+  ],
+  "steps": [
+    "Identify an actual ESP-Mosaico ESP32-S31 Core Unit V1.2 and its matching camera module; generic ESP32-S3 boards cannot run this project.",
+    "Read the original software license and compatibility notes. The released application is noncommercial and limited to legacy Recovery ABI 1 / layout 4.",
+    "Confirm hardware revision, included USB data cable, firmware recovery layout and camera module type before connecting or installing anything.",
+    "With power off, insert the camera module in the LEFT H2 expansion slot; use the onboard microphone and speaker.",
+    "On a compatible legacy test device only, follow the original author’s matching-tool installation guide. Do not downgrade modern Vibe Mode 0.2 / ABI 2 firmware.",
+    "Set up the device with 2.4 GHz Wi-Fi and a personal Alibaba Cloud Model Studio (Qwen/DashScope) API key; check region and service charges.",
+    "Test camera preview, multi-question selection, spoken prompts, and page-by-page explanations with non-sensitive sample questions.",
+    "Treat English UI, U.S. curriculum alignment, child-data privacy and licensing as separate unverified adaptation requirements, not shipped features."
+  ],
+  "acceptance": [
+    "Check that the dedicated camera preview works and the correct question can be selected before asking for an explanation.",
+    "Demonstrate a spoken follow-up and a visible transcript confirmation with non-sensitive test data on a licensed, compatible device.",
+    "Record firmware ABI, model region, language, camera revision and test results rather than claiming English support.",
+    "For a future U.S. product, establish commercial software rights or independently build a replacement and test English speech, UI, U.S. grades 1–12 and privacy before launch."
+  ],
+  "agentTasks": [
+    "Start with builds/mosaico-learning-assistant/README.md and the original source; keep the noncommercial code and assets out of a commercial distribution.",
+    "Audit legacy Recovery ABI 1 versus current ABI 2, camera sensor variant, minimum flash and service-region dependencies. Never downgrade or erase a customer device.",
+    "Research authorization for a commercial English localization or specify a clean-room implementation and original UX/assets with applicable licenses.",
+    "Qualify an exact ESP-Mosaico hardware supplier and U.S.-delivery quote via private Doroppu records before requesting Squarespace checkout approval."
+  ],
+  "caution": "Reference software: PolyForm Noncommercial 1.0.0; do not sell, preinstall or rehost it without separate rights. Firmware v1.0.0 needs legacy Recovery ABI 1 / layout 4 and is incompatible with modern Vibe Mode 0.2 / ABI 2. English-language operation and U.S. model connectivity are unverified. Photos, recordings and prompts go to the user’s selected cloud service; do not submit student-identifying information."
+}

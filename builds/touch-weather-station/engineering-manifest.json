@@ -1,0 +1,93 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "touch-weather-station",
+  "number": "01",
+  "title": "Touch Weather Station",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/Damov/esp32_weather_forecast_screen",
+  "sourceLicense": "MIT",
+  "sourceCommit": "d5bcb4ca34e482d4091002b480df6bb5aa9072c2",
+  "upstreamDesignFiles": [
+    "printable_3D_model/assembly.3mf",
+    "printable_3D_model/step/Back_Lid.STEP",
+    "printable_3D_model/step/Front_Lid.STEP",
+    "printable_3D_model/step/Mounting_Radar.STEP",
+    "printable_3D_model/step/Stand.STEP"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/touch-weather-station.webp",
+    "credit": "Damov",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/Damov/esp32_weather_forecast_screen"
+  },
+  "parts": [
+    {
+      "slug": "esp32-s3-touch-35",
+      "quantity": 1,
+      "role": "Touch interface",
+      "title": "ESP32-S3 3.5″ Touch Display",
+      "photo": "/product-media/esp32-s3-touch-35.jpg",
+      "publicUrl": "/shop/esp32-s3-touch-35/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 69.23
+    },
+    {
+      "slug": "bme280-sensor",
+      "quantity": 1,
+      "role": "Environment readings",
+      "title": "BME280 Environment Sensor",
+      "photo": "/product-media/bme280-sensor.jpg",
+      "publicUrl": "/shop/bme280-sensor/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 11.08
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench power",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Identify the precise display controller, touch chip and backlight pin mapping from the purchased board.",
+    "Confirm the BME280 uses 3.3 V and that its I2C pins do not conflict with the display."
+  ],
+  "steps": [
+    "Identify the exact display and touch controller SKU.",
+    "Verify display firmware alone before adding peripherals.",
+    "Read BME280 sensor values over verified I²C pins.",
+    "Build LVGL screen states and stale-data warnings.",
+    "Stress-test touch, power and thermal behavior."
+  ],
+  "acceptance": [
+    "A live temperature/humidity reading appears with a last-updated timestamp.",
+    "Touch works for 30 minutes without freezes or phantom presses.",
+    "Unplugging the sensor produces a visible stale-data warning rather than a fabricated reading."
+  ],
+  "agentTasks": [
+    "Map actual screen/touch GPIO from the board schematic before writing display drivers.",
+    "Provide a minimal sensor example and LVGL build instructions with a reproducible flash log."
+  ],
+  "caution": "Controller, I²C bus and GPIO maps are board-dependent; never rely on generic wiring."
+}

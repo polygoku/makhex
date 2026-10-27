@@ -1,0 +1,116 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "rgb-matrix-clock",
+  "number": "08",
+  "title": "Ambient RGB Clock",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/l0calgost/ledclock",
+  "sourceLicense": "MIT",
+  "sourceCommit": "dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f",
+  "upstreamDesignFiles": [
+    "ledclock/models/3d-print/Colon_Diffusor_Lid_v52.3mf",
+    "ledclock/models/3d-print/Colon_Segment_Lid_v52.3mf",
+    "ledclock/models/3d-print/Colon_Segment_v54.3mf",
+    "ledclock/models/3d-print/Diffusor Lid_v52.3mf",
+    "ledclock/models/3d-print/Digit_Lid_v52.3mf",
+    "ledclock/models/3d-print/Digit_Segment_v52.3mf",
+    "ledclock/models/3d-print/End_Segment_Lid_v52.3mf",
+    "ledclock/models/3d-print/End_Segment_v52.3mf",
+    "ledclock/models/3d-print/Start_Segment_Lid_v52.3mf",
+    "ledclock/models/3d-print/Start_Segment_v52.3mf",
+    "usermods/word-clock-matrix/Word Clock Baffle.stl",
+    "ledclock/datasheets/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf",
+    "ledclock/datasheets/nxg-04_en_10031380.pdf",
+    "ledclock/datasheets/nxg-t_en_10030915.pdf",
+    "ledclock/datasheets/sc-caps.pdf",
+    "ledclock/datasheets/ws2812b.pdf"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/rgb-matrix-clock.webp",
+    "credit": "l0calgost / mataberks",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/l0calgost/ledclock"
+  },
+  "parts": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "LED controller",
+      "title": "ESP32-C3 SuperMini",
+      "photo": "/product-media/esp32-c3-supermini.jpg",
+      "publicUrl": "/shop/esp32-c3-supermini/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 10.98
+    },
+    {
+      "slug": "ws2812-leds",
+      "quantity": 1,
+      "role": "Pixel array",
+      "title": "Addressable RGB LEDs",
+      "photo": "/product-media/ws2812-leds.jpg",
+      "publicUrl": "/shop/ws2812-leds/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 14.55
+    },
+    {
+      "slug": "5v-5a-led-power",
+      "quantity": 1,
+      "role": "Regulated LED-array power",
+      "title": "5 V / 5 A LED Power Adapter (U.S. Plug)",
+      "photo": "/product-media/5v-5a-led-power.jpg",
+      "publicUrl": "/shop/5v-5a-led-power/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 29.18
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Prototyping tools",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Size a separate 5 V supply for the real LED count; a candidate 5 V/5 A supply is listed, but its U.S. safety rating, wiring and under-load performance are not verified.",
+    "Confirm ESP32-to-pixel logic compatibility and wiring length; add an appropriate level shifter if needed."
+  ],
+  "steps": [
+    "Budget current draw for worst-case LED brightness.",
+    "Test a small number of pixels on a correctly rated supply.",
+    "Use common ground and correct logic levels.",
+    "Synchronize time and impose brightness limits.",
+    "Add strain relief, diffusion and failure tests."
+  ],
+  "acceptance": [
+    "A small pixel subset lights without power or data faults.",
+    "Current draw at the imposed brightness cap stays under the measured supply limit.",
+    "Loss of time-sync is displayed distinctly from valid time."
+  ],
+  "agentTasks": [
+    "Calculate current budget from verified LED quantity and brightness constraints.",
+    "Provide firmware color order, power injection and safe startup behavior."
+  ],
+  "caution": "Never source LED strip current from microcontroller GPIO."
+}

@@ -1,0 +1,37 @@
+---
+import type {Project} from '../data/projects';
+import {projectBomMissingParts} from '../data/catalog-staging';
+import originalDesigns from '../../docs/engineering/source-design-index.json';
+interface Props { project:Project }
+const {project}=Astro.props;
+const demo=project.slug==='microduck-robot'?'Seven source-creator videos hosted on MAKHEX':project.slug==='mosaico-learning-assistant'?'English concept video (not physical device proof)':'Credited physical reference photo; no MAKHEX-hosted build video';
+const found=originalDesigns.results.find(x=>x.slug===project.slug);
+const fileCount=(found?.candidateDesignFiles??[]).filter(x=>/\.(stl|3mf|step|stp|fcstd|epro2|kicad_sch|kicad_pcb|fzz|dxf|scad)$/i.test(x.path)).length;
+const designs=project.slug==='microduck-robot'?'Source 3MF/STL archive and HAT/IMU PCB sources: exact mechanical/electrical compatibility not validated':fileCount>0?String(fileCount)+' original-maker design sources indexed; none certified to fit this MAKHEX BOM':'No compatible fabrication-ready source identified; PCB or enclosure still needs design.';
+const gaps=projectBomMissingParts[project.slug]??[];
+---
+<section class="content-section" aria-label="Build completeness and downloads" id="build-resources">
+  <span class="eyebrow">BUILD RESOURCE STATUS</span>
+  <h2>What is available, and what is still missing.</h2>
+  <p>MAKHEX separates source material and proposed instructions from independently validated builds. A parts cart is a planning list, not a paid checkout.</p>
+  <div class="resource-audit-grid">
+    <div><strong>Instructions</strong><p>MAKHEX build sequence and GitHub README provided; physical reproduction on the exact MAKHEX BOM is not certified.</p></div>
+    <div><strong>Pictures and videos</strong><p>{demo}</p></div>
+    <div><strong>Design documents / 3D models</strong><p>{designs}</p></div>
+    <div><strong>Parts and ordering</strong><p>Component research pages and a parts checklist exist; complete exact-option supplier matching, shipping, and automated fulfillment are unverified. Paid checkout is unavailable.</p></div>
+  </div>
+  {gaps.length>0&&<details class="resource-audit-details"><summary>Additional build-specific blockers ({gaps.length})</summary><ul>{gaps.map(g=><li>{g}</li>)}</ul></details>}
+  <p><a class="btn btn-outline" href={'/projects/'+project.slug+'/engineering/'}>OPEN ENGINEERING FILES, WIRING & TESTS ↗</a></p>
+  <p class="resource-audit-reference">See <a href={'https://github.com/polygoku/makhex/tree/main/builds/'+project.slug} target="_blank" rel="noopener noreferrer">source instructions</a> and <a href="/shop/">component research catalog</a>. Original maker files are linked to their credited source; no unverified CAD is represented as physically fitted.</p>
+</section>
+<style>
+.resource-audit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;margin:1.1rem 0}
+.resource-audit-grid>div{border:1px solid rgba(40,58,51,.19);border-radius:10px;padding:1rem;background:#f7f3eb}
+.resource-audit-grid strong{display:block;margin-bottom:.4rem}
+.resource-audit-grid p{margin:0;line-height:1.55;font-size:.9rem}
+.resource-audit-details{padding:.8rem;border-top:1px solid #c8c8b9}
+.resource-audit-details summary{cursor:pointer;font-weight:650}
+.resource-audit-details li{margin:.5rem 0}
+.resource-audit-reference{font-size:.85rem;line-height:1.5}
+@media(max-width:640px){.resource-audit-grid{grid-template-columns:1fr}}
+</style>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 777" width="1160" height="777">
+<rect width="100%" height="100%" fill="#f7f4ea"/><path d="M0 0H1160V7H0Z" fill="#ad6a35"/>
+<text x="24" y="42" font-size="25" font-family="Arial,sans-serif" font-weight="bold" fill="#20423b">MAKHEX / 02 Offline Voice Command Node</text>
+<text x="24" y="72" font-size="17" font-family="Arial,sans-serif" fill="#57675f">Connection REFERENCE, not fabrication or installed-assembly evidence.</text>
+<text x="24" y="99" font-size="15" font-family="Arial,sans-serif" fill="#994d2b">Proposed GPIO requires actual PCB revision verification before power-on.</text>
+<rect x="22" y="112" width="1116" height="32" fill="#dce6d6"/>
+<text x="32" y="133" font-size="14" font-family="Arial,sans-serif" font-weight="bold">FROM</text>
+<text x="411" y="133" font-size="14" font-family="Arial,sans-serif" font-weight="bold">TO</text>
+<text x="810" y="133" font-size="14" font-family="Arial,sans-serif" font-weight="bold">ELECTRICAL ROLE</text>
+<rect x="22" y="148" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="176" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 DevKitC-1 3V3</text>
+<path d="M333 170h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="170" r="4" fill="#b16e3a"/>
+<text x="411" y="176" font-size="14" font-family="Arial,sans-serif" fill="#24433c">INMP441 VDD</text>
+<text x="810" y="176" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">3.3 V only</text>
+<rect x="22" y="208" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="236" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 GND</text>
+<path d="M333 230h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="230" r="4" fill="#b16e3a"/>
+<text x="411" y="236" font-size="14" font-family="Arial,sans-serif" fill="#24433c">INMP441 GND and MAX98357A GND</text>
+<text x="810" y="236" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">0 V common</text>
+<rect x="22" y="268" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="296" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 GPIO4 (proposed)</text>
+<path d="M333 290h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="290" r="4" fill="#b16e3a"/>
+<text x="411" y="296" font-size="14" font-family="Arial,sans-serif" fill="#24433c">INMP441 SCK + MAX98357A BCLK</text>
+<text x="810" y="296" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">I2S bit clock 3.3 V</text>
+<rect x="22" y="328" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="356" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 GPIO5 (proposed)</text>
+<path d="M333 350h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="350" r="4" fill="#b16e3a"/>
+<text x="411" y="356" font-size="14" font-family="Arial,sans-serif" fill="#24433c">INMP441 WS + MAX98357A LRC</text>
+<text x="810" y="356" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">I2S word select 3.3 V</text>
+<rect x="22" y="388" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="416" font-size="14" font-family="Arial,sans-serif" fill="#24433c">INMP441 SD</text>
+<path d="M333 410h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="410" r="4" fill="#b16e3a"/>
+<text x="411" y="416" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 GPIO6 (proposed)</text>
+<text x="810" y="416" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">I2S RX data at 3.3 V</text>
+<rect x="22" y="448" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="476" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 GPIO7 (proposed)</text>
+<path d="M333 470h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="470" r="4" fill="#b16e3a"/>
+<text x="411" y="476" font-size="14" font-family="Arial,sans-serif" fill="#24433c">MAX98357A DIN</text>
+<text x="810" y="476" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">I2S TX data at 3.3 V</text>
+<rect x="22" y="508" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="536" font-size="14" font-family="Arial,sans-serif" fill="#24433c">Regulated 5 V rail (unqualified)</text>
+<path d="M333 530h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="530" r="4" fill="#b16e3a"/>
+<text x="411" y="536" font-size="14" font-family="Arial,sans-serif" fill="#24433c">MAX98357A VIN</text>
+<text x="810" y="536" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">Amp supply only, if exact board accepts 5 V</text>
+<rect x="22" y="568" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="596" font-size="14" font-family="Arial,sans-serif" fill="#24433c">MAX98357A SPK+ and SPK-</text>
+<path d="M333 590h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="590" r="4" fill="#b16e3a"/>
+<text x="411" y="596" font-size="14" font-family="Arial,sans-serif" fill="#24433c">4-ohm speaker terminals</text>
+<text x="810" y="596" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">Floating bridge output</text>
+<rect x="22" y="628" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="656" font-size="14" font-family="Arial,sans-serif" fill="#24433c">S3 GPIO15 (proposed) via normally-open switch</text>
+<path d="M333 650h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="650" r="4" fill="#b16e3a"/>
+<text x="411" y="656" font-size="14" font-family="Arial,sans-serif" fill="#24433c">GND</text>
+<text x="810" y="656" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">PTT active-low with pullup</text>
+<rect x="22" y="688" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="716" font-size="14" font-family="Arial,sans-serif" fill="#24433c">INMP441 L/R channel select</text>
+<path d="M333 710h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="710" r="4" fill="#b16e3a"/>
+<text x="411" y="716" font-size="14" font-family="Arial,sans-serif" fill="#24433c">Ground or 3V3 per device datasheet</text>
+<text x="810" y="716" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">Select one channel</text>
+<text x="24" y="763" font-size="13" font-family="Arial,sans-serif" fill="#696b63">See wiring.csv for verification conditions. All actual power, signal and connector pin numbers require measurement.</text></svg>

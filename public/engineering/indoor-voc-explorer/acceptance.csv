@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Scan both I2C addresses","Confirm SGP40 0x59 and BME280 0x76/0x77","Both visible without conflicts","NOT_RUN",""
+"02","Use RH/temperature compensation and checksum validation","Log compensated raw signals and measurement timing","SGP40 readings accepted with algorithm input evidence","NOT_RUN",""
+"03","Run a documented baseline warm-up","Log sample interval, warm-up duration and VOC index","VOC trend appears only after valid warm-up","NOT_RUN",""
+"04","Ventilate room under nonhazardous conditions","Record trend before/after using reference conditions","Trend changes recorded, no false quantitative CO2 statement","NOT_RUN",""
+"05","Disconnect either sensor with power off; restart","Observe invalid compensation and stale state","System shows invalid rather than fabricated index","NOT_RUN",""

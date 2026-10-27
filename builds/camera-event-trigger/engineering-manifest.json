@@ -1,0 +1,83 @@
+{
+  "schema": "makhex-engineering-v1",
+  "slug": "camera-event-trigger",
+  "number": "05",
+  "title": "Local Camera Event Trigger",
+  "status": "RESEARCH_NOT_VALIDATED",
+  "benchVerified": false,
+  "firmwareBuildVerified": false,
+  "mechanicalFitVerified": false,
+  "powerBudgetVerified": false,
+  "schematicPinoutVerified": false,
+  "supplierVariantsVerified": false,
+  "paymentTrackingRefundVerified": false,
+  "sourceUrl": "https://github.com/bernardoeugster/espseccam",
+  "sourceLicense": "MIT",
+  "sourceCommit": "94a43104daf148dbbf95af91cf6563b9ff44d9b2",
+  "upstreamDesignFiles": [
+    "hardware/enclosure/CAD/Archive/Mark I ESPSECCAM Circuit Support (discontinued).FCStd",
+    "hardware/enclosure/CAD/Archive/Mark II ESPSECCAM LID.FCStd",
+    "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.FCStd",
+    "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.step",
+    "hardware/enclosure/CAD/Mark III ESPSECCAM LID.FCStd",
+    "hardware/enclosure/CAD/Mark III ESPSECCAM LID.step",
+    "docs/ESP32_Security_Camera.pdf"
+  ],
+  "media": {
+    "referencePhoto": "/reference-builds/camera-event-trigger.webp",
+    "credit": "bernardoeugster",
+    "externalVideo": null,
+    "hostedVideos": []
+  },
+  "design": {
+    "status": "no validated native fabrication CAD/3D model in MAKHEX package",
+    "url": "https://github.com/bernardoeugster/espseccam"
+  },
+  "parts": [
+    {
+      "slug": "esp32-s3-camera",
+      "quantity": 1,
+      "role": "Camera platform",
+      "title": "ESP32-S3 Camera Board",
+      "photo": "/product-media/esp32-s3-camera.jpg",
+      "publicUrl": "/shop/esp32-s3-camera/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 54.73
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Stable supply",
+      "title": "USB-C Prototyping Kit",
+      "photo": "/product-media/usb-c-power-kit.jpg",
+      "publicUrl": "/shop/usb-c-power-kit/",
+      "supplierVariantVerified": false,
+      "zip11021ShippingVerified": false,
+      "customerCheckoutVerified": false,
+      "pricePlanningSnapshot": 16.38
+    }
+  ],
+  "preflight": [
+    "Verify the exact camera module, lens, GPIO assignment and PSRAM capacity; bundle compatibility is currently on HOLD.",
+    "Point the camera at an explicitly consented, non-sensitive test scene."
+  ],
+  "steps": [
+    "Check camera driver compatibility for the exact board.",
+    "Validate local frame capture and memory use.",
+    "Implement a lightweight frame-change detector.",
+    "Log non-sensitive events only.",
+    "Add visible camera-active status and deletion."
+  ],
+  "acceptance": [
+    "A stable frame stream runs within measured memory limits.",
+    "A synthetic scene change creates a timestamped local event.",
+    "An obvious camera-active indicator and local event deletion work."
+  ],
+  "agentTasks": [
+    "Pin down camera sensor model, frame size and PSRAM usage first.",
+    "Offer deterministic fixture tests for false triggers under varying light."
+  ],
+  "caution": "Do not present an unverified prototype as a safety or security monitoring product."
+}

@@ -1,0 +1,24 @@
+# MAKHEX engineering source and test index
+
+**12 packages created.** Each includes locked upstream commits, a hardware-specific connection plan, editable CSV/net diagram, candidate CAD links, test procedures, and evidence template. These are not proof of physical fit or a completed firmware application.
+
+ESP-IDF reference baseline: [v5.5.6 / 880a203ae603d08a94d06aa01e0d6761958e5e9e](https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e); the vendor sample is only a peripheral smoke test.
+
+| Build | Package | Wiring | Tests | Original fabrication sources |
+|---|---|---|---|---:|
+| 01 Touch Weather Station | [Engineering](../../builds/touch-weather-station/engineering/ENGINEERING.md) | [CSV](../../builds/touch-weather-station/engineering/wiring.csv) / [SVG](../../builds/touch-weather-station/engineering/wiring.svg) | [Acceptance](../../builds/touch-weather-station/engineering/acceptance.csv) | 5 |
+| 02 Offline Voice Command Node | [Engineering](../../builds/voice-command-node/engineering/ENGINEERING.md) | [CSV](../../builds/voice-command-node/engineering/wiring.csv) / [SVG](../../builds/voice-command-node/engineering/wiring.svg) | [Acceptance](../../builds/voice-command-node/engineering/acceptance.csv) | 1 |
+| 03 Tiny BLE Beacon | [Engineering](../../builds/tiny-ble-presence/engineering/ENGINEERING.md) | [CSV](../../builds/tiny-ble-presence/engineering/wiring.csv) / [SVG](../../builds/tiny-ble-presence/engineering/wiring.svg) | [Acceptance](../../builds/tiny-ble-presence/engineering/acceptance.csv) | 6 |
+| 04 Connected Plant Monitor | [Engineering](../../builds/plant-health-monitor/engineering/ENGINEERING.md) | [CSV](../../builds/plant-health-monitor/engineering/wiring.csv) / [SVG](../../builds/plant-health-monitor/engineering/wiring.svg) | [Acceptance](../../builds/plant-health-monitor/engineering/acceptance.csv) | 8 |
+| 05 Local Camera Event Trigger | [Engineering](../../builds/camera-event-trigger/engineering/ENGINEERING.md) | [CSV](../../builds/camera-event-trigger/engineering/wiring.csv) / [SVG](../../builds/camera-event-trigger/engineering/wiring.svg) | [Acceptance](../../builds/camera-event-trigger/engineering/acceptance.csv) | 6 |
+| 06 E-Paper Desk Calendar | [Engineering](../../builds/epaper-desk-calendar/engineering/ENGINEERING.md) | [CSV](../../builds/epaper-desk-calendar/engineering/wiring.csv) / [SVG](../../builds/epaper-desk-calendar/engineering/wiring.svg) | [Acceptance](../../builds/epaper-desk-calendar/engineering/acceptance.csv) | 1 |
+| 07 Indoor VOC Explorer | [Engineering](../../builds/indoor-voc-explorer/engineering/ENGINEERING.md) | [CSV](../../builds/indoor-voc-explorer/engineering/wiring.csv) / [SVG](../../builds/indoor-voc-explorer/engineering/wiring.svg) | [Acceptance](../../builds/indoor-voc-explorer/engineering/acceptance.csv) | 0 |
+| 08 Ambient RGB Clock | [Engineering](../../builds/rgb-matrix-clock/engineering/ENGINEERING.md) | [CSV](../../builds/rgb-matrix-clock/engineering/wiring.csv) / [SVG](../../builds/rgb-matrix-clock/engineering/wiring.svg) | [Acceptance](../../builds/rgb-matrix-clock/engineering/acceptance.csv) | 11 |
+| 09 ESP-NOW Wireless Remote | [Engineering](../../builds/espnow-remote/engineering/ENGINEERING.md) | [CSV](../../builds/espnow-remote/engineering/wiring.csv) / [SVG](../../builds/espnow-remote/engineering/wiring.svg) | [Acceptance](../../builds/espnow-remote/engineering/acceptance.csv) | 3 |
+| 10 One-Press Smart Button | [Engineering](../../builds/smart-desk-button/engineering/ENGINEERING.md) | [CSV](../../builds/smart-desk-button/engineering/wiring.csv) / [SVG](../../builds/smart-desk-button/engineering/wiring.svg) | [Acceptance](../../builds/smart-desk-button/engineering/acceptance.csv) | 15 |
+| 11 AI Photo & Voice Learning Assistant | [Engineering](../../builds/mosaico-learning-assistant/engineering/ENGINEERING.md) | [CSV](../../builds/mosaico-learning-assistant/engineering/wiring.csv) / [SVG](../../builds/mosaico-learning-assistant/engineering/wiring.svg) | [Acceptance](../../builds/mosaico-learning-assistant/engineering/acceptance.csv) | 0 |
+| 12 Microduck — AI Walking Robot | [Engineering](../../builds/microduck-robot/engineering/ENGINEERING.md) | [CSV](../../builds/microduck-robot/engineering/wiring.csv) / [SVG](../../builds/microduck-robot/engineering/wiring.svg) | [Acceptance](../../builds/microduck-robot/engineering/acceptance.csv) | 5 |
+
+**Source indexed** means the original creator published a design file; it does not mean the design fits the MAKHEX BOM. **NOT RUN** means no physical evidence has been produced, not that the test passed.
+
+To qualify, physically identify purchased PCB variants, reconcile every provisional net, compile and flash exact firmware, test each requirement and attach traceable evidence to the template.
