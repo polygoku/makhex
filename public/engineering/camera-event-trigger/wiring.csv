@@ -1,0 +1,4 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"Board USB/data input","ESP32-S3 camera board USB","Manufacturer-rated power only","Never feed camera GPIO from 5 V"
+"Sensor camera ribbon","PCB factory camera FPC connector","DVP signals; pin assignments unresolved","Verify exact ribbon orientation, sensor ID and GPIO mapping from schematic before power"
+"Integrated frame-active status or external GPIO","Visible status indicator","LED output must be mapped","A camera-active indicator is required before private-scene use"

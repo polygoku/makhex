@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "slug": "touch-weather-station",
+  "buildNumber": "01",
+  "title": "Touch Weather Station",
+  "reference": {
+    "repository": "Damov/esp32_weather_forecast_screen",
+    "commit": "d5bcb4ca34e482d4091002b480df6bb5aa9072c2",
+    "licenseMetadata": "MIT",
+    "url": "https://github.com/Damov/esp32_weather_forecast_screen/tree/d5bcb4ca34e482d4091002b480df6bb5aa9072c2"
+  },
+  "hardware": {
+    "candidate": "ESP32-S3 3.5-inch capacitive-touch board; exact purchased controller and PCB revision unresolved",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32s3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/lcd/spi_lcd_touch",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-s3-touch-35",
+      "quantity": 1,
+      "role": "Touch interface"
+    },
+    {
+      "slug": "bme280-sensor",
+      "quantity": 1,
+      "role": "Environment readings"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench power"
+    }
+  ],
+  "supplementaryRequirements": [
+    "No case for the MAKHEX 3.5-inch PCB is qualified; upstream 4-inch case is not plug-compatible."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "printable_3D_model/assembly.3mf",
+        "size": 5033828,
+        "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/assembly.3mf"
+      },
+      {
+        "path": "printable_3D_model/step/Back_Lid.STEP",
+        "size": 455587,
+        "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Back_Lid.STEP"
+      },
+      {
+        "path": "printable_3D_model/step/Front_Lid.STEP",
+        "size": 389742,
+        "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Front_Lid.STEP"
+      },
+      {
+        "path": "printable_3D_model/step/Mounting_Radar.STEP",
+        "size": 27131,
+        "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Mounting_Radar.STEP"
+      },
+      {
+        "path": "printable_3D_model/step/Stand.STEP",
+        "size": 231596,
+        "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Stand.STEP"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Record shipped PCB markings, display/touch controller IDs and schematic revision",
+      "procedure": "Photograph front/back; reconcile accessible GPIO and 3V3 rail",
+      "acceptance": "All controller identifiers, pin mappings and voltage limits recorded",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Detect exact BME280 before enabling dashboard",
+      "procedure": "Read chip ID and calibrated temp/RH/pressure over mapped I2C",
+      "acceptance": "Chip ID 0x60 and three valid values; fail instead of substituting BMP280",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Verify display and touch on a matched driver",
+      "procedure": "Render touch targets and capture serial initialization logs",
+      "acceptance": "Every target can be selected without invalid pixels or unregistered presses",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Run a 30-minute touch and sensor soak",
+      "procedure": "Log timestamp, values, touch count, heap and faults",
+      "acceptance": "No lockup, values timestamped, sustained touch response",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Unplug sensor while powered only if breakout connection is designed for hotplug; otherwise power-cycle with disconnected sensor",
+      "procedure": "Observe UI stale-data behavior and error log",
+      "acceptance": "No fabricated reading; explicit disconnected or stale indication",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

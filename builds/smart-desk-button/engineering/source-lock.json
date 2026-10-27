@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "slug": "smart-desk-button",
+  "buildNumber": "10",
+  "title": "One-Press Smart Button",
+  "reference": {
+    "repository": "aamat09/baby-tracker-suite",
+    "commit": "28ad8d11ae8719f47d0f073007ca4e96645f082e",
+    "licenseMetadata": "MIT",
+    "url": "https://github.com/aamat09/baby-tracker-suite/tree/28ad8d11ae8719f47d0f073007ca4e96645f082e"
+  },
+  "hardware": {
+    "candidate": "ESP32-C3 SuperMini, 6x6-mm normally-open tactile switch and 8-pixel status ring candidate",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32c3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/gpio/generic_gpio",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "Input controller"
+    },
+    {
+      "slug": "ws2812-leds",
+      "quantity": 1,
+      "role": "Status LED"
+    },
+    {
+      "slug": "momentary-tactile-switch",
+      "quantity": 1,
+      "role": "Physical momentary input"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Bench power"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Add approved 5 V logic shifter, strain relief and suitable current-rated power. 50-piece switch pack is purchasing quantity, not 50 installed devices. Enclosure from referenced 15-button remote does not fit one-button PCB without redesign."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "baby-remote/kicad/baby-remote.kicad_pcb",
+        "size": 208248,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/baby-remote.kicad_pcb"
+      },
+      {
+        "path": "baby-remote/kicad/baby-remote.kicad_sch",
+        "size": 33112,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/baby-remote.kicad_sch"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-back-cover.scad",
+        "size": 3534,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-back-cover.scad"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-back-cover.stl",
+        "size": 447739,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-back-cover.stl"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-label-plate-base.stl",
+        "size": 547864,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate-base.stl"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-label-plate-letters.stl",
+        "size": 4472858,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate-letters.stl"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-label-plate.scad",
+        "size": 4190,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate.scad"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-label-plate.stl",
+        "size": 5052267,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate.stl"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-pcb-case.scad",
+        "size": 18516,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb-case.scad"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-pcb-case.stl",
+        "size": 6097979,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb-case.stl"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-pcb.scad",
+        "size": 6431,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb.scad"
+      },
+      {
+        "path": "baby-remote/scad/baby-remote-pcb.stl",
+        "size": 5063061,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb.stl"
+      },
+      {
+        "path": "baby-remote/scad/button_plunger.stl",
+        "size": 116441,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/button_plunger.stl"
+      },
+      {
+        "path": "baby-remote/scad/dims.scad",
+        "size": 6447,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/dims.scad"
+      },
+      {
+        "path": "baby-remote/scad/led_window.stl",
+        "size": 19691,
+        "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/led_window.stl"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Start board with button released and pressed",
+      "procedure": "Repeat 20 cold boots while watching boot serial",
+      "acceptance": "Always boots normally; no bootstrapping conflict",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Debounce with 100 short presses and 20 long presses",
+      "procedure": "Log press duration and event counts",
+      "acceptance": "No duplicate accidental activations beyond measured threshold",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Execute mock local action only",
+      "procedure": "No external services, record ACK and timeout result",
+      "acceptance": "Action never silently claims success",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Exercise LED states and full-off privacy",
+      "procedure": "Scope data after shifter and measure power",
+      "acceptance": "Correct acknowledged/error/off pattern without overheating",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Inspect security of firmware and network interactions",
+      "procedure": "Search flash logs and sources for tokens; attempt unauthenticated action",
+      "acceptance": "No embedded production secret or exposed unauthenticated control",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

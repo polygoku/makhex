@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 477" width="1160" height="477">
+<rect width="100%" height="100%" fill="#f7f4ea"/><path d="M0 0H1160V7H0Z" fill="#ad6a35"/>
+<text x="24" y="42" font-size="25" font-family="Arial,sans-serif" font-weight="bold" fill="#20423b">MAKHEX / 10 One-Press Smart Button</text>
+<text x="24" y="72" font-size="17" font-family="Arial,sans-serif" fill="#57675f">Connection REFERENCE, not fabrication or installed-assembly evidence.</text>
+<text x="24" y="99" font-size="15" font-family="Arial,sans-serif" fill="#994d2b">Proposed GPIO requires actual PCB revision verification before power-on.</text>
+<rect x="22" y="112" width="1116" height="32" fill="#dce6d6"/>
+<text x="32" y="133" font-size="14" font-family="Arial,sans-serif" font-weight="bold">FROM</text>
+<text x="411" y="133" font-size="14" font-family="Arial,sans-serif" font-weight="bold">TO</text>
+<text x="810" y="133" font-size="14" font-family="Arial,sans-serif" font-weight="bold">ELECTRICAL ROLE</text>
+<rect x="22" y="148" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="176" font-size="14" font-family="Arial,sans-serif" fill="#24433c">GPIO6 (proposed)</text>
+<path d="M333 170h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="170" r="4" fill="#b16e3a"/>
+<text x="411" y="176" font-size="14" font-family="Arial,sans-serif" fill="#24433c">Momentary button terminal A</text>
+<text x="810" y="176" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">Input with internal pull-up</text>
+<rect x="22" y="208" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="236" font-size="14" font-family="Arial,sans-serif" fill="#24433c">Momentary button terminal B</text>
+<path d="M333 230h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="230" r="4" fill="#b16e3a"/>
+<text x="411" y="236" font-size="14" font-family="Arial,sans-serif" fill="#24433c">ESP32-C3 GND</text>
+<text x="810" y="236" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">Press pulls GPIO6 low</text>
+<rect x="22" y="268" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="296" font-size="14" font-family="Arial,sans-serif" fill="#24433c">GPIO3 (proposed)</text>
+<path d="M333 290h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="290" r="4" fill="#b16e3a"/>
+<text x="411" y="296" font-size="14" font-family="Arial,sans-serif" fill="#24433c">5 V tolerant buffer input</text>
+<text x="810" y="296" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">3.3 V data</text>
+<rect x="22" y="328" width="1116" height="59" fill="#f7f4ea"/>
+<text x="32" y="356" font-size="14" font-family="Arial,sans-serif" fill="#24433c">Buffer output</text>
+<path d="M333 350h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="350" r="4" fill="#b16e3a"/>
+<text x="411" y="356" font-size="14" font-family="Arial,sans-serif" fill="#24433c">8-pixel LED DIN</text>
+<text x="810" y="356" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">5 V WS2812-style serial data</text>
+<rect x="22" y="388" width="1116" height="59" fill="#e9ede5"/>
+<text x="32" y="416" font-size="14" font-family="Arial,sans-serif" fill="#24433c">Regulated LED 5 V / GND</text>
+<path d="M333 410h55" stroke="#b16e3a" stroke-width="3"/><circle cx="388" cy="410" r="4" fill="#b16e3a"/>
+<text x="411" y="416" font-size="14" font-family="Arial,sans-serif" fill="#24433c">LED ring VCC/GND</text>
+<text x="810" y="416" font-size="13" font-family="Arial,sans-serif" fill="#4b5a53">Independent current-rated power</text>
+<text x="24" y="463" font-size="13" font-family="Arial,sans-serif" fill="#696b63">See wiring.csv for verification conditions. All actual power, signal and connector pin numbers require measurement.</text></svg>

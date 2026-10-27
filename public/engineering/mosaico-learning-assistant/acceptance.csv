@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Photograph Core PCB ID, camera module and ABI","Read factory diagnostic/version screens without flashing","Core v1.2, camera model and recovery ABI logged","NOT_RUN",""
+"02","Prove camera preview on factory-authorized compatible firmware","Use non-identifying sample worksheet","Correct orientation and stable image recorded","NOT_RUN",""
+"03","Test Wi-Fi onboarding and signed-in cloud model in permitted environment","Use personal test account, scrub all keys from evidence","Connection error/success logged without secret exposure","NOT_RUN",""
+"04","Test recognition + spoken followup with synthetic worksheet","Record transcript quality and response latency","Measured English behavior; do not assume translation shipped","NOT_RUN",""
+"05","Review legal and data protections for commercialization","Record license approval, data retention and student-data impact","No commercial deployment until software rights and privacy requirements satisfied","NOT_RUN",""

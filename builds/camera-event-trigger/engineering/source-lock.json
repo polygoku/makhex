@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "slug": "camera-event-trigger",
+  "buildNumber": "05",
+  "title": "Local Camera Event Trigger",
+  "reference": {
+    "repository": "bernardoeugster/espseccam",
+    "commit": "94a43104daf148dbbf95af91cf6563b9ff44d9b2",
+    "licenseMetadata": "MIT",
+    "url": "https://github.com/bernardoeugster/espseccam/tree/94a43104daf148dbbf95af91cf6563b9ff44d9b2"
+  },
+  "hardware": {
+    "candidate": "ESP32-S3 camera bundle is unqualified; exact image sensor, PSRAM, pin map and voltage unknown",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32s3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/camera/dvp_spi_lcd",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-s3-camera",
+      "quantity": 1,
+      "role": "Camera platform"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Stable supply"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Camera-active status LED and locally controlled deletion must exist; no remote streaming or hidden monitoring."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "hardware/enclosure/CAD/Archive/Mark I ESPSECCAM Circuit Support (discontinued).FCStd",
+        "size": 30464,
+        "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Archive/Mark%20I%20ESPSECCAM%20Circuit%20Support%20(discontinued).FCStd"
+      },
+      {
+        "path": "hardware/enclosure/CAD/Archive/Mark II ESPSECCAM LID.FCStd",
+        "size": 74991,
+        "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Archive/Mark%20II%20ESPSECCAM%20LID.FCStd"
+      },
+      {
+        "path": "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.FCStd",
+        "size": 99565,
+        "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20BASE.FCStd"
+      },
+      {
+        "path": "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.step",
+        "size": 59135,
+        "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20BASE.step"
+      },
+      {
+        "path": "hardware/enclosure/CAD/Mark III ESPSECCAM LID.FCStd",
+        "size": 190638,
+        "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20LID.FCStd"
+      },
+      {
+        "path": "hardware/enclosure/CAD/Mark III ESPSECCAM LID.step",
+        "size": 70498,
+        "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20LID.step"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Photograph PCB, camera markings and PSRAM part",
+      "procedure": "Record exact hardware IDs and vendor pin map",
+      "acceptance": "Sensor, lens, PSRAM and required rails known",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Capture single color-bar or static test frame",
+      "procedure": "Check frame dimensions, JPEG SOI/EOI and heap",
+      "acceptance": "Frame decodes and heap margin is recorded",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Run repeatable known-scene event trigger",
+      "procedure": "Use fixed lighting and move test card through field",
+      "acceptance": "Changes produce timestamped events at documented threshold",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Record false positives under 10 minutes of stable scene",
+      "procedure": "No movement, stable lighting",
+      "acceptance": "False-event count measured and documented",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Verify obvious active indicator and deletion",
+      "procedure": "Toggle capture state and clear local log",
+      "acceptance": "Indicator always matches capture; data deleted locally",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

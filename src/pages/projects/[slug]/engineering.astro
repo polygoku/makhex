@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import {projects} from '../../../lib/catalog';
+import {profiles} from '../../../../scripts/engineering-profiles.mjs';
+import sourceIndex from '../../../../docs/engineering/source-design-index.json';
+import sourcePins from '../../../../docs/engineering/upstream-pins.json';
+import type {Project} from '../../../data/projects';
+export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}));}
+interface Props {project:Project}
+const {project}=Astro.props;
+type EngineeringProfile={board:string;driver:string;wiring:string[][];tests:string[][]};
+const profile=(profiles as Record<string,EngineeringProfile>)[project.slug];
+const owner=sourcePins.references.find(s=>s.slug===project.slug)!;
+const original=sourceIndex.results.find(s=>s.slug===project.slug);
+const manufacturing=(original?.candidateDesignFiles??[]).filter(x=>/\.(stl|3mf|step|stp|fcstd|epro2|kicad_sch|kicad_pcb|fzz|dxf|scad)$/i.test(x.path));
+const base='/engineering/'+project.slug+'/';
+const github='https://github.com/polygoku/makhex/blob/main/builds/'+project.slug+'/engineering/';
+---
+<BaseLayout title={'Engineering files — '+project.title+' | MAKHEX'} description={'Source-pinned engineering reference, wiring, original design links and measurable hardware test procedures for '+project.title+'.'}>
+  <div class="container breadcrumb"><a href="/">HOME</a><span>/</span><a href="/projects/">PROJECTS</a><span>/</span><a href={'/projects/'+project.slug+'/'}>{project.number}</a><span>/</span><span>ENGINEERING</span></div>
+  <section class="container engineering-detail-hero">
+    <span class="eyebrow">MAKHEX / BUILD {project.number} / ENGINEERING REFERENCE</span>
+    <h1>From the source.<br/><em>To the bench.</em></h1>
+    <p>Rev-locked original references, proposed wiring and repeatable test criteria for <strong>{project.title}</strong>. These are technical starting points, not a claim that the MAKHEX hardware has passed an electrical or functional test.</p>
+    <div class="engineering-links">
+      <a class="btn btn-primary" href={base+'wiring.svg'} target="_blank" rel="noopener noreferrer">VIEW WIRING MAP ↗</a>
+      <a class="btn btn-outline" href={base+'wiring.csv'} download>WIRING CSV ↓</a>
+      <a class="btn btn-outline" href={base+'acceptance.csv'} download>TEST CHECKLIST ↓</a>
+      <a class="btn btn-outline" href={github+'ENGINEERING.md'} target="_blank" rel="noopener noreferrer">FULL ENGINEERING GUIDE ↗</a>
+    </div>
+  </section>
+  <section class="container engineering-section">
+    <div class="engineering-two-col">
+      <div class="engineering-panel">
+        <span class="eyebrow">01 / HARDWARE REVISION</span>
+        <h2>Confirm the exact board first.</h2>
+        <p>{profile.board}</p>
+        <p><strong>Unresolved:</strong> supplier PCB revision, source-compatible pin assignment, electrical fit and measured rails. Any proposed GPIO must be crosschecked against the actual purchased board before applying power.</p>
+      </div>
+      <div class="engineering-panel">
+        <span class="eyebrow">02 / SOURCE PIN</span>
+        <h2>Fixed, traceable references.</h2>
+        <p>Original creator: <a href={'https://github.com/'+owner.repo+'/tree/'+owner.commit} target="_blank" rel="noopener noreferrer">{owner.repo}</a></p>
+        <p>Locked source revision: <code>{owner.commit.slice(0,16)}</code></p>
+        <p>{profile.driver}</p>
+      </div>
+    </div>
+  </section>
+  <section class="container engineering-section">
+    <span class="eyebrow">03 / ELECTRICAL CONNECTIONS</span>
+    <h2>Connection plan, not a fabrication schematic.</h2>
+    <div class="engineering-svg-frame"><img src={base+'wiring.svg'} loading="lazy" alt={'Proposed power and signal connection plan for '+project.title+'. Every connection must be checked against the purchased PCB.'} width="1160" height={177+profile.wiring.length*60}/></div>
+    <div class="engineering-table-scroll"><table><thead><tr><th>From</th><th>To</th><th>Pre-power verification</th></tr></thead><tbody>{profile.wiring.map(w=><tr><td>{w[0]}</td><td>{w[1]}</td><td>{w[3]}</td></tr>)}</tbody></table></div>
+  </section>
+  <section class="container engineering-section">
+    <span class="eyebrow">04 / ORIGINAL DESIGN LIBRARY</span>
+    <h2>Models and native source files.</h2>
+    {manufacturing.length>0?<><p>These {manufacturing.length} files are preserved in the original creator's pinned repository. They may describe different equipment than the MAKHEX BOM. Confirm dimensions, license and physical fit before fabrication.</p><details class="engineering-file-index"><summary>OPEN ORIGINAL SOURCE FILES ({manufacturing.length})</summary><ul>{manufacturing.map(file=><li><a href={file.url} target="_blank" rel="noopener noreferrer">{file.path}</a></li>)}</ul></details></>:<p>No native mechanical or PCB fabrication file was identified in the locked original source. The project remains on design-file HOLD until a compatible file is created or sourced. Illustrative graphics and software UI assets are not a mechanical CAD package.</p>}
+    {project.slug==='microduck-robot'&&<p>Microduck's reviewed source includes a separate 36-STL/3MF archive and four EasyEDA Pro projects; inspect the <a href={github.replace('/builds/microduck-robot/engineering/','/docs/microduck-cad-review-20261025.md')} target="_blank" rel="noopener noreferrer">CAD and PCB source review</a>, including the mixed-scale mesh warnings.</p>}
+  </section>
+  <section class="container engineering-section">
+    <span class="eyebrow">05 / PHYSICAL ACCEPTANCE</span>
+    <h2>Tests required before calling it built.</h2>
+    <p>All tests below are <strong>NOT RUN</strong> on a MAKHEX fixture. Capture the actual board revision, firmware hash, meters, photos, serial logs and measured results for every test. A vendor example successfully compiling does not prove final build operation.</p>
+    <div class="engineering-test-grid">{profile.tests.map(t=><div class="engineering-test-card"><span>TEST {t[0]} / NOT RUN</span><h3>{t[1]}</h3><p>{t[2]}</p><strong>Pass condition</strong><p>{t[3]}</p></div>)}</div>
+    <p class="engineering-test-record"><a href={github+'bench-results.template.json'} target="_blank" rel="noopener noreferrer">OPEN BENCH EVIDENCE TEMPLATE ↗</a></p>
+  </section>
+  <section class="container engineering-next">
+    <span class="eyebrow">RELEASE GATE</span>
+    <h2>Documentation is not certification.</h2>
+    <p>Actual schematic mapping, hardware revision, original CAD compatibility, firmware build/flash and physical test evidence remain mandatory. The parts cart is for planning only; no paid checkout is authorized by these engineering references.</p>
+    <a class="btn btn-outline" href={'/projects/'+project.slug+'/'}>RETURN TO PROJECT + BOM →</a>
+  </section>
+</BaseLayout>
+<style>
+.engineering-detail-hero{padding-top:clamp(2rem,5vw,5rem);padding-bottom:3rem}.engineering-detail-hero h1{font-size:clamp(2.8rem,7vw,6.5rem);line-height:.98;margin:1rem 0}.engineering-detail-hero h1 em{font-style:normal;color:#ad6a35}.engineering-detail-hero>p{font-size:1.08rem;line-height:1.7;max-width:52rem}.engineering-links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.6rem 0}.engineering-section{padding-top:2.2rem;padding-bottom:2rem;border-top:1px solid rgba(40,58,51,.15)}.engineering-section h2{font-size:clamp(1.7rem,3.2vw,3rem);margin:.6rem 0 1rem}.engineering-section p{line-height:1.65;max-width:66rem}.engineering-two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}.engineering-panel{padding:1.5rem;background:#f4f0e7;border:1px solid #c9cec0;border-radius:12px;overflow-wrap:anywhere}.engineering-panel h2{font-size:1.7rem}.engineering-svg-frame{margin:1.5rem 0;border-radius:12px;border:1px solid #ced3c8;overflow:auto;background:#f7f4ea}.engineering-svg-frame img{width:100%;height:auto;min-width:650px;display:block}.engineering-table-scroll{width:100%;overflow:auto}.engineering-table-scroll table{width:100%;border-collapse:collapse;font-size:.9rem;text-align:left}.engineering-table-scroll td,.engineering-table-scroll th{padding:.8rem;border-bottom:1px solid #d4d6cb;vertical-align:top}.engineering-file-index{background:#f4f0e7;padding:1.3rem;border-radius:10px}.engineering-file-index summary{cursor:pointer;font-weight:700}.engineering-file-index ul{list-style:none;padding:0;margin:1rem 0 0;display:grid;gap:.65rem}.engineering-file-index li{overflow-wrap:anywhere}.engineering-test-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.engineering-test-card{border:1px solid #d1d5c8;border-radius:10px;padding:1.25rem}.engineering-test-card span{font-size:.75rem;font-weight:700;letter-spacing:.06em}.engineering-test-card h3{font-size:1.07rem;margin:.7rem 0}.engineering-test-card p{margin:.5rem 0 1rem;font-size:.9rem}.engineering-test-record{margin-top:1.5rem}.engineering-next{margin:2rem auto 4rem;padding:2rem;background:#e4eadd;border-radius:14px}.engineering-next h2{font-size:clamp(1.7rem,3vw,2.7rem);margin:.5rem 0}
+@media(max-width:720px){.engineering-two-col,.engineering-test-grid{grid-template-columns:1fr}.engineering-links{display:grid;grid-template-columns:minmax(0,1fr)}.engineering-links .btn{box-sizing:border-box;max-width:100%;width:100%;min-width:0;white-space:normal;text-align:center}.engineering-detail-hero>p{overflow-wrap:anywhere}}
+</style>

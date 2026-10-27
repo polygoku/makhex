@@ -1,0 +1,6 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"ESP32-C3 GPIO3 (proposed)","5 V-compatible logic buffer input","3.3 V data logic","Required level shifter SN74AHCT125-class after device verification"
+"Logic buffer output","WS2812B first DIN","5 V logic DIN","Test scope high/low and rise time"
+"Regulated 5 V 5 A PSU through correctly sized fuse","WS2812 matrix 5 V","High-current 5 V supply","Verify certified supply, current, connector and cable rating"
+"PSU GND","LED GND + ESP32-C3 GND","Single common signal reference","Avoid powering LED array from ESP32 board USB"
+"USB bench supply","ESP32-C3 USB connector","Independent controller power","Do not connect incompatible 5 V rails or backfeed board"

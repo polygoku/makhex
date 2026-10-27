@@ -1,0 +1,4 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"USB supply A","transmitter ESP32-C3 USB","Regulated onboard USB","Record board revision and MAC locally"
+"USB supply B","receiver ESP32-C3 USB","Separate regulated USB","No shared hardware ground needed for wireless link"
+"ESP32-C3 Wi-Fi radio A","ESP32-C3 Wi-Fi radio B","2.4 GHz ESP-NOW packets","Pair using peer identifiers; do not reveal real device MAC publicly"

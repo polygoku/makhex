@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Record two chip IDs and firmware hashes","Flash pinned sample to each matching board","Both boot at consistent build revision","NOT_RUN",""
+"02","Pair peers and send numbered messages","Send 100 tagged sequence numbers in controlled RF conditions","Capture ACK/loss/retry rates; no assumed zero loss","NOT_RUN",""
+"03","Test peer authentication/encryption settings","Reject unknown peer and capture send status","Unpaired sender cannot trigger action","NOT_RUN",""
+"04","Interrupt receiver power and observe sender","Log timeouts and safe fallback","Timeouts detected; no stale command executed","NOT_RUN",""
+"05","Measure actual distance and current","Report room geometry, interference and idle/Tx current","Reproducible metrics and limitations recorded","NOT_RUN",""

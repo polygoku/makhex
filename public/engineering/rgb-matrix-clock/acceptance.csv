@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Inspect supply safety marking and polarity with no load","Measure regulated output, connector polarity and protective devices","Verified approved adapter and measured voltage","NOT_RUN",""
+"02","Power single pixel via level-shifted data","Scope DIN and measure current","Pixel colors match expected order; no invalid logic level","NOT_RUN",""
+"03","Test 8x8 matrix brightness and supply current","Measure conservative brightness then increase only within safe measured limits","No brownouts, PSU overheat or wire heating","NOT_RUN",""
+"04","Prove date/time synchronization and fallback","Interrupt Wi-Fi and power-cycle","Clock displays invalid-time state until sync","NOT_RUN",""
+"05","Run 30-minute color-cycle thermal check","Measure board, connector and PSU temperatures","Record stable temperatures and fuse behavior","NOT_RUN",""

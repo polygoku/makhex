@@ -1,0 +1,5 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"ESP32-C3 3V3","BME280 VCC","3.3 V supply","Verify breakout is not BMP280"
+"ESP32-C3 GND","BME280 GND","Shared return","Meter continuity"
+"GPIO4 (proposed)","BME280 SDA","3.3 V I2C SDA","Check vendor SuperMini pinout and pullups"
+"GPIO5 (proposed)","BME280 SCL","3.3 V I2C clock","Check pullup voltage and address 0x76/0x77"

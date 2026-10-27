@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Start board with button released and pressed","Repeat 20 cold boots while watching boot serial","Always boots normally; no bootstrapping conflict","NOT_RUN",""
+"02","Debounce with 100 short presses and 20 long presses","Log press duration and event counts","No duplicate accidental activations beyond measured threshold","NOT_RUN",""
+"03","Execute mock local action only","No external services, record ACK and timeout result","Action never silently claims success","NOT_RUN",""
+"04","Exercise LED states and full-off privacy","Scope data after shifter and measure power","Correct acknowledged/error/off pattern without overheating","NOT_RUN",""
+"05","Inspect security of firmware and network interactions","Search flash logs and sources for tokens; attempt unauthenticated action","No embedded production secret or exposed unauthenticated control","NOT_RUN",""

@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Photograph panel/FPC and read controller part number","Compare with manufacturer waveform/application note","Controller ID and LUT/driver compatibility established","NOT_RUN",""
+"02","Render checkerboard and full-black/white pages","Capture images after full refresh and inspect ghosting","No stuck pixel region or ghosting beyond documented panel limit","NOT_RUN",""
+"03","Set timezone and sync UTC from network","Test near a local day boundary","Correct calendar date and daylight-saving behavior","NOT_RUN",""
+"04","Remove Wi-Fi and restart","Observe NTP offline handling","Time validity clearly indicated rather than made up","NOT_RUN",""
+"05","Measure sleep current and safe refresh cadence","Log current and 20 update cycles","Measurable current, no excessive repeated full refresh","NOT_RUN",""

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "slug": "voice-command-node",
+  "buildNumber": "02",
+  "title": "Offline Voice Command Node",
+  "reference": {
+    "repository": "muhammedsaban/dudley",
+    "commit": "61e7e08e53593db093a663f49a375c982a2e7530",
+    "licenseMetadata": "MIT",
+    "url": "https://github.com/muhammedsaban/dudley/tree/61e7e08e53593db093a663f49a375c982a2e7530"
+  },
+  "hardware": {
+    "candidate": "ESP32-S3 DevKitC-1 N8R8 candidate with INMP441 microphone + MAX98357A amp + 4-ohm/3-W speaker",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32s3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/i2s/i2s_basic",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-s3-devkit",
+      "quantity": 1,
+      "role": "Processor"
+    },
+    {
+      "slug": "i2s-mems-mic",
+      "quantity": 1,
+      "role": "Audio input"
+    },
+    {
+      "slug": "i2s-amplifier",
+      "quantity": 1,
+      "role": "Speaker driver"
+    },
+    {
+      "slug": "speaker-4ohm-3w",
+      "quantity": 1,
+      "role": "External mini loudspeaker"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Stable supply"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Add normally-open push-to-talk switch, safe microphone-active indicator, and rated amplifier supply/connector if not present in kit."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "hardware/enclosure/dudley-enclosure.scad",
+        "size": 14828,
+        "url": "https://github.com/muhammedsaban/dudley/blob/61e7e08e53593db093a663f49a375c982a2e7530/hardware/enclosure/dudley-enclosure.scad"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Prove microphone stream independently",
+      "procedure": "Capture 10 seconds PCM, inspect nonzero samples and clip count",
+      "acceptance": "Valid PCM stream with no continuous clipping",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Prove amplifier independently at a conservative gain",
+      "procedure": "Play test tone and inspect output waveform/current",
+      "acceptance": "Audible output without unexpected DC, overcurrent or overheating",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Measure combined I2S full duplex",
+      "procedure": "Record and play back using captured buffers",
+      "acceptance": "No underrun/overrun in 5-minute test",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Benchmark exact speech-recognition model",
+      "procedure": "Record model checksum, RAM/PSRAM usage, three fixed test phrases and noise level",
+      "acceptance": "Three documented commands detected with logged true/false results",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Prove privacy timeout and obvious capture indicator",
+      "procedure": "Release PTT and wait timeout; monitor mic sampling state",
+      "acceptance": "No silent continued capture; indicator reflects recording",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}

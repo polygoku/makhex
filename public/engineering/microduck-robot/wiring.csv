@@ -1,0 +1,7 @@
+"Origin","Destination","Electrical role","Pre-power check"
+"HAT J13/J14 pin 1","IMU J1 pin 1 / DXL bus GND","GND, 2.0 mm AMP2.0 3-pin","October 15 PCB only; no EH2.5 swap"
+"HAT J13/J14 pin 2","IMU J1 pin 2 / servo bus VDD","BATT_IN / DXL_VDD","Check actual battery voltage and actuator limit before power"
+"HAT J13/J14 pin 3","IMU J1 pin 3 / servo bus DATA","DXL_DATA","Verify half-duplex bus direction and connector pitch"
+"IMU SWD J2 pin 1 / 2 / 3 / 4 / 5","3V3 / SWDIO / GND / SWCLK / NRST","STM32 SWD programming","Do not confuse with servo/battery connector"
+"Radxa ZERO 3W, 2 GB / no eMMC","HAT board interface","Board-specific headers","Check 40-pin orientation/power net from EasyEDA design"
+"HAT HP1.25 J1/J2/J9","speaker / left mic / right mic","1.25-mm audio headers","No AMP2.0 2-mm substitution for audio"

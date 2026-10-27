@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Prove microphone stream independently","Capture 10 seconds PCM, inspect nonzero samples and clip count","Valid PCM stream with no continuous clipping","NOT_RUN",""
+"02","Prove amplifier independently at a conservative gain","Play test tone and inspect output waveform/current","Audible output without unexpected DC, overcurrent or overheating","NOT_RUN",""
+"03","Measure combined I2S full duplex","Record and play back using captured buffers","No underrun/overrun in 5-minute test","NOT_RUN",""
+"04","Benchmark exact speech-recognition model","Record model checksum, RAM/PSRAM usage, three fixed test phrases and noise level","Three documented commands detected with logged true/false results","NOT_RUN",""
+"05","Prove privacy timeout and obvious capture indicator","Release PTT and wait timeout; monitor mic sampling state","No silent continued capture; indicator reflects recording","NOT_RUN",""

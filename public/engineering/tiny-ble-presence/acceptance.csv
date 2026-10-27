@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Read chip/flash ID and record board revision","Use esptool chip_id and boot log; photograph PCB","Identified ESP32-C3, flash size, firmware checksum","NOT_RUN",""
+"02","Advertise a non-personal service payload","Use a BLE scanner with date/time and RSSI log","Observed service UUID and expected payload within 2 meters","NOT_RUN",""
+"03","Rotate demo identifier without tracking","Capture three intervals and compare payload","Identifier changes at documented interval; no personal/device-owner strings","NOT_RUN",""
+"04","Measure sleep/active supply current","Use current meter with USB meter resolution documented","Measured active/idle current and duty cycle reported","NOT_RUN",""
+"05","Reboot and repeat scan","Power-cycle board twice","Reproducible advertisement startup and no boot-strap failure","NOT_RUN",""

@@ -1,0 +1,717 @@
+{
+  "checkedAt": "2026-10-27T21:13:34.653Z",
+  "results": [
+    {
+      "slug": "touch-weather-station",
+      "repo": "Damov/esp32_weather_forecast_screen",
+      "commit": "d5bcb4ca34e482d4091002b480df6bb5aa9072c2",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "firmware/assets/ui/settings.svg",
+          "size": 944,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/ui/settings.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/clear-day.svg",
+          "size": 1882,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/clear-day.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/clear-night.svg",
+          "size": 328,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/clear-night.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/drizzle.svg",
+          "size": 1175,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/drizzle.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/fog.svg",
+          "size": 1007,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/fog.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/not-available.svg",
+          "size": 768,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/not-available.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/overcast.svg",
+          "size": 2064,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/overcast.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/partly-cloudy-day.svg",
+          "size": 3526,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/partly-cloudy-day.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/partly-cloudy-night.svg",
+          "size": 1686,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/partly-cloudy-night.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/rain.svg",
+          "size": 1172,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/rain.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/sleet.svg",
+          "size": 8992,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/sleet.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/snow.svg",
+          "size": 8595,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/snow.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/thunderstorms-hail.svg",
+          "size": 2513,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/thunderstorms-hail.svg"
+        },
+        {
+          "path": "firmware/assets/weather/svg/thunderstorms.svg",
+          "size": 908,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/firmware/assets/weather/svg/thunderstorms.svg"
+        },
+        {
+          "path": "printable_3D_model/assembly.3mf",
+          "size": 5033828,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/assembly.3mf"
+        },
+        {
+          "path": "printable_3D_model/step/Back_Lid.STEP",
+          "size": 455587,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Back_Lid.STEP"
+        },
+        {
+          "path": "printable_3D_model/step/Front_Lid.STEP",
+          "size": 389742,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Front_Lid.STEP"
+        },
+        {
+          "path": "printable_3D_model/step/Mounting_Radar.STEP",
+          "size": 27131,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Mounting_Radar.STEP"
+        },
+        {
+          "path": "printable_3D_model/step/Stand.STEP",
+          "size": 231596,
+          "url": "https://github.com/Damov/esp32_weather_forecast_screen/blob/d5bcb4ca34e482d4091002b480df6bb5aa9072c2/printable_3D_model/step/Stand.STEP"
+        }
+      ],
+      "count": 19
+    },
+    {
+      "slug": "voice-command-node",
+      "repo": "muhammedsaban/dudley",
+      "commit": "61e7e08e53593db093a663f49a375c982a2e7530",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "hardware/enclosure/dudley-enclosure.scad",
+          "size": 14828,
+          "url": "https://github.com/muhammedsaban/dudley/blob/61e7e08e53593db093a663f49a375c982a2e7530/hardware/enclosure/dudley-enclosure.scad"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "slug": "tiny-ble-presence",
+      "repo": "BrunoGG69/Spottr",
+      "commit": "84c41ea06001f933619bf7672d484fcbd66c7eb5",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "cad/SPOTTR_CARD_BODY.stl",
+          "size": 55084,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/cad/SPOTTR_CARD_BODY.stl"
+        },
+        {
+          "path": "cad/SPOTTR_SCANNER_BOX_BODY.stl",
+          "size": 133084,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/cad/SPOTTR_SCANNER_BOX_BODY.stl"
+        },
+        {
+          "path": "cad/SPOTTR_SCANNER_TOP_LID_BODY.stl",
+          "size": 19084,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/cad/SPOTTR_SCANNER_TOP_LID_BODY.stl"
+        },
+        {
+          "path": "cad/SPOTTR_TOP_LID_BODY.stl",
+          "size": 521284,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/cad/SPOTTR_TOP_LID_BODY.stl"
+        },
+        {
+          "path": "cad/step-files/SPOTTR_BADGE.step",
+          "size": 3920950,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/cad/step-files/SPOTTR_BADGE.step"
+        },
+        {
+          "path": "cad/step-files/SPOTTR_SCANNER.step",
+          "size": 1618729,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/cad/step-files/SPOTTR_SCANNER.step"
+        },
+        {
+          "path": "docs/SPOTTR.svg",
+          "size": 110015,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/docs/SPOTTR.svg"
+        },
+        {
+          "path": "frontend/website/public/SPOTTR_LOGO.svg",
+          "size": 95238,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/frontend/website/public/SPOTTR_LOGO.svg"
+        },
+        {
+          "path": "frontend/website/public/SPOTTR_LOGO_ONLY.svg",
+          "size": 144589,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/frontend/website/public/SPOTTR_LOGO_ONLY.svg"
+        },
+        {
+          "path": "frontend/website/public/floor-plan.svg",
+          "size": 1134491,
+          "url": "https://github.com/BrunoGG69/Spottr/blob/84c41ea06001f933619bf7672d484fcbd66c7eb5/frontend/website/public/floor-plan.svg"
+        }
+      ],
+      "count": 10
+    },
+    {
+      "slug": "plant-health-monitor",
+      "repo": "ConnerWill/esp32-plant",
+      "commit": "284af7c31e6bce2de528f599f36ba47192eefc66",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "3D-models/DHT22-case/DHT22_bottom.stl",
+          "size": 248484,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/DHT22-case/DHT22_bottom.stl"
+        },
+        {
+          "path": "3D-models/DHT22-case/DHT22_top.stl",
+          "size": 113884,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/DHT22-case/DHT22_top.stl"
+        },
+        {
+          "path": "3D-models/ESP32-housing/ESP32-housing.3mf",
+          "size": 40491,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/ESP32-housing/ESP32-housing.3mf"
+        },
+        {
+          "path": "3D-models/ESP32-housing/ESP32-housing.FCStd",
+          "size": 229225,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/ESP32-housing/ESP32-housing.FCStd"
+        },
+        {
+          "path": "3D-models/ESP32-housing/ESP32-housing.stl",
+          "size": 211084,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/ESP32-housing/ESP32-housing.stl"
+        },
+        {
+          "path": "3D-models/MQ-135-case/MQ2-Bottom-02.stl",
+          "size": 107884,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/MQ-135-case/MQ2-Bottom-02.stl"
+        },
+        {
+          "path": "3D-models/MQ-135-case/MQ2-Top-02.stl",
+          "size": 77784,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/3D-models/MQ-135-case/MQ2-Top-02.stl"
+        },
+        {
+          "path": "schematics/esp32-plant.fzz",
+          "size": 163626,
+          "url": "https://github.com/ConnerWill/esp32-plant/blob/284af7c31e6bce2de528f599f36ba47192eefc66/schematics/esp32-plant.fzz"
+        }
+      ],
+      "count": 8
+    },
+    {
+      "slug": "camera-event-trigger",
+      "repo": "bernardoeugster/espseccam",
+      "commit": "94a43104daf148dbbf95af91cf6563b9ff44d9b2",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "docs/ESP32_Security_Camera.pdf",
+          "size": 22444460,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/docs/ESP32_Security_Camera.pdf"
+        },
+        {
+          "path": "hardware/enclosure/CAD/Archive/Mark I ESPSECCAM Circuit Support (discontinued).FCStd",
+          "size": 30464,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Archive/Mark%20I%20ESPSECCAM%20Circuit%20Support%20(discontinued).FCStd"
+        },
+        {
+          "path": "hardware/enclosure/CAD/Archive/Mark II ESPSECCAM LID.FCStd",
+          "size": 74991,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Archive/Mark%20II%20ESPSECCAM%20LID.FCStd"
+        },
+        {
+          "path": "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.FCStd",
+          "size": 99565,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20BASE.FCStd"
+        },
+        {
+          "path": "hardware/enclosure/CAD/Mark III ESPSECCAM BASE.step",
+          "size": 59135,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20BASE.step"
+        },
+        {
+          "path": "hardware/enclosure/CAD/Mark III ESPSECCAM LID.FCStd",
+          "size": 190638,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20LID.FCStd"
+        },
+        {
+          "path": "hardware/enclosure/CAD/Mark III ESPSECCAM LID.step",
+          "size": 70498,
+          "url": "https://github.com/bernardoeugster/espseccam/blob/94a43104daf148dbbf95af91cf6563b9ff44d9b2/hardware/enclosure/CAD/Mark%20III%20ESPSECCAM%20LID.step"
+        }
+      ],
+      "count": 7
+    },
+    {
+      "slug": "epaper-desk-calendar",
+      "repo": "trandi/e-paper-calendar",
+      "commit": "ac1036823d663cf95093bc501bffe17fc1436b9c",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "freecad/ePaperCalendar_Box.FCStd",
+          "size": 260249,
+          "url": "https://github.com/trandi/e-paper-calendar/blob/ac1036823d663cf95093bc501bffe17fc1436b9c/freecad/ePaperCalendar_Box.FCStd"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "slug": "indoor-voc-explorer",
+      "repo": "koenvervloesem/esphome-air-quality-monitor",
+      "commit": "acff085bf7ee94120aadeeb3bae73f3d337e15e5",
+      "truncated": false,
+      "candidateDesignFiles": [],
+      "count": 0
+    },
+    {
+      "slug": "rgb-matrix-clock",
+      "repo": "l0calgost/ledclock",
+      "commit": "dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "ledclock/datasheets/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf",
+          "size": 970324,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/datasheets/esp32-wroom-32e_esp32-wroom-32ue_datasheet_en.pdf"
+        },
+        {
+          "path": "ledclock/datasheets/nxg-04_en_10031380.pdf",
+          "size": 527425,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/datasheets/nxg-04_en_10031380.pdf"
+        },
+        {
+          "path": "ledclock/datasheets/nxg-t_en_10030915.pdf",
+          "size": 527425,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/datasheets/nxg-t_en_10030915.pdf"
+        },
+        {
+          "path": "ledclock/datasheets/sc-caps.pdf",
+          "size": 113557,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/datasheets/sc-caps.pdf"
+        },
+        {
+          "path": "ledclock/datasheets/ws2812b.pdf",
+          "size": 355361,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/datasheets/ws2812b.pdf"
+        },
+        {
+          "path": "ledclock/images/ledclock-logo-github.svg",
+          "size": 15871,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/images/ledclock-logo-github.svg"
+        },
+        {
+          "path": "ledclock/models/3d-print/Colon_Diffusor_Lid_v52.3mf",
+          "size": 53943,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Colon_Diffusor_Lid_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Colon_Segment_Lid_v52.3mf",
+          "size": 42011,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Colon_Segment_Lid_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Colon_Segment_v54.3mf",
+          "size": 206549,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Colon_Segment_v54.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Diffusor Lid_v52.3mf",
+          "size": 43806,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Diffusor%20Lid_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Digit_Lid_v52.3mf",
+          "size": 46498,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Digit_Lid_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Digit_Segment_v52.3mf",
+          "size": 197547,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Digit_Segment_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/End_Segment_Lid_v52.3mf",
+          "size": 45327,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/End_Segment_Lid_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/End_Segment_v52.3mf",
+          "size": 124828,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/End_Segment_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Start_Segment_Lid_v52.3mf",
+          "size": 69663,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Start_Segment_Lid_v52.3mf"
+        },
+        {
+          "path": "ledclock/models/3d-print/Start_Segment_v52.3mf",
+          "size": 165045,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Start_Segment_v52.3mf"
+        },
+        {
+          "path": "usermods/word-clock-matrix/Word Clock Baffle.stl",
+          "size": 22684,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/usermods/word-clock-matrix/Word%20Clock%20Baffle.stl"
+        },
+        {
+          "path": "usermods/word-clock-matrix/word clock stencil.svg",
+          "size": 84111,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/usermods/word-clock-matrix/word%20clock%20stencil.svg"
+        },
+        {
+          "path": "wled00/data/favicon.svg",
+          "size": 720,
+          "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/wled00/data/favicon.svg"
+        }
+      ],
+      "count": 19
+    },
+    {
+      "slug": "espnow-remote",
+      "repo": "ncmreynolds/sticky",
+      "commit": "b58ed099d3bde7f70bcb61902868418367be6a6a",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "STLs/stickyDefaultBottomSection.stl",
+          "size": 260084,
+          "url": "https://github.com/ncmreynolds/sticky/blob/b58ed099d3bde7f70bcb61902868418367be6a6a/STLs/stickyDefaultBottomSection.stl"
+        },
+        {
+          "path": "STLs/stickyDefaultTopSection.stl",
+          "size": 213684,
+          "url": "https://github.com/ncmreynolds/sticky/blob/b58ed099d3bde7f70bcb61902868418367be6a6a/STLs/stickyDefaultTopSection.stl"
+        },
+        {
+          "path": "STLs/stickyFasciaVariant1.stl",
+          "size": 303984,
+          "url": "https://github.com/ncmreynolds/sticky/blob/b58ed099d3bde7f70bcb61902868418367be6a6a/STLs/stickyFasciaVariant1.stl"
+        }
+      ],
+      "count": 3
+    },
+    {
+      "slug": "smart-desk-button",
+      "repo": "aamat09/baby-tracker-suite",
+      "commit": "28ad8d11ae8719f47d0f073007ca4e96645f082e",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "baby-remote/kicad/baby-remote.kicad_pcb",
+          "size": 208248,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/baby-remote.kicad_pcb"
+        },
+        {
+          "path": "baby-remote/kicad/baby-remote.kicad_sch",
+          "size": 33112,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/baby-remote.kicad_sch"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-B_Cu.gbr",
+          "size": 80942,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-B_Cu.gbr"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-B_Mask.gbr",
+          "size": 2201,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-B_Mask.gbr"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-B_Silkscreen.gbr",
+          "size": 457,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-B_Silkscreen.gbr"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-Edge_Cuts.gbr",
+          "size": 674,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-Edge_Cuts.gbr"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-F_Cu.gbr",
+          "size": 9172,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-F_Cu.gbr"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-F_Mask.gbr",
+          "size": 3486,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-F_Mask.gbr"
+        },
+        {
+          "path": "baby-remote/kicad/fab/gerbers/baby-remote-F_Silkscreen.gbr",
+          "size": 32851,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/kicad/fab/gerbers/baby-remote-F_Silkscreen.gbr"
+        },
+        {
+          "path": "baby-remote/labels/baby-remote-labels.pdf",
+          "size": 27647,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/labels/baby-remote-labels.pdf"
+        },
+        {
+          "path": "baby-remote/labels/baby-remote-labels.svg",
+          "size": 6694,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/labels/baby-remote-labels.svg"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-back-cover.scad",
+          "size": 3534,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-back-cover.scad"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-back-cover.stl",
+          "size": 447739,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-back-cover.stl"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-label-plate-base.stl",
+          "size": 547864,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate-base.stl"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-label-plate-letters.stl",
+          "size": 4472858,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate-letters.stl"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-label-plate.scad",
+          "size": 4190,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate.scad"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-label-plate.stl",
+          "size": 5052267,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-label-plate.stl"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-pcb-case.scad",
+          "size": 18516,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb-case.scad"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-pcb-case.stl",
+          "size": 6097979,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb-case.stl"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-pcb.scad",
+          "size": 6431,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb.scad"
+        },
+        {
+          "path": "baby-remote/scad/baby-remote-pcb.stl",
+          "size": 5063061,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/baby-remote-pcb.stl"
+        },
+        {
+          "path": "baby-remote/scad/button_plunger.stl",
+          "size": 116441,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/button_plunger.stl"
+        },
+        {
+          "path": "baby-remote/scad/dims.scad",
+          "size": 6447,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/dims.scad"
+        },
+        {
+          "path": "baby-remote/scad/led_window.stl",
+          "size": 19691,
+          "url": "https://github.com/aamat09/baby-tracker-suite/blob/28ad8d11ae8719f47d0f073007ca4e96645f082e/baby-remote/scad/led_window.stl"
+        }
+      ],
+      "count": 24
+    },
+    {
+      "slug": "mosaico-learning-assistant",
+      "repo": "samyeei/mosaico-learning-assistant",
+      "commit": "3fcdf1c176bff2c2d3614b9419837179536e4a41",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "projects/learning_assistant/ui/assets/back.svg",
+          "size": 218,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/back.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/camera.svg",
+          "size": 264,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/camera.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/chat.svg",
+          "size": 319,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/chat.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/chip.svg",
+          "size": 370,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/chip.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/down.svg",
+          "size": 219,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/down.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/gear.svg",
+          "size": 338,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/gear.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/glass-wall.svg",
+          "size": 388,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/glass-wall.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/home-wall.svg",
+          "size": 1589,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/home-wall.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/mic.svg",
+          "size": 300,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/mic.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/rotate.svg",
+          "size": 236,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/rotate.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/rotation_lock.svg",
+          "size": 327,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/rotation_lock.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/speaker.svg",
+          "size": 263,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/speaker.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/sun.svg",
+          "size": 315,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/sun.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/up.svg",
+          "size": 219,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/up.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-0.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-0.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-1.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-1.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-2.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-2.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-3.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-3.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-4.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-4.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-5.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-5.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-6.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-6.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-7.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-7.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wave-8.svg",
+          "size": 4329,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wave-8.svg"
+        },
+        {
+          "path": "projects/learning_assistant/ui/assets/wifi.svg",
+          "size": 284,
+          "url": "https://github.com/samyeei/mosaico-learning-assistant/blob/3fcdf1c176bff2c2d3614b9419837179536e4a41/projects/learning_assistant/ui/assets/wifi.svg"
+        }
+      ],
+      "count": 24
+    },
+    {
+      "slug": "microduck-robot",
+      "repo": "kissqy/Microduck-kissqy",
+      "commit": "4f0d6cd5f17972ac8d4218dfcf458607de70c2eb",
+      "truncated": false,
+      "candidateDesignFiles": [
+        {
+          "path": "docs/assets/assembly-battery-holder.stl",
+          "size": 821384,
+          "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/docs/assets/assembly-battery-holder.stl"
+        },
+        {
+          "path": "hardware/ProPrj_HAT_REVA_SCH_2026-10-07.epro2",
+          "size": 826814,
+          "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_HAT_REVA_SCH_2026-10-07.epro2"
+        },
+        {
+          "path": "hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2",
+          "size": 836584,
+          "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_HAT_REVA_SCH_2026-10-15.epro2"
+        },
+        {
+          "path": "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-07.epro2",
+          "size": 354451,
+          "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-07.epro2"
+        },
+        {
+          "path": "hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2",
+          "size": 373893,
+          "url": "https://github.com/kissqy/Microduck-kissqy/blob/4f0d6cd5f17972ac8d4218dfcf458607de70c2eb/hardware/ProPrj_imu_to_dxl_RevA_V1_2026-10-15.epro2"
+        }
+      ],
+      "count": 5
+    }
+  ]
+}

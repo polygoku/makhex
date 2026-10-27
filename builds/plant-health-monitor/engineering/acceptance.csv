@@ -1,0 +1,6 @@
+"ID","Procedure","How to reproduce","Pass criterion","Status","Evidence"
+"01","Read sensor chip identity","Scan I2C and read BME280 ID register 0xD0","Chip returns 0x60; BMP280 is rejected","NOT_RUN",""
+"02","Read calibrated temperature, RH and pressure","Compare with reference thermometer/hygrometer/barometer and serial log","All units and calibration limitations displayed; log actual deviations","NOT_RUN",""
+"03","Publish local dashboard without internet endpoint","Use local Wi-Fi only and check network exposure","Timestamp and all three values present","NOT_RUN",""
+"04","Power-cycle while preserving honest timestamps","Disconnect/reconnect power and inspect UI","No stale value represented as new data","NOT_RUN",""
+"05","Simulate sensor disconnect with system powered off before disconnect","Restart with absent sensor and inspect dashboard","Explicit unavailable state; no watering advice","NOT_RUN",""

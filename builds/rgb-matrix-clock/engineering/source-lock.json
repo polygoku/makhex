@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "slug": "rgb-matrix-clock",
+  "buildNumber": "08",
+  "title": "Ambient RGB Clock",
+  "reference": {
+    "repository": "l0calgost/ledclock",
+    "commit": "dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f",
+    "licenseMetadata": "MIT",
+    "url": "https://github.com/l0calgost/ledclock/tree/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f"
+  },
+  "hardware": {
+    "candidate": "ESP32-C3 SuperMini + 8x8 WS2812B RGB matrix + 5 V / 5 A external adapter candidate",
+    "exactBoardRevisionVerified": false,
+    "allElectricalPinsVerified": false,
+    "physicalPowerUpVerified": false
+  },
+  "firmware": {
+    "kind": "reference peripheral example only",
+    "toolchain": "ESP-IDF",
+    "tag": "v5.5.6",
+    "commit": "880a203ae603d08a94d06aa01e0d6761958e5e9e",
+    "target": "esp32c3",
+    "example": "https://github.com/espressif/esp-idf/tree/880a203ae603d08a94d06aa01e0d6761958e5e9e/examples/peripherals/rmt/led_strip",
+    "completeApplication": false,
+    "deviceFlashed": false
+  },
+  "billOfMaterials": [
+    {
+      "slug": "esp32-c3-supermini",
+      "quantity": 1,
+      "role": "LED controller"
+    },
+    {
+      "slug": "ws2812-leds",
+      "quantity": 1,
+      "role": "Pixel array"
+    },
+    {
+      "slug": "5v-5a-led-power",
+      "quantity": 1,
+      "role": "Regulated LED-array power"
+    },
+    {
+      "slug": "usb-c-power-kit",
+      "quantity": 1,
+      "role": "Prototyping tools"
+    }
+  ],
+  "supplementaryRequirements": [
+    "Required but absent from current project BOM: 5 V logic level shifter, fuse/holder, rated barrel/terminal adapter and power wiring. Exact NRTL certification of PSU remains on HOLD."
+  ],
+  "cad": {
+    "sourceFiles": [
+      {
+        "path": "ledclock/models/3d-print/Colon_Diffusor_Lid_v52.3mf",
+        "size": 53943,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Colon_Diffusor_Lid_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Colon_Segment_Lid_v52.3mf",
+        "size": 42011,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Colon_Segment_Lid_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Colon_Segment_v54.3mf",
+        "size": 206549,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Colon_Segment_v54.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Diffusor Lid_v52.3mf",
+        "size": 43806,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Diffusor%20Lid_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Digit_Lid_v52.3mf",
+        "size": 46498,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Digit_Lid_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Digit_Segment_v52.3mf",
+        "size": 197547,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Digit_Segment_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/End_Segment_Lid_v52.3mf",
+        "size": 45327,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/End_Segment_Lid_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/End_Segment_v52.3mf",
+        "size": 124828,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/End_Segment_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Start_Segment_Lid_v52.3mf",
+        "size": 69663,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Start_Segment_Lid_v52.3mf"
+      },
+      {
+        "path": "ledclock/models/3d-print/Start_Segment_v52.3mf",
+        "size": 165045,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/ledclock/models/3d-print/Start_Segment_v52.3mf"
+      },
+      {
+        "path": "usermods/word-clock-matrix/Word Clock Baffle.stl",
+        "size": 22684,
+        "url": "https://github.com/l0calgost/ledclock/blob/dc0aa1fdd8ed1cc4ed7425fe5ff23bf732dfd09f/usermods/word-clock-matrix/Word%20Clock%20Baffle.stl"
+      }
+    ],
+    "originalCreatorFilesMayUseDifferentHardware": true,
+    "mechanicalFitVerified": false,
+    "redistributionRightsVerified": false
+  },
+  "tests": [
+    {
+      "id": "01",
+      "name": "Inspect supply safety marking and polarity with no load",
+      "procedure": "Measure regulated output, connector polarity and protective devices",
+      "acceptance": "Verified approved adapter and measured voltage",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "02",
+      "name": "Power single pixel via level-shifted data",
+      "procedure": "Scope DIN and measure current",
+      "acceptance": "Pixel colors match expected order; no invalid logic level",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "03",
+      "name": "Test 8x8 matrix brightness and supply current",
+      "procedure": "Measure conservative brightness then increase only within safe measured limits",
+      "acceptance": "No brownouts, PSU overheat or wire heating",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "04",
+      "name": "Prove date/time synchronization and fallback",
+      "procedure": "Interrupt Wi-Fi and power-cycle",
+      "acceptance": "Clock displays invalid-time state until sync",
+      "status": "NOT_RUN",
+      "evidence": null
+    },
+    {
+      "id": "05",
+      "name": "Run 30-minute color-cycle thermal check",
+      "procedure": "Measure board, connector and PSU temperatures",
+      "acceptance": "Record stable temperatures and fuse behavior",
+      "status": "NOT_RUN",
+      "evidence": null
+    }
+  ],
+  "release": {
+    "engineeringReferencesPrepared": true,
+    "firmwareCompilationPassed": false,
+    "benchValidationPassed": false,
+    "retailReady": false
+  }
+}
