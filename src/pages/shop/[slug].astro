@@ -29,7 +29,7 @@ const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.
       <h1>{stage?.supplierModel??product.title}</h1>
       <p class="detail-description">{product.description}</p>
       <div class="clean-product-price">{minimum!==null?formatUsd(minimum):'Price pending'}{stage&&stage.variants.length>1&&<span>from</span>}</div>
-      <p class="clean-shipping">Free U.S. shipping</p>
+      <p class="clean-shipping">Free U.S. shipping on orders $39+</p>
       {stage&&stage.variants.length>1&&<div class="clean-variant-options">
         {stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}
       </div>}

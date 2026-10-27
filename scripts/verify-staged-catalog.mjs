@@ -71,7 +71,8 @@ assert.ok(!index.includes('SUPPLIER VARIANTS')&&!index.includes('INDICATIVE PRIC
 const sourcing=JSON.parse(fs.readFileSync(path.join(dist,'sourcing.json'),'utf8'));
 assert.equal(sourcing.schema,'makhex-catalog-v3');
 assert.equal(sourcing.checkoutAvailable,false);
-assert.equal(sourcing.shipping.customerRateUsd,0);
+assert.equal(sourcing.shipping.freeShippingThresholdUsd,39,'Do not claim free shipping below the configured threshold');
+assert.equal(sourcing.shipping.customerRateUsd,null,'Below-threshold shipping is set by Squarespace, not MAKHEX');
 assert.equal(sourcing.shipping.country,'US');
 assert.equal(sourcing.components.length,30);
 assert.equal(sourcing.projects.length,12);
@@ -79,6 +80,7 @@ assert.equal(sourcing.researchSubcomponents.length,4,'Build 11 true hardware bre
 const build11=sourcing.projects.find(p=>p.slug==='mosaico-learning-assistant');
 assert.equal(build11.cartPlan.parts.length,2,'Combo plan must only contain bundle and cable');
 assert.equal(build11.cartPlan.parts[0].slug,'esp-mosaico-vision-combo-kit');
+assert.equal(build11.cartPlan.parts[0].option,sourcing.components.find(c=>c.slug==='esp-mosaico-vision-combo-kit').variants[0].title,'Add-all must select the actual staged kit option, not Option pending');
 const alternate=sourcing.projectAlternativePlans['mosaico-learning-assistant'];
 assert.equal(alternate.parts.length,4,'Standalone research plan must list four components');
 assert(!alternate.parts.some(x=>x.slug==='esp-mosaico-vision-combo-kit'),'Standalone plan must not duplicate the bundle');

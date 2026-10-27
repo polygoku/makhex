@@ -13,7 +13,7 @@ export const GET:APIRoute=()=>{
     lastUpdated:catalogSnapshotDate,
     store:'MAKHEX',
     currency:'USD',
-    shipping:{country:'US',customerRateUsd:0,method:'Free U.S. Shipping'},
+    shipping:{country:'US',freeShippingThresholdUsd:39,customerRateUsd:null,method:'Free U.S. shipping on orders $39+'},
     checkoutAvailable:false,
     // These are planning-only kit constituents; no validated standalone AliExpress SKUs.
     researchSubcomponents:mosaicoAssemblyParts.map(part=>({slug:part.slug,title:part.title,variants:[],image:part.image,url:'https://makhex.com/projects/mosaico-learning-assistant/',availability:'RESEARCH_ONLY',includedInBundle:part.includedInVisionCombo})),
@@ -41,7 +41,7 @@ export const GET:APIRoute=()=>{
         parts,
         partsSubtotalUsd:parts.every(p=>p.lineTotalUsd!==null)?Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100:null,
         outstandingParts:projectBomMissingParts[project.slug]??[],
-        ...(project.slug==='mosaico-learning-assistant'?{cartPlan:mosaicoCommercePlans.bundle}:{}),
+        ...(project.slug==='mosaico-learning-assistant'?{cartPlan:{...mosaicoCommercePlans.bundle,parts:mosaicoCommercePlans.bundle.parts.map(part=>({...part,option:plannedVariantForProject(part.slug,project.slug)?.title??part.option}))}}:{}),
       };
     }),
   };
