@@ -14,11 +14,19 @@ try {
  await page.goto(root+'/shop/esp32-s3-devkit/',{waitUntil:'domcontentloaded'});
  assert.equal(await page.locator('[data-cart-add]').count(),0);
  assert.equal(await page.locator('a:has-text("VIEW AT DIGIKEY")').count()>0,true);
+ assert.doesNotMatch(await page.locator('body').innerText(),/\bmarkup\b|20\s*%/i);
+ await page.goto(root+'/shop/feetech-hd1910/',{waitUntil:'domcontentloaded'});
+ assert.match(await page.locator('.clean-product-price').innerText(),/^\$34\.33$/,'Only the customer-facing selling price is shown');
+ assert.doesNotMatch(await page.locator('body').innerText(),/\bmarkup\b|20\s*%/i,'Never reveal internal markup on product detail');
  await page.goto(root+'/projects/microduck-robot/',{waitUntil:'domcontentloaded'});
  assert.equal(await page.locator('a[href="/members/microduck-designs/"]').count()>0,true,'Free 3D files stay in design section');
- assert.equal(await page.locator('[data-bom-mode="MAKHEX_ALI_20"]').count(),7);
- assert.equal(await page.locator('[data-bom-mode="EXTERNAL_NO_MARKUP"]').count(),6);
+ assert.equal(await page.locator('[data-bom-mode="MAKHEX_CART"]').count(),7);
+ assert.equal(await page.locator('[data-bom-mode="EXTERNAL_LINK"]').count(),6);
  assert.equal(await page.locator('[data-bom-mode] a[href="/shop/microduck-printed-parts/"]').count(),0,'No STL part');
+ const servo=page.locator('[data-bom-mode="MAKHEX_CART"]').filter({hasText:'Feetech HD-1910-C001'});
+ assert.equal(await servo.count(),1);
+ assert.match(await servo.innerText(),/\$514\.95/,'15 servos must display the unchanged selling price');
+ assert.doesNotMatch(await page.locator('body').innerText(),/\bmarkup\b|20\s*%/i,'Do not show markup next to BOM prices');
  assert.equal(await page.locator('[data-cart-add-all="microduck-robot"]').count(),1);
  await page.locator('[data-cart-add-all="microduck-robot"]').click();await count(36);
  await page.goto(root+'/cart/',{waitUntil:'domcontentloaded'});
@@ -26,6 +34,7 @@ try {
  assert.equal(await page.locator('.cart-line').count(),7);
  const rows=await page.locator('.cart-lines').innerText();
  assert.match(rows,/3525/);
+ assert.doesNotMatch(rows,/\bmarkup\b|20\s*%|MAKHEX plan/i,'Cart must only show selling prices');
  assert.doesNotMatch(rows,/Microduck HAT|Microduck STM32 IMU|Radxa ZERO|STL|Fastener Set|AMP2.0 3P 24AWG/);
  assert.equal(await page.locator('a[href="/checkout/"].cart-checkout').count(),1);
  // Legacy localStorage from older 2.5x releases must be migrated, not submitted to checkout.
@@ -37,6 +46,7 @@ try {
  await page.goto(root+'/checkout/',{waitUntil:'domcontentloaded'});
  await page.locator('.checkout-item').first().waitFor();
  assert.equal(await page.locator('.checkout-item').count(),7);
+ assert.doesNotMatch(await page.locator('body').innerText(),/\bmarkup\b|20\s*%|MAKHEX plan/i,'Checkout must not disclose pricing method');
  assert.equal(await page.locator('#makhex-order-request-form').count(),1);
  assert.match(await page.locator('.makhex-checkout-hero').innerText(),/Checkout with MAKHEX/);
  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);

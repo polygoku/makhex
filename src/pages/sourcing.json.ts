@@ -5,7 +5,7 @@ import {mosaicoAssemblyParts,mosaicoCommercePlans} from '../data/mosaico-bom';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 import {supplierFor,offersFor} from '../data/supplier-matches';
 import {microduckPriceObservedAt,microduckRetailCautions} from '../data/microduck-price-plans';
-import {isMakhexAliExpress,preferredExternalOffer,MAKHEX_ALIEXPRESS_MARKUP} from '../data/sourcing-policy';
+import {isMakhexAliExpress,preferredExternalOffer} from '../data/sourcing-policy';
 
 // Public buyer comparison links are separate from private supplier order credentials.
 // An external link does NOT establish MAKHEX fulfillment or in-stock checkout.
@@ -23,7 +23,6 @@ export const GET:APIRoute=()=>{
     paymentCaptureEnabled:false,
     exceptionApprovalRequired:true,
     externalCheckoutMode:'DIRECT_FOR_NON_ALIEXPRESS',
-    aliexpressPriceMarkupMultiplier:MAKHEX_ALIEXPRESS_MARKUP,
     researchSubcomponents:mosaicoAssemblyParts.map(part=>({
       slug:part.slug,title:part.title,variants:[],image:part.image,
       url:'https://makhex.com/projects/mosaico-learning-assistant/',
@@ -46,7 +45,7 @@ export const GET:APIRoute=()=>{
         slug:product.slug,title:stage?.supplierModel??product.title,
         url:'https://makhex.com/shop/'+product.slug+'/',
         variants:stage?.variants.map(v=>({title:v.title,priceUsd:v.plannedRetailUsd}))??[],
-        priceStatus:isAli?'ALIEXPRESS_MARKUP_20_PLANNING':'EXTERNAL_UNMARKED_LINK',
+        priceStatus:isAli?'MAKHEX_PRICE_REVIEW':'EXTERNAL_SELLER',
         fulfillmentMode:isAli?'MAKHEX_OWNER_REVIEW':'EXTERNAL_VENDOR',
         directSupplierLink:external?.url??null,
         supplierPriceReviewDate:isAli?microduckPriceObservedAt:null,
@@ -63,7 +62,7 @@ export const GET:APIRoute=()=>{
         const isAli=isMakhexAliExpress(m.slug);
         const v=isAli?plannedVariantForProject(m.slug,project.slug):undefined;
         return {
-          slug:m.slug,qty:m.qty,sourceMode:isAli?'MAKHEX_ALI_20':'EXTERNAL_NO_MARKUP',directSupplierLink:isAli?null:preferredExternalOffer(m.slug,project.slug)?.url??null,selectedOption:v?.title??null,unitPriceUsd:v?.plannedRetailUsd??null,
+          slug:m.slug,qty:m.qty,sourceMode:isAli?'MAKHEX_CART':'EXTERNAL_LINK',directSupplierLink:isAli?null:preferredExternalOffer(m.slug,project.slug)?.url??null,selectedOption:v?.title??null,unitPriceUsd:v?.plannedRetailUsd??null,
           lineTotalUsd:v?Math.round(v.plannedRetailUsd*m.qty*100)/100:null,
           buyingOptions:offersFor(m.slug,project.slug).map(({seller,label,url,match,note})=>({seller,label,url,match,note}))
         };
@@ -73,7 +72,7 @@ export const GET:APIRoute=()=>{
         url:'https://makhex.com/projects/'+project.slug+'/',
         parts,
         partsSubtotalUsd:Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100,
-        externalPartTypes:parts.filter(p=>p.sourceMode==='EXTERNAL_NO_MARKUP').length,
+        externalPartTypes:parts.filter(p=>p.sourceMode==='EXTERNAL_LINK').length,
         outstandingParts:projectBomMissingParts[project.slug]??[],
         ...(project.slug==='mosaico-learning-assistant'?{cartPlan:{...mosaicoCommercePlans.bundle,parts:mosaicoCommercePlans.bundle.parts.map(part=>({...part,option:plannedVariantForProject(part.slug,project.slug)?.title??part.option}))}}:{})
       };

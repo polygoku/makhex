@@ -34,12 +34,12 @@ function save(items){
 }
 function flash(message){document.querySelectorAll('[data-cart-flash]').forEach(e=>e.textContent=message)}
 async function catalog(){
- if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=checkout-20261027',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
+ if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=retail-display-20261028',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
  return catalogPromise;
 }
 function check(c,item){
  const part=findPart(c,item.slug);
- if(!part||part.priceStatus!=='ALIEXPRESS_MARKUP_20_PLANNING'||!okOption(item.option))throw Error('External-only products cannot enter MAKHEX checkout');
+ if(!part||part.priceStatus!=='MAKHEX_PRICE_REVIEW'||!okOption(item.option))throw Error('External-only products cannot enter MAKHEX checkout');
  const options=part.variants??[];
  if(options.length&&!options.some(v=>v.title===item.option)&&!(item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot'&&item.option==='Option pending'))throw Error('Choose a listed option');
  if(!options.length&&item.option!=='Option pending')throw Error('Option qualification pending');
@@ -52,7 +52,7 @@ function migrateLegacyOptions(c){
  let changed=false;
  for(const item of stored){
   const part=findPart(c,item.slug),variants=part?.variants??[];
-  if(!part||part.priceStatus!=='ALIEXPRESS_MARKUP_20_PLANNING'){changed=true;continue;} // Drop previously saved external items
+  if(!part||part.priceStatus!=='MAKHEX_PRICE_REVIEW'){changed=true;continue;} // Drop previously saved external items
   const isMicroduckSpeaker=item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot';
   const next=variants.length===0&&item.option!=='Option pending'?{...item,option:'Option pending'}:item.option==='Option pending'&&variants.length===1&&!isMicroduckSpeaker?{...item,option:variants[0].title}:item;
   if(next!==item)changed=true;
@@ -92,7 +92,7 @@ document.addEventListener('click',async event=>{
   try{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
-   const items=(project.cartPlan?.parts??project.parts).filter(p=>findPart(c,p.slug)?.priceStatus==='ALIEXPRESS_MARKUP_20_PLANNING').map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
+   const items=(project.cartPlan?.parts??project.parts).filter(p=>findPart(c,p.slug)?.priceStatus==='MAKHEX_PRICE_REVIEW').map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
    if(!items.length)throw Error('This build has no AliExpress-qualified MAKHEX parts; use the direct supplier links in its parts list.');
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
@@ -167,12 +167,12 @@ async function render(){
   });
   const remove=document.createElement('button');remove.type='button';remove.className='cart-remove';remove.textContent='Remove';
   remove.addEventListener('click',()=>{save(read().filter(x=>key(x)!==key(item)));render()});
-  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Final price on approval':'MAKHEX plan $'+(price*item.quantity).toFixed(2);
+  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Final price on approval':'$'+(price*item.quantity).toFixed(2);
   controls.append(label,remove,val);card.append(imgLink,info,controls);host.append(card);
   n+=item.quantity;if(price===null)unknown++;else known+=price*item.quantity;
  }
  if(countLabel)countLabel.textContent=n+' parts · '+cart.length+' selections';
- if(totalLabel)totalLabel.textContent=unknown?(known>0?'MAKHEX planning subtotal $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' need sourcing approval':unknown+' part'+(unknown===1?'':'s')+' · pricing confirmed before payment'):'MAKHEX planning subtotal: $'+known.toFixed(2);
+ if(totalLabel)totalLabel.textContent=unknown?(known>0?'Subtotal: $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' need sourcing approval':unknown+' part'+(unknown===1?'':'s')+' · pricing confirmed before payment'):'Subtotal: $'+known.toFixed(2);
 }
 document.addEventListener('makhex:cart-updated',render);
 updateCount();render();

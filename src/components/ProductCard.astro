@@ -12,14 +12,14 @@ const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
 const intended=isAli?plannedVariantForProject(product.slug,projectSlug):undefined;
 const external=isAli?undefined:preferredExternalOffer(product.slug,projectSlug);
 ---
-<article class="product-card product-card-v2 product-card-simple" data-source-mode={isAli?'MAKHEX_ALI_20':'EXTERNAL_NO_MARKUP'}>
+<article class="product-card product-card-v2 product-card-simple" data-source-mode={isAli?'MAKHEX_CART':'EXTERNAL_LINK'}>
   <a class="product-card-image" href={productUrl(product.slug)} aria-label={'Explore '+product.title}>
     <ProductPhoto product={product}/>
   </a>
   <div class="simple-product-info">
     <a class="product-title-link" href={productUrl(product.slug)}><h3>{stage?.supplierModel??product.title}</h3></a>
     <div class="simple-product-price">
-      <strong>{isAli&&minimum!==null?'MAKHEX plan '+formatUsd(minimum):'External supplier · no markup'}</strong>
+      <strong>{isAli&&minimum!==null?formatUsd(minimum):'Buy from seller'}</strong>
       {isAli&&stage&&stage.variants.length>1&&<span>from</span>}
     </div>
     <a href={productUrl(product.slug)} class="text-link">PART DETAILS ↗</a>

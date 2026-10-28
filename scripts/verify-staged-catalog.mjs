@@ -33,13 +33,14 @@ for(const p of products){
   assert.equal(microduckPricePlans[p.slug].variants[0].plannedRetailUsd,amount,'Incorrect 20 percent MAKHEX amount '+p.slug);
   assert.equal(part.plannedRetailCents[0],Math.round(amount*100),'Server price drift '+p.slug);
   assert(html.includes('data-cart-add')&&html.includes('CHECK OUT WITH MAKHEX'),'AliExpress item must use MAKHEX checkout '+p.slug);
-  assert(html.includes('20% MAKHEX markup'),'Missing markup disclosure '+p.slug);
+  assert(html.includes('$'+amount.toFixed(2)),'Buyer price missing '+p.slug);
+  assert(!/markup|aliexpressPriceMarkupMultiplier/i.test(html),'Private pricing details leaked '+p.slug);
  }else{
   assert.equal(part.variants.length,0,'External item may not have MAKHEX option '+p.slug);
   assert.equal(part.plannedRetailCents.length,0);
   assert.equal(plannedVariantForProject(p.slug),undefined);
-  assert(!html.includes('data-cart-add')&&!html.includes('MAKHEX price plan $'),'External item may not have cart/price '+p.slug);
-  assert(html.includes('External supplier')&&html.includes('VIEW AT'),'External supplier link missing '+p.slug);
+  assert(!html.includes('data-cart-add'),'External item may not have MAKHEX cart '+p.slug);
+  assert(html.includes('Buy from seller')&&html.includes('VIEW AT'),'External supplier link missing '+p.slug);
   assert(preferredExternalOffer(p.slug)?.url,'External item must have direct source '+p.slug);
  }
 }
@@ -47,25 +48,25 @@ assert.equal(Object.values(checkoutCatalog.parts).filter(p=>p.shopEligible).leng
 assert.equal(Object.keys(checkoutCatalog.parts).length,30);
 const source=JSON.parse(fs.readFileSync(path.join(dist,'sourcing.json'),'utf8'));
 assert.equal(source.schema,'makhex-catalog-v3');
-assert.equal(source.aliexpressPriceMarkupMultiplier,1.2);
+assert.equal(Object.hasOwn(source,'aliexpressPriceMarkupMultiplier'),false,'Never publish internal pricing multiplier');
 assert.equal(source.checkoutAvailable,false);
 assert.equal(source.paymentCaptureEnabled,false);
 assert.equal(source.components.length,30);
 assert.equal(source.projects.length,12);
 assert.equal(source.researchSubcomponents.length,4);
-assert.equal(source.components.filter(p=>p.priceStatus==='ALIEXPRESS_MARKUP_20_PLANNING').length,8);
-assert.equal(source.components.filter(p=>p.priceStatus==='EXTERNAL_UNMARKED_LINK').length,22);
+assert.equal(source.components.filter(p=>p.priceStatus==='MAKHEX_PRICE_REVIEW').length,8);
+assert.equal(source.components.filter(p=>p.priceStatus==='EXTERNAL_SELLER').length,22);
 assert.equal(source.components.filter(p=>p.variants.length===0).length,22);
 assert.equal(source.components.flatMap(p=>p.variants).length,8);
 assert(!JSON.stringify(source).includes('microduck-printed-parts'),'No printed-part checkout or catalog JSON');
 for(const project of source.projects){
  const orig=projects.find(p=>p.slug===project.slug);
  assert.equal(project.parts.length,orig.materials.length);
- assert(project.parts.every(p=>p.sourceMode==='MAKHEX_ALI_20'||p.sourceMode==='EXTERNAL_NO_MARKUP'));
+ assert(project.parts.every(p=>p.sourceMode==='MAKHEX_CART'||p.sourceMode==='EXTERNAL_LINK'));
  const sum=Math.round(project.parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100;
  assert.equal(project.partsSubtotalUsd,sum,'Subtotal must exclude non-AliExpress direct items '+project.slug);
  for(const line of project.parts){
-  if(line.sourceMode==='EXTERNAL_NO_MARKUP')assert(line.unitPriceUsd===null&&line.directSupplierLink,'External line must not be priced '+line.slug);
+  if(line.sourceMode==='EXTERNAL_LINK')assert(line.unitPriceUsd===null&&line.directSupplierLink,'External line must not be priced '+line.slug);
   else assert(typeof line.unitPriceUsd==='number'&&line.unitPriceUsd>=0&&line.directSupplierLink===null);
  }
  const html=fs.readFileSync(path.join(dist,'projects',project.slug,'index.html'),'utf8');
@@ -84,4 +85,11 @@ for(const slug of ['microduck-hat','microduck-imu']){
 assert.match(fs.readFileSync('src/data/checkout-approvals.ts','utf8'),/checkoutApprovals:\s*Readonly<Record<string,CheckoutApproval>>\s*=\s*Object\.freeze\(\{\}\)/);
 const serialized=JSON.stringify(source).toLowerCase();
 for(const forbidden of ['sourceitemid','sourceunitcost','supplierunitcost','sourcevariantid','access_token','refresh_token']) assert(!serialized.includes(forbidden));
-console.log('POLICY PASS: 30 products; 8 selected AliExpress plans at 1.2x; 22 external direct/no markup; STL off parts; real images; first-party payment safely gated.');
+// The public site must show selling prices only, not the internal calculation.
+const leaked=/\bmark[\s-]?up\b|aliexpressPriceMarkupMultiplier|supplierUnitCost|sourceUnitCost|\bsupplier (?:cost|basis)\b/i;
+const allPublishedFiles=fs.readdirSync(dist,{recursive:true}).filter(n=>typeof n==='string'&&(n.endsWith('.html')||n==='sourcing.json'||n.endsWith('maker-cart.js')||n.endsWith('makhex-checkout.js')));
+for(const relative of allPublishedFiles){
+ const content=fs.readFileSync(path.join(dist,relative),'utf8');
+ assert(!leaked.test(content),'Internal price formula disclosed to buyers: '+relative);
+}
+console.log('CUSTOMER PRICE PRIVACY PASS: 30 products and all public HTML, cart, checkout and catalog JSON conceal internal pricing details.');
