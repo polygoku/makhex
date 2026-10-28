@@ -25,7 +25,7 @@ for(const file of pages){
   if(/\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))continue;
   const src=attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i)?.[1];
   expect(Boolean(src)||body.length===0,'CSP BLOCK: inline executable JavaScript on '+path.relative(out,file));
-  if(src?.startsWith('/'))expect(fs.existsSync(path.join(out,src.slice(1))),'CSP BLOCK: local script asset missing '+src+' on '+path.relative(out,file));
+  if(src?.startsWith('/'))expect(fs.existsSync(path.join(out,src.split(/[?#]/)[0].slice(1))),'CSP BLOCK: local script asset missing '+src+' on '+path.relative(out,file));
  }
  for(const match of html.matchAll(/href="(\/[^"]*)"/g)){
    const href=match[1];if(href.startsWith('//'))continue;
