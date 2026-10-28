@@ -86,6 +86,7 @@ try{
  await waitCount(0);
  await page.goto(root+'/projects/microduck-robot/',{waitUntil:'domcontentloaded'});
  await page.locator('[data-cart-add-all="microduck-robot"]').click();
+ await waitCount(43); // async supplier catalog/cart update must persist before navigation
  await page.goto(root+'/cart/',{waitUntil:'domcontentloaded'});
  await page.locator('.cart-line').first().waitFor();
  const duckSpeaker=page.locator('.cart-line').filter({hasText:'4 Ohm 3 W'});
