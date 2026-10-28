@@ -16,18 +16,19 @@ const expected={
  'epaper-29':[47.08],'ws2812-leds':[14.55,5.10],
  'usb-c-power-kit':[16.38], 'esp-mosaico-vision-combo-kit':[201.70], 'speaker-4ohm-3w':[6.35], 'momentary-tactile-switch':[3.55], '5v-5a-led-power':[29.18]
 };
-assert.equal(products.length,30);
+assert.equal(products.length,31);
 assert.equal(projects.length,12);
 assert.equal(Object.keys(catalogStaging).length,16);
-const microPrices={'feetech-hd1910':71.53,'imx219-160-camera':21.88,'vl53l5cx-v2':50,'npf550-power-kit':71.78,'bearing-6700':7.44,'bearing-et2216':12.50,'bearing-623zz':9.37};
-assert.equal(Object.keys(microduckPricePlans).length,7);
+const microPrices={'feetech-hd1910':71.53,'imx219-160-camera':21.88,'vl53l5cx-v2':50,'npf550-power-kit':71.78,'bearing-6700':7.44,'bearing-et2216':12.50,'bearing-623zz':9.37,'microduck-speaker-3525':13.95,'microduck-hat':74.62,'microduck-imu':37.12,'microduck-fasteners':7.66,'amp20-servo-cables':20.25,'microduck-wiring-kit':5.70,'microduck-printed-parts':0};
+assert.equal(Object.keys(microduckPricePlans).length,14);
 for(const [slug,amount] of Object.entries(microPrices)){
  assert.equal(microduckPricePlans[slug]?.variants[0].plannedRetailUsd,amount,'Wrong exact-variant 2.5x plan '+slug);
  assert.equal(microduckPricePlans[slug]?.buyerOrderabilityVerified,false);
  assert.equal(microduckPricePlans[slug]?.shippingVerified,false);
- assert.ok(supplierVariantPhotoSlugs.has(slug));
- const image=fs.readFileSync(path.join('public','product-media',slug+'.jpg'));
- assert.ok(image.length>8000&&image[0]===0xff&&image[1]===0xd8,'The matched supplier listing photo must be a valid JPEG: '+slug);
+ if(supplierVariantPhotoSlugs.has(slug)){
+  const image=fs.readFileSync(path.join('public','product-media',slug+'.jpg'));
+  assert.ok(image.length>8000&&image[0]===0xff&&image[1]===0xd8,'The matched supplier listing photo must be a valid JPEG: '+slug);
+ }
 }
 let optionCount=0;
 for(const product of products){
@@ -45,13 +46,18 @@ for(const product of products){
  if(!stage&&microduckPricePlans[product.slug]){
   assert.ok(!prices,'Research cannot overwrite existing Squarespace prices: '+product.slug);
   const plan=stageFor(product.slug);
-  assert.equal(plan.technicalGate,'HOLD');
+  assert.equal(plan.technicalGate,product.slug==='microduck-printed-parts'?'REVIEW':'HOLD');
   assert.equal(plan.variants.length,1);
   const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
-  assert.ok(html.includes('Matched supplier variant listing image'),'Source image flag missing: '+product.slug);
-  assert.ok(html.includes('MAKHEX plan $'+plan.variants[0].plannedRetailUsd.toFixed(2)),'2.5x planned retail missing: '+product.slug);
-  assert.ok(html.includes(microduckRetailCautions[product.slug].slice(0,22)),'Exact variant/lot caution absent: '+product.slug);
-  assert.ok(html.includes('CHECK OUT WITH MAKHEX'),'Must retain MAKHEX checkout');
+  if(supplierVariantPhotoSlugs.has(product.slug)) assert.ok(html.includes('Matched supplier variant listing image'),'Source image missing '+product.slug);
+  if(product.slug==='microduck-printed-parts'){
+   assert.ok(html.includes('FREE 3D MODEL DOWNLOAD')&&html.includes('/members/microduck-designs/'),'Free self-print model link must remain in MAKHEX login');
+   assert.ok(!html.includes('ADD TO PARTS LIST +'),'Free digital file must not pretend to be a shipped part');
+  }else{
+   assert.ok(html.includes('MAKHEX plan $'+plan.variants[0].plannedRetailUsd.toFixed(2)),'2.5x retail plan missing '+product.slug);
+   assert.ok(html.includes('CHECK OUT WITH MAKHEX'),'Must retain MAKHEX checkout');
+  }
+  assert.ok(html.includes(microduckRetailCautions[product.slug].slice(0,22)),'Engineering sourcing note absent '+product.slug);
   continue;
  }
  assert.ok(prices,'Unreviewed previously staged product: '+product.slug);
@@ -97,7 +103,7 @@ assert.equal(sourcing.schema,'makhex-catalog-v3');
 assert.equal(sourcing.checkoutAvailable,false);
 assert.equal(sourcing.shipping.customerRateUsd,0);
 assert.equal(sourcing.shipping.country,'US');
-assert.equal(sourcing.components.length,30);
+assert.equal(sourcing.components.length,31);
 assert.equal(sourcing.projects.length,12);
 assert.equal(sourcing.researchSubcomponents.length,4,'Build 11 true hardware breakdown must include core, camera, interaction and cable');
 const build11=sourcing.projects.find(p=>p.slug==='mosaico-learning-assistant');
@@ -110,8 +116,10 @@ for(const component of sourcing.researchSubcomponents){
  assert.equal(component.availability,'RESEARCH_ONLY');
  assert.equal(component.variants.length,0,'Do not invent purchasable supplier options');
 }
-assert.equal(sourcing.components.flatMap(p=>p.variants).length,24);
-assert.equal(sourcing.components.filter(p=>p.priceStatus==='ALIEXPRESS_VARIANT_PLANNING').length,7);
+assert.equal(sourcing.components.flatMap(p=>p.variants).length,31);
+assert.equal(sourcing.components.filter(p=>p.priceStatus==='ALIEXPRESS_VARIANT_PLANNING').length,8);
+assert.equal(sourcing.components.filter(p=>p.priceStatus==='MAKER_HISTORICAL_2_5X_ESTIMATE').length,5);
+assert.equal(sourcing.components.filter(p=>p.priceStatus==='FREE_DIGITAL_MODEL').length,1);
 const radxa=sourcing.components.find(p=>p.slug==='radxa-zero-3w');
 assert.equal(radxa.variants.length,0);
 assert.equal(radxa.priceStatus,'COMPARE_EXTERNAL_SELLERS');
@@ -120,8 +128,9 @@ assert.equal(radxa.availability,'COMING_SOON');
 assert.ok(!JSON.stringify(sourcing).includes('271.98'),'Do not publish stale Radxa historical quote');
 assert.equal(radxa.hardwareReview,'HOLD');
 assert.ok(!sourcing.checkoutAvailable);
-assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,7,'7 custom/unmatched components stay unpriced');
-assert.equal(sourcing.components.filter(p=>p.buyingOptions.length>0).length,30,'All catalog components require buyer sources');
+assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,1,'Only exact Radxa 2GB header remains without a price plan');
+assert.equal(sourcing.components.find(p=>p.slug==='microduck-printed-parts').availability,'DIGITAL_DOWNLOAD');
+assert.equal(sourcing.components.filter(p=>p.buyingOptions.length>0).length,31,'All catalog components require buyer sources');
 assert.equal(offersFor('ws2812-leds','rgb-matrix-clock').some(x=>x.project==='rgb-matrix-clock'),true);
 assert.equal(offersFor('ws2812-leds','smart-desk-button').some(x=>x.project==='smart-desk-button'),true);
 assert.equal(plannedVariantForProject('speaker-4ohm-3w','microduck-robot'),undefined,'Do not price 3525 speaker as voice-node 28mm speaker');
@@ -131,7 +140,7 @@ for(const project of sourcing.projects){
 const publicJson=JSON.stringify(sourcing);
 for(const sensitive of ['sourceItemId','sourceUnitCost','supplierUnitCost','sourceVariantId','access_token','refresh_token'])
  assert.ok(!publicJson.toLowerCase().includes(sensitive.toLowerCase()),'Private supplier credentials/cost exposed in public JSON: '+sensitive);
-console.log(`MAKHEX SHOP PASS: ${products.length} catalog components, ${optionCount} merchant-priced options plus 7 researched AliExpress retail plans, 30 buyer source comparisons, ${projects.length} project BOMs, checkout gated`);
+console.log(`MAKHEX SHOP PASS: ${products.length} components; ${optionCount} Squarespace prices, 8 exact AliExpress option plans, 5 historical maker estimates, 1 free CAD download, 1 out-of-stock Radxa option; checkout gated`);
 
 // Regression gate: supplier research, stock snapshots, and an N4-titled-as-N8
 // trial must never activate customer checkout by accident.

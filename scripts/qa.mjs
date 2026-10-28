@@ -55,7 +55,8 @@ expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
- expect(html.includes('CHECK OUT WITH MAKHEX'),'Product must route to MAKHEX checkout: '+f);
+ if(f.includes('microduck-printed-parts'))expect(html.includes('FREE 3D MODEL DOWNLOAD')&&html.includes('/members/microduck-designs/'),'Free DIY CAD must route to MAKHEX member library: '+f);
+ else expect(html.includes('CHECK OUT WITH MAKHEX'),'Product must route to MAKHEX checkout: '+f);
  expect(html.includes('supplier-last-resort')&&html.includes('External alternatives'),'Supplier links must be last resort: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
@@ -84,8 +85,13 @@ for(const p of products){
  if(fs.existsSync(page)){
   const html=fs.readFileSync(page,'utf8');
   expect(html.includes('/product-media/'+p.slug+'.jpg'),'Product image not shown '+p.slug);
-  expect(html.includes('data-cart-add'),'Product missing add-to-parts-cart control '+p.slug);
-  expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'Product must use MAKHEX cart checkout '+p.slug);
+  if(p.slug==='microduck-printed-parts'){
+   expect(html.includes('FREE 3D MODEL DOWNLOAD')&&html.includes('/members/microduck-designs/'),'Member self-print files must be FREE '+p.slug);
+   expect(!html.includes('data-cart-add'),'Digital STL files must not be sold as shipped physical goods');
+  }else{
+   expect(html.includes('data-cart-add'),'Product missing add-to-parts-cart control '+p.slug);
+   expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'Product must use MAKHEX cart checkout '+p.slug);
+  }
  }
 }
 const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');

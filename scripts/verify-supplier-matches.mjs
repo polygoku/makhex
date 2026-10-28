@@ -8,9 +8,9 @@ import {supplierMatches,offersFor} from '../src/data/supplier-matches.ts';
 import {plannedVariantForProject} from '../src/data/catalog-staging.ts';
 
 const allow=new Set(['EXACT_SPEC','SELECT_VARIANT','COMPATIBILITY_REVIEW','CUSTOM_ORDER']);
-assert.equal(products.length,30);
+assert.equal(products.length,31);
 assert.equal(projects.length,12);
-assert.equal(Object.keys(supplierMatches).length,30,'One source spec per catalog component required');
+assert.equal(Object.keys(supplierMatches).length,31,'One source spec per catalog component required');
 let urls=0;
 for(const p of products){
  const match=supplierMatches[p.slug];
@@ -38,6 +38,8 @@ for(const project of projects){
 }
 assert.equal(plannedVariantForProject('speaker-4ohm-3w','microduck-robot'),undefined,'3525 Microduck speaker must not inherit 28mm product price');
 assert(plannedVariantForProject('speaker-4ohm-3w','voice-command-node')?.plannedRetailUsd>0,'Voice node retains its own priced 28mm speaker');
+assert.equal(plannedVariantForProject('microduck-speaker-3525','microduck-robot')?.plannedRetailUsd,13.95,'Microduck has its separate 3525 HP1.25 speaker');
+assert.equal(plannedVariantForProject('microduck-printed-parts','microduck-robot')?.plannedRetailUsd,0,'Free DIY CAD is never charged as physical goods');
 assert(offersFor('ws2812-leds','rgb-matrix-clock').some(x=>/64|8×8/.test(x.label)));
 assert(offersFor('ws2812-leds','smart-desk-button').some(x=>/8.LED|8-LED/.test(x.label)));
 const dist='dist';
@@ -50,7 +52,7 @@ for(const p of products){
 }
 const source=JSON.parse(fs.readFileSync(dist+'/sourcing.json','utf8'));
 assert(!source.checkoutAvailable);
-assert.equal(source.components.filter(x=>x.buyingOptions.length>0).length,30);
+assert.equal(source.components.filter(x=>x.buyingOptions.length>0).length,31);
 assert.equal(source.projects.length,12);
 assert.equal(source.researchSubcomponents.length,4);
 assert(!JSON.stringify(source).includes('271.98'),'Dated out-of-stock estimate is not a real price');

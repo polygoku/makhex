@@ -55,7 +55,7 @@ try{
  await page.locator('[data-cart-add-all="microduck-robot"]').click();await waitCount(43);
  await page.goto(root+'/cart/',{waitUntil:'domcontentloaded'});await page.locator('.cart-line').first().waitFor();
  assert.equal(await page.locator('.cart-line').count(),14);
- const speaker=page.locator('.cart-line').filter({hasText:'4 Ohm 3 W'});
+ const speaker=page.locator('.cart-line').filter({hasText:'3525'});
  assert.equal(await speaker.count(),1);
  assert.doesNotMatch(await speaker.innerText(),/\$6\.35/,'Microduck 3525 speaker must not inherit voice-node price');
  assert.equal(await page.locator('a[href="/checkout/"].cart-checkout').count(),1);
@@ -87,7 +87,8 @@ try{
  await page.locator('#makhex-checkout-success').waitFor({state:'visible'});
  assert.equal(recorded.lines.length,14);
  assert.equal(recorded.lines.find(x=>x.slug==='feetech-hd1910')?.quantity,15);
- assert.equal(recorded.lines.find(x=>x.slug==='speaker-4ohm-3w')?.project,'microduck-robot');
+ assert.equal(recorded.lines.find(x=>x.slug==='microduck-speaker-3525')?.project,'microduck-robot');
+ assert.equal(recorded.lines.some(x=>x.slug==='speaker-4ohm-3w'),false,'Never price the 28mm voice-node speaker as the Microduck speaker');
  assert.match(await page.locator('#makhex-checkout-success').innerText(),/No charge has been made/);
  assert.equal(errors.length,0,errors.join('; '));
  console.log('PASS: 12 build source carts stay on MAKHEX; 14-line Microduck one-order request, no supplier checkout or payment; mobile 390px');

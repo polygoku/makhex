@@ -17,10 +17,10 @@ const intended=plannedVariantForProject(product.slug,projectSlug);
   <div class="simple-product-info">
     <a class="product-title-link" href={productUrl(product.slug)}><h3>{stage?.supplierModel??product.title}</h3></a>
     <div class="simple-product-price">
-      <strong>{minimum!==null?(microduckPricePlans[product.slug]?'Plan ':'')+formatUsd(minimum):'Sourcing review'}</strong>
+      <strong>{product.slug==='microduck-printed-parts'?'FREE STL / 3MF':minimum!==null?(microduckPricePlans[product.slug]?'Plan ':'')+formatUsd(minimum):'Sourcing review'}</strong>
       {stage&&stage.variants.length>1&&<span>from</span>}
     </div>
     <a href={productUrl(product.slug)} class="text-link">MAKHEX PART DETAILS ↗</a>
   </div>
-  <div class="cart-card-action"><button type="button" data-cart-add data-cart-slug={product.slug} data-cart-project={projectSlug} data-cart-option={intended?.title??'Option pending'} data-cart-quantity="1">Add to parts cart +</button></div>
+  <div class="cart-card-action">{product.slug==='microduck-printed-parts'?<a class="btn btn-outline" href="/members/microduck-designs/">GET FREE PRINT FILES ↗</a>:<button type="button" data-cart-add data-cart-slug={product.slug} data-cart-project={projectSlug} data-cart-option={intended?.title??'Option pending'} data-cart-quantity="1">Add to parts cart +</button>}</div>
 </article>

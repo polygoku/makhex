@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import sharp from 'sharp';
+const origin='https://ae-pic-a1.aliexpress-media.com/kf/Sff20007dc2f147f194d0c7773882ce2bo.jpg';
+const res=await fetch(origin,{signal:AbortSignal.timeout(16000),headers:{'user-agent':'Mozilla/5.0','accept':'image/jpeg,image/*'}});
+if(!res.ok)throw Error('Supplier image HTTP '+res.status);
+const raw=Buffer.from(await res.arrayBuffer());
+const meta=await sharp(raw).metadata();
+if(meta.width<350||meta.height<350)throw Error('Inadequate 3525 source photo');
+const dest='public/product-media/microduck-speaker-3525.jpg';
+await sharp(raw).rotate().resize(900,900,{fit:'contain',background:'#ffffff',withoutEnlargement:true}).jpeg({quality:85}).toFile(dest);
+const out=fs.readFileSync(dest);if(out[0]!==0xff||out[1]!==0xd8||out.length<6000)throw Error('Bad output JPEG');
+console.log('MICRODUCK 3525 / 4R3W / HP1.25 photo saved',dest,meta.width+'x'+meta.height,out.length);
