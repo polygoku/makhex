@@ -4,7 +4,7 @@ import {products} from '../data/products';
 import {mosaicoAssemblyParts,mosaicoCommercePlans} from '../data/mosaico-bom';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 import {supplierFor,offersFor} from '../data/supplier-matches';
-import {microduckPricePlans,microduckPriceObservedAt,microduckRetailCautions} from '../data/microduck-price-plans';
+import {microduckPricePlans,microduckPriceObservedAt,microduckRetailCautions,originalMakerEstimateSlugs} from '../data/microduck-price-plans';
 
 // Public buyer comparison links are separate from private supplier order credentials.
 // An external link does NOT establish MAKHEX fulfillment or in-stock checkout.
@@ -42,10 +42,11 @@ export const GET:APIRoute=()=>{
         slug:product.slug,title:stage?.supplierModel??product.title,
         url:'https://makhex.com/shop/'+product.slug+'/',
         variants:stage?.variants.map(v=>({title:v.title,priceUsd:v.plannedRetailUsd}))??[],
-        priceStatus:stage?(microduckPricePlans[product.slug]?'ALIEXPRESS_VARIANT_PLANNING':'MERCHANT_PLANNING'):'COMPARE_EXTERNAL_SELLERS',
+        priceStatus:product.slug==='microduck-printed-parts'?'FREE_DIGITAL_MODEL':originalMakerEstimateSlugs.has(product.slug)?'MAKER_HISTORICAL_2_5X_ESTIMATE':stage?(microduckPricePlans[product.slug]?'ALIEXPRESS_VARIANT_PLANNING':'MERCHANT_PLANNING'):'COMPARE_EXTERNAL_SELLERS',
+        fulfillmentMode:product.slug==='microduck-printed-parts'?'MEMBER_FILE_DOWNLOAD':'OWNER_APPROVAL_BEFORE_PAYMENT',
         supplierPriceReviewDate:microduckPricePlans[product.slug]?microduckPriceObservedAt:null,
         sourcingNote:microduckRetailCautions[product.slug]??null,
-        availability:'COMING_SOON',
+        availability:product.slug==='microduck-printed-parts'?'DIGITAL_DOWNLOAD':'COMING_SOON',
         hardwareReview:stage?.technicalGate??'HOLD',
         exactRequirements:match?.required??null,
         supplierCaution:match?.notes??null,

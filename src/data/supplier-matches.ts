@@ -125,12 +125,10 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
   ]
  },
  'speaker-4ohm-3w':{
-  required:'For Build 02: 28 mm 4 Ω / 3 W loudspeaker. For Microduck: 3525 enclosure 4 Ω / 3 W with HP1.25-compatible wiring — NOT same mechanical part.',
-  notes:'Shared MAKHEX slug currently represents incompatible mechanical speakers. Select by project and do not assume the 28 mm staged price covers Microduck.',
+  required:'Build 02 only: 28 mm diameter, 4 ohm / 3 W speaker. Never substitute Microduck 3525 cavity with 2-pin 1.25 mm connector.',
+  notes:'Original 28 mm voice-node speaker. Microduck now uses the separate microduck-speaker-3525 product and $13.95 sourcing plan; no shared SKU or inherited price.',
   offers:[
    {seller:'Mouser',label:'28 mm 4 Ω 3 W Same Sky CMS-2811-44E',url:'https://www.mouser.com/en/c/electromechanical/audio-devices/speakers-transducers/?impedance=4+Ohms&power+rating=3+W',match:'SELECT_VARIANT',note:'Find CMS-2811-44E (28 mm x 11 mm) in filtered results.',project:'voice-command-node'},
-   {seller:'Original Microduck maker',label:'3525 / 4 Ω 3 W speaker original purchase',url:'https://item.taobao.com/item.htm?id=683920556900',match:'SELECT_VARIANT',note:'Select 3525 cavity with 4 Ω / 3 W; confirm HP1.25 connector/polarity.',project:'microduck-robot'},
-   {seller:'Walmart marketplace',label:'3525 / 4 Ω 3 W candidate',url:'https://www.walmart.com/ip/14179324506',match:'COMPATIBILITY_REVIEW',note:'Seller varies connector and pack. Exact Microduck HAT HP1.25 mating cable not assured.',project:'microduck-robot'}
   ]
  },
  'momentary-tactile-switch':{
@@ -159,8 +157,9 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
  },
  'radxa-zero-3w':{
   required:'Radxa ZERO 3W manufacturer SKU RS107-D2E0H1W15: 2 GB RAM, no eMMC, pre-soldered GPIO header.',
-  notes:'Exact 2 GB no-eMMC plus pre-soldered GPIO option reported out of stock on AliExpress. The unrelated 1 GB/no GPIO default is not acceptable; owner must source equivalent exact SKU.',
+  notes:'Exact 2 GB/no-eMMC/pre-soldered GPIO manufacturer SKU RS107-D2E0H1W15 was sold out at Arace and current AliExpress candidates. Hubtronics India listed exact manufacturer variant in stock, but U.S. shipping remains unverified. Never ship 1 GB/no GPIO by substitution.',
   offers:[
+   {seller:'Hubtronics India',label:'Exact Radxa ZERO 3W 2 GB + header',url:'https://hubtronics.in/radxa-zero-3w-2gbram',match:'SELECT_VARIANT',note:'Listed RS107-D2E0H1W15 with inventory in India. Shipping to U.S., taxes and courier qualification are unknown; not an approved fulfillment source.'},
    {seller:'Arace Tech',label:'Radxa ZERO 3W — select exact configuration',url:'https://arace.tech/products/radxa-zero-3w',match:'SELECT_VARIANT',note:'Select 2 GB / None eMMC / Soldered header. Reconfirm selected SKU and shipping at checkout.'},
    {seller:'ameriDroid',label:'Alternative board listing',url:'https://ameridroid.com/products/radxa-zero-3w',match:'SELECT_VARIANT',note:'Compare exact 2GB no-eMMC header version; availability can vary.'}
   ]
@@ -235,25 +234,35 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'VXB',label:'623ZZ pack of ten',url:'https://vxb.com/products/623zz-10-bearing-shielded-3x10x4-miniature',match:'EXACT_SPEC',note:'10-pack covers optional eight rollers plus two spares.'}
   ]
  },
+ 'microduck-speaker-3525':{
+  required:'Microduck YZ3525 3525 cavity loudspeaker, 4Ω / 3W and mating 2P 1.25 mm connector for HAT J1 SPK_R_P / SPK_R_N.',
+  notes:'A distinct physical SKU from 28mm Voice Node loudspeaker. The supplier photo confirms YZ3525 4Ω3W with 2P 1.25mm plug (option 14-193). Confirm connector polarity and ZIP shipping before payment.',
+  offers:[
+   {seller:'AliExpress',label:'YZ3525 4Ω3W speaker · 2P 1.25 mm',url:'https://www.aliexpress.us/item/3256813213673448.html',match:'SELECT_VARIANT',note:'Choose exact picture 14-193 YZ3525 4Ω3W / 2P 1.25. Default $1.28 item and $4.30 displayed delivery on Oct 28; ZIP-specific purchase not yet confirmed.'},
+   {seller:'Original maker supplier',label:'Original 3525 4Ω3W speaker',url:'https://item.taobao.com/item.htm?id=683920556900',match:'SELECT_VARIANT',note:'Original creator reference. Match 3525 size, 4Ω/3W and crimped HP1.25 2P connector, not the 8Ω speaker.'}
+  ]
+ },
  'microduck-printed-parts':{
   required:'Original FrankenDuck 36 STL parts plus five-plate 3MF; PLA rigid parts, TPU soles/tires, audited scale.',
-  notes:'These are custom parts, not a stock AliExpress product. Signed-in maker design downloads and print service quotation needed.',
+  notes:'MAKHEX already makes the authorized 36 STL + five-plate 3MF design download available FREE behind member login. No physical prints are offered or shipped; select your printer and PLA/TPU material yourself.',
   offers:[
+   {seller:'MAKHEX',label:'FREE member STL and 3MF download',url:'https://makhex.com/members/microduck-designs/',match:'EXACT_SPEC',note:'Sign in to obtain original author-controlled design archive and print locally. Digital files only; no part delivery or physical shipment.'},
    {seller:'JLC3D',label:'Upload original STLs/3MF to quote prints',url:'https://jlcpcb.com/3d-printing/',match:'CUSTOM_ORDER',note:'Quote PLA and TPU separately; verify scale, supports, dimensional fit and print quantity.'},
    {seller:'PCBWay 3D',label:'Alternative upload-to-print service',url:'https://www.pcbway.com/rapid-prototyping/',match:'CUSTOM_ORDER',note:'Request same STL/3MF geometry and material compatibility; private CAD access on MAKHEX.'}
   ]
  },
  'microduck-fasteners':{
   required:'Microduck complete fastener assortment: M2x4/5/6/8/12 and M2.6x8, correct self-tapping/thread, head shape and lengths.',
-  notes:'No off-the-shelf generic M2 kit proven to cover all original dimensions. Original creator seller is a selectable screw-size listing.',
+  notes:'Use maker six-size ×200 flat-tail Phillips pan-head packs. Ordinary AliExpress wafer-head screws can differ mechanically. Historical ¥20.43 kit is a pricing basis BEFORE freight, not current order quote.',
   offers:[
+   {seller:'AliExpress',label:'M2 and M2.6 flat-tail screws / multiple lengths candidate',url:'https://www.aliexpress.us/item/3256807980116275.html',match:'COMPATIBILITY_REVIEW',note:'Listing allows M2/M2.6 and 4/5/6/8/12 mm but supplied heads are low-wafer, NOT proven identical to maker pan-head. Selected M2 combinations displayed OOS; not an approved direct swap.'},
    {seller:'Original maker supplier (Taobao)',label:'Creator fastener-size purchase listing',url:'https://item.taobao.com/item.htm?id=534923831046',match:'SELECT_VARIANT',note:'Select all six lengths and confirm head/drive, quantity, M2 vs M2.6.'},
    {seller:'Original maker BOM',label:'See every required screw type and count',url:'https://github.com/kissqy/Microduck-kissqy/blob/main/DUCK-SHOPPING-LIST.en.md',match:'COMPATIBILITY_REVIEW',note:'Authoritative assembly list; sourcing guidance, not a single checkout.'}
   ]
  },
  'amp20-servo-cables':{
   required:'AMP2.0 3P serial-bus servo cables, 24 AWG, both 100 mm and 200 mm lengths; verify pin-1 mapping.',
-  notes:'Standard 2.54 mm RC PWM servo extensions are incompatible! Confirm 2.0 mm pitch AMP2.0 matching connectors and current.',
+  notes:'The exact maker cables are 3P 2.0 mm AMP2.0, 1007/24AWG, 30 pieces each of 10cm and 20cm. 2.54 mm RC PWM and generic PH2.0 26AWG extension listings do not satisfy the documented gauge/protocol without review.',
   offers:[
    {seller:'Original maker supplier (Taobao)',label:'AMP2.0 3P 10 cm / 20 cm ready-made leads',url:'https://item.taobao.com/item.htm?id=825340808235',match:'SELECT_VARIANT',note:'Choose original 10 cm and 20 cm / 1007 24AWG options, not EH2.5 or JR PWM connectors.'},
    {seller:'Creator connector drawing',label:'AMP2.0 pin and cable spec',url:'https://github.com/kissqy/Microduck-kissqy/blob/main/hardware/AMP2.0-VERSION.en.md',match:'COMPATIBILITY_REVIEW',note:'Source reference and fabrication info, not retail cable checkout.'}
@@ -261,8 +270,11 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
  },
  'microduck-wiring-kit':{
   required:'22 AWG 3-core silicone harness, 22 AWG black single wire, plus mixed heat shrink; source original quantities.',
-  notes:'This is a three-material bundle, not a single confirmed purchasable item. Original creator purchased each separately.',
+  notes:'Manufacturer BOM defines a three-material MAKHEX bundle; use 3m of 22AWG three-core + 2m 22AWG black single-core + 164-piece 2:1 heat shrink, not default 0.5mm² three-core mistaken for 22AWG.',
   offers:[
+   {seller:'AliExpress',label:'164-piece colored 2:1 shrink assortment',url:'https://www.aliexpress.us/item/3256812286354959.html',match:'SELECT_VARIANT',note:'Select 14-350853 164 PCS assortment; one of three materials required in the MAKHEX wiring bundle.'},
+   {seller:'AliExpress',label:'Black single-core silicone 22AWG 2m',url:'https://www.aliexpress.us/item/3256810220858713.html',match:'SELECT_VARIANT',note:'Select black 14-200004890, 22 AWG 380-201441935 and 2m 183-390264893; not default 26 AWG red.'},
+   {seller:'AliExpress',label:'3-core 22AWG silicone cable candidate',url:'https://www.aliexpress.us/item/3256801085130585.html',match:'COMPATIBILITY_REVIEW',note:'Choose black 3-core 22AWG with at least 3m. Exact option was not buyer-cart verified; do not substitute 0.5mm² 3-core as 22AWG.'},
    {seller:'Original maker BOM',label:'Shop original 22AWG wire + heat shrink items',url:'https://github.com/kissqy/Microduck-kissqy/blob/main/DUCK-SHOPPING-LIST.en.md',match:'SELECT_VARIANT',note:'Open three source links: 3-core 22 AWG 3 m, black 22 AWG 2 m, 164-piece heat-shrink set.'},
    {seller:'Original maker supplier (Taobao)',label:'Heat shrink assortment source',url:'https://item.taobao.com/item.htm?id=945215173380',match:'SELECT_VARIANT',note:'Only heat shrink. Also order both silicone wire types via maker BOM links.'}
   ]

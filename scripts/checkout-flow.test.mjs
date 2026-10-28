@@ -58,8 +58,8 @@ const validBody=()=>({
   {slug:'radxa-zero-3w',option:'Option pending',quantity:1,project:'microduck-robot'}
  ]
 });
-test('all 30 catalog products are present and have exception locks',()=>{
- assert.equal(Object.keys(checkoutCatalog.parts).length,30);
+test('all 31 catalog products are present and have exception locks',()=>{
+ assert.equal(Object.keys(checkoutCatalog.parts).length,31);
  assert.equal(Object.keys(checkoutCatalog.projectParts).length,12);
  const bundle=checkoutInternals.validateLines([
   {slug:'feetech-hd1910',option:checkoutCatalog.parts['feetech-hd1910'].variants[0],quantity:15,project:'microduck-robot'},
@@ -80,7 +80,9 @@ test('cart whitelist protects source options and project BOM',()=>{
  assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N4',quantity:1}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N8 · 8 MB flash',quantity:1}])?.lines.length,1);
  assert.equal(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'28 mm / 4 ohm / 3 W',quantity:1,project:'microduck-robot'}]),null);
- assert(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'Option pending',quantity:1,project:'microduck-robot'}]));
+ assert.equal(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Never let the voice-node speaker into Microduck cart');
+ assert.equal(checkoutInternals.validateLines([{slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}])?.planningSubtotalCents,1395);
+ assert.equal(checkoutCatalog.parts['microduck-printed-parts'].plannedRetailCents[0],0,'Digital file cannot be billed as a shipped shell');
 });
 test('intake requires same origin, consent, Turnstile and US ZIP',async()=>{
  const f=setup(),b=validBody();

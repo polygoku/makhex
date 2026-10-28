@@ -182,14 +182,22 @@ export const checkoutCatalog={
     },
     "microduck-hat": {
       "title": "Microduck HAT Custom Controller PCB",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "Original Oct 15 AMP2.0 HAT, assembled / made to order"
+      ],
+      "plannedRetailCents": [
+        7462
+      ],
       "sellerCheckoutVerified": false
     },
     "microduck-imu": {
       "title": "Microduck STM32 IMU Controller PCB",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "Original Oct 15 AMP2.0 IMU, assembled + FT6 flash"
+      ],
+      "plannedRetailCents": [
+        3712
+      ],
       "sellerCheckoutVerified": false
     },
     "imx219-160-camera": {
@@ -253,27 +261,53 @@ export const checkoutCatalog={
       "sellerCheckoutVerified": false
     },
     "microduck-printed-parts": {
-      "title": "Microduck FrankenDuck 3D-Printed Shell",
-      "variants": [],
-      "plannedRetailCents": [],
+      "title": "Microduck FrankenDuck STL / 3MF Files",
+      "variants": [
+        "Free authorized maker design download · self print"
+      ],
+      "plannedRetailCents": [
+        0
+      ],
+      "sellerCheckoutVerified": false
+    },
+    "microduck-speaker-3525": {
+      "title": "Microduck 3525 4 Ohm 3 W Speaker",
+      "variants": [
+        "YZ3525 4Ω 3W cavity · 2P 1.25 mm (not 8Ω)"
+      ],
+      "plannedRetailCents": [
+        1395
+      ],
       "sellerCheckoutVerified": false
     },
     "microduck-fasteners": {
       "title": "Microduck M2/M2.6 Fastener Set",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "Six sizes · M2x4/5/6/8/12 + M2.6x8 · historical 200pc packs"
+      ],
+      "plannedRetailCents": [
+        766
+      ],
       "sellerCheckoutVerified": false
     },
     "amp20-servo-cables": {
       "title": "AMP2.0 3-Pin Servo Cable Set",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "30 × 100mm + 30 × 200mm; 24AWG, 2.0mm 3P"
+      ],
+      "plannedRetailCents": [
+        2025
+      ],
       "sellerCheckoutVerified": false
     },
     "microduck-wiring-kit": {
       "title": "Microduck 22AWG Wiring & Heat Shrink",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "3m 22AWG 3-core + 2m black 22AWG 1-core + 164 pcs 2:1"
+      ],
+      "plannedRetailCents": [
+        570
+      ],
       "sellerCheckoutVerified": false
     }
   },
@@ -370,7 +404,7 @@ export const checkoutCatalog={
       "microduck-printed-parts",
       "bearing-6700",
       "bearing-et2216",
-      "speaker-4ohm-3w",
+      "microduck-speaker-3525",
       "microduck-fasteners",
       "amp20-servo-cables",
       "microduck-wiring-kit"
