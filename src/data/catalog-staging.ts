@@ -1,5 +1,3 @@
-import {researchPriceReferenceFor} from './research-price-references.ts';
-
 /**
  * Retail *planning* snapshot from owner-verified Squarespace CSV export,
  * 2026-10-25. NOT an offer of sale or verified delivered price.
@@ -38,16 +36,11 @@ export const catalogStaging:Readonly<Record<string,CatalogStage>>={
   '5v-5a-led-power':{supplierModel:'Waveshare 5 V 5 A US Power Adapter',variants:[{title:'US plug / 5 V 5 A / 5.5 x 2.1 mm',plannedRetailUsd:29.18}],technicalGate:'HOLD',shippingVerified:false,buyerOrderabilityVerified:false}
 } as const;
 export const formatUsd=(amount:number):string=>'$'+amount.toFixed(2);
-export function stageFor(slug:string):CatalogStage|undefined{
- const merchant=catalogStaging[slug];
- if(merchant)return merchant;
- const research=researchPriceReferenceFor(slug);
- if(!research)return;
- return {supplierModel:research.supplierModel,variants:[{title:research.title,plannedRetailUsd:research.estimatedRetailUsd}],technicalGate:'HOLD',shippingVerified:false,buyerOrderabilityVerified:false};
-}
+export function stageFor(slug:string):CatalogStage|undefined{return catalogStaging[slug]}
 export function plannedVariantForProject(slug:string,projectSlug?:string):PlannedVariant|undefined{
  const stage=stageFor(slug);
  if(!stage)return;
+ if(slug==='speaker-4ohm-3w'&&projectSlug==='microduck-robot')return; // 3525/HP1.25 is not the staged 28mm speaker.
  if(slug==='ws2812-leds'&&projectSlug==='smart-desk-button')return stage.variants[1];
  return stage.variants[0];
 }
