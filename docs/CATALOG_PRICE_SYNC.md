@@ -33,3 +33,11 @@ The authenticated Squarespace export confirmed **16 component families with 16 h
 Confirmed new prices: ESP-Mosaico Vision Combo Kit **$201.70**, 28 mm 4-ohm 3 W speaker **$6.35**, 6×6×4.3 mm tactile switches **$3.55**, Waveshare US-plug 5 V 5 A adapter **$29.18**. The Mosaico, switch and adapter prices are updates from the prior snapshot; the speaker was already priced at $6.35 in Squarespace.
 
 **Live checkout is still gated**, and a planned price is not an orderability or delivered-total quote. Source variation mapping, ZIP 11021 landed-cost qualification, official order-placement permission and true Squarespace-to-Doroppu supplier-order/tracking/refund tests are separate launch gates.
+
+## October 27: historical Radxa research estimate (not merchant export)
+
+The private Microduck supplier ledger contains an October 25 exact-option quotation for Radxa ZERO 3W 2 GB, no eMMC, populated GPIO header (manufacturer RS107-D2E0H1W15). The supplier API reported **zero stock** for that selected option. There was no confirmed ZIP 11021 supplier checkout, and the supplier offer is not current. The public **$271.98 historical retail planning estimate** applies the MAKHEX 2.5× rule to that dated reference without exposing wholesale costs or seller identifiers.
+
+This datum lives in `src/data/research-price-references.ts` and is overlaid by `stageFor()` on a missing Squarespace item. It is **not** added to the 16-row authenticated Squarespace merchant-price snapshot and does not unlock checkout, set stock, or create a Squarespace product. When Radxa receives a validated current supplier quote and a reviewed merchant export, replace the historical datum with the true Squarespace variant/price and remove the research fallback.
+
+`maker-cart.js` migrates old `Option pending` entries only when a component now has exactly one known option; it leaves genuinely unquoted parts labeled as requiring a quote. Avoid displaying a $0.00 subtotal when no priced lines exist.

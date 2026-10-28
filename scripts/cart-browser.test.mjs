@@ -22,7 +22,7 @@ try{
  await page.goto(root+'/cart/',{waitUntil:'domcontentloaded'});
  await page.locator('.cart-line').first().waitFor();
  assert.match(await page.locator('.cart-lines').innerText(),/Mosaico/);
- assert.match(await page.locator('[data-cart-total]').innerText(),/Price pending/);
+ assert.match(await page.locator('[data-cart-total]').innerText(),/unquoted selection|supplier quote/);
  assert.equal(await page.locator('.cart-checkout-disabled').isDisabled(),true);
  assert.equal(await page.locator('.cart-line').count(),2,'Combo kit + data cable should be two items');
  await page.goto(root+'/projects/mosaico-learning-assistant/',{waitUntil:'domcontentloaded'});
@@ -38,6 +38,20 @@ try{
  await page.goto(root+'/cart/',{waitUntil:'domcontentloaded'});
  await page.locator('.cart-line').first().waitFor();
  assert.equal(await page.locator('.cart-line').count(),2,'Switching back to bundle must remove individual modules');
+ await page.locator('[data-cart-clear]').click();
+ await waitCount(0);
+ // An existing mobile cart still stores Radxa with the old 'Option pending' key.
+ // The site must reprice it and repair the stored variant without requiring re-add.
+ await page.evaluate(()=>localStorage.setItem('makhex-parts-cart-v1',JSON.stringify([{slug:'radxa-zero-3w',option:'Option pending',quantity:1}])));
+ await page.reload({waitUntil:'domcontentloaded'});
+ await page.locator('.cart-line').first().waitFor();
+ assert.match(await page.locator('.cart-line').first().innerText(),/271\.98/);
+ assert.match(await page.locator('.cart-line').first().innerText(),/out of stock/);
+ assert.match(await page.locator('[data-cart-total]').innerText(),/Estimated parts subtotal: \$271\.98/);
+ assert.doesNotMatch(await page.locator('[data-cart-total]').innerText(),/\$0\.00|Price pending/);
+ assert.equal(await page.locator('.cart-checkout-disabled').isDisabled(),true);
+ const storedRadxa=await page.evaluate(()=>JSON.parse(localStorage.getItem('makhex-parts-cart-v1'))[0]);
+ assert.match(storedRadxa.option,/2 GB RAM/);
  await page.locator('[data-cart-clear]').click();
  await waitCount(0);
  await page.goto(root+'/projects/espnow-remote/',{waitUntil:'domcontentloaded'});

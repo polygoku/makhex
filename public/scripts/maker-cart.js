@@ -34,7 +34,7 @@ function save(items){
 }
 function flash(message){document.querySelectorAll('[data-cart-flash]').forEach(e=>e.textContent=message)}
 async function catalog(){
- if(!catalogPromise) catalogPromise=fetch('/sourcing.json',{credentials:'same-origin'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
+ if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=radxa-20261027',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
  return catalogPromise;
 }
 function check(c,item){
@@ -44,6 +44,22 @@ function check(c,item){
  if(options.length&&!options.some(v=>v.title===item.option))throw Error('Choose a listed option');
  if(!options.length&&item.option!=='Option pending')throw Error('Option qualification pending');
  if(!Number.isSafeInteger(item.quantity)||item.quantity<1||item.quantity>MAX_QUANTITY)throw Error('Invalid quantity');
+}
+// Cart entries created before a single variant was researched retain 'Option pending'.
+// Adopt that exact single variant without requiring the customer to remove and re-add.
+function migrateLegacyOptions(c){
+ const stored=read(),migrated=[];
+ let changed=false;
+ for(const item of stored){
+  const part=findPart(c,item.slug),variants=part?.variants??[];
+  const next=item.option==='Option pending'&&variants.length===1?{...item,option:variants[0].title}:item;
+  if(next!==item)changed=true;
+  const duplicate=migrated.find(existing=>key(existing)===key(next));
+  if(duplicate){duplicate.quantity=Math.min(MAX_QUANTITY,duplicate.quantity+next.quantity);changed=true}
+  else migrated.push(next);
+ }
+ if(changed){volatile=migrated;try{window.localStorage.setItem(STORE_KEY,JSON.stringify(migrated))}catch{}updateCount()}
+ return changed?migrated:stored;
 }
 function insert(current,items,c){
  const next=excludeAlternative(current,items).map(p=>({...p}));
@@ -60,7 +76,7 @@ async function add(items,button){
  button.disabled=true;
  try{
   const c=await catalog();
-  save(insert(read(),items,c));
+  save(insert(migrateLegacyOptions(c),items,c));
   const count=items.reduce((n,p)=>n+p.quantity,0);
   flash('Added '+count+' part'+(count===1?'':'s')+' to your cart.');
  }catch(e){flash(e.message||'Could not add parts')}
@@ -75,7 +91,7 @@ document.addEventListener('click',async event=>{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
    const items=(project.cartPlan?.parts??project.parts).map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty}));
-   save(insert(read(),items,c));
+   save(insert(migrateLegacyOptions(c),items,c));
    flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
   }catch(e){flash(e.message||'Unable to add kit')}
   finally{b.disabled=false}
@@ -88,7 +104,7 @@ document.addEventListener('click',async event=>{
    const plan=c.projectAlternativePlans?.[name];
    if(!plan)throw Error('Unrecognized component plan');
    const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty}));
-   save(insert(read(),items,c));
+   save(insert(migrateLegacyOptions(c),items,c));
    flash('Added '+items.length+' separate research components. Bundle duplicates removed.');
   }catch(e){flash(e.message||'Could not add individual research components')}
   finally{b.disabled=false}
@@ -102,7 +118,7 @@ document.addEventListener('click',async event=>{
  if(b.hasAttribute('data-cart-clear')){save([]);flash('Cart cleared.');return}
  if(b.hasAttribute('data-cart-copy')){
   try{
-   const c=await catalog(),rows=read().map(p=>p.quantity+' x '+(findPart(c,p.slug)?.title??p.slug)+' — '+p.option);
+   const c=await catalog(),rows=migrateLegacyOptions(c).map(p=>p.quantity+' x '+(findPart(c,p.slug)?.title??p.slug)+' — '+p.option);
    if(!rows.length){flash('Cart is empty.');return}
    await navigator.clipboard.writeText('MAKHEX parts\n'+rows.join('\n'));
    flash('Parts list copied.');
@@ -115,7 +131,7 @@ async function render(){
  let c;
  try{c=await catalog()}catch(e){host.textContent=e.message;return}
  host.replaceChildren();
- const cart=read(),totalLabel=document.querySelector('[data-cart-total]'),countLabel=document.querySelector('[data-cart-lines-count]');
+ const cart=migrateLegacyOptions(c),totalLabel=document.querySelector('[data-cart-total]'),countLabel=document.querySelector('[data-cart-lines-count]');
  if(!cart.length){
   const p=document.createElement('p'),a=document.createElement('a');
   p.className='cart-empty-message';p.textContent='Your parts cart is empty. Explore a build to add a complete kit or select individual components.';
@@ -129,11 +145,11 @@ async function render(){
   const price=typeof variation?.priceUsd==='number'&&Number.isFinite(variation.priceUsd)?variation.priceUsd:null;
   const card=document.createElement('article');card.className='cart-line';
   const imgLink=document.createElement('a');imgLink.href=part.url?.startsWith('https://makhex.com/')?part.url.replace('https://makhex.com',''):'/shop/'+encodeURIComponent(item.slug)+'/';imgLink.className='cart-line-photo';
-  const img=document.createElement('img');img.src=part.image??'/product-media/'+item.slug+'.jpg';img.alt='Hardware supplier reference for '+part.title;img.loading='lazy';imgLink.append(img);
+  const img=document.createElement('img');img.src=part.image??'/product-media/'+item.slug+'.jpg';img.alt=(part.priceStatus==='HISTORICAL_ESTIMATE_OUT_OF_STOCK'?'Technical illustration, not supplier photo, for ':'Hardware supplier reference for ')+part.title;img.loading='lazy';imgLink.append(img);
   const info=document.createElement('div');info.className='cart-line-info';
   const name=document.createElement('a');name.href=imgLink.href;name.className='cart-line-title';name.textContent=part.title;
   const option=document.createElement('p');option.textContent=item.option;
-  const note=document.createElement('small');note.textContent=part.availability==='RESEARCH_ONLY'?'Component identified in the kit; separate supplier SKU not verified':'Exact option and U.S. shipping pending verification';
+  const note=document.createElement('small');note.textContent=part.priceStatus==='HISTORICAL_ESTIMATE_OUT_OF_STOCK'?'Price reference '+part.priceAsOf+' · exact option reported out of stock; U.S. shipping unverified':part.availability==='RESEARCH_ONLY'?'Component identified in the kit; separate supplier SKU not verified':'Exact option and U.S. shipping pending verification';
   info.append(name,option,note);
   const controls=document.createElement('div');controls.className='cart-line-actions';
   const label=document.createElement('label');label.className='cart-quantity-label';label.textContent='Quantity';
@@ -145,12 +161,12 @@ async function render(){
   });
   const remove=document.createElement('button');remove.type='button';remove.className='cart-remove';remove.textContent='Remove';
   remove.addEventListener('click',()=>{save(read().filter(x=>key(x)!==key(item)));render()});
-  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Price pending':'$'+(price*item.quantity).toFixed(2)+' estimate';
+  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Quote required':'$'+(price*item.quantity).toFixed(2)+(part.priceStatus==='HISTORICAL_ESTIMATE_OUT_OF_STOCK'?' · historical estimate':' · estimate');
   controls.append(label,remove,val);card.append(imgLink,info,controls);host.append(card);
   n+=item.quantity;if(price===null)unknown++;else known+=price*item.quantity;
  }
  if(countLabel)countLabel.textContent=n+' parts · '+cart.length+' selections';
- if(totalLabel)totalLabel.textContent=(unknown?'Price pending for '+unknown+' selection'+(unknown===1?'':'s')+' · ':'')+'Estimated quoted parts: $'+known.toFixed(2);
+ if(totalLabel)totalLabel.textContent=unknown?(known>0?'Estimated priced parts: $'+known.toFixed(2)+' · '+unknown+' unquoted selection'+(unknown===1?'':'s'):unknown+' selection'+(unknown===1?' needs a supplier quote':'s need supplier quotes')):'Estimated parts subtotal: $'+known.toFixed(2);
 }
 document.addEventListener('makhex:cart-updated',render);
 updateCount();render();
