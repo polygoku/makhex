@@ -3,9 +3,10 @@ import type {Product} from '../data/products';
 import {supplierVariantPhotoSlugs} from '../data/microduck-price-plans';
 interface Props{product:Product;large?:boolean;gallery?:boolean}
 const {product,large=false,gallery=false}=Astro.props;
-const isMicroduckDrawing=['radxa-zero-3w','microduck-hat','microduck-imu','microduck-printed-parts','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit'].includes(product.slug);
+const originalPcb=['microduck-hat','microduck-imu'].includes(product.slug);
+const supplierReference=['radxa-zero-3w','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit'].includes(product.slug);
 ---
 <div class:list={['supplier-media',{'supplier-media-large':large}]} data-supplier-reference-image={product.slug}>
- <img src={'/product-media/'+product.slug+'.jpg'} alt={supplierVariantPhotoSlugs.has(product.slug)?'MAKHEX supplier-option listing image for the selected '+product.title+' variant. Supplier delivery and stock are not verified.':isMicroduckDrawing?'MAKHEX technical illustration for '+product.title+'. Not a supplier product photo.':'Supplier listing reference photo for '+product.title+'. Exact variant not verified.'} loading={large?'eager':'lazy'} decoding="async" width="900" height="900"/>
+ <img src={'/product-media/'+product.slug+'.jpg'} alt={supplierVariantPhotoSlugs.has(product.slug)?'MAKHEX supplier-option listing image for the selected '+product.title+' variant. Supplier delivery and stock are not verified.':originalPcb?'Original creator PCB layout for '+product.title+'. Not an assembled-product photograph.':supplierReference?'Actual component reference photo, not guaranteed selected variant or full kit, for '+product.title+'.':'Supplier listing reference photo for '+product.title+'. Exact variant not verified.'} loading={large?'eager':'lazy'} decoding="async" width="900" height="900"/>
  {gallery&&<a class="supplier-media-original" href={'/product-media/'+product.slug+'.jpg'} target="_blank" rel="noopener noreferrer">VIEW LARGER IMAGE ↗</a>}
 </div>

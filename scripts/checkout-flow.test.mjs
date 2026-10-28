@@ -55,18 +55,22 @@ const validBody=()=>({
  email:'buyer@example.com',shippingZip:'11021',shippingState:'NY',acceptTerms:true,turnstileToken:'verified',
  lines:[
   {slug:'feetech-hd1910',option:'Option pending',quantity:15,project:'microduck-robot'},
-  {slug:'radxa-zero-3w',option:'Option pending',quantity:1,project:'microduck-robot'}
+  {slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}
  ]
 });
-test('all 31 catalog products are present and have exception locks',()=>{
- assert.equal(Object.keys(checkoutCatalog.parts).length,31);
+test('all 30 catalog products are present and external parts are locked',()=>{
+ assert.equal(Object.keys(checkoutCatalog.parts).length,30);
  assert.equal(Object.keys(checkoutCatalog.projectParts).length,12);
  const bundle=checkoutInternals.validateLines([
   {slug:'feetech-hd1910',option:checkoutCatalog.parts['feetech-hd1910'].variants[0],quantity:15,project:'microduck-robot'},
   {slug:'bearing-et2216',option:checkoutCatalog.parts['bearing-et2216'].variants[0],quantity:12,project:'microduck-robot'}
  ]);
- assert.equal(bundle.planningSubtotalCents,122295,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
+ assert.equal(bundle.planningSubtotalCents,58695,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
  assert.equal(bundle.totalParts,27);
+ assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,8);
+ assert.equal(checkoutCatalog.parts['microduck-hat'].shopEligible,false);
+ assert.equal(checkoutCatalog.parts['esp32-s3-devkit'].shopEligible,false);
+ assert.equal(checkoutCatalog.parts['microduck-printed-parts'],undefined);
  assert.equal(Object.keys(checkoutCatalog.researchSubcomponents).length,4);
  assert(Object.values(checkoutCatalog.parts).every(p=>p.sellerCheckoutVerified===false));
 });
@@ -78,11 +82,12 @@ test('cart whitelist protects source options and project BOM',()=>{
  assert.equal(checkoutInternals.validateLines([{slug:'nonexistent',option:'Option pending',quantity:1}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'feetech-hd1910',option:'Option pending',quantity:99,project:'smart-desk-button'}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N4',quantity:1}]),null);
- assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N8 · 8 MB flash',quantity:1}])?.lines.length,1);
+ assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N8 · 8 MB flash',quantity:1}]),null,'External-only former merchant SKU is not checkout eligible');
  assert.equal(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'28 mm / 4 ohm / 3 W',quantity:1,project:'microduck-robot'}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Never let the voice-node speaker into Microduck cart');
- assert.equal(checkoutInternals.validateLines([{slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}])?.planningSubtotalCents,1395);
- assert.equal(checkoutCatalog.parts['microduck-printed-parts'].plannedRetailCents[0],0,'Digital file cannot be billed as a shipped shell');
+ assert.equal(checkoutInternals.validateLines([{slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}])?.planningSubtotalCents,670);
+ assert.equal(checkoutInternals.validateLines([{slug:'microduck-hat',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Non-AliExpress HAT must not be sold through MAKHEX');
+ assert.equal(checkoutInternals.validateLines([{slug:'microduck-printed-parts',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Removed STL cannot be billed');
 });
 test('intake requires same origin, consent, Turnstile and US ZIP',async()=>{
  const f=setup(),b=validBody();

@@ -242,15 +242,6 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'Original maker supplier',label:'Original 3525 4Ω3W speaker',url:'https://item.taobao.com/item.htm?id=683920556900',match:'SELECT_VARIANT',note:'Original creator reference. Match 3525 size, 4Ω/3W and crimped HP1.25 2P connector, not the 8Ω speaker.'}
   ]
  },
- 'microduck-printed-parts':{
-  required:'Original FrankenDuck 36 STL parts plus five-plate 3MF; PLA rigid parts, TPU soles/tires, audited scale.',
-  notes:'MAKHEX already makes the authorized 36 STL + five-plate 3MF design download available FREE behind member login. No physical prints are offered or shipped; select your printer and PLA/TPU material yourself.',
-  offers:[
-   {seller:'MAKHEX',label:'FREE member STL and 3MF download',url:'https://makhex.com/members/microduck-designs/',match:'EXACT_SPEC',note:'Sign in to obtain original author-controlled design archive and print locally. Digital files only; no part delivery or physical shipment.'},
-   {seller:'JLC3D',label:'Upload original STLs/3MF to quote prints',url:'https://jlcpcb.com/3d-printing/',match:'CUSTOM_ORDER',note:'Quote PLA and TPU separately; verify scale, supports, dimensional fit and print quantity.'},
-   {seller:'PCBWay 3D',label:'Alternative upload-to-print service',url:'https://www.pcbway.com/rapid-prototyping/',match:'CUSTOM_ORDER',note:'Request same STL/3MF geometry and material compatibility; private CAD access on MAKHEX.'}
-  ]
- },
  'microduck-fasteners':{
   required:'Microduck complete fastener assortment: M2x4/5/6/8/12 and M2.6x8, correct self-tapping/thread, head shape and lengths.',
   notes:'Use maker six-size ×200 flat-tail Phillips pan-head packs. Ordinary AliExpress wafer-head screws can differ mechanically. Historical ¥20.43 kit is a pricing basis BEFORE freight, not current order quote.',

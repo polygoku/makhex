@@ -52,12 +52,14 @@ const linkedTag=new RegExp('<a\\b[^>]*class="[^"]*\\bpin-one\\b[^"]*"[^>]*href="
 expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+leadHref);
 expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-station hero copy still shown for newer build');
 
+const aliSlugSet=new Set(['feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
- if(f.includes('microduck-printed-parts'))expect(html.includes('FREE 3D MODEL DOWNLOAD')&&html.includes('/members/microduck-designs/'),'Free DIY CAD must route to MAKHEX member library: '+f);
- else expect(html.includes('CHECK OUT WITH MAKHEX'),'Product must route to MAKHEX checkout: '+f);
- expect(html.includes('supplier-last-resort')&&html.includes('External alternatives'),'Supplier links must be last resort: '+f);
+ const slug=f.replaceAll('\\','/').split('/shop/')[1]?.split('/')[0];
+ if(aliSlugSet.has(slug))expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'AliExpress item must use MAKHEX cart: '+slug);
+ else expect(html.includes('External supplier')&&!html.includes('data-cart-add'),'External must direct-link without MAKHEX cart: '+slug);
+ expect(html.includes('supplier-last-resort')&&html.includes('SOURCE MATCHES'),'Supplier references must exist: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
 
@@ -85,13 +87,9 @@ for(const p of products){
  if(fs.existsSync(page)){
   const html=fs.readFileSync(page,'utf8');
   expect(html.includes('/product-media/'+p.slug+'.jpg'),'Product image not shown '+p.slug);
-  if(p.slug==='microduck-printed-parts'){
-   expect(html.includes('FREE 3D MODEL DOWNLOAD')&&html.includes('/members/microduck-designs/'),'Member self-print files must be FREE '+p.slug);
-   expect(!html.includes('data-cart-add'),'Digital STL files must not be sold as shipped physical goods');
-  }else{
-   expect(html.includes('data-cart-add'),'Product missing add-to-parts-cart control '+p.slug);
-   expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'Product must use MAKHEX cart checkout '+p.slug);
-  }
+  if(aliSlugSet.has(p.slug)){
+   expect(html.includes('data-cart-add')&&html.includes('CHECK OUT WITH MAKHEX'),'AliExpress items must have MAKHEX cart '+p.slug);
+  }else expect(!html.includes('data-cart-add')&&!html.includes('MAKHEX plan $'),'External SKU cannot have MAKHEX cart/price '+p.slug);
  }
 }
 const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');
@@ -105,7 +103,7 @@ for(const name of ['build11-english-lifestyle.jpg','build11-english-lifestyle-wi
 expect(homeHtml.includes('/demo/microduck/microduck-hero.jpg'),'Home must feature credited real Microduck footage still');
 expect(build11Html.includes('<video')&&build11Html.includes('/demo/build11-en-concept.mp4'),'Build 11 must have a locally served HTML5 video, not an X link');
 expect(build11Html.includes('ILLUSTRATIVE')||build11Html.includes('concept walkthrough'),'Build 11 video must be clearly marked as a simulation');
-expect(build11Html.includes('data-cart-add-plan="mosaico-learning-assistant"'),'Build 11 individual component sourcing option missing');
+expect(build11Html.includes('COMPARE EXTERNAL SUPPLIER')&&!build11Html.includes('data-cart-add-plan'),'Build 11 should link externally only');
 for(const name of ['build11-en-poster.jpg','build11-en-concept.mp4','build11-en.vtt','build11-scene-01.jpg','build11-scene-02.jpg','build11-scene-03.jpg']){
  const file=path.join(out,'demo',name);
  expect(fs.existsSync(file),'Self-hosted Build 11 asset missing: '+name);
@@ -114,9 +112,12 @@ const originalVid=path.join(out,'demo','build11-en-concept.mp4');
 if(fs.existsSync(originalVid)){const bytes=fs.readFileSync(originalVid);expect(bytes.toString('ascii',4,8)==='ftyp'&&bytes.length>5000,'Invalid MP4 asset');}
 for(const p of projects){
  const html=fs.readFileSync(path.join(out,'projects',p.slug,'index.html'),'utf8');
- expect(html.includes('data-cart-add-all="'+p.slug+'"'),'Add all kit action missing '+p.slug);
- const buttons=(html.match(/data-cart-add(?: |=|>)/g)||[]).length;
- expect(buttons>=p.materials.length,'Some BOM lines have no individual Add control '+p.slug);
+ const hasAli=p.materials.some(x=>aliSlugSet.has(x.slug));
+ expect(html.includes('data-cart-add-all="'+p.slug+'"')===hasAli,'Only AliExpress builds may have ADD ALL '+p.slug);
+ if(p.slug!=='mosaico-learning-assistant'){
+  const rows=(html.match(/data-bom-mode=/g)||[]).length;
+  expect(rows===p.materials.length,'Every BOM line must have direct/MAKHEX source mode '+p.slug);
+ }
  for(const m of p.materials)expect(html.includes('/product-media/'+m.slug+'.jpg'),'BOM part photo missing '+p.slug+'/'+m.slug);
 }
 
@@ -150,7 +151,9 @@ if(fs.existsSync(mosaicoPage)){
 // Build 12: the credited real-robot videos, CAD plate screenshots and exact-source
 // procurement links must be deployed as originals, without falsely enabling checkout.
 const microduckHtml=fs.readFileSync(path.join(out,'projects','microduck-robot','index.html'),'utf8');
-for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','Price pending','does not redistribute']){
+expect(!microduckHtml.includes('/shop/microduck-printed-parts/'),'STL/3MF must not be a purchasable part');
+expect(microduckHtml.includes('/members/microduck-designs/'),'Authorized free print models remain in build resources');
+for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','MAKHEX AliExpress parts subtotal','does not redistribute']){
  expect(microduckHtml.includes(marker),'Build 12 missing real-robot/sourcing/CAD requirement: '+marker);
 }
 const memberPage=fs.readFileSync(path.join(out,'members','microduck-designs','index.html'),'utf8');

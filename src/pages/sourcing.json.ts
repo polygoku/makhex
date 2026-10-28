@@ -4,7 +4,8 @@ import {products} from '../data/products';
 import {mosaicoAssemblyParts,mosaicoCommercePlans} from '../data/mosaico-bom';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 import {supplierFor,offersFor} from '../data/supplier-matches';
-import {microduckPricePlans,microduckPriceObservedAt,microduckRetailCautions,originalMakerEstimateSlugs} from '../data/microduck-price-plans';
+import {microduckPriceObservedAt,microduckRetailCautions} from '../data/microduck-price-plans';
+import {isMakhexAliExpress,preferredExternalOffer,MAKHEX_ALIEXPRESS_MARKUP} from '../data/sourcing-policy';
 
 // Public buyer comparison links are separate from private supplier order credentials.
 // An external link does NOT establish MAKHEX fulfillment or in-stock checkout.
@@ -21,7 +22,8 @@ export const GET:APIRoute=()=>{
     checkoutRequestAvailable:true,
     paymentCaptureEnabled:false,
     exceptionApprovalRequired:true,
-    externalCheckoutMode:'LAST_RESORT_ONLY',
+    externalCheckoutMode:'DIRECT_FOR_NON_ALIEXPRESS',
+    aliexpressPriceMarkupMultiplier:MAKHEX_ALIEXPRESS_MARKUP,
     researchSubcomponents:mosaicoAssemblyParts.map(part=>({
       slug:part.slug,title:part.title,variants:[],image:part.image,
       url:'https://makhex.com/projects/mosaico-learning-assistant/',
@@ -36,17 +38,20 @@ export const GET:APIRoute=()=>{
     })),
     projectAlternativePlans:{'mosaico-learning-assistant':mosaicoCommercePlans.separate},
     components:products.map(product=>{
-      const stage=stageFor(product.slug);
+      const isAli=isMakhexAliExpress(product.slug);
+      const stage=isAli?stageFor(product.slug):undefined;
+      const external=isAli?undefined:preferredExternalOffer(product.slug);
       const match=supplierFor(product.slug);
       return {
         slug:product.slug,title:stage?.supplierModel??product.title,
         url:'https://makhex.com/shop/'+product.slug+'/',
         variants:stage?.variants.map(v=>({title:v.title,priceUsd:v.plannedRetailUsd}))??[],
-        priceStatus:product.slug==='microduck-printed-parts'?'FREE_DIGITAL_MODEL':originalMakerEstimateSlugs.has(product.slug)?'MAKER_HISTORICAL_2_5X_ESTIMATE':stage?(microduckPricePlans[product.slug]?'ALIEXPRESS_VARIANT_PLANNING':'MERCHANT_PLANNING'):'COMPARE_EXTERNAL_SELLERS',
-        fulfillmentMode:product.slug==='microduck-printed-parts'?'MEMBER_FILE_DOWNLOAD':'OWNER_APPROVAL_BEFORE_PAYMENT',
-        supplierPriceReviewDate:microduckPricePlans[product.slug]?microduckPriceObservedAt:null,
+        priceStatus:isAli?'ALIEXPRESS_MARKUP_20_PLANNING':'EXTERNAL_UNMARKED_LINK',
+        fulfillmentMode:isAli?'MAKHEX_OWNER_REVIEW':'EXTERNAL_VENDOR',
+        directSupplierLink:external?.url??null,
+        supplierPriceReviewDate:isAli?microduckPriceObservedAt:null,
         sourcingNote:microduckRetailCautions[product.slug]??null,
-        availability:product.slug==='microduck-printed-parts'?'DIGITAL_DOWNLOAD':'COMING_SOON',
+        availability:isAli?'COMING_SOON':'EXTERNAL_REFERENCE',
         hardwareReview:stage?.technicalGate??'HOLD',
         exactRequirements:match?.required??null,
         supplierCaution:match?.notes??null,
@@ -55,9 +60,10 @@ export const GET:APIRoute=()=>{
     }),
     projects:projectsNewestFirst.map(project=>{
       const parts=project.materials.map(m=>{
-        const v=plannedVariantForProject(m.slug,project.slug);
+        const isAli=isMakhexAliExpress(m.slug);
+        const v=isAli?plannedVariantForProject(m.slug,project.slug):undefined;
         return {
-          slug:m.slug,qty:m.qty,selectedOption:v?.title??null,unitPriceUsd:v?.plannedRetailUsd??null,
+          slug:m.slug,qty:m.qty,sourceMode:isAli?'MAKHEX_ALI_20':'EXTERNAL_NO_MARKUP',directSupplierLink:isAli?null:preferredExternalOffer(m.slug,project.slug)?.url??null,selectedOption:v?.title??null,unitPriceUsd:v?.plannedRetailUsd??null,
           lineTotalUsd:v?Math.round(v.plannedRetailUsd*m.qty*100)/100:null,
           buyingOptions:offersFor(m.slug,project.slug).map(({seller,label,url,match,note})=>({seller,label,url,match,note}))
         };
@@ -66,7 +72,8 @@ export const GET:APIRoute=()=>{
         slug:project.slug,title:project.title,
         url:'https://makhex.com/projects/'+project.slug+'/',
         parts,
-        partsSubtotalUsd:parts.every(p=>p.lineTotalUsd!==null)?Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100:null,
+        partsSubtotalUsd:Math.round(parts.reduce((n,p)=>n+(p.lineTotalUsd??0),0)*100)/100,
+        externalPartTypes:parts.filter(p=>p.sourceMode==='EXTERNAL_NO_MARKUP').length,
         outstandingParts:projectBomMissingParts[project.slug]??[],
         ...(project.slug==='mosaico-learning-assistant'?{cartPlan:{...mosaicoCommercePlans.bundle,parts:mosaicoCommercePlans.bundle.parts.map(part=>({...part,option:plannedVariantForProject(part.slug,project.slug)?.title??part.option}))}}:{})
       };

@@ -3,24 +3,30 @@ import type {Product} from '../data/products';
 import ProductPhoto from './ProductPhoto.astro';
 import {productUrl} from '../lib/catalog';
 import {stageFor,plannedVariantForProject,formatUsd} from '../data/catalog-staging';
-import {microduckPricePlans} from '../data/microduck-price-plans';
+import {isMakhexAliExpress,preferredExternalOffer} from '../data/sourcing-policy';
 interface Props{product:Product;projectSlug?:string}
 const {product,projectSlug}=Astro.props;
-const stage=stageFor(product.slug);
+const isAli=isMakhexAliExpress(product.slug);
+const stage=isAli?stageFor(product.slug):undefined;
 const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
-const intended=plannedVariantForProject(product.slug,projectSlug);
+const intended=isAli?plannedVariantForProject(product.slug,projectSlug):undefined;
+const external=isAli?undefined:preferredExternalOffer(product.slug,projectSlug);
 ---
-<article class="product-card product-card-v2 product-card-simple">
+<article class="product-card product-card-v2 product-card-simple" data-source-mode={isAli?'MAKHEX_ALI_20':'EXTERNAL_NO_MARKUP'}>
   <a class="product-card-image" href={productUrl(product.slug)} aria-label={'Explore '+product.title}>
     <ProductPhoto product={product}/>
   </a>
   <div class="simple-product-info">
     <a class="product-title-link" href={productUrl(product.slug)}><h3>{stage?.supplierModel??product.title}</h3></a>
     <div class="simple-product-price">
-      <strong>{product.slug==='microduck-printed-parts'?'FREE STL / 3MF':minimum!==null?(microduckPricePlans[product.slug]?'Plan ':'')+formatUsd(minimum):'Sourcing review'}</strong>
-      {stage&&stage.variants.length>1&&<span>from</span>}
+      <strong>{isAli&&minimum!==null?'MAKHEX plan '+formatUsd(minimum):'External supplier · no markup'}</strong>
+      {isAli&&stage&&stage.variants.length>1&&<span>from</span>}
     </div>
-    <a href={productUrl(product.slug)} class="text-link">MAKHEX PART DETAILS ↗</a>
+    <a href={productUrl(product.slug)} class="text-link">PART DETAILS ↗</a>
   </div>
-  <div class="cart-card-action">{product.slug==='microduck-printed-parts'?<a class="btn btn-outline" href="/members/microduck-designs/">GET FREE PRINT FILES ↗</a>:<button type="button" data-cart-add data-cart-slug={product.slug} data-cart-project={projectSlug} data-cart-option={intended?.title??'Option pending'} data-cart-quantity="1">Add to parts cart +</button>}</div>
+  <div class="cart-card-action">{isAli?
+    <button type="button" data-cart-add data-cart-slug={product.slug} data-cart-project={projectSlug} data-cart-option={intended?.title??stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">Add to MAKHEX cart +</button>
+    :external?<a class="btn btn-outline" href={external.url} target="_blank" rel="noopener noreferrer">VIEW AT {external.seller.toUpperCase()} ↗</a>
+    :<a class="btn btn-outline" href={productUrl(product.slug)+'#buying-options'}>COMPARE EXTERNAL SELLERS ↗</a>}
+  </div>
 </article>

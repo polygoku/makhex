@@ -7,14 +7,18 @@ import {commerceState} from '../../lib/commerce';
 import type {Product} from '../../data/products';
 import {stageFor,formatUsd} from '../../data/catalog-staging';
 import {supplierFor} from '../../data/supplier-matches';
-import {microduckPricePlans,microduckRetailCautions,microduckPriceObservedAt,supplierVariantPhotoSlugs,originalMakerEstimateSlugs} from '../../data/microduck-price-plans';
-const microduckResearchSlugs=new Set(['microduck-speaker-3525','feetech-hd1910','radxa-zero-3w','microduck-hat','microduck-imu','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-printed-parts','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit']);
+import {microduckRetailCautions,microduckPriceObservedAt,supplierVariantPhotoSlugs} from '../../data/microduck-price-plans';
+import {isMakhexAliExpress,preferredExternalOffer} from '../../data/sourcing-policy';
+const cadLayoutSlugs=new Set(['microduck-hat','microduck-imu']);
+const supplementalReferenceSlugs=new Set(['radxa-zero-3w','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit']);
 export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
 interface Props{product:Product}
 const {product}=Astro.props;
 const checkout=commerceState(product);
-const stage=stageFor(product.slug);
+const isAli=isMakhexAliExpress(product.slug);
+const stage=isAli?stageFor(product.slug):undefined;
 const source=supplierFor(product.slug);
+const external=isAli?undefined:preferredExternalOffer(product.slug);
 const related=projectsNewestFirst.filter(p=>p.materials.some(m=>m.slug===product.slug)).slice(0,3);
 const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
 const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.supplierModel??product.title,description:product.description,author:{'@type':'Organization',name:'MAKHEX'},url:'https://makhex.com/shop/'+product.slug+'/',about:{'@type':'Thing',name:stage?.supplierModel??product.title}};
@@ -27,22 +31,24 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
   <section class="container detail-grid clean-product-detail">
     <div class="component-main-visual">
       <ProductPhoto product={product} large gallery/>
-      <p class="quiet-image-caption">{supplierVariantPhotoSlugs.has(product.slug)?'Matched supplier variant listing image · stock and U.S. shipping still require confirmation':microduckResearchSlugs.has(product.slug)?'MAKHEX technical illustration · custom or unmatched part':'Component reference image · verify actual retailer variation'}</p>
+      <p class="quiet-image-caption">{cadLayoutSlugs.has(product.slug)?'Original creator PCB layout from the October 15 AMP2.0 design files — not an assembled-board photograph.':supplementalReferenceSlugs.has(product.slug)?'Real hardware/component reference image. Exact supplier variant or complete bundle still needs checking.':supplierVariantPhotoSlugs.has(product.slug)?'Selected AliExpress supplier-option image. Stock and U.S. shipping still require confirmation.':'Hardware reference photo; compare actual seller variation.'}</p>
     </div>
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>
       <p class="detail-description">{product.description}</p>
-      <div class="clean-product-price">{product.slug==='microduck-printed-parts'?'FREE 3D MODEL DOWNLOAD':minimum!==null?'MAKHEX plan '+formatUsd(minimum):'MAKHEX sourcing review'}{stage&&stage.variants.length>1&&<span>from</span>}</div>
-      {minimum!==null&&product.slug!=='microduck-printed-parts'&&<p class="clean-compatibility">{originalMakerEstimateSlugs.has(product.slug)?'Historical original-maker cost × 2.5, converted to USD on '+microduckPriceObservedAt+' BEFORE shipping. This is a sourcing budget floor, not a verified delivered offer; current stock, freight and orderability require owner approval.':microduckPricePlans[product.slug]?'2.5× MAKHEX research price based on selected supplier variant as of '+microduckPriceObservedAt+'; U.S. destination-specific shipping, stock and final checkout price still require confirmation.':'MAKHEX catalog planning price only, not a verified supplier offer or final checkout quote.'}</p>}
-      {microduckRetailCautions[product.slug]&&<p class="clean-compatibility">{microduckRetailCautions[product.slug]}</p>}
-      <p class="clean-shipping">{product.slug==='microduck-printed-parts'?'Digital download only. Print the models yourself; MAKHEX does not ship a printed shell.':'MAKHEX offers free U.S. shipping after supplier qualification. You buy from MAKHEX, not from individual component sellers.'}</p>
-      {stage&&stage.variants.length>1&&<div class="clean-variant-options">
-        {stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}
-      </div>}
+      <div class="clean-product-price">{isAli&&minimum!==null?'MAKHEX price plan '+formatUsd(minimum):'External supplier · no MAKHEX markup'}</div>
+      {isAli&&<p class="clean-compatibility">AliExpress reference price plus 20% MAKHEX markup, reviewed {microduckPriceObservedAt}. Destination-specific shipping, pack pricing and stock still require approval. This is not a charged checkout quote.</p>}
+      {isAli&&microduckRetailCautions[product.slug]&&<p class="clean-compatibility">{microduckRetailCautions[product.slug]}</p>}
+      <p class="clean-shipping">{isAli?'MAKHEX handles selected AliExpress-sourced items. Customer shipping and exact delivered cost require approval.':'This is a direct vendor reference. MAKHEX adds no markup, collects no payment and does not order the item for you.'}</p>
+      {isAli&&stage&&stage.variants.length>1&&<div class="clean-variant-options">{stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}</div>}
       <div class="clean-product-action" data-cart-product={product.slug}>
-        {stage&&stage.variants.length>1&&<label class="cart-choice-label">Choose a component option<select data-cart-choice aria-label="Component option">{stage.variants.map(v=><option value={v.title}>{v.title}</option>)}</select></label>}
-        {product.slug==='microduck-printed-parts'?<><a class="btn btn-primary" href="/members/microduck-designs/">GET FREE STL / 3MF FILES ↗</a><p>Member sign-in required. No physical printed part is sold; choose PLA for the rigid plates and TPU for plate 5.</p></>:<><button class="btn btn-primary" type="button" data-cart-add data-cart-slug={product.slug} data-cart-option={stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">ADD TO PARTS LIST +</button><a class="btn btn-outline" href="/cart/">CHECK OUT WITH MAKHEX →</a><p>Build a single MAKHEX basket. Any sourcing exception is reviewed by our store before final payment.</p></>}
-        {checkout.kind==='ready'&&<a class="text-link" href={checkout.url} rel="noopener noreferrer">OPEN APPROVED MAKHEX STORE PRODUCT ↗</a>}
+        {isAli?<>
+          {stage&&stage.variants.length>1&&<label class="cart-choice-label">Choose component option<select data-cart-choice aria-label="Component option">{stage.variants.map(v=><option value={v.title}>{v.title}</option>)}</select></label>}
+          <button class="btn btn-primary" type="button" data-cart-add data-cart-slug={product.slug} data-cart-option={stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">ADD TO MAKHEX CART +</button>
+          <a class="btn btn-outline" href="/cart/">CHECK OUT WITH MAKHEX →</a>
+          <p>The exact supplier variant and shipping still need final owner approval before payment.</p>
+          {checkout.kind==='ready'&&<a class="text-link" href={checkout.url} rel="noopener noreferrer">OPEN APPROVED MAKHEX STORE PRODUCT ↗</a>}
+        </>:external?<><a class="btn btn-primary" href={external.url} target="_blank" rel="noopener noreferrer">VIEW AT {external.seller.toUpperCase()} ↗</a><a href="#buying-options" class="text-link">COMPARE OTHER EXTERNAL SELLERS ↗</a><p>No MAKHEX price or cart for this component.</p></>:<a class="btn btn-primary" href="#buying-options">FIND AN EXTERNAL SOURCE ↗</a>}
       </div>
       <div class="clean-product-specs">
         {product.specs.map(spec=><div>{spec}</div>)}
@@ -50,11 +56,11 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
       {stage?.technicalGate==='HOLD'&&<p class="clean-compatibility">Compatibility is still being checked for this model.</p>}
     </div>
   </section>
-  <section class="section container supplier-compare" id="buying-options"><details class="supplier-last-resort"><summary>External alternatives — only if MAKHEX cannot fulfill this component</summary>
+  <section class="section container supplier-compare" id="buying-options"><details class="supplier-last-resort"><summary>{isAli?'External fallback options — only if MAKHEX cannot fulfill':'Compare external sellers (no MAKHEX markup)'}</summary>
     <span class="eyebrow">SOURCE MATCHES / ACTUAL SELLER LINKS</span>
-    <h2>Last-resort source references.</h2>
+    <h2>{isAli?'Last-resort source references.':'Purchase from a matching supplier.'}</h2>
     <p class="supplier-intro"><strong>Required:</strong> {source?.required} {source?.notes}</p>
-    <p class="supplier-disclosure">MAKHEX sources parts for your order. These references are offered only if MAKHEX cannot fulfill the part and you decide to source it yourself. Never required for standard MAKHEX checkout.</p>
+    <p class="supplier-disclosure">{isAli?'MAKHEX sources selected AliExpress variants for approved orders; outside links are optional fallbacks.':'These links lead to independent vendors. MAKHEX does not mark up, charge or fulfill those orders. Confirm dimensions, stock and shipping with each seller.'}</p>
     <div class="supplier-options">
       {source?.offers.map(offer=><article class="supplier-option" data-supplier-match={offer.match} data-supplier-project={offer.project??''}>
         <div class="supplier-option-heading"><strong>{offer.seller}</strong><span>{labels[offer.match]}</span></div>

@@ -1,3 +1,5 @@
+> **Historical audit (October 28, before owner policy change).** The 2.5× figures below are superseded for the current MAKHEX storefront by [20% AliExpress markup / direct external vendor policy](MAKHEX_SOURCING_20_PERCENT_AND_IMAGE_AUDIT_20261028.md). STL/3MF files are no longer catalog or BOM parts; they remain in the Build 12 design library. Do not use the prior table as a current shopping price.
+
 # Microduck — engineering-source qualification and MAKHEX storefront changes
 **Date:** 2026-10-28 · **Build:** Microduck #12 · **Retail:** 2.5× reference supplier basis
 
