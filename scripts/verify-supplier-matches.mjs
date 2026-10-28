@@ -31,6 +31,7 @@ for(const project of projects)for(const m of project.materials){
 assert.equal(plannedVariantForProject('microduck-speaker-3525','microduck-robot')?.plannedRetailUsd,6.70);
 assert.equal(plannedVariantForProject('speaker-4ohm-3w','voice-command-node'),undefined);
 assert.equal(plannedVariantForProject('microduck-printed-parts','microduck-robot'),undefined);
+assert.equal(preferredExternalOffer('microduck-wiring-kit')?.seller,'Original maker BOM','External wiring kit must link to ALL THREE original source options, not only heat shrink');
 const source=JSON.parse(fs.readFileSync('dist/sourcing.json','utf8'));
 assert(!source.checkoutAvailable);
 assert.equal(source.components.filter(p=>p.buyingOptions.length>0).length,30);

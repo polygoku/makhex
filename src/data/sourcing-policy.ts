@@ -8,6 +8,9 @@ const notProduct=(o:SupplierOffer)=>!/(?:github\.com|jlcpcb\.com|pcbway\.com|lea
 export function preferredExternalOffer(slug:string,project?:string):SupplierOffer|undefined{
  const options=offersFor(slug,project).filter(notProduct);
  if(slug==='microduck-fasteners')return options.find(o=>o.seller.includes('Taobao'))??options[0];
- if(slug==='microduck-wiring-kit')return options.find(o=>o.seller.includes('Taobao'))??options[0];
+ // No seller offers a verified complete three-material wiring kit. Link to the original
+ // BOM, which supplies separate purchase links for 3-core wire, black wire and shrink.
+ // Sending buyers directly to the Taobao shrink listing would silently omit two parts.
+ if(slug==='microduck-wiring-kit')return offersFor(slug,project).find(o=>o.seller==='Original maker BOM')??options[0];
  return options.find(o=>!new URL(o.url).hostname.includes('aliexpress'))??options[0];
 }
