@@ -18,7 +18,7 @@ async function loadLines(){
  try{
   cart=getCart();
   if(!cart.length){list.textContent='Your MAKHEX cart is empty.';summary.textContent='Add a project kit or component to start checkout.';return;}
-  const resp=await fetch('/sourcing.json?v=makhex-checkout-20261027',{cache:'no-store'});
+  const resp=await fetch('/sourcing.json?v=retail-display-20261028',{cache:'no-store'});
   if(!resp.ok)throw Error('MAKHEX catalog is temporarily unavailable');
   const catalog=await resp.json();
   list.replaceChildren();
@@ -32,11 +32,11 @@ async function loadLines(){
    variant.textContent=item.option==='Option pending'?product.exactRequirements||'MAKHEX will verify the exact required option':item.option;
    variant.className='checkout-variant';left.append(title,variant);
    const selected=product.variants.find(v=>v.title===item.option);
-   if(typeof selected?.priceUsd==='number'){total+=selected.priceUsd*item.quantity;price.textContent='MAKHEX plan $'+(selected.priceUsd*item.quantity).toFixed(2)}
+   if(typeof selected?.priceUsd==='number'){total+=selected.priceUsd*item.quantity;price.textContent='$'+(selected.priceUsd*item.quantity).toFixed(2)}
    else{missing++;price.textContent='Final price on approval'}
    row.append(left,price);list.append(row);count+=item.quantity;
   }
-  summary.textContent=count+' parts in one order · '+(total>0?'current catalog planning subtotal $'+total.toFixed(2)+' · ':'')+(missing?missing+' lines need owner sourcing approval before payment':'final amount verified before payment');
+  summary.textContent=count+' parts in one order · '+(total>0?'subtotal $'+total.toFixed(2)+' · ':'')+(missing?missing+' lines need owner sourcing approval before payment':'final amount verified before payment');
  }catch(e){list.textContent=e.message||'Cart could not be loaded';cart=[]}
 }
 async function loadTurnstile(){

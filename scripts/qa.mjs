@@ -58,7 +58,7 @@ for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
  const slug=f.replaceAll('\\','/').split('/shop/')[1]?.split('/')[0];
  if(aliSlugSet.has(slug))expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'AliExpress item must use MAKHEX cart: '+slug);
- else expect(html.includes('External supplier')&&!html.includes('data-cart-add'),'External must direct-link without MAKHEX cart: '+slug);
+ else expect(html.includes('Buy from seller')&&!html.includes('data-cart-add'),'External must direct-link without MAKHEX cart: '+slug);
  expect(html.includes('supplier-last-resort')&&html.includes('SOURCE MATCHES'),'Supplier references must exist: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
@@ -153,7 +153,7 @@ if(fs.existsSync(mosaicoPage)){
 const microduckHtml=fs.readFileSync(path.join(out,'projects','microduck-robot','index.html'),'utf8');
 expect(!microduckHtml.includes('/shop/microduck-printed-parts/'),'STL/3MF must not be a purchasable part');
 expect(microduckHtml.includes('/members/microduck-designs/'),'Authorized free print models remain in build resources');
-for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','MAKHEX AliExpress parts subtotal','does not redistribute']){
+for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','MAKHEX parts subtotal','does not redistribute']){
  expect(microduckHtml.includes(marker),'Build 12 missing real-robot/sourcing/CAD requirement: '+marker);
 }
 const memberPage=fs.readFileSync(path.join(out,'members','microduck-designs','index.html'),'utf8');

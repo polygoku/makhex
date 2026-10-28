@@ -7,7 +7,7 @@ import {commerceState} from '../../lib/commerce';
 import type {Product} from '../../data/products';
 import {stageFor,formatUsd} from '../../data/catalog-staging';
 import {supplierFor} from '../../data/supplier-matches';
-import {microduckRetailCautions,microduckPriceObservedAt,supplierVariantPhotoSlugs} from '../../data/microduck-price-plans';
+import {microduckRetailCautions,supplierVariantPhotoSlugs} from '../../data/microduck-price-plans';
 import {isMakhexAliExpress,preferredExternalOffer} from '../../data/sourcing-policy';
 const cadLayoutSlugs=new Set(['microduck-hat','microduck-imu']);
 const supplementalReferenceSlugs=new Set(['radxa-zero-3w','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit']);
@@ -36,10 +36,10 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>
       <p class="detail-description">{product.description}</p>
-      <div class="clean-product-price">{isAli&&minimum!==null?'MAKHEX price plan '+formatUsd(minimum):'External supplier · no MAKHEX markup'}</div>
-      {isAli&&<p class="clean-compatibility">AliExpress reference price plus 20% MAKHEX markup, reviewed {microduckPriceObservedAt}. Destination-specific shipping, pack pricing and stock still require approval. This is not a charged checkout quote.</p>}
+      <div class="clean-product-price">{isAli&&minimum!==null?formatUsd(minimum):'Buy from seller'}</div>
+
       {isAli&&microduckRetailCautions[product.slug]&&<p class="clean-compatibility">{microduckRetailCautions[product.slug]}</p>}
-      <p class="clean-shipping">{isAli?'MAKHEX handles selected AliExpress-sourced items. Customer shipping and exact delivered cost require approval.':'This is a direct vendor reference. MAKHEX adds no markup, collects no payment and does not order the item for you.'}</p>
+      <p class="clean-shipping">{isAli?'Add to your MAKHEX cart. Availability and delivery are confirmed before payment.':'Purchase directly from the linked seller. See their site for price and delivery.'}</p>
       {isAli&&stage&&stage.variants.length>1&&<div class="clean-variant-options">{stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}</div>}
       <div class="clean-product-action" data-cart-product={product.slug}>
         {isAli?<>
@@ -56,11 +56,11 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
       {stage?.technicalGate==='HOLD'&&<p class="clean-compatibility">Compatibility is still being checked for this model.</p>}
     </div>
   </section>
-  <section class="section container supplier-compare" id="buying-options"><details class="supplier-last-resort"><summary>{isAli?'External fallback options — only if MAKHEX cannot fulfill':'Compare external sellers (no MAKHEX markup)'}</summary>
+  <section class="section container supplier-compare" id="buying-options"><details class="supplier-last-resort"><summary>{isAli?'External fallback options — only if MAKHEX cannot fulfill':'Compare external sellers'}</summary>
     <span class="eyebrow">SOURCE MATCHES / ACTUAL SELLER LINKS</span>
     <h2>{isAli?'Last-resort source references.':'Purchase from a matching supplier.'}</h2>
     <p class="supplier-intro"><strong>Required:</strong> {source?.required} {source?.notes}</p>
-    <p class="supplier-disclosure">{isAli?'MAKHEX sources selected AliExpress variants for approved orders; outside links are optional fallbacks.':'These links lead to independent vendors. MAKHEX does not mark up, charge or fulfill those orders. Confirm dimensions, stock and shipping with each seller.'}</p>
+    <p class="supplier-disclosure">{isAli?'MAKHEX sources selected AliExpress variants for approved orders; outside links are optional fallbacks.':'These are independent sellers. Confirm specifications, availability and shipping before buying.'}</p>
     <div class="supplier-options">
       {source?.offers.map(offer=><article class="supplier-option" data-supplier-match={offer.match} data-supplier-project={offer.project??''}>
         <div class="supplier-option-heading"><strong>{offer.seller}</strong><span>{labels[offer.match]}</span></div>

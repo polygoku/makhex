@@ -22,7 +22,7 @@ export const microduckRetailCautions:Readonly<Record<string,string>>={
  'bearing-6700':'Supplier sells a 10-piece 6700 open lot; the planned per-unit retail assumes Microduck needs five. Smaller quantities need repricing.',
  'bearing-et2216':'The former exact supplier variant is out of stock. The alternative is a 10-piece ET2216ZZ lot; two lots are required to supply the 12-piece Microduck build.',
  'bearing-623zz':'Optional roller only. The supplier sells ten 623ZZ bearings; the 8-unit kit retail allocates the lot. Do not substitute default 683ZZ.',
- 'microduck-speaker-3525':'Selected YZ3525 4 ohm 3W, 2-pin 1.25 mm. Observed $1.28 part + $4.30 delivery = $5.58 reference supplier basis; 1.2x MARKUP = $6.70. ZIP delivery and polarity still require verification.',
+ 'microduck-speaker-3525':'Selected YZ3525 4 ohm 3W, 2-pin 1.25 mm. Confirm connector polarity, current availability and delivery before payment.',
 } as const;
 export const supplierVariantPhotoSlugs=new Set(['feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
 export const originalMakerEstimateSlugs=new Set<string>();
