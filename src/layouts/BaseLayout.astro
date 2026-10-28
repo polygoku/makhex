@@ -3,18 +3,34 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import '../styles/workbench.css';
-interface Props{title?:string;description?:string;noindex?:boolean;}
-const {title='MAKHEX — Build something real',description='Maker-first ESP32 projects, connected hardware and an open build community.',noindex=false}=Astro.props;
+interface Props{title?:string;description?:string;noindex?:boolean;image?:string;ogType?:'website'|'article';}
+const {
+ title='MAKHEX — ESP32 Projects, Robotics & Maker Parts',
+ description='Discover ESP32 projects, DIY robotics and electronics build plans with component lists and MAKHEX parts checkout.',
+ noindex=false,
+ image='/og.png',
+ ogType='website'
+}=Astro.props;
 const canonical=new URL(Astro.url.pathname,Astro.site).href;
+const socialImage=new URL(image,Astro.site).href;
+const homepage=Astro.url.pathname==='/';
+const organization={
+ '@context':'https://schema.org',
+ '@graph':[
+  {'@type':'Organization','@id':'https://makhex.com/#organization',name:'MAKHEX',url:'https://makhex.com/',description:'DIY electronics, ESP32 and robotics project guides with mapped component lists.'},
+  {'@type':'WebSite','@id':'https://makhex.com/#website',url:'https://makhex.com/',name:'MAKHEX',publisher:{'@id':'https://makhex.com/#organization'},inLanguage:'en-US'}
+ ]
+};
 ---
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="theme-color" content="#f5f1e9"/><meta name="description" content={description}/>
+<meta name="robots" content={noindex?'noindex,follow':'index,follow,max-image-preview:large'}/>
 <link rel="canonical" href={canonical}/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
-<meta property="og:type" content="website"/><meta property="og:title" content={title}/>
+<meta property="og:type" content={ogType}/><meta property="og:locale" content="en_US"/><meta property="og:title" content={title}/>
 <meta property="og:site_name" content="MAKHEX"/><meta property="og:description" content={description}/>
-<meta property="og:image" content={new URL('/og.svg',Astro.site).href}/><meta property="og:url" content={canonical}/>
-<meta name="twitter:card" content="summary_large_image"/>
-{noindex&&<meta name="robots" content="noindex,nofollow"/>}
+<meta property="og:image" content={socialImage}/><meta property="og:image:alt" content="MAKHEX maker projects and component guides"/><meta property="og:url" content={canonical}/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={title}/><meta name="twitter:description" content={description}/><meta name="twitter:image" content={socialImage}/>
 <title>{title}</title>
+{homepage&&<script type="application/ld+json" set:html={JSON.stringify(organization)}/>}
 </head><body><a class="skip-link" href="#main-content">Skip to content</a><Header/><div class="cart-toast" data-cart-flash role="status" aria-live="polite"></div><main id="main-content"><slot/></main><Footer/><script is:inline src="/scripts/maker-cart.js?v=makhex-checkout-20261027"></script></body></html>

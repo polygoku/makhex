@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import {componentSeo,componentStructuredData,breadcrumbs} from '../../lib/seo';
 import ProductPhoto from '../../components/ProductPhoto.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import {products,projectsNewestFirst} from '../../lib/catalog';
@@ -21,10 +22,12 @@ const source=supplierFor(product.slug);
 const external=isAli?undefined:preferredExternalOffer(product.slug);
 const related=projectsNewestFirst.filter(p=>p.materials.some(m=>m.slug===product.slug)).slice(0,3);
 const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
-const ld={'@context':'https://schema.org','@type':'TechArticle',headline:stage?.supplierModel??product.title,description:product.description,author:{'@type':'Organization',name:'MAKHEX'},url:'https://makhex.com/shop/'+product.slug+'/',about:{'@type':'Thing',name:stage?.supplierModel??product.title}};
+const pageSeo=componentSeo(product,related);
+const ld=componentStructuredData(product,pageSeo.image);
+const trail=breadcrumbs([{name:'Home',path:'/'},{name:'Components',path:'/shop/'},{name:product.title,path:'/shop/'+product.slug+'/'}]);
 const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions',SELECT_VARIANT:'Select matching option',COMPATIBILITY_REVIEW:'Check compatibility',CUSTOM_ORDER:'Custom fabrication request'};
 ---
-<BaseLayout title={(stage?.supplierModel??product.title)+' | MAKHEX'} description={product.description}>
+<BaseLayout title={pageSeo.title} description={pageSeo.description} image={pageSeo.image} ogType="article">
   <div class="container breadcrumb">
     <a href="/">HOME</a><span>/</span><a href="/shop/">COMPONENTS</a><span>/</span><span>{product.title.toUpperCase()}</span>
   </div>
@@ -78,6 +81,7 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
     <div class="project-grid">{related.map(p=><ProjectCard project={p}/>)}</div>
   </section>}
   <script type="application/ld+json" set:html={JSON.stringify(ld)}/>
+  <script type="application/ld+json" set:html={JSON.stringify(trail)}/>
 </BaseLayout>
 <style>
 .supplier-compare{border-top:1px solid #d5d7c8;padding-top:3rem}

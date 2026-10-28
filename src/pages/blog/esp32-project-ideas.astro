@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {projects} from '../../lib/catalog';
+import '../../styles/blog.css';
+import {absoluteSiteUrl,breadcrumbs} from '../../lib/seo';
+
+const entries=[
+ {slug:'tiny-ble-presence',level:'Beginner',title:'ESP32-C3 BLE beacon',why:'Learn Bluetooth LE advertising and low-power behavior.',work:'Flash a non-identifying advertising example, confirm it appears in a BLE scanner and compare active versus sleep current.',watch:'Avoid hidden tracking; use an anonymous test payload.'},
+ {slug:'smart-desk-button',level:'Beginner',title:'ESP32 Wi-Fi smart button',why:'Use a tactile switch and LED to trigger a simple network action.',work:'Debounce the input, send a safe local request and show success or failure using an addressable LED.',watch:'Keep credentials out of firmware and choose GPIO pins carefully.'},
+ {slug:'plant-health-monitor',level:'Beginner',title:'Connected plant environment monitor',why:'Record temperature and humidity near a plant with an ESP32-C3 and BME280.',work:'Verify the I2C sensor, log values and show readings on a browser dashboard that marks stale data.',watch:'A BME280 does not measure soil moisture; add a separate qualified soil probe for watering advice.'},
+ {slug:'touch-weather-station',level:'Intermediate',title:'ESP32-S3 touchscreen weather station',why:'Combine a color touch panel and BME280 sensor into a small desk dashboard.',work:'Identify the exact display controller, validate touch and sensor wiring, and prototype an LVGL interface.',watch:'Touch, resolution and pin assignments vary between board revisions.'},
+ {slug:'epaper-desk-calendar',level:'Intermediate',title:'ESP32 e-paper desk calendar',why:'Experiment with low-refresh, low-power displays.',work:'Render a known test pattern, synchronize time, then measure sleep power and safe panel refresh intervals.',watch:'Use the correct panel driver; incorrect refresh settings can cause ghosting.'},
+ {slug:'espnow-remote',level:'Intermediate',title:'ESP-NOW wireless remote',why:'Learn fast direct messaging between two ESP32-C3 boards.',work:'Pair two boards, send packets with sequence numbers, log loss and provide timeout behavior.',watch:'Not suitable for safety-critical actuators or machinery without a qualified safety system.'},
+ {slug:'rgb-matrix-clock',level:'Intermediate',title:'Addressable RGB LED clock',why:'Use an ESP32-C3 to drive addressable LED pixels and time-based feedback.',work:'Start with a few LEDs, budget maximum current, and add NTP time synchronization and brightness limits.',watch:'Do not power a large LED array directly from an ESP32 GPIO or USB pin.'},
+ {slug:'voice-command-node',level:'Advanced',title:'ESP32-S3 offline voice command node',why:'Explore on-device speech triggers with an I2S microphone and separate amplifier.',work:'Bring up the microphone and speaker independently, profile available memory, then test a small local command model.',watch:'Not all ESP32 modules can handle offline speech recognition; memory and SDK support are critical.'}
+];
+const bySlug=new Map(projects.map(p=>[p.slug,p]));
+const articleUrl=absoluteSiteUrl('/blog/esp32-project-ideas/');
+const schema={'@context':'https://schema.org','@type':'BlogPosting',
+ headline:'8 ESP32 Project Ideas With Parts Lists and Build Plans',
+ description:'Choose beginner, intermediate or advanced ESP32 builds with practical parts lists, test plans and candid engineering limitations.',
+ author:{'@type':'Organization',name:'MAKHEX',url:'https://makhex.com/'},
+ publisher:{'@type':'Organization',name:'MAKHEX',url:'https://makhex.com/'},
+ datePublished:'2026-10-28',dateModified:'2026-10-28',image:absoluteSiteUrl('/og.png'),
+ mainEntityOfPage:{'@type':'WebPage','@id':articleUrl},inLanguage:'en-US'};
+const trail=breadcrumbs([{name:'Home',path:'/'},{name:'Blog',path:'/blog/'},{name:'ESP32 project ideas',path:'/blog/esp32-project-ideas/'}]);
+---
+<BaseLayout title="8 ESP32 Project Ideas With Parts Lists | MAKHEX" description="Eight ESP32 project ideas from beginner BLE beacons and smart buttons to touch displays and offline voice. See BOMs, build plans and important engineering checks." image="/og.png" ogType="article">
+<header class="article-header container">
+ <p class="article-breadcrumb"><a href="/blog/">← Blog</a> / Project guides / ESP32</p>
+ <span class="eyebrow">MAKHEX FIELD GUIDE / BUILD IDEAS</span>
+ <h1>8 ESP32 project ideas.<br/>Start with a parts list.</h1>
+ <p class="article-subtitle">Looking for an ESP32 project worth building? These eight blueprints cover sensors, wireless control, displays, LEDs and audio. Each links to a MAKHEX bill of materials and a proposed engineering test sequence.</p>
+ <div class="article-byline"><strong>MAKHEX Editorial</strong><span aria-hidden="true">•</span><time datetime="2026-10-28">October 28, 2026</time><span aria-hidden="true">•</span><span>8 project blueprints</span></div>
+</header>
+<div class="container article-shell">
+ <aside class="article-aside" aria-label="Guide sections">
+  <span>ON THIS PAGE</span>
+  <nav class="article-toc"><a href="#choose">Choose a project</a><a href="#ideas">Eight build ideas</a><a href="#parts">How to get the parts</a><a href="#safe-start">Before applying power</a></nav>
+  <p>Project plans are research-stage. The page does not certify that any complete kit has been bench-tested or is immediately orderable.</p>
+  <p><a href="/projects/">All MAKHEX projects ↗</a></p>
+ </aside>
+ <article class="article-copy">
+  <section id="choose">
+   <h2>Which ESP32 project should you try first?</h2>
+   <p>For a first embedded project, the ESP32-C3 BLE beacon or simple Wi-Fi button keeps the hardware small and makes debugging easier. If you already know basic GPIO and serial logging, try the plant environment monitor or ESP-NOW remote. Audio, cameras and advanced graphical interfaces demand more memory planning and board-specific driver work.</p>
+   <p>Pick a project based on the behavior you want to measure—not the number of features on the board. Document exact module revisions, supply voltage, pin assignments, logs and repeatable success criteria.</p>
+  </section>
+  <section id="ideas">
+   <h2>Eight practical build plans</h2>
+   {entries.map((entry,i)=>{
+     const p=bySlug.get(entry.slug)!;
+     return <section class="esp32-guide-project" id={entry.slug}>
+      <span class="eyebrow">PROJECT {String(i+1).padStart(2,'0')} / {entry.level.toUpperCase()}</span>
+      <h3>{entry.title}</h3>
+      <p>{entry.why}</p>
+      <p><strong>What to build:</strong> {entry.work}</p>
+      <p><strong>Engineering check:</strong> {entry.watch}</p>
+      <p><strong>Core parts:</strong> {p.materials.map(m=>m.slug.replaceAll('-',' ')).join(' · ')}</p>
+      <a class="text-link" href={'/projects/'+entry.slug+'/'}>OPEN PROJECT, BOM &amp; BUILD STEPS ↗</a>
+     </section>
+   })}
+  </section>
+  <section id="parts">
+   <h2>How to get compatible ESP32 parts</h2>
+   <p>Open a <a href="/projects/">MAKHEX project</a> and review the bill of materials first. Follow each part to its <a href="/shop/">component reference page</a> for model-specific specifications, caveats and related builds. Collect components in one <a href="/cart/">MAKHEX parts cart</a> rather than assembling a series of unrelated supplier orders.</p>
+   <p>MAKHEX handles sourcing and exceptions, but components still in supplier review are not guaranteed available or ready to ship. The site distinguishes an order request from completed payment. Do not substitute an unrelated board revision simply because it shares an ESP32 product-family name.</p>
+  </section>
+  <section id="safe-start">
+   <h2>Before powering a new build</h2>
+   <p>Verify the board supply and each peripheral voltage. Check exact I2C or SPI pins instead of copying a generic wiring diagram, and keep motor, loudspeaker and high-current LED loads off microcontroller GPIO. Test each module alone, record the firmware and toolchain versions, then integrate one interface at a time.</p>
+   <p>When you're ready to advance to larger robotics systems, read the <a href="/blog/robotics-engineer-six-month-roadmap/">six-month robotics maker roadmap</a> and browse the <a href="/projects/">full MAKHEX build library</a>.</p>
+  </section>
+ </article>
+</div>
+<script type="application/ld+json" set:html={JSON.stringify(schema)}/>
+<script type="application/ld+json" set:html={JSON.stringify(trail)}/>
+</BaseLayout>
+<style>
+.esp32-guide-project{margin:2rem 0;padding:1.3rem 1.5rem;border:1px solid #d8cbb9;border-radius:12px;background:#fffaf2}
+.esp32-guide-project h3{font-size:clamp(1.28rem,3vw,1.75rem);margin:.45rem 0}
+.esp32-guide-project p{line-height:1.65}
+.esp32-guide-project .text-link{display:inline-block;margin:.35rem 0}
+@media(max-width:600px){.esp32-guide-project{padding:1rem}}
+</style>
