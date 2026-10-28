@@ -24,7 +24,7 @@ function validateLines(lines){
   const qty=item.quantity;
   if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)||!Number.isInteger(qty)||qty<1||qty>99)return null;
   const part=checkoutCatalog.parts[slug]??checkoutCatalog.researchSubcomponents[slug];
-  if(!part)return null;
+  if(!part||part.shopEligible!==true)return null; // External supplier parts never enter MAKHEX orders.
   if(project){
    const allowed=checkoutCatalog.projectParts[project];
    if(!allowed || (!allowed.includes(slug)&&!(project==='mosaico-learning-assistant'&&slug in checkoutCatalog.researchSubcomponents)))return null;

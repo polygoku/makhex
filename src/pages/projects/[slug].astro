@@ -12,6 +12,7 @@ import {buildReferences} from '../../data/build-references';
 import {projectGuides} from '../../data/project-guides';
 import {plannedVariantForProject,projectBomMissingParts,formatUsd} from '../../data/catalog-staging';
 import {offersFor} from '../../data/supplier-matches';
+import {isMakhexAliExpress,preferredExternalOffer} from '../../data/sourcing-policy';
 export function getStaticPaths(){return projects.map(project=>({params:{slug:project.slug},props:{project}}));}
 interface Props{project:Project}
 const {project}=Astro.props;
@@ -20,7 +21,10 @@ const reference=buildReferences[project.slug];
 const guide=projectGuides[project.slug];
 const buildRepo='https://github.com/polygoku/makhex/tree/main/builds/'+project.slug;
 const agentFile='https://github.com/polygoku/makhex/blob/main/builds/'+project.slug+'/README.md';
-const materials=project.materials.map(m=>({...m,product:productBySlug(m.slug),planned:plannedVariantForProject(m.slug,project.slug),offers:offersFor(m.slug,project.slug)}));
+const materials=project.materials.map(m=>({...m,product:productBySlug(m.slug),ali:isMakhexAliExpress(m.slug),direct:preferredExternalOffer(m.slug,project.slug),planned:plannedVariantForProject(m.slug,project.slug),offers:offersFor(m.slug,project.slug)}));
+const aliItems=materials.filter(m=>m.ali);
+const aliQuantity=aliItems.reduce((n,m)=>n+m.qty,0);
+const externalItems=materials.filter(m=>!m.ali);
 const plannedPartsSubtotal=materials.reduce((sum,m)=>sum+(m.planned?.plannedRetailUsd??0)*m.qty,0);
 const missingParts=projectBomMissingParts[project.slug]??[];
 const total=project.materials.reduce((n,m)=>n+m.qty,0);
@@ -28,7 +32,7 @@ const ld={'@context':'https://schema.org','@type':'HowTo',name:project.title,des
 ---
 <BaseLayout title={project.title+' | MAKHEX'} description={project.summary}>
 <div class="container breadcrumb"><a href="/">HOME</a><span>/</span><a href="/projects/">PROJECTS</a><span>/</span><span>{project.number}</span></div>
-<section class="project-detail-hero container"><div><span class="eyebrow">MAKHEX PROJECT / {project.number} • {project.eyebrow}</span><h1>{project.title}<span class="heading-star">✳</span></h1><p>{project.summary}</p><div class="project-tag-row"><span>{project.level}</span><span>{project.time}</span><span>{project.category}</span></div><a class="btn btn-primary" href="#bill-of-materials">SEE THE PARTS LIST ↓</a> <a class="btn btn-outline" href={`/projects/${project.slug}.csv`}>DOWNLOAD BOM CSV ↓</a> <a class="btn btn-outline" href="/cart/">BUY PARTS AT MAKHEX ↗</a> <a class="btn btn-outline" href="#discussion">JOIN DISCUSSION ↓</a>{project.slug==='mosaico-learning-assistant'&&<a class="btn btn-outline" href="#video">WATCH DEMO ▶</a>}{isMicroduck&&<a class="btn btn-outline" href="#microduck-demo">WATCH REAL ROBOT ▶</a>}</div>
+<section class="project-detail-hero container"><div><span class="eyebrow">MAKHEX PROJECT / {project.number} • {project.eyebrow}</span><h1>{project.title}<span class="heading-star">✳</span></h1><p>{project.summary}</p><div class="project-tag-row"><span>{project.level}</span><span>{project.time}</span><span>{project.category}</span></div><a class="btn btn-primary" href="#bill-of-materials">SEE THE PARTS LIST ↓</a> <a class="btn btn-outline" href={`/projects/${project.slug}.csv`}>DOWNLOAD BOM CSV ↓</a> <a class="btn btn-outline" href={aliItems.length?"/cart/":"#bill-of-materials"}>{aliItems.length?"MAKHEX ALIEXPRESS CART":"SEE EXTERNAL PART LINKS"} ↗</a> <a class="btn btn-outline" href="#discussion">JOIN DISCUSSION ↓</a>{project.slug==='mosaico-learning-assistant'&&<a class="btn btn-outline" href="#video">WATCH DEMO ▶</a>}{isMicroduck&&<a class="btn btn-outline" href="#microduck-demo">WATCH REAL ROBOT ▶</a>}</div>
 {reference ? <div class="project-detail-poster real-reference-poster">
 <img class="real-reference-photo" src={reference.image} alt={reference.alt} width="1080" height="760" loading="eager"/>
 
@@ -57,10 +61,24 @@ const ld={'@context':'https://schema.org','@type':'HowTo',name:project.title,des
 {isMicroduck&&<MicroduckResources/>}
 <section class="container guide-intro"><div class="content-section"><span class="eyebrow">WHAT YOU WILL MAKE</span><h2>The idea, in practice.</h2><p class="guide-overview">{guide.overview}</p><div class="guide-use-cases"><h3>Where it is useful</h3><ul>{guide.useCases.map(item=><li>{item}</li>)}</ul></div></div><div class="guide-links"><span class="eyebrow">SOURCE AND WALKTHROUGH</span><h3>Build with an open repo.</h3>{guide.source?<p>Engineering source and license details are in our GitHub build notes. This is a research build, not a finished MAKHEX product.</p>:<p>MAKHEX is a proposed adaptation. Reference media is credited to its original creator, not a claim of a finished MAKHEX prototype.</p>}<a class="btn btn-primary" href={buildRepo} target="_blank" rel="noopener noreferrer">MAKHEX PROJECT REPO →</a><a class="btn btn-outline" href={agentFile} target="_blank" rel="noopener noreferrer">AI AGENT BUILD INSTRUCTIONS ↗</a>{reference&&<a class="text-link" href={reference.sourceUrl} target="_blank" rel="noopener noreferrer">ORIGINAL CREATOR REPO ↗</a>}{guide.video&&!guide.source&&<a class="text-link" href={guide.video.url} target="_blank" rel="noopener noreferrer">WATCH ORIGINAL BUILD VIDEO ↗</a>}{guide.video&&!guide.source&&<small>Video by {guide.video.creator}; it demonstrates the creator's hardware, not this MAKHEX kit.</small>}</div></section>
 <section class="container project-body-grid"><div><div class="content-section" id="bill-of-materials"><span class="eyebrow">01 / BILL OF MATERIALS</span><h2>What goes in.</h2>
-{project.slug==='mosaico-learning-assistant' ? <MosaicoHardwareBOM/> : <><div class="bom-table"><div class="bom-row bom-heading"><span>COMPONENT</span><span>ROLE</span><span>QTY / ADD</span></div>{materials.map(m=><div class="bom-row"><span class="bom-name-with-photo"><img src={'/product-media/'+m.slug+'.jpg'} width="46" height="46" loading="lazy" alt={isMicroduck&&m.slug!=='speaker-4ohm-3w'?'MAKHEX research illustration, not actual supplier image, for '+(m.product?.title??m.slug):'Supplier hardware reference image for '+(m.product?.title??m.slug)}/>{m.product?<a href={'/shop/'+m.slug+'/'}>{m.product.title} ↗</a>:m.slug}<small><a href={'/shop/'+m.slug+'/'}>VIEW MAKHEX PART DETAILS ↗</a></small></span><span>{m.why}{m.planned&&<small class="bom-line-estimate">{formatUsd(m.planned.plannedRetailUsd*m.qty)}</small>}</span><div class="bom-line-cart"><strong>{String(m.qty).padStart(2,'0')}</strong><button type="button" data-cart-add data-cart-slug={m.slug} data-cart-option={m.planned?.title??'Option pending'} data-cart-project={project.slug} data-cart-quantity={m.qty} aria-label={'Add '+m.qty+' '+(m.product?.title??m.slug)+' to parts cart'}>ADD +</button></div></div>)}</div>
+{project.slug==='mosaico-learning-assistant' ? <MosaicoHardwareBOM/> : <><div class="bom-table"><div class="bom-row bom-heading"><span>COMPONENT</span><span>ROLE</span><span>QTY / ADD</span></div>{materials.map(m=><div class="bom-row" data-bom-mode={m.ali?'MAKHEX_ALI_20':'EXTERNAL_NO_MARKUP'}>
+  <span class="bom-name-with-photo">
+    <img src={'/product-media/'+m.slug+'.jpg'} width="46" height="46" loading="lazy" alt={'Component reference for '+(m.product?.title??m.slug)}/>
+    {m.product?<a href={'/shop/'+m.slug+'/'}>{m.product.title} ↗</a>:m.slug}
+    <small><a href={'/shop/'+m.slug+'/'}>PART DETAILS ↗</a></small>
+  </span>
+  <span>{m.why}{m.ali&&m.planned?<small class="bom-line-estimate">{formatUsd(m.planned.plannedRetailUsd*m.qty)} · 20% markup</small>:<small class="bom-line-estimate">External seller · no MAKHEX markup</small>}</span>
+  <div class="bom-line-cart"><strong>{String(m.qty).padStart(2,'0')}</strong>
+    {m.ali?<button type="button" data-cart-add data-cart-slug={m.slug} data-cart-option={m.planned?.title??'Option pending'} data-cart-project={project.slug} data-cart-quantity={m.qty} aria-label={'Add '+m.qty+' '+(m.product?.title??m.slug)+' to MAKHEX cart'}>ADD +</button>
+    :m.direct?<a class="text-link" href={m.direct.url} target="_blank" rel="noopener noreferrer">VIEW SELLER ↗</a>
+    :<a class="text-link" href={'/shop/'+m.slug+'/#buying-options'}>COMPARE SOURCES ↗</a>}
+  </div>
+</div>)}</div>
 <div class="bom-total"><span>{materials.length} UNIQUE PART TYPES</span><span>{total} ITEMS</span></div>
-<div class="project-cart-bar"><button class="btn btn-primary" type="button" data-cart-add-all={project.slug}>ADD ALL {total} PARTS TO CART +</button><a href="/cart/" class="btn btn-outline">VIEW PARTS CART →</a><a href="/checkout/" class="btn btn-primary">CHECK OUT WITH MAKHEX →</a></div><p data-cart-flash role="status" aria-live="polite"></p><div class="project-price-planner simple-project-subtotal"><span>Parts subtotal</span><strong>{materials.every(m=>m.planned)?formatUsd(plannedPartsSubtotal):'Price pending'}</strong></div>
-<p class="project-price-note">Planned research prices only · U.S. delivery, tax, and missing parts not verified. No checkout until qualified.</p>
+<div class="project-cart-bar">
+  {aliItems.length>0?<><button class="btn btn-primary" type="button" data-cart-add-all={project.slug}>ADD {aliQuantity} ALIEXPRESS PARTS TO MAKHEX CART +</button><a href="/cart/" class="btn btn-outline">VIEW MAKHEX CART ↗</a><a href="/checkout/" class="btn btn-primary">CHECK OUT WITH MAKHEX ↗</a></>:<p>All parts use direct manufacturer or retailer links; MAKHEX adds no markup.</p>}
+</div><p data-cart-flash role="status" aria-live="polite"></p><div class="project-price-planner simple-project-subtotal"><span>MAKHEX AliExpress parts subtotal ({aliItems.length} types)</span><strong>{aliItems.length?formatUsd(plannedPartsSubtotal):'External suppliers only'}</strong></div>
+<p class="project-price-note">AliExpress-listed parts use 20% markup on the documented supplier basis; final freight and inventory require approval. {externalItems.length} external types are linked directly with no MAKHEX markup and are not included in the subtotal or MAKHEX cart.</p>
 </>}
 {missingParts.length>0&&<div class="project-bom-gaps-simple"><strong>Still needed</strong><ul>{missingParts.map(gap=><li>{gap}</li>)}</ul></div>}
 <BuildPartsChecklist project={project}/></div>

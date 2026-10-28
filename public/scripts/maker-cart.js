@@ -39,7 +39,7 @@ async function catalog(){
 }
 function check(c,item){
  const part=findPart(c,item.slug);
- if(!part||!okOption(item.option))throw Error('Unknown component or option');
+ if(!part||part.priceStatus!=='ALIEXPRESS_MARKUP_20_PLANNING'||!okOption(item.option))throw Error('External-only products cannot enter MAKHEX checkout');
  const options=part.variants??[];
  if(options.length&&!options.some(v=>v.title===item.option)&&!(item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot'&&item.option==='Option pending'))throw Error('Choose a listed option');
  if(!options.length&&item.option!=='Option pending')throw Error('Option qualification pending');
@@ -52,6 +52,7 @@ function migrateLegacyOptions(c){
  let changed=false;
  for(const item of stored){
   const part=findPart(c,item.slug),variants=part?.variants??[];
+  if(!part||part.priceStatus!=='ALIEXPRESS_MARKUP_20_PLANNING'){changed=true;continue;} // Drop previously saved external items
   const isMicroduckSpeaker=item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot';
   const next=variants.length===0&&item.option!=='Option pending'?{...item,option:'Option pending'}:item.option==='Option pending'&&variants.length===1&&!isMicroduckSpeaker?{...item,option:variants[0].title}:item;
   if(next!==item)changed=true;
@@ -91,7 +92,8 @@ document.addEventListener('click',async event=>{
   try{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
-   const items=(project.cartPlan?.parts??project.parts).map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
+   const items=(project.cartPlan?.parts??project.parts).filter(p=>findPart(c,p.slug)?.priceStatus==='ALIEXPRESS_MARKUP_20_PLANNING').map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
+   if(!items.length)throw Error('This build has no AliExpress-qualified MAKHEX parts; use the direct supplier links in its parts list.');
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
   }catch(e){flash(e.message||'Unable to add kit')}
