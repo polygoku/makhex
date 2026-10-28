@@ -55,7 +55,8 @@ expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
- expect(html.includes('Coming soon'),'Product incorrectly shows live checkout: '+f); expect(html.includes('id="buying-options"')&&html.includes('COMPARE SELLERS'),'Buyer source comparison missing on product: '+f);
+ expect(html.includes('CHECK OUT WITH MAKHEX'),'Product must route to MAKHEX checkout: '+f);
+ expect(html.includes('supplier-last-resort')&&html.includes('External alternatives'),'Supplier links must be last resort: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
 
@@ -65,7 +66,10 @@ expect(fs.existsSync(cart),'Parts-cart route missing');
 if(fs.existsSync(cart)){
  const cartHtml=fs.readFileSync(cart,'utf8');
  expect(cartHtml.includes('data-cart-lines')&&cartHtml.includes('data-cart-copy')&&cartHtml.includes('data-cart-clear'),'Cart controls missing');
- expect(cartHtml.includes('Checkout not available yet')&&cartHtml.includes('disabled'),'Cart falsely advertises payment checkout');
+ expect(cartHtml.includes('CHECK OUT WITH MAKHEX')&&cartHtml.includes('href="/checkout/"'),'Cart missing first-party MAKHEX checkout CTA');
+ expect(!cartHtml.includes('BROWSE ALL COMPONENT SELLERS'),'External retailers must not be the main checkout option');
+ const checkoutHtml=fs.readFileSync(path.join(out,'checkout','index.html'),'utf8');
+ expect(checkoutHtml.includes('does not charge my card yet')&&checkoutHtml.includes('makhex-order-request-form'),'Checkout must disclose payment-after-review');
 }
 expect(fs.existsSync(path.join(out,'scripts','maker-cart.js')),'Maker cart JS missing');
 expect(homeHtml.includes('href="/cart/"'),'Header must link to internal parts cart');
@@ -81,7 +85,7 @@ for(const p of products){
   const html=fs.readFileSync(page,'utf8');
   expect(html.includes('/product-media/'+p.slug+'.jpg'),'Product image not shown '+p.slug);
   expect(html.includes('data-cart-add'),'Product missing add-to-parts-cart control '+p.slug);
-  expect(html.includes('Coming soon')&&html.includes('disabled'),'Payment checkout improperly enabled '+p.slug);
+  expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'Product must use MAKHEX cart checkout '+p.slug);
  }
 }
 const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');

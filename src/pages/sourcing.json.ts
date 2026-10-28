@@ -16,7 +16,10 @@ export const GET:APIRoute=()=>{
     currency:'USD',
     shipping:{country:'US',customerRateUsd:0,method:'Free U.S. Shipping'},
     checkoutAvailable:false,
-    externalCheckoutMode:'BUYER_DIRECT_WITH_RETAILER',
+    checkoutRequestAvailable:true,
+    paymentCaptureEnabled:false,
+    exceptionApprovalRequired:true,
+    externalCheckoutMode:'LAST_RESORT_ONLY',
     researchSubcomponents:mosaicoAssemblyParts.map(part=>({
       slug:part.slug,title:part.title,variants:[],image:part.image,
       url:'https://makhex.com/projects/mosaico-learning-assistant/',

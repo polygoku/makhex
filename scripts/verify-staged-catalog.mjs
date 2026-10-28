@@ -25,10 +25,10 @@ for(const product of products){
   assert.ok(!prices,'New unqualified component must not have a fixed source price: '+product.slug);
   assert.equal(product.status,'Research','Unqualified product cannot be published: '+product.slug);
   const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
-  assert.ok(html.includes('Compare external sellers'),'Unquoted product must show actual source options: '+product.slug);
+  assert.ok(html.includes('MAKHEX sourcing review'),'Unpriced product must go through MAKHEX sourcing review: '+product.slug);
   assert.ok(html.includes('href="/parts-sources/"'),'Unquoted product missing comparison index');
   assert.equal(supplierMatches[product.slug]?.offers.length>0,true,'Missing supplier purchase/comparison options: '+product.slug);
-  assert.ok(html.includes('Coming soon')&&html.includes('disabled'),'Unqualified product checkout must be disabled: '+product.slug);
+  assert.ok(html.includes('CHECK OUT WITH MAKHEX'),'Unqualified item must use MAKHEX order review: '+product.slug);
   continue;
  }
  assert.ok(prices,'Unreviewed previously staged product: '+product.slug);
@@ -40,11 +40,11 @@ for(const product of products){
   assert.equal(stage.variants[i].plannedRetailUsd,prices[i],'Retail price mismatch: '+product.slug);
  }
  const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
- assert.ok(html.includes('Coming soon'),'Checkout disabled state missing: '+product.slug);
- assert.ok(html.includes('Free U.S. shipping'),'Customer shipping message missing: '+product.slug);
+ assert.ok(html.includes('CHECK OUT WITH MAKHEX'),'Product must route to MAKHEX checkout: '+product.slug);
+ assert.ok(html.includes('free U.S. shipping'),'Customer shipping message missing: '+product.slug);
  assert.ok(html.includes('Component reference image'),'Unverified supplier-photo caption not visible: '+product.slug);
  assert.ok(html.includes(stage.supplierModel.replaceAll('&','&amp;')),'Exact model missing: '+product.slug);
- assert.ok(html.includes('disabled'),'Product should not accept payment: '+product.slug);
+ assert.ok(html.includes('MAKHEX plan'),'Retail planning price clearly flagged: '+product.slug);
  assert.ok(!/VIEW PRODUCT ON SQUARESPACE|CHECK OUT AT SQUARESPACE/.test(html),'Unapproved checkout URL: '+product.slug);
 }
 assert.equal(optionCount,17);

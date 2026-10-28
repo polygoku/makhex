@@ -19,7 +19,7 @@ const intended=plannedVariantForProject(product.slug,projectSlug);
       <strong>{minimum!==null?formatUsd(minimum):'Compare sellers'}</strong>
       {stage&&stage.variants.length>1&&<span>from</span>}
     </div>
-    <a href={productUrl(product.slug)+'#buying-options'} class="text-link">SELLER LINKS ↗</a>
+    <a href={productUrl(product.slug)} class="text-link">MAKHEX PART DETAILS ↗</a>
   </div>
   <div class="cart-card-action"><button type="button" data-cart-add data-cart-slug={product.slug} data-cart-project={projectSlug} data-cart-option={intended?.title??'Option pending'} data-cart-quantity="1">Add to parts cart +</button></div>
 </article>

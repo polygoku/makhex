@@ -31,18 +31,17 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>
       <p class="detail-description">{product.description}</p>
-      <div class="clean-product-price">{minimum!==null?formatUsd(minimum):'Compare external sellers'}{stage&&stage.variants.length>1&&<span>from</span>}</div>
+      <div class="clean-product-price">{minimum!==null?'MAKHEX plan '+formatUsd(minimum):'MAKHEX sourcing review'}{stage&&stage.variants.length>1&&<span>from</span>}</div>
       {minimum!==null&&<p class="clean-compatibility">MAKHEX catalog planning price only, not a verified supplier offer or checkout quote. Retailer prices and shipping appear on their sites.</p>}
-      <p class="clean-shipping">Free U.S. shipping for future MAKHEX orders only; external retailers set their own charges.</p>
+      <p class="clean-shipping">MAKHEX offers free U.S. shipping after supplier qualification. You buy from MAKHEX, not from individual component sellers.</p>
       {stage&&stage.variants.length>1&&<div class="clean-variant-options">
         {stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}
       </div>}
       <div class="clean-product-action" data-cart-product={product.slug}>
         {stage&&stage.variants.length>1&&<label class="cart-choice-label">Choose a component option<select data-cart-choice aria-label="Component option">{stage.variants.map(v=><option value={v.title}>{v.title}</option>)}</select></label>}
-        <a class="btn btn-primary" href="#buying-options">COMPARE SELLERS &amp; BUY ↗</a>
-        <button class="btn btn-outline" type="button" data-cart-add data-cart-slug={product.slug} data-cart-option={stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">ADD TO PARTS LIST +</button>
-        <p>Seller links open the seller's site. Orders there are between the buyer and that seller, not fulfilled by MAKHEX or Doroppu.</p>
-        {checkout.kind==='ready'?<a class="text-link" href={checkout.url} rel="noopener noreferrer">OPEN VERIFIED SQUARESPACE PRODUCT ↗</a>:<><button class="btn btn-muted" type="button" disabled>Coming soon · MAKHEX Checkout unavailable</button><p>MAKHEX direct-order fulfillment remains disabled pending supplier/order-pilot verification.</p></>}
+        <button class="btn btn-primary" type="button" data-cart-add data-cart-slug={product.slug} data-cart-option={stage?.variants[0]?.title??'Option pending'} data-cart-quantity="1">ADD TO PARTS LIST +</button>
+        <a class="btn btn-outline" href="/cart/">CHECK OUT WITH MAKHEX →</a><p>Build a single MAKHEX basket. Any sourcing exception is reviewed by our store before final payment.</p>
+        {checkout.kind==='ready'&&<a class="text-link" href={checkout.url} rel="noopener noreferrer">OPEN APPROVED MAKHEX STORE PRODUCT ↗</a>}
       </div>
       <div class="clean-product-specs">
         {product.specs.map(spec=><div>{spec}</div>)}
@@ -50,11 +49,11 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
       {stage?.technicalGate==='HOLD'&&<p class="clean-compatibility">Compatibility is still being checked for this model.</p>}
     </div>
   </section>
-  <section class="section container supplier-compare" id="buying-options">
+  <section class="section container supplier-compare" id="buying-options"><details class="supplier-last-resort"><summary>External alternatives — only if MAKHEX cannot fulfill this component</summary>
     <span class="eyebrow">SOURCE MATCHES / ACTUAL SELLER LINKS</span>
-    <h2>Compare and purchase.</h2>
+    <h2>Last-resort source references.</h2>
     <p class="supplier-intro"><strong>Required:</strong> {source?.required} {source?.notes}</p>
-    <p class="supplier-disclosure">Select the exact option at the linked retailer. Prices, shipping to your address, availability, safety and returns must be confirmed with the retailer. These links are not validated MAKHEX dropship variants and do not place orders with us.</p>
+    <p class="supplier-disclosure">MAKHEX sources parts for your order. These references are offered only if MAKHEX cannot fulfill the part and you decide to source it yourself. Never required for standard MAKHEX checkout.</p>
     <div class="supplier-options">
       {source?.offers.map(offer=><article class="supplier-option" data-supplier-match={offer.match} data-supplier-project={offer.project??''}>
         <div class="supplier-option-heading"><strong>{offer.seller}</strong><span>{labels[offer.match]}</span></div>
@@ -65,7 +64,7 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
       </article>)}
     </div>
     <p class="supplier-end-note">Part source not right or out of stock? <a href={'/projects/'+(related[0]?.slug??'microduck-robot')+'/#discussion'}>Suggest a verified matching supplier in the project discussion</a>.</p>
-    <a class="text-link" href="/parts-sources/">VIEW ALL 30 MATCHED COMPONENTS ↗</a>
+    <a class="text-link" href="/parts-sources/">VIEW EXTERNAL SOURCE REFERENCES ↗</a></details>
   </section>
   {related.length>0&&<section class="section container">
     <div class="section-heading compact"><h2>Build with it.</h2><a class="text-link" href="/projects/">ALL PROJECTS ↗</a></div>

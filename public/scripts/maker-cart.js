@@ -34,7 +34,7 @@ function save(items){
 }
 function flash(message){document.querySelectorAll('[data-cart-flash]').forEach(e=>e.textContent=message)}
 async function catalog(){
- if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=sellers-20261027',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
+ if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=checkout-20261027',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
  return catalogPromise;
 }
 function check(c,item){
@@ -151,15 +151,10 @@ async function render(){
   const info=document.createElement('div');info.className='cart-line-info';
   const name=document.createElement('a');name.href=imgLink.href;name.className='cart-line-title';name.textContent=part.title;
   const option=document.createElement('p');option.textContent=item.option==='Option pending'&&part.exactRequirements?part.exactRequirements:item.option;
-  const note=document.createElement('small');note.textContent='Compare retailer options; confirm exact variant, current stock and shipping with seller.';
+  const note=document.createElement('small');note.textContent='MAKHEX handles sourcing, shipping and exception approval.';
   info.append(name,option,note);
-  const suppliers=(part.buyingOptions??[]).filter(o=>!o.project||!item.project||o.project===item.project);
-  const links=document.createElement('div');links.className='cart-supplier-links';
-  for(const offer of suppliers.slice(0,4)){
-   if(typeof offer.url!=='string'||!offer.url.startsWith('https://'))continue;
-   const a=document.createElement('a');a.href=offer.url;a.target='_blank';a.rel='noopener noreferrer';a.className='text-link cart-seller-link';a.textContent='View at '+offer.seller+' ↗';a.setAttribute('aria-label','Compare '+part.title+' at '+offer.seller);links.append(a);
-  }
-  const more=document.createElement('a');more.href='/parts-sources/#'+encodeURIComponent(item.slug);more.className='text-link cart-seller-link';more.textContent='All matches / technical requirements ↗';links.append(more);info.append(links);
+  // Source procurement is a MAKHEX back-office task. Buyer should not have to shop elsewhere.
+  const details=document.createElement('a');details.href=imgLink.href;details.className='text-link cart-seller-link';details.textContent='MAKHEX part details ↗';info.append(details);
   const controls=document.createElement('div');controls.className='cart-line-actions';
   const label=document.createElement('label');label.className='cart-quantity-label';label.textContent='Quantity';
   const input=document.createElement('input');input.type='number';input.min='1';input.max=String(MAX_QUANTITY);input.step='1';input.value=String(item.quantity);input.className='cart-qty';input.setAttribute('aria-label','Quantity of '+part.title);label.append(input);
@@ -170,12 +165,12 @@ async function render(){
   });
   const remove=document.createElement('button');remove.type='button';remove.className='cart-remove';remove.textContent='Remove';
   remove.addEventListener('click',()=>{save(read().filter(x=>key(x)!==key(item)));render()});
-  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Compare sellers for price':'MAKHEX plan $'+(price*item.quantity).toFixed(2);
+  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Final price on approval':'MAKHEX plan $'+(price*item.quantity).toFixed(2);
   controls.append(label,remove,val);card.append(imgLink,info,controls);host.append(card);
   n+=item.quantity;if(price===null)unknown++;else known+=price*item.quantity;
  }
  if(countLabel)countLabel.textContent=n+' parts · '+cart.length+' selections';
- if(totalLabel)totalLabel.textContent=unknown?(known>0?'MAKHEX planning subtotal $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' priced by external sellers':unknown+' part'+(unknown===1?'':'s')+' · compare external sellers for prices'):'MAKHEX planning subtotal: $'+known.toFixed(2);
+ if(totalLabel)totalLabel.textContent=unknown?(known>0?'MAKHEX planning subtotal $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' need sourcing approval':unknown+' part'+(unknown===1?'':'s')+' · pricing confirmed before payment'):'MAKHEX planning subtotal: $'+known.toFixed(2);
 }
 document.addEventListener('makhex:cart-updated',render);
 updateCount();render();
