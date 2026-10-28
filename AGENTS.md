@@ -1,5 +1,7 @@
 # Agent operating policy — MAKHEX
 
+**NON-NEGOTIABLE: Read [docs/COMMERCE_CHARTER.md](docs/COMMERCE_CHARTER.md) before editing any checkout, cart, product page, project BOM, supplier link, merchant catalog or fulfillment logic. MAKHEX showcases projects and sells components through MAKHEX; supplier sourcing is backstage. Buyer-facing external suppliers are last-resort alternatives only. Owner approves exceptions, not every normal order.**
+
 ## Safety and truth
 1. Preserve current Squarespace subscription, registrar settings, live theme and published products unless an explicit change is authorized.
 2. Never mark a product AVAILABLE, VERIFIED, in stock or orderable without supplier/variant checkout validation and dated evidence.

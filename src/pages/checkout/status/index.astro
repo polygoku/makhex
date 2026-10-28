@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Private MAKHEX order status" description="Private MAKHEX order request status and approved payment link." noindex>
+ <div class="container breadcrumb"><a href="/">HOME</a><span>/</span><a href="/checkout/">CHECKOUT</a><span>/</span><span>ORDER STATUS</span></div>
+ <section class="container order-status-page">
+  <span class="eyebrow">MAKHEX / PRIVATE ORDER STATUS</span><h1>Your kit. Our responsibility.</h1>
+  <p>Only someone with your private order link can view this request. Save it securely; automated email updates are not currently available. Your full shipping address and card details are handled through the MAKHEX payment provider only after sourcing approval.</p>
+  <div id="makhex-order-status" class="order-status-card" aria-live="polite">
+    <p id="makhex-order-state">Checking your private MAKHEX order…</p>
+    <strong id="makhex-order-id"></strong>
+    <ul id="makhex-order-items"></ul>
+    <p id="makhex-order-info"></p>
+    <p id="makhex-order-cost"></p>
+    <a id="makhex-order-pay" class="btn btn-primary" hidden target="_blank" rel="noopener noreferrer" href="#">PAY MAKHEX SECURELY ↗</a>
+    <p id="makhex-order-tracking"></p>
+    <button id="makhex-order-refresh" class="btn btn-outline" type="button">REFRESH ORDER STATUS</button>
+  </div>
+  <p class="order-status-disclaimer">Submitting an order request does not charge a card. When approved, the payment link uses our Squarespace-powered store. MAKHEX sources and fulfills your order.</p>
+  <a href="/projects/" class="text-link">BROWSE MORE MAKHEX PROJECTS ↗</a>
+ </section>
+ <script is:inline src="/scripts/makhex-order-status.js?v=first-party-20261027"></script>
+</BaseLayout>
+<style>
+.order-status-page{padding:3rem 0 6rem;max-width:760px}.order-status-page h1{font-size:clamp(2rem,5vw,3.5rem);margin:.5rem 0 1rem}.order-status-page>p{line-height:1.65}.order-status-card{background:#fffaf3;border:1px solid #dfcbb0;border-radius:15px;padding:clamp(1.2rem,3vw,2rem);margin:1.7rem 0}.order-status-card ul{list-style:none;padding:0;display:grid;gap:.5rem}.order-status-card li{padding:.7rem 0;border-bottom:1px solid #e0d1bd}.order-status-card #makhex-order-id{display:block;font-size:1.3rem;margin:.6rem 0}.order-status-card #makhex-order-cost{color:#325741;font-weight:700}.order-status-card a,.order-status-card button{max-width:100%;box-sizing:border-box;white-space:normal}.order-status-card .btn{margin:.4rem 0}.order-status-disclaimer{font-size:.86rem;color:#656258}
+</style>
