@@ -109,6 +109,15 @@ test('one MAKHEX order requires owner price exception approval then secure provi
  assert.equal((await (await f.call('status','POST',{accessToken:receipt.accessToken})).json()).status,'FULFILLED');
  assert.equal(f.events.length,5);
 });
+test('existing community moderator credential can review exceptions until dedicated owner key exists',async()=>{
+ const f=setup();
+ f.env.COMMUNITY_ADMIN_TOKEN=f.env.MAKHEX_ORDER_ADMIN_TOKEN;
+ delete f.env.MAKHEX_ORDER_ADMIN_TOKEN;
+ assert.equal((await f.call('admin/requests','GET',undefined,true)).status,200);
+ assert.equal((await f.call('admin/requests','GET')).status,401);
+ delete f.env.COMMUNITY_ADMIN_TOKEN;
+ assert.equal((await f.call('admin/requests','GET',undefined,true)).status,503);
+});
 test('buyer cannot forge internal prices or attach arbitrary redirect',()=>{
  assert.equal(checkoutInternals.safePayLink('https://shop.makhex.com/pay/abc'),true);
  assert.equal(checkoutInternals.safePayLink('https://shop.makhex.com.evil.com/pay/abc'),false);

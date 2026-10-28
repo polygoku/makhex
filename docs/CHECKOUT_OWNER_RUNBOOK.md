@@ -14,14 +14,14 @@
 ## Before deployment
 
 1. Apply `migrations/0003_checkout_exceptions.sql` to the remote `makhex-community` D1 database, after confirming its contents and schema.
-2. Provision `MAKHEX_ORDER_ADMIN_TOKEN` using `wrangler secret put` from a private host-side file or secure prompt. **Never commit or publish the token.**
+2. Prefer a dedicated `MAKHEX_ORDER_ADMIN_TOKEN` set in Cloudflare using a private secure prompt. If not provisioned, the owner queue temporarily accepts the existing **`COMMUNITY_ADMIN_TOKEN`** (the same key already used by MAKHEX community moderators). This is a documented temporary shared-owner credential; no key value belongs in Git or chat. Rotate and separate permissions later.
 3. Use the authenticated HTTPS browser and a human-approved Turnstile challenge for customer requests. The existing community account anti-spam settings `TURNSTILE_SECRET` and `COMMUNITY_RATE_SALT` must stay configured.
 4. Run `node scripts/build-order-catalog.mjs --check && npm run check && npm run build && npm run qa`; run a headless browser test at a mobile viewport. Do not publish code that bypasses any gate.
 5. Confirm no request was accidentally created by automated tests; staging tests use mocked requests.
 
 ## Owner exception workflow
 
-1. Open `https://makhex.com/ops/orders/` and enter the private owner key; nothing is stored in browser localStorage. Use the password manager to retain the key across devices.
+1. Open `https://makhex.com/ops/orders/` and enter the private owner key (currently the existing Community Moderation key); nothing is stored in browser localStorage. Use the password manager to retain the key across devices.
 2. Review every component, exact selected option, quantity, ship-to state/ZIP, compatibility, U.S. landed cost and 2.5× gross retail calculation. Free customer U.S. shipping is included in MAKHEX margin.
 3. **Approve** only when the full basket, stock, shipping, taxes, refund rules and margin are defensible. Enter the actual final total and a dated evidence note; otherwise **reject** with reason. Seek customer approval for material substitutions or price changes.
 4. Create a genuine MAKHEX Squarespace Pay Link for the *entire approved order* and verify that item/quantity/total matches, or use a merchant-hosted SKU bundle checkout as applicable. The Pay Link is a one-transaction payment route, **not** evidence that individual supplier SKUs have been imported or automatic fulfillment has been tested.
