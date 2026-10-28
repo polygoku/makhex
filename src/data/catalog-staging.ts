@@ -1,3 +1,4 @@
+import {microduckPricePlans} from './microduck-price-plans.ts';
 /**
  * Retail *planning* snapshot from owner-verified Squarespace CSV export,
  * 2026-10-25. NOT an offer of sale or verified delivered price.
@@ -36,7 +37,7 @@ export const catalogStaging:Readonly<Record<string,CatalogStage>>={
   '5v-5a-led-power':{supplierModel:'Waveshare 5 V 5 A US Power Adapter',variants:[{title:'US plug / 5 V 5 A / 5.5 x 2.1 mm',plannedRetailUsd:29.18}],technicalGate:'HOLD',shippingVerified:false,buyerOrderabilityVerified:false}
 } as const;
 export const formatUsd=(amount:number):string=>'$'+amount.toFixed(2);
-export function stageFor(slug:string):CatalogStage|undefined{return catalogStaging[slug]}
+export function stageFor(slug:string):CatalogStage|undefined{return catalogStaging[slug]??microduckPricePlans[slug]}
 export function plannedVariantForProject(slug:string,projectSlug?:string):PlannedVariant|undefined{
  const stage=stageFor(slug);
  if(!stage)return;

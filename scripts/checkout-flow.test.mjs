@@ -61,6 +61,12 @@ const validBody=()=>({
 test('all 30 catalog products are present and have exception locks',()=>{
  assert.equal(Object.keys(checkoutCatalog.parts).length,30);
  assert.equal(Object.keys(checkoutCatalog.projectParts).length,12);
+ const bundle=checkoutInternals.validateLines([
+  {slug:'feetech-hd1910',option:checkoutCatalog.parts['feetech-hd1910'].variants[0],quantity:15,project:'microduck-robot'},
+  {slug:'bearing-et2216',option:checkoutCatalog.parts['bearing-et2216'].variants[0],quantity:12,project:'microduck-robot'}
+ ]);
+ assert.equal(bundle.planningSubtotalCents,122295,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
+ assert.equal(bundle.totalParts,27);
  assert.equal(Object.keys(checkoutCatalog.researchSubcomponents).length,4);
  assert(Object.values(checkoutCatalog.parts).every(p=>p.sellerCheckoutVerified===false));
 });

@@ -166,8 +166,12 @@ export const checkoutCatalog={
     },
     "feetech-hd1910": {
       "title": "Feetech HD-1910-C001 Serial Bus Servo",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "HD-1910-C001 · single servo (Microduck bundle of 15)"
+      ],
+      "plannedRetailCents": [
+        7153
+      ],
       "sellerCheckoutVerified": false
     },
     "radxa-zero-3w": {
@@ -190,38 +194,62 @@ export const checkoutCatalog={
     },
     "imx219-160-camera": {
       "title": "IMX219 160° Camera Module",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "IMX219 8 MP · 160° lens · 22-pin cable review"
+      ],
+      "plannedRetailCents": [
+        2188
+      ],
       "sellerCheckoutVerified": false
     },
     "vl53l5cx-v2": {
       "title": "VL53L5CX V2 8×8 ToF Sensor",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "VL53L5X V2 · I2C ToF module"
+      ],
+      "plannedRetailCents": [
+        5000
+      ],
       "sellerCheckoutVerified": false
     },
     "npf550-power-kit": {
       "title": "NP-F550 Battery & Dual Charger Kit",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "2 × NP-F550 2600 mAh + LCD dual charger"
+      ],
+      "plannedRetailCents": [
+        7178
+      ],
       "sellerCheckoutVerified": false
     },
     "bearing-6700": {
       "title": "6700 Open Thin-Wall Bearing",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "6700 open 10×15×3 mm · per bearing (5-piece build)"
+      ],
+      "plannedRetailCents": [
+        744
+      ],
       "sellerCheckoutVerified": false
     },
     "bearing-et2216": {
       "title": "ET2216 Thin-Wall Bearing",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "ET2216ZZ 16×22×4 mm · per bearing (12-piece build)"
+      ],
+      "plannedRetailCents": [
+        1250
+      ],
       "sellerCheckoutVerified": false
     },
     "bearing-623zz": {
       "title": "623ZZ Roller Bearings (optional)",
-      "variants": [],
-      "plannedRetailCents": [],
+      "variants": [
+        "623ZZ 3×10×4 mm · per bearing (8-piece optional roller)"
+      ],
+      "plannedRetailCents": [
+        937
+      ],
       "sellerCheckoutVerified": false
     },
     "microduck-printed-parts": {

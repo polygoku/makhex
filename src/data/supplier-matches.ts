@@ -154,12 +154,12 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
   offers:[
    {seller:'RobArmMotion',label:'HD-1910-C001 servo (per unit)',url:'https://www.robarmmotion.com/product/feetech-hd-1910-c001-coreless-ttl-servo-for-microduck-robotics/',match:'EXACT_SPEC',note:'Select HD-1910-C001 Motor; order quantity 15; URT2 board is not a servo.'},
    {seller:'TorqueMicro',label:'Feetech HD-1910-C001 alternative',url:'https://torquemicro.com/products/feetech-hd1910-servo-motor',match:'SELECT_VARIANT',note:'Correct model but was shown on backorder; confirm supply for 15.'},
-   {seller:'AliExpress',label:'15-pack candidate listing',url:'https://www.aliexpress.us/item/3256813219512604.html',match:'SELECT_VARIANT',note:'Select 15PCS HD-1910-C001; official buyer SKU and ZIP 11021 check not verified.'}
+   {seller:'AliExpress',label:'15-pack candidate listing',url:'https://www.aliexpress.us/item/3256813219512604.html',match:'SELECT_VARIANT',note:'Select 15 x Servo bundle. A 15-unit lot cannot be priced as one motor; 2.5x pricing is normalized per servo for the 15-piece kit. ZIP freight and buyer-orderable supplier SKU still require verification.'}
   ]
  },
  'radxa-zero-3w':{
   required:'Radxa ZERO 3W manufacturer SKU RS107-D2E0H1W15: 2 GB RAM, no eMMC, pre-soldered GPIO header.',
-  notes:'AliExpress candidate 2GB + GPIO combo reported zero supplier inventory; do not show last week’s price as a retail offer.',
+  notes:'Exact 2 GB no-eMMC plus pre-soldered GPIO option reported out of stock on AliExpress. The unrelated 1 GB/no GPIO default is not acceptable; owner must source equivalent exact SKU.',
   offers:[
    {seller:'Arace Tech',label:'Radxa ZERO 3W — select exact configuration',url:'https://arace.tech/products/radxa-zero-3w',match:'SELECT_VARIANT',note:'Select 2 GB / None eMMC / Soldered header. Reconfirm selected SKU and shipping at checkout.'},
    {seller:'ameriDroid',label:'Alternative board listing',url:'https://ameridroid.com/products/radxa-zero-3w',match:'SELECT_VARIANT',note:'Compare exact 2GB no-eMMC header version; availability can vary.'}
@@ -183,7 +183,7 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
  },
  'imx219-160-camera':{
   required:'Sony IMX219 8 MP camera with true 160° lens, Radxa ZERO 3W-compatible FPC/cable orientation.',
-  notes:'Do not default to 77°/130° listings. Radxa ZERO 3W typically uses 22-pin 0.5 mm to 15-pin 1.0 mm FPC.',
+  notes:'AliExpress selected 160 Degree option 14-173 on Oct 28; do not use cheaper default 77 Degree. Radxa CSI cable and orientation must be verified.',
   offers:[
    {seller:'ArmDojo',label:'IMX219 160° with 22-pin FPC cable',url:'https://armdojo.com/products/imx219-160-wide-angle-csi-camera-module-8mp',match:'SELECT_VARIANT',note:'160° module with cable offered, verify CSI pin orientation and Radxa drivers.'},
    {seller:'Waveshare',label:'IMX219-160 camera module',url:'https://www.waveshare.com/product/risc-v/imx219-160-camera.htm',match:'SELECT_VARIANT',note:'Choose IMX219-160 option, not 120/IR/IR-CUT; 22-pin adapter may be extra.'},
@@ -203,6 +203,7 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
   required:'Two Sony NP-F550 style 7.2V batteries PLUS one compatible dual charger (not one battery); use approved protection.',
   notes:'Wasabi 2600 mAh is a functional equivalent of original 2200 mAh capacity, not the exact maker brand. Verify battery slot size/current.',
   offers:[
+   {seller:'AliExpress',label:'NP-F550 2Pcs set with LCD dual charger',url:'https://www.aliexpress.us/item/2255800740884834.html',match:'SELECT_VARIANT',note:'Select 2Pcs set (not default 1Pc); regular supplier offer observed 2026-10-28. Lithium freight and current stock require qualification.'},
    {seller:'Wasabi Power',label:'2 NP-F550 batteries + dual charger',url:'https://www.wasabipower.com/collections/battery-charger-kits/products/wasabi-power-battery-2-pack-and-dual-charger-for-sony-np-f550',match:'COMPATIBILITY_REVIEW',note:'Two 7.2 V 2600 mAh batteries and dual USB charger; shipping/battery rules apply.'}
   ]
  },
@@ -210,6 +211,7 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
   required:'6700 open, 10 mm inner × 15 mm outer × 3 mm width; buy 5 installed/reference units.',
   notes:'6700-ZZ 10x15x4 is not equivalent to 6700 open 10x15x3.',
   offers:[
+   {seller:'AliExpress',label:'S6700W3-OPEN 10×15×3 10-pack',url:'https://www.aliexpress.us/item/3256807024557318.html',match:'SELECT_VARIANT',note:'Select S6700W3-OPEN 10x15x3; ten supplied per lot, Microduck needs five. Shipping and lot use must be reviewed.'},
    {seller:'VXB',label:'6700 open 10×15×3 mm per bearing',url:'https://vxb.com/products/6700-ball-bearing-10mm-x-15mm-x-3mm-single-row-open',match:'EXACT_SPEC',note:'Open, 3 mm wide. Select quantity 5; verify delivery and tolerance.'},
    {seller:'Bearings Direct',label:'6700 series compare exact open bearing',url:'https://bearingsdirect.com/6700-series-thin-high-speed-ball-bearings/?page=1',match:'SELECT_VARIANT',note:'Choose 6700 Open 10x15x3, not sealed 4-mm variants.'}
   ]
@@ -218,15 +220,17 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
   required:'ET2216ZZ, 16 mm inner × 22 mm outer × 4 mm width, double metal shields, 12 units.',
   notes:'Same geometric size may be called MR1622-ZZ; check bearing width and exact tolerances.',
   offers:[
+   {seller:'AliExpress',label:'NAZE ET2216ZZ 16×22×4 ABEC-7 10-pack (replacement)',url:'https://www.aliexpress.us/item/3256804482667678.html',match:'SELECT_VARIANT',note:'Exact 16x22x4 selection displayed available Oct 28. Two 10-packs required for 12-unit Microduck kit; verify live inventory and U.S. shipping.'},
    {seller:'NZ Miniature Bearings',label:'MR1622-ZZ / ET2216ZZ 16×22×4',url:'https://nzminiaturebearings.co.nz/product/16x22x4-mm-mr1622-zz-bearing-sku-00206030.html',match:'EXACT_SPEC',note:'Equivalent designation with dimensional match; verify U.S. checkout and quantity 12.'},
    {seller:'LILY Bearing',label:'ET2216 ZZ manufacturer profile',url:'https://www.lily-bearing.com/products/et2216-zz/',match:'EXACT_SPEC',note:'Exact part dimensions; ask seller for actual quote/pack and delivery.'},
-   {seller:'AliExpress',label:'ET2216ZZ supplier option candidate',url:'https://www.aliexpress.us/item/2251800514902353.html',match:'SELECT_VARIANT',note:'Select ET2216ZZ 16x22x4 ABEC-1, not a similar bearing.'}
+   {seller:'AliExpress',label:'ET2216ZZ supplier option candidate',url:'https://www.aliexpress.us/item/2251800514902353.html',match:'SELECT_VARIANT',note:'Original ET2216ZZ option from this item reported out of stock on Oct 28; do not use as primary supplier.'}
   ]
  },
  'bearing-623zz':{
   required:'Optional Microduck roller: 623ZZ, 3 mm bore × 10 mm OD × 4 mm, eight installed.',
   notes:'Optional roller only, NOT included in standard walking build. 683ZZ 3×7×3 is wrong.',
   offers:[
+   {seller:'AliExpress',label:'623ZZ 3×10×4 mm exact 10-pack selection',url:'https://www.aliexpress.us/item/3256805794598678.html',match:'SELECT_VARIANT',note:'Select 623ZZ - 3x10x4 mm, not default 683ZZ - 3x7x3 mm. Optional 8-unit roller kit consumes a 10-pack.'},
    {seller:'Bearings Direct',label:'623-ZZ 3×10×4 shielded',url:'https://bearingsdirect.com/623-zz-mini-ball-bearing-3x10x4-shielded-r1030zz/',match:'EXACT_SPEC',note:'Exact dimensions; select quantity eight.'},
    {seller:'VXB',label:'623ZZ pack of ten',url:'https://vxb.com/products/623zz-10-bearing-shielded-3x10x4-miniature',match:'EXACT_SPEC',note:'10-pack covers optional eight rollers plus two spares.'}
   ]
