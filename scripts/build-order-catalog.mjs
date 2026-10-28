@@ -2,15 +2,15 @@ import fs from 'node:fs';
 import {products} from '../src/data/products.ts';
 import {projects} from '../src/data/projects.ts';
 import {mosaicoAssemblyParts} from '../src/data/mosaico-bom.ts';
-import {catalogStaging} from '../src/data/catalog-staging.ts';
+import {stageFor} from '../src/data/catalog-staging.ts';
 
 const generated={schema:'makhex-order-parts-v1',
  parts:Object.fromEntries(products.map(p=>[p.slug,{
    title:p.title,
-   variants:(catalogStaging[p.slug]?.variants??[]).map(x=>x.title),
+   variants:(stageFor(p.slug)?.variants??[]).map(x=>x.title),
    // Prices are private *draft display only* and never authoritative charges.
    // Approval must still establish a delivered supplier quote and payment link.
-   plannedRetailCents:catalogStaging[p.slug]?.variants?.map(x=>Math.round(x.plannedRetailUsd*100))??[],
+   plannedRetailCents:stageFor(p.slug)?.variants?.map(x=>Math.round(x.plannedRetailUsd*100))??[],
    sellerCheckoutVerified:false
  }])),
  researchSubcomponents:Object.fromEntries(mosaicoAssemblyParts.map(p=>[p.slug,{title:p.title,variants:[],plannedRetailCents:[],sellerCheckoutVerified:false}])),

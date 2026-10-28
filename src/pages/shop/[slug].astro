@@ -7,6 +7,7 @@ import {commerceState} from '../../lib/commerce';
 import type {Product} from '../../data/products';
 import {stageFor,formatUsd} from '../../data/catalog-staging';
 import {supplierFor} from '../../data/supplier-matches';
+import {microduckPricePlans,microduckRetailCautions,microduckPriceObservedAt,supplierVariantPhotoSlugs} from '../../data/microduck-price-plans';
 const microduckResearchSlugs=new Set(['feetech-hd1910','radxa-zero-3w','microduck-hat','microduck-imu','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-printed-parts','microduck-fasteners','amp20-servo-cables','microduck-wiring-kit']);
 export function getStaticPaths(){return products.map(product=>({params:{slug:product.slug},props:{product}}));}
 interface Props{product:Product}
@@ -26,13 +27,14 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
   <section class="container detail-grid clean-product-detail">
     <div class="component-main-visual">
       <ProductPhoto product={product} large gallery/>
-      <p class="quiet-image-caption">{microduckResearchSlugs.has(product.slug)?'MAKHEX technical illustration · no supplier image or exact option verified':'Component reference image · verify actual retailer variation'}</p>
+      <p class="quiet-image-caption">{supplierVariantPhotoSlugs.has(product.slug)?'Matched supplier variant listing image · stock and U.S. shipping still require confirmation':microduckResearchSlugs.has(product.slug)?'MAKHEX technical illustration · custom or unmatched part':'Component reference image · verify actual retailer variation'}</p>
     </div>
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>
       <p class="detail-description">{product.description}</p>
       <div class="clean-product-price">{minimum!==null?'MAKHEX plan '+formatUsd(minimum):'MAKHEX sourcing review'}{stage&&stage.variants.length>1&&<span>from</span>}</div>
-      {minimum!==null&&<p class="clean-compatibility">MAKHEX catalog planning price only, not a verified supplier offer or checkout quote. Retailer prices and shipping appear on their sites.</p>}
+      {minimum!==null&&<p class="clean-compatibility">{microduckPricePlans[product.slug]?'Price plan from exact supplier variant review on '+microduckPriceObservedAt+' using MAKHEX’s 2.5× rule; current supplier shipping, stock and final checkout price still require verification.':'MAKHEX catalog planning price only, not a verified supplier offer or final checkout quote.'}</p>}
+      {microduckRetailCautions[product.slug]&&<p class="clean-compatibility">{microduckRetailCautions[product.slug]}</p>}
       <p class="clean-shipping">MAKHEX offers free U.S. shipping after supplier qualification. You buy from MAKHEX, not from individual component sellers.</p>
       {stage&&stage.variants.length>1&&<div class="clean-variant-options">
         {stage.variants.map(v=><div><span>{v.title}</span><strong>{formatUsd(v.plannedRetailUsd)}</strong></div>)}

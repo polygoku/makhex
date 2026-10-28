@@ -4,7 +4,8 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {products} from '../src/data/products.ts';
 import {projects} from '../src/data/projects.ts';
-import {catalogStaging,plannedVariantForProject,projectBomMissingParts} from '../src/data/catalog-staging.ts';
+import {catalogStaging,stageFor,plannedVariantForProject,projectBomMissingParts} from '../src/data/catalog-staging.ts';
+import {microduckPricePlans,microduckRetailCautions,supplierVariantPhotoSlugs} from '../src/data/microduck-price-plans.ts';
 import {supplierMatches,offersFor} from '../src/data/supplier-matches.ts';
 const dist=path.resolve('dist');
 const expected={
@@ -18,10 +19,20 @@ const expected={
 assert.equal(products.length,30);
 assert.equal(projects.length,12);
 assert.equal(Object.keys(catalogStaging).length,16);
+const microPrices={'feetech-hd1910':71.53,'imx219-160-camera':21.88,'vl53l5cx-v2':50,'npf550-power-kit':71.78,'bearing-6700':7.44,'bearing-et2216':12.50,'bearing-623zz':9.37};
+assert.equal(Object.keys(microduckPricePlans).length,7);
+for(const [slug,amount] of Object.entries(microPrices)){
+ assert.equal(microduckPricePlans[slug]?.variants[0].plannedRetailUsd,amount,'Wrong exact-variant 2.5x plan '+slug);
+ assert.equal(microduckPricePlans[slug]?.buyerOrderabilityVerified,false);
+ assert.equal(microduckPricePlans[slug]?.shippingVerified,false);
+ assert.ok(supplierVariantPhotoSlugs.has(slug));
+ const image=fs.readFileSync(path.join('public','product-media',slug+'.jpg'));
+ assert.ok(image.length>8000&&image[0]===0xff&&image[1]===0xd8,'The matched supplier listing photo must be a valid JPEG: '+slug);
+}
 let optionCount=0;
 for(const product of products){
  const stage=catalogStaging[product.slug],prices=expected[product.slug];
- if(!stage){
+ if(!stage&&!microduckPricePlans[product.slug]){
   assert.ok(!prices,'New unqualified component must not have a fixed source price: '+product.slug);
   assert.equal(product.status,'Research','Unqualified product cannot be published: '+product.slug);
   const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
@@ -29,6 +40,18 @@ for(const product of products){
   assert.ok(html.includes('href="/parts-sources/"'),'Unquoted product missing comparison index');
   assert.equal(supplierMatches[product.slug]?.offers.length>0,true,'Missing supplier purchase/comparison options: '+product.slug);
   assert.ok(html.includes('CHECK OUT WITH MAKHEX'),'Unqualified item must use MAKHEX order review: '+product.slug);
+  continue;
+ }
+ if(!stage&&microduckPricePlans[product.slug]){
+  assert.ok(!prices,'Research cannot overwrite existing Squarespace prices: '+product.slug);
+  const plan=stageFor(product.slug);
+  assert.equal(plan.technicalGate,'HOLD');
+  assert.equal(plan.variants.length,1);
+  const html=fs.readFileSync(path.join(dist,'shop',product.slug,'index.html'),'utf8');
+  assert.ok(html.includes('Matched supplier variant listing image'),'Source image flag missing: '+product.slug);
+  assert.ok(html.includes('MAKHEX plan $'+plan.variants[0].plannedRetailUsd.toFixed(2)),'2.5x planned retail missing: '+product.slug);
+  assert.ok(html.includes(microduckRetailCautions[product.slug].slice(0,22)),'Exact variant/lot caution absent: '+product.slug);
+  assert.ok(html.includes('CHECK OUT WITH MAKHEX'),'Must retain MAKHEX checkout');
   continue;
  }
  assert.ok(prices,'Unreviewed previously staged product: '+product.slug);
@@ -66,7 +89,7 @@ for(const project of projects){
  assert.ok(!/aliexpress/i.test(csv),'Source exposed in downloadable CSV: '+project.slug);
 }
 const index=fs.readFileSync(path.join(dist,'shop','index.html'),'utf8');
-assert.ok(index.includes('Free U.S. shipping')&&index.includes('Checkout coming soon'));
+assert.ok(index.includes('Free U.S. shipping')&&index.includes('MAKHEX order requests open'));
 assert.ok(!/aliexpress/i.test(index));
 assert.ok(!index.includes('SUPPLIER VARIANTS')&&!index.includes('INDICATIVE PRICE'));
 const sourcing=JSON.parse(fs.readFileSync(path.join(dist,'sourcing.json'),'utf8'));
@@ -87,7 +110,8 @@ for(const component of sourcing.researchSubcomponents){
  assert.equal(component.availability,'RESEARCH_ONLY');
  assert.equal(component.variants.length,0,'Do not invent purchasable supplier options');
 }
-assert.equal(sourcing.components.flatMap(p=>p.variants).length,17);
+assert.equal(sourcing.components.flatMap(p=>p.variants).length,24);
+assert.equal(sourcing.components.filter(p=>p.priceStatus==='ALIEXPRESS_VARIANT_PLANNING').length,7);
 const radxa=sourcing.components.find(p=>p.slug==='radxa-zero-3w');
 assert.equal(radxa.variants.length,0);
 assert.equal(radxa.priceStatus,'COMPARE_EXTERNAL_SELLERS');
@@ -96,7 +120,7 @@ assert.equal(radxa.availability,'COMING_SOON');
 assert.ok(!JSON.stringify(sourcing).includes('271.98'),'Do not publish stale Radxa historical quote');
 assert.equal(radxa.hardwareReview,'HOLD');
 assert.ok(!sourcing.checkoutAvailable);
-assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,14,'14 external-sourcing products must not display invented prices');
+assert.equal(sourcing.components.filter(p=>p.variants.length===0).length,7,'7 custom/unmatched components stay unpriced');
 assert.equal(sourcing.components.filter(p=>p.buyingOptions.length>0).length,30,'All catalog components require buyer sources');
 assert.equal(offersFor('ws2812-leds','rgb-matrix-clock').some(x=>x.project==='rgb-matrix-clock'),true);
 assert.equal(offersFor('ws2812-leds','smart-desk-button').some(x=>x.project==='smart-desk-button'),true);
@@ -107,7 +131,7 @@ for(const project of sourcing.projects){
 const publicJson=JSON.stringify(sourcing);
 for(const sensitive of ['sourceItemId','sourceUnitCost','supplierUnitCost','sourceVariantId','access_token','refresh_token'])
  assert.ok(!publicJson.toLowerCase().includes(sensitive.toLowerCase()),'Private supplier credentials/cost exposed in public JSON: '+sensitive);
-console.log(`MAKHEX SHOP PASS: ${products.length} catalog components, ${optionCount} merchant-priced options, 30 buyer source comparisons, ${projects.length} project BOMs, checkout gated`);
+console.log(`MAKHEX SHOP PASS: ${products.length} catalog components, ${optionCount} merchant-priced options plus 7 researched AliExpress retail plans, 30 buyer source comparisons, ${projects.length} project BOMs, checkout gated`);
 
 // Regression gate: supplier research, stock snapshots, and an N4-titled-as-N8
 // trial must never activate customer checkout by accident.
