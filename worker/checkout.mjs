@@ -129,9 +129,10 @@ export async function checkoutApi(req,env,h={}){
  }
  if(path==='/api/v1/checkout/admin/requests'&&req.method==='GET'||
     /^\/api\/v1\/checkout\/admin\/requests\/MKX-[A-F0-9]{8}$/.test(path)&&req.method==='POST'){
-  if(!env.MAKHEX_ORDER_ADMIN_TOKEN)return fail(503,'Owner approval access is not configured');
+  const ownerKey=env.MAKHEX_ORDER_ADMIN_TOKEN||env.COMMUNITY_ADMIN_TOKEN;
+  if(!ownerKey)return fail(503,'Owner approval access is not configured');
   const supplied=(req.headers.get('authorization')||'').replace(/^Bearer /,'');
-  if(!constantCompare(supplied,env.MAKHEX_ORDER_ADMIN_TOKEN))return fail(401,'Owner access required');
+  if(!constantCompare(supplied,ownerKey))return fail(401,'Owner access required');
   if(req.method==='GET'){
    const rows=await env.COMMUNITY_DB.prepare(
     'SELECT id,email,shipping_zip,shipping_state,status,lines_json,planning_subtotal_cents,approved_total_cents,payment_url,merchant_order_id,tracking_reference,owner_note,created_at,updated_at FROM makhex_checkout_requests ORDER BY created_at DESC LIMIT 80'
