@@ -55,7 +55,7 @@ expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
- expect(html.includes('Coming soon'),'Product incorrectly shows live checkout: '+f); expect(!/aliexpress/i.test(html),'Supplier link exposed on product: '+f);
+ expect(html.includes('Coming soon'),'Product incorrectly shows live checkout: '+f); expect(html.includes('id="buying-options"')&&html.includes('COMPARE SELLERS'),'Buyer source comparison missing on product: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
 

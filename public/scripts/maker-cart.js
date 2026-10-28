@@ -4,7 +4,7 @@
 const STORE_KEY='makhex-parts-cart-v1',MAX_LINES=80,MAX_QUANTITY=99;
 const okSlug=s=>typeof s==='string'&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s);
 const okOption=s=>typeof s==='string'&&s.length>0&&s.length<=160;
-const key=item=>item.slug+'\u001f'+item.option;
+const key=item=>item.slug+'\u001f'+item.option+'\u001f'+(item.project??'');
 let catalogPromise,volatile=[];
 const findPart=(catalog,slug)=>catalog.components.find(p=>p.slug===slug)||(catalog.researchSubcomponents??[]).find(p=>p.slug===slug);
 const separateMosaico=new Set(['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module']);
@@ -34,25 +34,26 @@ function save(items){
 }
 function flash(message){document.querySelectorAll('[data-cart-flash]').forEach(e=>e.textContent=message)}
 async function catalog(){
- if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=radxa-20261027',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
+ if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=sellers-20261027',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
  return catalogPromise;
 }
 function check(c,item){
  const part=findPart(c,item.slug);
  if(!part||!okOption(item.option))throw Error('Unknown component or option');
  const options=part.variants??[];
- if(options.length&&!options.some(v=>v.title===item.option))throw Error('Choose a listed option');
+ if(options.length&&!options.some(v=>v.title===item.option)&&!(item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot'&&item.option==='Option pending'))throw Error('Choose a listed option');
  if(!options.length&&item.option!=='Option pending')throw Error('Option qualification pending');
  if(!Number.isSafeInteger(item.quantity)||item.quantity<1||item.quantity>MAX_QUANTITY)throw Error('Invalid quantity');
 }
-// Cart entries created before a single variant was researched retain 'Option pending'.
-// Adopt that exact single variant without requiring the customer to remove and re-add.
+// Migrate older carts as sourcing changes. Never preserve an obsolete,
+// non-orderable historical quote as though it remains a valid shop option.
 function migrateLegacyOptions(c){
  const stored=read(),migrated=[];
  let changed=false;
  for(const item of stored){
   const part=findPart(c,item.slug),variants=part?.variants??[];
-  const next=item.option==='Option pending'&&variants.length===1?{...item,option:variants[0].title}:item;
+  const isMicroduckSpeaker=item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot';
+  const next=variants.length===0&&item.option!=='Option pending'?{...item,option:'Option pending'}:item.option==='Option pending'&&variants.length===1&&!isMicroduckSpeaker?{...item,option:variants[0].title}:item;
   if(next!==item)changed=true;
   const duplicate=migrated.find(existing=>key(existing)===key(next));
   if(duplicate){duplicate.quantity=Math.min(MAX_QUANTITY,duplicate.quantity+next.quantity);changed=true}
@@ -90,7 +91,7 @@ document.addEventListener('click',async event=>{
   try{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
-   const items=(project.cartPlan?.parts??project.parts).map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty}));
+   const items=(project.cartPlan?.parts??project.parts).map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
   }catch(e){flash(e.message||'Unable to add kit')}
@@ -103,7 +104,7 @@ document.addEventListener('click',async event=>{
    const c=await catalog(),name=b.getAttribute('data-cart-add-plan');
    const plan=c.projectAlternativePlans?.[name];
    if(!plan)throw Error('Unrecognized component plan');
-   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty}));
+   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty,project:name}));
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added '+items.length+' separate research components. Bundle duplicates removed.');
   }catch(e){flash(e.message||'Could not add individual research components')}
@@ -112,7 +113,7 @@ document.addEventListener('click',async event=>{
  }
  if(b.hasAttribute('data-cart-add')){
   const part=b.closest('[data-cart-product]'),select=part?.querySelector('[data-cart-choice]');
-  await add([{slug:b.getAttribute('data-cart-slug')||part?.getAttribute('data-cart-product'),option:select?select.value:(b.getAttribute('data-cart-option')||'Option pending'),quantity:Number(b.getAttribute('data-cart-quantity')||1)}],b);
+  await add([{slug:b.getAttribute('data-cart-slug')||part?.getAttribute('data-cart-product'),option:select?select.value:(b.getAttribute('data-cart-option')||'Option pending'),quantity:Number(b.getAttribute('data-cart-quantity')||1),project:b.getAttribute('data-cart-project')||undefined}],b);
   return;
  }
  if(b.hasAttribute('data-cart-clear')){save([]);flash('Cart cleared.');return}
@@ -142,15 +143,23 @@ async function render(){
  for(const item of cart){
   const part=findPart(c,item.slug);if(!part)continue;
   const variation=part.variants?.find(v=>v.title===item.option);
-  const price=typeof variation?.priceUsd==='number'&&Number.isFinite(variation.priceUsd)?variation.priceUsd:null;
+  const isDifferentSpeaker=item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot';
+  const price=!isDifferentSpeaker&&typeof variation?.priceUsd==='number'&&Number.isFinite(variation.priceUsd)?variation.priceUsd:null;
   const card=document.createElement('article');card.className='cart-line';
   const imgLink=document.createElement('a');imgLink.href=part.url?.startsWith('https://makhex.com/')?part.url.replace('https://makhex.com',''):'/shop/'+encodeURIComponent(item.slug)+'/';imgLink.className='cart-line-photo';
-  const img=document.createElement('img');img.src=part.image??'/product-media/'+item.slug+'.jpg';img.alt=(part.priceStatus==='HISTORICAL_ESTIMATE_OUT_OF_STOCK'?'Technical illustration, not supplier photo, for ':'Hardware supplier reference for ')+part.title;img.loading='lazy';imgLink.append(img);
+  const img=document.createElement('img');img.src=part.image??'/product-media/'+item.slug+'.jpg';img.alt='MAKHEX component reference illustration for '+part.title;img.loading='lazy';imgLink.append(img);
   const info=document.createElement('div');info.className='cart-line-info';
   const name=document.createElement('a');name.href=imgLink.href;name.className='cart-line-title';name.textContent=part.title;
-  const option=document.createElement('p');option.textContent=item.option;
-  const note=document.createElement('small');note.textContent=part.priceStatus==='HISTORICAL_ESTIMATE_OUT_OF_STOCK'?'Price reference '+part.priceAsOf+' · exact option reported out of stock; U.S. shipping unverified':part.availability==='RESEARCH_ONLY'?'Component identified in the kit; separate supplier SKU not verified':'Exact option and U.S. shipping pending verification';
+  const option=document.createElement('p');option.textContent=item.option==='Option pending'&&part.exactRequirements?part.exactRequirements:item.option;
+  const note=document.createElement('small');note.textContent='Compare retailer options; confirm exact variant, current stock and shipping with seller.';
   info.append(name,option,note);
+  const suppliers=(part.buyingOptions??[]).filter(o=>!o.project||!item.project||o.project===item.project);
+  const links=document.createElement('div');links.className='cart-supplier-links';
+  for(const offer of suppliers.slice(0,4)){
+   if(typeof offer.url!=='string'||!offer.url.startsWith('https://'))continue;
+   const a=document.createElement('a');a.href=offer.url;a.target='_blank';a.rel='noopener noreferrer';a.className='text-link cart-seller-link';a.textContent='View at '+offer.seller+' ↗';a.setAttribute('aria-label','Compare '+part.title+' at '+offer.seller);links.append(a);
+  }
+  const more=document.createElement('a');more.href='/parts-sources/#'+encodeURIComponent(item.slug);more.className='text-link cart-seller-link';more.textContent='All matches / technical requirements ↗';links.append(more);info.append(links);
   const controls=document.createElement('div');controls.className='cart-line-actions';
   const label=document.createElement('label');label.className='cart-quantity-label';label.textContent='Quantity';
   const input=document.createElement('input');input.type='number';input.min='1';input.max=String(MAX_QUANTITY);input.step='1';input.value=String(item.quantity);input.className='cart-qty';input.setAttribute('aria-label','Quantity of '+part.title);label.append(input);
@@ -161,12 +170,12 @@ async function render(){
   });
   const remove=document.createElement('button');remove.type='button';remove.className='cart-remove';remove.textContent='Remove';
   remove.addEventListener('click',()=>{save(read().filter(x=>key(x)!==key(item)));render()});
-  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Quote required':'$'+(price*item.quantity).toFixed(2)+(part.priceStatus==='HISTORICAL_ESTIMATE_OUT_OF_STOCK'?' · historical estimate':' · estimate');
+  const val=document.createElement('strong');val.className='cart-line-price';val.textContent=price===null?'Compare sellers for price':'MAKHEX plan $'+(price*item.quantity).toFixed(2);
   controls.append(label,remove,val);card.append(imgLink,info,controls);host.append(card);
   n+=item.quantity;if(price===null)unknown++;else known+=price*item.quantity;
  }
  if(countLabel)countLabel.textContent=n+' parts · '+cart.length+' selections';
- if(totalLabel)totalLabel.textContent=unknown?(known>0?'Estimated priced parts: $'+known.toFixed(2)+' · '+unknown+' unquoted selection'+(unknown===1?'':'s'):unknown+' selection'+(unknown===1?' needs a supplier quote':'s need supplier quotes')):'Estimated parts subtotal: $'+known.toFixed(2);
+ if(totalLabel)totalLabel.textContent=unknown?(known>0?'MAKHEX planning subtotal $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' priced by external sellers':unknown+' part'+(unknown===1?'':'s')+' · compare external sellers for prices'):'MAKHEX planning subtotal: $'+known.toFixed(2);
 }
 document.addEventListener('makhex:cart-updated',render);
 updateCount();render();

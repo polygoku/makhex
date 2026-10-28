@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {products,projectsNewestFirst} from '../lib/catalog';
+import {supplierFor} from '../data/supplier-matches';
+import {mosaicoAssemblyParts} from '../data/mosaico-bom';
+const matchNames:Record<string,string>={EXACT_SPEC:'Spec-matched listing',SELECT_VARIANT:'Select the exact option',COMPATIBILITY_REVIEW:'Compare and verify',CUSTOM_ORDER:'Custom fabrication'};
+---
+<BaseLayout title="Source every build component | MAKHEX" description="Compare exact hardware model requirements, retailer and manufacturer product pages, and custom fabrication options for all 12 MAKHEX builds.">
+ <div class="container breadcrumb"><a href="/">HOME</a><span>/</span><a href="/shop/">COMPONENTS</a><span>/</span><span>PARTS SOURCES</span></div>
+ <section class="container source-matrix-hero">
+  <span class="eyebrow">MAKHEX / THE PARTS SOURCE MATRIX</span>
+  <h1>Every part.<br/><em>Real sources.</em></h1>
+  <p>Compare real retailer listings for all <strong>{products.length} unique components</strong> across <strong>{projectsNewestFirst.length} builds</strong>. Choose the correct model, variant and quantity on the seller's site. Where a part must be fabricated, you'll see the original design or manufacturing route instead of a fake SKU.</p>
+  <div class="source-matrix-actions"><a class="btn btn-primary" href="#source-grid">BROWSE ALL PARTS ↓</a><a class="btn btn-outline" href="/projects/">FIND A BUILD ↗</a></div>
+  <p class="source-matrix-note">External purchases are made directly with third-party retailers, not through MAKHEX. Store prices, shipping, stock, order terms and returns are controlled by each retailer. Listing/spec matching is not certification of compatibility with the selected project firmware or purchased PCB.</p>
+ </section>
+ <section class="container source-matrix" id="source-grid">
+  <div class="section-heading"><div><span class="eyebrow">30 CATALOG COMPONENTS</span><h2>Match the hardware, not the product title.</h2></div></div>
+  <div class="source-rows">
+   {products.map((p,i)=>{const match=supplierFor(p.slug);const builds=projectsNewestFirst.filter(project=>project.materials.some(x=>x.slug===p.slug));return <article id={p.slug} class="source-item">
+    <div class="source-item-top">
+      <span class="eyebrow">PART {String(i+1).padStart(2,'0')}</span>
+      <h3><a href={'/shop/'+p.slug+'/'}>{p.title} ↗</a></h3>
+      <p>{match?.required}</p>
+      <p class="source-note">{match?.notes}</p>
+      <div class="source-builds">{builds.map(project=><a href={'/projects/'+project.slug+'/#bill-of-materials'}>BUILD {project.number} · QTY {project.materials.find(x=>x.slug===p.slug)?.qty}</a>)}</div>
+    </div>
+    <div class="source-offers">{match?.offers.map(offer=><div class="source-offer">
+      <div class="source-offer-label"><strong>{offer.seller}</strong><span>{matchNames[offer.match]}</span></div>
+      <div>{offer.label}</div>
+      <p>{offer.note}</p>
+      {offer.project&&<small>For {offer.project.replaceAll('-',' ')}</small>}
+      <a class="text-link" href={offer.url} target="_blank" rel="noopener noreferrer">VIEW SELLER / SOURCE ↗</a>
+    </div>)}</div>
+   </article>})}
+  </div>
+ </section>
+ <section class="container source-special">
+   <span class="eyebrow">BUILD 11 / BUNDLE CONTENTS</span>
+   <h2>Four pieces, not four duplicate purchases.</h2>
+   <p>Build 11's Vision Combo Kit already bundles the Core Unit, camera and interaction module. A compatible USB-C data cable may be an additional item. Selecting individual modules is an alternative research plan; do not buy a full combo kit and all its internal modules again.</p>
+   <div class="source-special-grid">{mosaicoAssemblyParts.map(p=><article><strong>{p.title}</strong><p>{p.details}</p><a href={p.includedInVisionCombo?'https://store.mosaico.ai/products/esp-mosaico':'https://www.adafruit.com/category/112'} target="_blank" rel="noopener noreferrer">COMPARE {p.includedInVisionCombo?'OFFICIAL KIT':'USB-C CABLES'} ↗</a></article>)}</div>
+ </section>
+</BaseLayout>
+<style>
+.source-matrix-hero{padding:3rem 0}.source-matrix-hero h1{font-size:clamp(3rem,8vw,6.5rem);line-height:.97;margin:1rem 0}.source-matrix-hero h1 em{font-style:normal;color:#c35d31}.source-matrix-hero>p{max-width:60rem;line-height:1.7;font-size:1.07rem}.source-matrix-hero .source-matrix-note{color:#696358;font-size:.92rem}.source-matrix-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin:1.5rem 0}.source-matrix h2{font-size:clamp(1.8rem,4vw,3.1rem)}.source-rows{display:grid;gap:1.5rem;margin:2rem 0}.source-item{scroll-margin-top:2rem;border:1px solid #dbc9b4;border-radius:14px;background:#fffaf2;padding:clamp(1rem,2.5vw,2rem);display:grid;grid-template-columns:minmax(200px,1fr) minmax(220px,1.5fr);gap:1.25rem;overflow-wrap:anywhere}.source-item h3{font-size:clamp(1.25rem,3vw,1.7rem);margin:.5rem 0}.source-item h3 a{text-decoration:none}.source-item p{font-size:.9rem;line-height:1.6}.source-item .source-note{color:#6b665f}.source-builds{display:flex;flex-wrap:wrap;gap:.45rem}.source-builds a{font-size:.76rem;padding:.3rem .5rem;border:1px solid #cfbd9f;border-radius:6px}.source-offers{display:grid;gap:.7rem}.source-offer{padding:1rem;border:1px solid #e1d7cb;border-radius:10px;background:#fff}.source-offer-label{display:flex;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem}.source-offer-label span{color:#a85c2f;font-size:.73rem}.source-offer p{margin:.5rem 0}.source-offer a{font-size:.83rem}.source-offer small{display:block;margin:.3rem 0;color:#696358}.source-special{margin:3rem auto;padding:2rem;background:#eef0e5;border-radius:14px}.source-special h2{font-size:1.8rem}.source-special p{max-width:59rem;line-height:1.6}.source-special-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:.8rem}.source-special-grid article{background:#fff;padding:1rem;border-radius:10px}.source-special-grid article p{font-size:.85rem}.source-special-grid a{font-size:.81rem;font-weight:650}
+@media(max-width:760px){.source-item{grid-template-columns:1fr}.source-special{padding:1rem}}
+</style>
