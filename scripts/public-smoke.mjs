@@ -18,7 +18,7 @@ const checks=[
   {path:'/projects/',contains:'id="projects-grid"'},
   {path:'/shop/',contains:'id="catalog-grid"'},
   {path:'/community/',contains:'id="thread-heading"'},
-  {path:'/shop/esp32-s3-devkit/',contains:'Coming soon'},
+  {path:'/shop/esp32-s3-devkit/',contains:'data-supplier-reference-image="esp32-s3-devkit"'},
   {path:'/projects/touch-weather-station/',contains:'DOWNLOAD BOM CSV'},
   {path:'/projects/touch-weather-station.csv',contains:'"Unit price USD"'},
   {path:'/robots.txt',contains:'makhex.com/sitemap-index.xml'},
