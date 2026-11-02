@@ -21,6 +21,8 @@ const generated={schema:'makhex-order-parts-v1',
 const text='// Generated from MAKHEX catalog by scripts/build-order-catalog.mjs. DO NOT EDIT.\nexport const checkoutCatalog='+JSON.stringify(generated,null,2)+';\n';
 const dest='worker/checkout-catalog.mjs';
 if(process.argv.includes('--check')){
- if(!fs.existsSync(dest)||fs.readFileSync(dest,'utf8')!==text)throw Error('checkout catalog generated source drift');
+ // Git may check out the generated file with CRLF on Windows; compare content,
+ // not platform-specific line endings. All substantive catalog drift still fails.
+ if(!fs.existsSync(dest)||fs.readFileSync(dest,'utf8').replace(/\r\n/g,'\n')!==text)throw Error('checkout catalog generated source drift');
 }else fs.writeFileSync(dest,text);
 console.log('MAKHEX order catalog '+Object.keys(generated.parts).length+' component families and '+projects.length+' project BOMs');
