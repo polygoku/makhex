@@ -2,14 +2,14 @@
 
 **Original author:** se kino / kinosei
 **Original Hackster project:** https://www.hackster.io/kinosei/atomdog-open-source-quadruped-robot-with-m5atommotion-aa540d
-**MAKHEX route (after a separately authorized deployment):** https://makhex.com/projects/atomdog-quadruped-robot/
+**Published MAKHEX route (live November 17, 2026):** https://makhex.com/projects/atomdog-quadruped-robot/
 **Original project listing license:** MIT. Verify that the license explicitly covers each specific media, firmware and 3MF asset before redistributing it; MAKHEX does not mirror upstream firmware or print archive in this import.
 
 ## Objective and demonstrable use cases
 
 AtomDog is a real external maker project combining a M5Stack ESP32 ATOM Lite, a 4-channel ATOMIC Motion Base, four small metal-gear positional servos and seven printed parts. The creator's local browser dashboard can center/calibrate the legs, save settings, and demonstrate standing, sitting and gait movement. It is useful to teach introductory leg kinematics, Wi-Fi interfaces, PWM servo calibration, 3D-print tolerances and real-time firmware debugging.
 
-**Status:** source-researched MAKHEX project guide and first-party *unpriced order-request* component catalog. MAKHEX has not built or tested the original design, has not verified that the new Motion Base v1.2 fits, and has not qualified supplier inventory, U.S. shipping or automated fulfillment. No credit card payment should be taken for these unqualified parts.
+**Status:** source-researched MAKHEX project guide and first-party *unpriced order-request* component catalog. MAKHEX has not built or tested the original design, has not verified that the new Motion Base v1.2 fits, and has obtained live supplier inventory indicators and ZIP-11021 anonymous-cart shipping estimates but has not verified authenticated AliExpress fulfillment or actual physical compatibility. No credit card payment should be taken for these unqualified parts.
 
 ## Original BOM mapped to MAKHEX
 
