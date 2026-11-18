@@ -11,6 +11,9 @@ const separateMosaico=new Set(['esp-mosaico-core-unit','esp-mosaico-camera-modul
 function excludeAlternative(items,added){
  const newParts=new Set(added.map(x=>x.slug));
  const replacingPlanCable=newParts.has('usb-c-data-cable');
+ if(newParts.has('rebot-b601-dm-full-kit')||newParts.has('rebot-b601-rs-full-kit')){
+   return items.filter(x=>x.project!=='rebot-b601-dev-arm');
+ }
  if(newParts.has('esp-mosaico-vision-combo-kit'))return items.filter(x=>!separateMosaico.has(x.slug)&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
  if([...newParts].some(slug=>separateMosaico.has(slug)))return items.filter(x=>x.slug!=='esp-mosaico-vision-combo-kit'&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
  return items;
@@ -106,7 +109,7 @@ document.addEventListener('click',async event=>{
    const c=await catalog(),name=b.getAttribute('data-cart-add-plan');
    const plan=c.projectAlternativePlans?.[name];
    if(!plan)throw Error('Unrecognized component plan');
-   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty,project:name}));
+   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty,project:plan.project??name}));
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added '+items.length+' separate research components. Bundle duplicates removed.');
   }catch(e){flash(e.message||'Could not add individual research components')}

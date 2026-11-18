@@ -100,6 +100,41 @@ export const projectGuides: Record<string, ProjectGuide> = {
     demoGoals: ['Independent source-matched PlatformIO build on an ATOM Lite with correct library versions.', 'Individual servo neutral, direction and trim verified for S1=RR, S2=RF, S3=LR and S4=LF, then saved to non-volatile memory.', 'Local browser UI reachable by reported IP or dogrobot.local when mDNS resolves.', 'Walk, stop, sit and release commands function without mechanical binding or overcurrent.', 'Record hardware revision, current draw, servo response, design-model dimensions and real physical video before claiming a MAKHEX-tested kit.'],
     agentTasks: ['Start with builds/atomdog-quadruped-robot/README.md; see original author files and full firmware on Hackster. Do not treat a copied excerpt as a verified firmware repository.', 'Build with original PlatformIO env m5stack-atom, Arduino framework, M5Unified, M5Atomic-Motion and links2004/WebSockets; verify API/library versions before claiming compile success.', 'Check v1.2 A090-V12 body footprint and I2C behaviour against original v1.1 source; check 18350 battery and servo peak current.', 'Qualify ATOM Lite C008, Motion Base A090-V12 and genuine FS90MG 180° servos for AliExpress exact variants, U.S. ZIP delivery and landed pricing before any payment link.', 'Only link original 3MF source or a separately authorized and checksum-verified download; do not represent a hypothetical printable part as shipped inventory.'],
     source: {url: 'https://www.hackster.io/kinosei/atomdog-open-source-quadruped-robot-with-m5atommotion-aa540d',creator:'se kino (kinosei)',license:'MIT (project listing)',note:'Creator publishes main.cpp, wifi_config.h, platformio.ini and AtomDog_3mf.zip on Hackster. Exact attachment download links could not be independently recovered; CAD/media are not mirrored by MAKHEX.'}
-  }
+  },
 
+"rebot-b601-dev-arm": {
+  "overview": "Seeed Studio's reBot-DevArm is two well-documented open-hardware robotic manipulators: B601-DM (Damiao 24V) and B601-RS (RobStride 48V). Both have six motion axes plus a gripper actuator, CNC and 3D-printed structures, source STEP assemblies, a detailed per-screw BOM and published ROS 2, Python and LeRobot demonstrations. MAKHEX supplies independent English build guidance and a first-party parts quotation plan; it has not independently built a robot or verified source-matched shipping.",
+  "useCases": [
+    "Learn CNC/3D mechanical tolerancing, CAN actuator bring-up and end-effector kinematics",
+    "Prototype arm teleoperation and gravity compensation on ROS 2",
+    "Explore LeRobot imitation learning and structured robotic grasping with separately qualified cameras",
+    "Compare Damiao 24V and RobStride 48V control interfaces without misleading drop-in substitutions"
+  ],
+  "beforeYouStart": [
+    "Pick DM or RS model before selecting any actuator or power kit. Manufacturer performance claims are not MAKHEX measurements.",
+    "The B601-DM uses four DM4310(V4) and three DM4340P(V4) in the released maker BOM; the B601-RS uses four RS00 and three RS06. Factory bundles may be revised.",
+    "Both arms are high-power mains-adapter-driven robotic systems, not an ESP32 kit. Source power adapters require U.S. safety certification and properly installed DC conductors / stop circuits; do not encourage novice mains wiring.",
+    "Original source hardware is CERN-OHL-W-2.0 and firmware Apache-2.0. Include copyright/source notices for manufactured design; marketing images and Seeed trademarks are not a license for MAKHEX endorsement.",
+    "The creator notes that published source BOM tables differ from final manufactured shipping versions. Validate full kit composition, power inclusions, two mounting clamps and CAN interface before final quote.",
+    "Print designs are downloadable for self-fabrication under applicable licenses; do not label them finished printed parts shipped by MAKHEX."
+  ],
+  "demoGoals": [
+    "A safe, stationary clamped arm reports all seven correct actuator IDs and joint telemetry after a cold power cycle.",
+    "Slow unloaded motion to limited poses without collision, cable over-tension or motion-control instability.",
+    "Emergency stop and power isolation behaviors demonstrated and recorded before allowing teleoperation.",
+    "ROS 2 joint states, controlled end-effector commands and repeatable pick/place operation verified by a real test log."
+  ],
+  "agentTasks": [
+    "Start with both original creator BOM files and compare actual purchased factory variant. Update variant-specific kit manifests and detailed CSV snapshots.",
+    "Reconcile each actuator ID/protocol, connector, 24V/48V supply, zero calibration, torque/current limit and stop module before enabling motion.",
+    "Do not reuse NOVA20, AtomDog or generic ESP32 source on a high-power arm; reBot requires a Linux host and CAN interface.",
+    "Never activate a paid full-kit SKU until manufacturer stock, exact option, U.S. ZIP shipping, complete parts including power, warranty/returns and first-party Squarespace-to-supplier order bridge are tested."
+  ],
+  "source": {
+    "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+    "creator": "Seeed Studio / Seeed-Projects",
+    "license": "CERN-OHL-W-2.0 hardware; Apache-2.0 software",
+    "note": "Commercial open-hardware use permitted subject to required notices and source provision. Official maker BOM may differ from factory kits. Manufacturer photos/trademarks not endorsed by MAKHEX."
+  }
+},
 };

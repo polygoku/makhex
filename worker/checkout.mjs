@@ -44,6 +44,15 @@ function validateLines(lines){
   out.push({slug,title:part.title,quantity:qty,option,project:project||null,planningUnitCents:cents,
     requiresExceptionReview:!part.sellerCheckoutVerified});
  }
+ const armLines=out.filter(line=>line.project==='rebot-b601-dev-arm');
+ const dm=armLines.filter(line=>line.slug.startsWith('rebot-b601-dm-')||line.slug.startsWith('rebot-dm'));
+ const rs=armLines.filter(line=>line.slug.startsWith('rebot-b601-rs-')||line.slug.startsWith('rebot-robstride'));
+ if(dm.length&&rs.length)return null; // Different CAN protocols, motor families and 24V/48V.
+ for(const group of [dm,rs]){
+   const full=group.find(line=>line.slug.endsWith('-full-kit'));
+   const duplicateSub=group.some(line=>/-body-motor-kit$|-body-structure-kit$|-gripper-kit$|-hardware-pack$/.test(line.slug));
+   if(full&&duplicateSub)return null; // Not an arm plus duplicate structural kits.
+ }
  if(totalParts>1200||!Number.isSafeInteger(subtotal))return null;
  return {lines:out,planningSubtotalCents:missingPrices?null:subtotal,totalParts};
 }

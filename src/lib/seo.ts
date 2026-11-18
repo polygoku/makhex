@@ -57,6 +57,10 @@ const projectSearchCopy: Record<string, {title: string; description: string}> = 
   'atomdog-quadruped-robot': {
     title: 'AtomDog ESP32 Quadruped Robot: Build Guide & BOM | MAKHEX',
     description: 'Build AtomDog with M5Stack ATOM Lite, ATOMIC Motion Base and four FS90MG servos. See the 3D printing plan, browser calibration, firmware source and MAKHEX parts request.'
+  },
+  'rebot-b601-dev-arm': {
+    title: 'reBot B601 Robot Arm: DM & RS 6-DOF BOM, CAD | MAKHEX',
+    description: 'Build Seeed reBot B601-DM 24V or B601-RS 48V robotic arms with open CAD, complete source BOMs, ROS 2 guides and first-party MAKHEX kit requests.'
   }
 };
 
@@ -66,7 +70,8 @@ export function projectSeo(project: Project) {
     description: project.summary
   };
   const image = buildReferences[project.slug]?.image ??
-    (project.slug === 'atomdog-quadruped-robot' ? '/demo/atomdog/hero.jpg' :
+    (project.slug === 'rebot-b601-dev-arm' ? 'https://raw.githubusercontent.com/Seeed-Projects/reBot-DevArm/main/media/RS5_56.webp' :
+    project.slug === 'atomdog-quadruped-robot' ? '/demo/atomdog/hero.jpg' :
     project.slug === 'microduck-robot' ? '/demo/microduck/microduck-hero.jpg' :
     project.slug === 'mosaico-learning-assistant' ? '/demo/build11-english-lifestyle-wide.jpg' : '/og.png');
   return {...copy, image};

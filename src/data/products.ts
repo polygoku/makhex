@@ -38,6 +38,343 @@ export const products:Product[]=[
 {slug:'feetech-fs90mg',title:'FEETECH FS90MG 180° Metal-Gear Servo',descriptor:'One exact PWM micro servo for each of four legs',category:'Controls',visual:'button',chip:'FS90MG',status:'Research',description:'Original-project Feetech FS90MG 180-degree PWM micro servo. Four identical servos are specified for AtomDog; do not silently substitute SG90, MG90S, FS90R or 360-degree variants.',specs:['FEETECH model FS90MG, 180° end limit','Metal gears; approx. 22.5 × 12.1 mm body footprint','Standard 3-wire PWM connection','Four units; RobotDoo lists a horn set and mounting screws with each FS90MG, confirm packaging for the selected seller'],notes:'Qualified exact variant and U.S. shipping pending. Verify output spline/horn fit in downloaded 3MF, 4.8–6 V drive compatibility, servo wire pinout, peak/stall current versus the Motion Base 0.4 A per-channel rating; one published digital FS90MG variant reports 0.8 A stall current at 6 V, so require physical current-limiting/standstill validation.'}
 ,
 {slug:'usb-a-c-data-cable-1m',title:'USB-A to USB-C Data Cable 1 m',descriptor:'Data-capable programming and charging lead',category:'Power',visual:'adapter',chip:'USB DATA',status:'Research',description:'Approximately one-meter USB-A to USB-C cable for flashing the ATOM Lite and supported 5V USB power. Not charge-only.',specs:['USB-A male to USB-C male; data wires connected','About 1 m long','Reference Adafruit SKU 4474','For USB-C computer ports, use an approved C-to-C alternative'],notes:'Maker may own a compatible cable already. Shipping and MAKHEX retail quote pending; do not substitute a charge-only lead.'},
-{slug:'pla-filament-175-1kg',title:'1.75 mm PLA Filament 1 kg Spool',descriptor:'3D printing feedstock for AtomDog shell',category:'Mechanical',visual:'sensor',chip:'PLA 1.75',status:'Research',description:'One retail spool of 1.75 mm PLA suitable for printing original AtomDog body, head, tail and four leg pieces. One 1kg spool is a retail selling unit; the model does not need a whole kilogram.',specs:['PLA / 1.75mm nominal diameter','One 1kg spool; printer required, not included','Select color after exact source and shipping qualification','Print source model scale and machine profile require validation'],notes:'Do not imply a finished 3D-printed enclosure is shipped. Retail unit is a spool, not printed parts; material consumption unverified.'}
-
+{slug:'pla-filament-175-1kg',title:'1.75 mm PLA Filament 1 kg Spool',descriptor:'3D printing feedstock for AtomDog shell',category:'Mechanical',visual:'sensor',chip:'PLA 1.75',status:'Research',description:'One retail spool of 1.75 mm PLA suitable for printing original AtomDog body, head, tail and four leg pieces. One 1kg spool is a retail selling unit; the model does not need a whole kilogram.',specs:['PLA / 1.75mm nominal diameter','One 1kg spool; printer required, not included','Select color after exact source and shipping qualification','Print source model scale and machine profile require validation'],notes:'Do not imply a finished 3D-printed enclosure is shipped. Retail unit is a spool, not printed parts; material consumption unverified.'},
+{
+  "slug": "rebot-b601-dm-full-kit",
+  "title": "Seeed reBot B601-DM Full Arm & Gripper Kit",
+  "descriptor": "Unassembled 6-DOF Damiao actuator arm and gripper",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "DM / FULL",
+  "status": "Research",
+  "description": "Official reBot B601-DM Full Kit selection with complete arm body and gripper, mechanical structure and associated harnesses. Source DM-v1.1 assembly differs from vendor-production refinements. Power adapter and clamps are not standard inclusions.",
+  "specs": [
+    "6 axes plus gripper",
+    "Damiao actuator family: 4x DM4310(V4) and 3x DM4340P(V4) in source BOM",
+    "24 V DC matched supply required, sold separately unless explicit bundle includes it",
+    "Source STEP assembly dated 2026-06-25"
+  ],
+  "notes": "Request exact Full Kit option, current maker revision, count of included motor/harness/fasteners, packing list, 11021 shipping, warranty/returns and landed quote. The official category landing page's lowest displayed price is NOT a verified full-kit selling price."
+},
+{
+  "slug": "rebot-b601-rs-full-kit",
+  "title": "Seeed reBot B601-RS Full Arm & Gripper Kit",
+  "descriptor": "Unassembled 6-DOF RobStride arm and gripper",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "RS / FULL",
+  "status": "Research",
+  "description": "Seeed B601-RS Disassembly Kit, with RobStride motors, matching CNC structure and gripper. Supplier offers assembled and bundle variants; verify selection, whether a power kit is included and what accessories are packed.",
+  "specs": [
+    "6 axes plus gripper",
+    "Source BOM: 4x RobStride RS00 and 3x RS06 actuators",
+    "48 V DC matched supply required",
+    "Source STEP full assembly dated 2026-06-25"
+  ],
+  "notes": "Source 'with Power Supply Bundle' product landing may include the adapter. Confirm actual variant to prevent double-counting any power kit. DM motors and 24 V supply are NOT compatible replacements."
+},
+{
+  "slug": "rebot-b601-dm-power-kit",
+  "title": "reBot B601-DM 24 V Power Adapter Kit",
+  "descriptor": "Official 24 V / 14.6 A adapter assembly",
+  "category": "Power",
+  "visual": "power",
+  "chip": "24V/14.6A",
+  "status": "Research",
+  "description": "Seeed's official power adapter kit intended for Damiao B601-DM. Prefer a safely enclosed/preassembled and independently certified U.S. power configuration over user-wired exposed mains.",
+  "specs": [
+    "24 V nominal DC, 14.6 A reference",
+    "Approximately 350 W power class",
+    "U.S. input voltage and plug type require seller confirmation"
+  ],
+  "notes": "Do not substitute 48 V RS supply, expose unqualified AC wiring to users or assume UL/ETL/NRTL status without evidence. Include correct connector, protective earth, fusing, discharge behavior, enclosure and accessible isolation/stop control."
+},
+{
+  "slug": "rebot-b601-rs-power-kit",
+  "title": "reBot B601-RS 48 V Power Adapter Kit",
+  "descriptor": "Official 48 V / 12.5 A adapter assembly",
+  "category": "Power",
+  "visual": "power",
+  "chip": "48V/12.5A",
+  "status": "Research",
+  "description": "Seeed's official 600 W class power adapter kit for the RobStride B601-RS. May already be included in certain RS bundles; prevent duplicates.",
+  "specs": [
+    "48 V nominal DC, 12.5 A reference",
+    "Approximately 600 W class",
+    "Higher peak-performance 48V/25A configuration is separately documented by Seeed"
+  ],
+  "notes": "Never use this for a 24 V DM arm. Verify U.S. mains safety listing, wiring, strain relief, supply polarity, matching DC/XT interface and operator emergency stop. Avoid bare-AC DIY supply as a novice retail item."
+},
+{
+  "slug": "rebot-b601-dm-can-usb",
+  "title": "reBot B601-DM CAN-USB Interface",
+  "descriptor": "Damiao CAN motor communication interface",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "DM / CAN",
+  "status": "Research",
+  "description": "Source-identified Damiao CAN-to-USB driver board used for programming/motor communications with B601-DM.",
+  "specs": [
+    "Manufacturer product: DM-CAN-USB Driver Board",
+    "CAN physical-layer wiring and termination to verify",
+    "Requires compatible host, drivers and motor protocol"
+  ],
+  "notes": "May be included in some factory kits: check packing list, protocol and driver version before billing or claiming a separate accessory is required."
+},
+{
+  "slug": "rebot-b601-rs-can-usb",
+  "title": "reBot B601-RS USB-to-CAN Interface",
+  "descriptor": "Host adapter for RobStride CAN bus",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "RS / CAN",
+  "status": "Research",
+  "description": "B601-RS source BOM lists a CAN-USB converter with PCAN-like firmware for RobStride actuator control; exact tested dongle SKU and host compatibility require verification.",
+  "specs": [
+    "CAN USB interface (source BOM reference PCAN-compatible)",
+    "Driver, bit rate, cable termination and host OS depend on chosen SDK",
+    "Source BOM separately lists XT30 power separation board"
+  ],
+  "notes": "Do not substitute a Damiao CAN board without a proven RS driver/protocol mapping. Source listing is an example, NOT a verified firmware-compatible or U.S. shipping-qualified adapter."
+},
+{
+  "slug": "rebot-b601-mount-clamps",
+  "title": "reBot Arm Desk Clamp Pair",
+  "descriptor": "Two 6-inch G-clamps for stable bench mounting",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "2x CLAMP",
+  "status": "Research",
+  "description": "Two heavy-duty 6-inch G-clamps for a rigid, suitable workbench mount. The arm can impose significant tipping moments; check table thickness, clamp jaws and load rating.",
+  "specs": [
+    "2 clamps to secure arm mounting plate",
+    "6-inch class as referenced in source BOM",
+    "Verify table and arm base geometry"
+  ],
+  "notes": "Do not operate an unsecured robotic arm. Clamp suitability must be reviewed for installation, with anti-slip support and unobstructed motion envelope."
+},
+{
+  "slug": "rebot-b601-dm-discharge-module",
+  "title": "B601-DM Circuit Protection / Discharge Module",
+  "descriptor": "Optional Seeed energy discharge and stop module for Damiao arm",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "DM / STOP",
+  "status": "Research",
+  "description": "Official optional Seeed module addressing energy/regenerative dissipation and emergency stop interaction with B601-DM.",
+  "specs": [
+    "Seeed product 6988 for B601-DM only",
+    "Matches DM architecture, not RS bleeder by default",
+    "Emergency-stop integration requires functional verification"
+  ],
+  "notes": "Recommended safety/accessory request, not established to be included in standard full arm. Do not rely on this as the only risk reduction; verify safety circuit and hardware under a qualified design."
+},
+{
+  "slug": "rebot-b601-rs-bleeder-module",
+  "title": "B601-RS Bleeder / Stop Module",
+  "descriptor": "Optional Seeed energy bleed and stop module for RobStride arm",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "RS / STOP",
+  "status": "Research",
+  "description": "Official optional Seeed bleeder/circuit protection and emergency stop module designed for B601-RS.",
+  "specs": [
+    "Seeed product 6987 for RS only",
+    "Check 48 V bus and regenerative energy path",
+    "Emergency-stop integration is version-dependent"
+  ],
+  "notes": "Not interchangeable with B601-DM discharge module. Source- and physically verify actual stop behavior, cable connector and enclosure before operating."
+},
+{
+  "slug": "rebot-b601-dm-body-motor-kit",
+  "title": "B601-DM Body Motor & Harness Kit",
+  "descriptor": "Damiao body actuators and matched cable harnesses (not structure or gripper).",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "DM / BODY-",
+  "status": "Research",
+  "description": "Damiao body actuators and matched cable harnesses (not structure or gripper).",
+  "specs": [
+    "Official component-only Seeed kit; NOT a complete robotic arm",
+    "For DM model ONLY",
+    "Contents, harness and revision must match current factory option"
+  ],
+  "notes": "This kit is a separately purchasable repair/custom assembly option. Do not add to a cart already containing the complete full arm kit for this model without removing overlapping components. Current vendor pack list/U.S. shipping not independently confirmed."
+},
+{
+  "slug": "rebot-b601-dm-body-structure-kit",
+  "title": "B601-DM Body Structural Kit",
+  "descriptor": "Body plates, fasteners and structural components without body motor kit or gripper.",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "DM / BODY-",
+  "status": "Research",
+  "description": "Body plates, fasteners and structural components without body motor kit or gripper.",
+  "specs": [
+    "Official component-only Seeed kit; NOT a complete robotic arm",
+    "For DM model ONLY",
+    "Contents, harness and revision must match current factory option"
+  ],
+  "notes": "This kit is a separately purchasable repair/custom assembly option. Do not add to a cart already containing the complete full arm kit for this model without removing overlapping components. Current vendor pack list/U.S. shipping not independently confirmed."
+},
+{
+  "slug": "rebot-b601-dm-gripper-kit",
+  "title": "B601-DM Complete Gripper Kit",
+  "descriptor": "Damiao gripper actuator, mechanical gripper and its wiring bundle.",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "DM / GRIPP",
+  "status": "Research",
+  "description": "Damiao gripper actuator, mechanical gripper and its wiring bundle.",
+  "specs": [
+    "Official component-only Seeed kit; NOT a complete robotic arm",
+    "For DM model ONLY",
+    "Contents, harness and revision must match current factory option"
+  ],
+  "notes": "This kit is a separately purchasable repair/custom assembly option. Do not add to a cart already containing the complete full arm kit for this model without removing overlapping components. Current vendor pack list/U.S. shipping not independently confirmed."
+},
+{
+  "slug": "rebot-b601-rs-body-motor-kit",
+  "title": "B601-RS Body Motor & Harness Kit",
+  "descriptor": "RobStride body actuators and wiring harnesses, structure excluded.",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "RS / BODY-",
+  "status": "Research",
+  "description": "RobStride body actuators and wiring harnesses, structure excluded.",
+  "specs": [
+    "Official component-only Seeed kit; NOT a complete robotic arm",
+    "For RS model ONLY",
+    "Contents, harness and revision must match current factory option"
+  ],
+  "notes": "This kit is a separately purchasable repair/custom assembly option. Do not add to a cart already containing the complete full arm kit for this model without removing overlapping components. Current vendor pack list/U.S. shipping not independently confirmed."
+},
+{
+  "slug": "rebot-b601-rs-body-structure-kit",
+  "title": "B601-RS Body Structural Kit",
+  "descriptor": "B601-RS specific mechanical structure without actuator kit or gripper.",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "RS / BODY-",
+  "status": "Research",
+  "description": "B601-RS specific mechanical structure without actuator kit or gripper.",
+  "specs": [
+    "Official component-only Seeed kit; NOT a complete robotic arm",
+    "For RS model ONLY",
+    "Contents, harness and revision must match current factory option"
+  ],
+  "notes": "This kit is a separately purchasable repair/custom assembly option. Do not add to a cart already containing the complete full arm kit for this model without removing overlapping components. Current vendor pack list/U.S. shipping not independently confirmed."
+},
+{
+  "slug": "rebot-b601-rs-gripper-kit",
+  "title": "B601-RS Complete Gripper Kit",
+  "descriptor": "RobStride gripper with actuator, gripper mechanics and harness.",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "RS / GRIPP",
+  "status": "Research",
+  "description": "RobStride gripper with actuator, gripper mechanics and harness.",
+  "specs": [
+    "Official component-only Seeed kit; NOT a complete robotic arm",
+    "For RS model ONLY",
+    "Contents, harness and revision must match current factory option"
+  ],
+  "notes": "This kit is a separately purchasable repair/custom assembly option. Do not add to a cart already containing the complete full arm kit for this model without removing overlapping components. Current vendor pack list/U.S. shipping not independently confirmed."
+},
+{
+  "slug": "rebot-dm4310-v4",
+  "title": "Damiao DM4310(V4) Actuator",
+  "descriptor": "Source B601-DM actuator, four used in source BOM",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "DM4310",
+  "status": "Research",
+  "description": "Original Seeed B601-DM source bill lists four DM4310(V4) brushless actuator modules.",
+  "specs": [
+    "4 x DM4310 V4 per original B601-DM source",
+    "Controls over CAN / matched SDK",
+    "Exact mechanical spline, firmware and electrical revision mandatory"
+  ],
+  "notes": "Source developer BOM quantities are not necessarily the factory packed set. Do not mix with RS00/RS06 or silently substitute DM4310 V3."
+},
+{
+  "slug": "rebot-dm4340p-v4",
+  "title": "Damiao DM4340P(V4) Actuator",
+  "descriptor": "Source B601-DM actuator, three used in source BOM",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "DM4340P",
+  "status": "Research",
+  "description": "Original Seeed B601-DM source lists three DM4340P(V4) motor modules.",
+  "specs": [
+    "3 x DM4340P V4 per source",
+    "Joint 1 correction is in DM-v1.1 assembly revision",
+    "Damiao CAN motor family"
+  ],
+  "notes": "Do not substitute DM4310 on corrected Joint 1; double-check mounting, motor firmware and cable restraint revision."
+},
+{
+  "slug": "rebot-robstride-rs00",
+  "title": "RobStride RS00 Actuator",
+  "descriptor": "Source B601-RS actuator, four used in source BOM",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "RS00",
+  "status": "Research",
+  "description": "Original Seeed B601-RS source lists four RobStride RS00 brushless modules.",
+  "specs": [
+    "4 x RobStride RS00 per B601-RS source",
+    "CAN-capable integrated actuator",
+    "RS hardware family, not Damiao"
+  ],
+  "notes": "Do not mix motor and 24V Damiao electronics. Check exact RS00 hardware revision and bus ID before sale."
+},
+{
+  "slug": "rebot-robstride-rs06",
+  "title": "RobStride RS06 Actuator",
+  "descriptor": "Source B601-RS actuator, three used in source BOM",
+  "category": "Controls",
+  "visual": "chip",
+  "chip": "RS06",
+  "status": "Research",
+  "description": "Original Seeed B601-RS source lists three RobStride RS06 integrated actuator modules.",
+  "specs": [
+    "3 x RobStride RS06 per source",
+    "CAN-capable integrated actuator",
+    "48V RS system context"
+  ],
+  "notes": "Do not silently substitute RS05, RS03 or Damiao; match output torque, mounting, CAN protocol and firmware."
+},
+{
+  "slug": "rebot-b601-dm-hardware-pack",
+  "title": "B601-DM Mechanical Fasteners & Bearings Pack",
+  "descriptor": "Source-exact custom procurement from 79-row engineering BOM",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "DM / MISC",
+  "status": "Research",
+  "description": "Custom-request spares pack containing source-specific shielded bearings, thrust bearing, linear rail, carriage blocks, gear and screw/washer assortment; exact quantities in downloadable DM CSV.",
+  "specs": [
+    "Source includes 6707ZZ, 6803ZZ x3, AXK5578, MGN9 170mm rail + 2 carriages",
+    "M3/M4 specialty fasteners and hardware detailed in DM BOM CSV",
+    "Not included as extra in the complete official Full Kit unless packaging verified"
+  ],
+  "notes": "Custom procurement pack, no verified single vendor, inventory or current price. Must reconcile all fastener sizes, gear bore/teeth and bearing dimensions before approval. May overlap full vendor structure kit."
+},
+{
+  "slug": "rebot-b601-rs-hardware-pack",
+  "title": "B601-RS Mechanical Fasteners & Bearings Pack",
+  "descriptor": "Source-exact custom procurement from 75-row engineering BOM",
+  "category": "Mechanical",
+  "visual": "sensor",
+  "chip": "RS / MISC",
+  "status": "Research",
+  "description": "Custom-request mechanical spares with source-specific bearings, thrust bearing, linear rail/carriages, racks/gears and screw assortments from RS BOM CSV.",
+  "specs": [
+    "Source includes 6803ZZ x3, AXK5578, MGN9 170mm rail + 2 carriages",
+    "RS-specific countersunk and hex socket screw inventory",
+    "Source RS mechanical features differ from DM and not dimensionally interchangeable"
+  ],
+  "notes": "No single supplier pack is verified. Verify exact kit itemization and tolerance; do not double-charge when full structure kit already contains fasteners."
+}
 ];

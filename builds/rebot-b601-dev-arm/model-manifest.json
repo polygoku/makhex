@@ -1,0 +1,56 @@
+{
+  "project": "rebot-b601-dev-arm",
+  "source_repo": "https://github.com/Seeed-Projects/reBot-DevArm",
+  "source_commit": "2432f436572f77922cdae6af39788df00f993263",
+  "models": {
+    "DM": {
+      "path": "hardware/reBot_B601_DM/readme.md",
+      "assembly": "hardware/reBot_B601_DM/reBot_B601_DM_v1.1_20260625.step",
+      "power": "24 V / 14.6 A",
+      "bom_rows": 79,
+      "parts": [
+        "rebot-b601-dm-full-kit",
+        "rebot-b601-dm-power-kit",
+        "rebot-b601-dm-can-usb",
+        "rebot-b601-mount-clamps",
+        "rebot-b601-dm-discharge-module"
+      ]
+    },
+    "RS": {
+      "path": "hardware/reBot_B601_RS/README.md",
+      "assembly": "hardware/reBot_B601_RS/reBot_B601_RS_v1.0_20260625.step",
+      "power": "48 V / 12.5 A",
+      "bom_rows": 75,
+      "parts": [
+        "rebot-b601-rs-full-kit",
+        "rebot-b601-rs-power-kit",
+        "rebot-b601-rs-can-usb",
+        "rebot-b601-mount-clamps",
+        "rebot-b601-rs-bleeder-module"
+      ]
+    }
+  },
+  "products": [
+    "rebot-b601-dm-full-kit",
+    "rebot-b601-rs-full-kit",
+    "rebot-b601-dm-power-kit",
+    "rebot-b601-rs-power-kit",
+    "rebot-b601-dm-can-usb",
+    "rebot-b601-rs-can-usb",
+    "rebot-b601-mount-clamps",
+    "rebot-b601-dm-discharge-module",
+    "rebot-b601-rs-bleeder-module",
+    "rebot-b601-dm-body-motor-kit",
+    "rebot-b601-dm-body-structure-kit",
+    "rebot-b601-dm-gripper-kit",
+    "rebot-b601-rs-body-motor-kit",
+    "rebot-b601-rs-body-structure-kit",
+    "rebot-b601-rs-gripper-kit",
+    "rebot-dm4310-v4",
+    "rebot-dm4340p-v4",
+    "rebot-robstride-rs00",
+    "rebot-robstride-rs06",
+    "rebot-b601-dm-hardware-pack",
+    "rebot-b601-rs-hardware-pack"
+  ]
+}

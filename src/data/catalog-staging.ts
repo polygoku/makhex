@@ -56,6 +56,13 @@ export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
   'The four genuine FS90MG servos must match the original horn spline, 180-degree motion and controller current limits. Exact AliExpress options, inventory, 11021 U.S. shipping, returns and automatic fulfillment have not been confirmed.',
   'The original author provides seven printable 3MF pieces on Hackster. MAKHEX does not ship printed parts in this electronic BOM, and the source zip has not been mirrored or print-validated.',
   'Five component families are in the MAKHEX unpriced order request. The official A090-V12 includes one 18350 battery; the selected RobotDoo servos include horns and screw sets. The original seven printable files are downloaded from the creator, not shipped as printed parts. A 3D printer is required but not included.'
- ]
+ ],
 
+ 'rebot-b601-dev-arm':[
+  "High-power hardware and industrial 24V/48V adapter: obtain correct U.S. NRTL certifications, a safe protective-earth and shutoff design, matching connector/plug and separate live safety evaluation before any paid listing.",
+  "Both original maker BOMs are imported as 79-row DM and 75-row RS downloadable CSVs. Source explicitly warns that production kit packing differs; verify full arm SKU includes intended motors, CNC/printed parts, gripper, cable harness and standard fasteners.",
+  "Official kit, power kit and CAN adapter are distinct procurement lines in this MAKHEX order request. Check actual selected bundle includes/excludes power/interface, and deduct duplicates before quoting. Verify order/shipping to ZIP 11021, taxes, warranty, return and supplier availability.",
+  "All listed MAKHEX reBot components are request-only with unverified supplier payment, margin, inventory and shipping. Individual source hardware files remain free/open at the original GitHub repo.",
+  "RobStride RS and Damiao DM configurations are mutually exclusive, including model-specific power supplies, CAN interfaces and protection modules; prohibit mixing variants in one project request."
+],
 };

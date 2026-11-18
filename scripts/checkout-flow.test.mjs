@@ -58,16 +58,16 @@ const validBody=()=>({
   {slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}
  ]
 });
-test('all 35 catalog products are present and external parts are locked',()=>{
- assert.equal(Object.keys(checkoutCatalog.parts).length,35);
- assert.equal(Object.keys(checkoutCatalog.projectParts).length,13);
+test('all 56 catalog products are present and external parts are locked',()=>{
+ assert.equal(Object.keys(checkoutCatalog.parts).length,56);
+ assert.equal(Object.keys(checkoutCatalog.projectParts).length,14);
  const bundle=checkoutInternals.validateLines([
   {slug:'feetech-hd1910',option:checkoutCatalog.parts['feetech-hd1910'].variants[0],quantity:15,project:'microduck-robot'},
   {slug:'bearing-et2216',option:checkoutCatalog.parts['bearing-et2216'].variants[0],quantity:12,project:'microduck-robot'}
  ]);
  assert.equal(bundle.planningSubtotalCents,58695,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
  assert.equal(bundle.totalParts,27);
- assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,13);
+ assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,34);
  for(const slug of ['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg','usb-a-c-data-cable-1m','pla-filament-175-1kg']){
    const part=checkoutCatalog.parts[slug];
    assert.equal(part.shopEligible,true,'AtomDog parts can only enter an owner-reviewed order request');
