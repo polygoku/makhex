@@ -44,6 +44,10 @@ function validateLines(lines){
   out.push({slug,title:part.title,quantity:qty,option,project:project||null,planningUnitCents:cents,
     requiresExceptionReview:!part.sellerCheckoutVerified});
  }
+ // Never silently submit mutually incompatible sensor pathways for one Build 13 kit.
+ const build13=out.filter(line=>line.project==='esp32-nova20-lidar-scanner');
+ if(build13.some(line=>line.slug==='benewake-nova20-lidar')
+   &&build13.some(line=>line.slug==='vl53l5cx-tof-8x8'))return null;
  if(totalParts>1200||!Number.isSafeInteger(subtotal))return null;
  return {lines:out,planningSubtotalCents:missingPrices?null:subtotal,totalParts};
 }

@@ -4,15 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {products} from '../src/data/products.ts';
 import {projects} from '../src/data/projects.ts';
-import {catalogStaging,stageFor,plannedVariantForProject} from '../src/data/catalog-staging.ts';
+import {catalogStaging,plannedVariantForProject} from '../src/data/catalog-staging.ts';
 import {microduckPricePlans} from '../src/data/microduck-price-plans.ts';
-import {isMakhexAliExpress,preferredExternalOffer,MAKHEX_ALIEXPRESS_MARKUP} from '../src/data/sourcing-policy.ts';
+import {isMakhexAliExpress,isMakhexQuoteOnly,isMakhexRequestEligible,preferredExternalOffer,MAKHEX_ALIEXPRESS_MARKUP} from '../src/data/sourcing-policy.ts';
 import {checkoutCatalog} from '../worker/checkout-catalog.mjs';
 const dist='dist';
 const prices={'feetech-hd1910':34.33,'imx219-160-camera':10.50,'vl53l5cx-v2':24,'npf550-power-kit':34.45,
  'bearing-6700':3.57,'bearing-et2216':6,'bearing-623zz':4.50,'microduck-speaker-3525':6.70};
-assert.equal(products.length,30);
-assert.equal(projects.length,12);
+assert.equal(products.length,38);
+assert.equal(projects.length,13);
 assert.equal(MAKHEX_ALIEXPRESS_MARKUP,1.2);
 assert.equal(Object.keys(microduckPricePlans).length,8);
 assert.equal(Object.keys(catalogStaging).length,16,'Preserve old Squarespace pricing snapshot for reconciliation only');
@@ -20,15 +20,21 @@ assert(!products.some(p=>p.slug==='microduck-printed-parts'));
 assert(!projects.some(p=>p.materials.some(m=>m.slug==='microduck-printed-parts')));
 for(const p of products){
  const ali=isMakhexAliExpress(p.slug);
+ const quoteOnly=isMakhexQuoteOnly(p.slug);
  const html=fs.readFileSync(path.join(dist,'shop',p.slug,'index.html'),'utf8');
  assert(html.includes('/product-media/'+p.slug+'.jpg'),'Missing image '+p.slug);
  const jpg=fs.readFileSync(path.join('public','product-media',p.slug+'.jpg'));
  assert(jpg.length>2500&&jpg[0]===0xff&&jpg[1]===0xd8,'Corrupt photo '+p.slug);
  const part=checkoutCatalog.parts[p.slug];
  assert(part,'Missing component in API allowlist '+p.slug);
- assert.equal(part.shopEligible,ali,'Checkout eligibility drift '+p.slug);
+ assert.equal(part.shopEligible,isMakhexRequestEligible(p.slug),'Checkout eligibility drift '+p.slug);
  assert.equal(part.sellerCheckoutVerified,false);
- if(ali){
+ if(quoteOnly){
+  assert.equal(part.variants.length,0,'Quote-only SKU must have no priced variants '+p.slug);
+  assert.equal(part.plannedRetailCents.length,0,'Quote-only SKU must have no planned dollar amount '+p.slug);
+  assert(html.includes('data-cart-add')&&html.includes('Final price on approval'),'Quote-only item must use first-party review cart '+p.slug);
+  assert(!html.includes('$Infinity')&&!html.includes('$NaN'),'Unknown price rendered as number '+p.slug);
+ }else if(ali){
   const amount=prices[p.slug];
   assert.equal(microduckPricePlans[p.slug].variants[0].plannedRetailUsd,amount,'Incorrect 20 percent MAKHEX amount '+p.slug);
   assert.equal(part.plannedRetailCents[0],Math.round(amount*100),'Server price drift '+p.slug);
@@ -44,19 +50,19 @@ for(const p of products){
   assert(preferredExternalOffer(p.slug)?.url,'External item must have direct source '+p.slug);
  }
 }
-assert.equal(Object.values(checkoutCatalog.parts).filter(p=>p.shopEligible).length,8);
-assert.equal(Object.keys(checkoutCatalog.parts).length,30);
+assert.equal(Object.values(checkoutCatalog.parts).filter(p=>p.shopEligible).length,16);
+assert.equal(Object.keys(checkoutCatalog.parts).length,38);
 const source=JSON.parse(fs.readFileSync(path.join(dist,'sourcing.json'),'utf8'));
 assert.equal(source.schema,'makhex-catalog-v3');
 assert.equal(Object.hasOwn(source,'aliexpressPriceMarkupMultiplier'),false,'Never publish internal pricing multiplier');
 assert.equal(source.checkoutAvailable,false);
 assert.equal(source.paymentCaptureEnabled,false);
-assert.equal(source.components.length,30);
-assert.equal(source.projects.length,12);
+assert.equal(source.components.length,38);
+assert.equal(source.projects.length,13);
 assert.equal(source.researchSubcomponents.length,4);
-assert.equal(source.components.filter(p=>p.priceStatus==='MAKHEX_PRICE_REVIEW').length,8);
+assert.equal(source.components.filter(p=>p.priceStatus==='MAKHEX_PRICE_REVIEW').length,16);
 assert.equal(source.components.filter(p=>p.priceStatus==='EXTERNAL_SELLER').length,22);
-assert.equal(source.components.filter(p=>p.variants.length===0).length,22);
+assert.equal(source.components.filter(p=>p.variants.length===0).length,30);
 assert.equal(source.components.flatMap(p=>p.variants).length,8);
 assert(!JSON.stringify(source).includes('microduck-printed-parts'),'No printed-part checkout or catalog JSON');
 for(const project of source.projects){
@@ -67,11 +73,12 @@ for(const project of source.projects){
  assert.equal(project.partsSubtotalUsd,sum,'Subtotal must exclude non-AliExpress direct items '+project.slug);
  for(const line of project.parts){
   if(line.sourceMode==='EXTERNAL_LINK')assert(line.unitPriceUsd===null&&line.directSupplierLink,'External line must not be priced '+line.slug);
+  else if(isMakhexQuoteOnly(line.slug)) assert(line.unitPriceUsd===null&&line.directSupplierLink===null,'Quote-only part cannot have unapproved price');
   else assert(typeof line.unitPriceUsd==='number'&&line.unitPriceUsd>=0&&line.directSupplierLink===null);
  }
  const html=fs.readFileSync(path.join(dist,'projects',project.slug,'index.html'),'utf8');
  assert(html.includes('BILL OF MATERIALS'));
- assert(html.includes('data-cart-add-all="'+project.slug+'"')===orig.materials.some(p=>isMakhexAliExpress(p.slug)),'Cart appears for external-only project '+project.slug);
+ assert(html.includes('data-cart-add-all="'+project.slug+'"')===orig.materials.some(p=>isMakhexRequestEligible(p.slug)),'Cart appears for external-only project '+project.slug);
  assert(!html.includes('/shop/microduck-printed-parts/'));
  const csv=fs.readFileSync(path.join(dist,'projects',project.slug+'.csv'),'utf8');
  assert(csv.includes('Unit price USD')&&csv.includes('Line total USD'));
@@ -92,4 +99,4 @@ for(const relative of allPublishedFiles){
  const content=fs.readFileSync(path.join(dist,relative),'utf8');
  assert(!leaked.test(content),'Internal price formula disclosed to buyers: '+relative);
 }
-console.log('CUSTOMER PRICE PRIVACY PASS: 30 products and all public HTML, cart, checkout and catalog JSON conceal internal pricing details.');
+console.log('CUSTOMER PRICE PRIVACY PASS: 38 products and all public HTML, cart, checkout and catalog JSON conceal internal pricing details.');

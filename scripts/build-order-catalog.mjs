@@ -3,20 +3,22 @@ import {products} from '../src/data/products.ts';
 import {projects} from '../src/data/projects.ts';
 import {mosaicoAssemblyParts} from '../src/data/mosaico-bom.ts';
 import {stageFor} from '../src/data/catalog-staging.ts';
-import {isMakhexAliExpress} from '../src/data/sourcing-policy.ts';
+import {isMakhexRequestEligible} from '../src/data/sourcing-policy.ts';
 
 const generated={schema:'makhex-order-parts-v1',
  parts:Object.fromEntries(products.map(p=>[p.slug,{
    title:p.title,
-   shopEligible:isMakhexAliExpress(p.slug),
-   variants:(isMakhexAliExpress(p.slug)?stageFor(p.slug)?.variants??[]:[]).map(x=>x.title),
+   shopEligible:isMakhexRequestEligible(p.slug),
+   variants:(isMakhexRequestEligible(p.slug)?stageFor(p.slug)?.variants??[]:[]).map(x=>x.title),
    // Prices are private *draft display only* and never authoritative charges.
    // Approval must still establish a delivered supplier quote and payment link.
-   plannedRetailCents:(isMakhexAliExpress(p.slug)?stageFor(p.slug)?.variants??[]:[]).map(x=>Math.round(x.plannedRetailUsd*100)),
+   plannedRetailCents:(isMakhexRequestEligible(p.slug)?stageFor(p.slug)?.variants??[]:[]).map(x=>Math.round(x.plannedRetailUsd*100)),
    sellerCheckoutVerified:false
  }])),
  researchSubcomponents:Object.fromEntries(mosaicoAssemblyParts.map(p=>[p.slug,{title:p.title,shopEligible:false,variants:[],plannedRetailCents:[],sellerCheckoutVerified:false}])),
- projectParts:Object.fromEntries(projects.map(p=>[p.slug,p.materials.map(m=>m.slug)]))
+ projectParts:Object.fromEntries(projects.map(p=>[p.slug,p.slug==='esp32-nova20-lidar-scanner'
+   ?[...p.materials.map(m=>m.slug),'vl53l5cx-tof-8x8']
+   :p.materials.map(m=>m.slug)]))
 };
 const text='// Generated from MAKHEX catalog by scripts/build-order-catalog.mjs. DO NOT EDIT.\nexport const checkoutCatalog='+JSON.stringify(generated,null,2)+';\n';
 const dest='worker/checkout-catalog.mjs';

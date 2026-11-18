@@ -53,6 +53,10 @@ const projectSearchCopy: Record<string, {title: string; description: string}> = 
   'microduck-robot': {
     title: 'Microduck Walking Robot: BOM, Servos & CAD | MAKHEX',
     description: 'Explore the Microduck 15-servo walking robot by kissqy. Review original demo media, Radxa and STM32 hardware, the project BOM and gated CAD files.'
+  },
+  'esp32-nova20-lidar-scanner': {
+    title: 'ESP32 NOVA20 LiDAR: 20-Channel Scanner & BOM | MAKHEX',
+    description: 'Explore the Benewake NOVA20 20-channel short-range LiDAR and ESP32 visualization demo. Review wiring, code scope, original demo and a first-party kit sourcing request.'
   }
 };
 
@@ -62,7 +66,8 @@ export function projectSeo(project: Project) {
     description: project.summary
   };
   const image = buildReferences[project.slug]?.image ??
-    (project.slug === 'microduck-robot' ? '/demo/microduck/microduck-hero.jpg' :
+    (project.slug === 'esp32-nova20-lidar-scanner' ? '/demo/nova20/hero.jpg' :
+    project.slug === 'microduck-robot' ? '/demo/microduck/microduck-hero.jpg' :
     project.slug === 'mosaico-learning-assistant' ? '/demo/build11-english-lifestyle-wide.jpg' : '/og.png');
   return {...copy, image};
 }

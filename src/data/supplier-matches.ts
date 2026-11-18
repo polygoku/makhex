@@ -270,6 +270,236 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'Original maker supplier (Taobao)',label:'Heat shrink assortment source',url:'https://item.taobao.com/item.htm?id=945215173380',match:'SELECT_VARIANT',note:'Only heat shrink. Also order both silicone wire types via maker BOM links.'}
   ]
  },
+"benewake-nova20-lidar": {
+  "required": "Exact Benewake NOVA20 20-zone 40-degree UART LiDAR, default 921600 baud, 5V +/-5% and 1.25mm 5-pin connector. TF-NOVA is a DIFFERENT line-beam sensor.",
+  "notes": "Manufacturer supplies specification and direct sales inquiry at bw@benewake.com. No verified retail/Aliexpress NOVA20 SKU or ZIP-11021 checkout as of 2026-11-17. Source or quote EXACT module; do not silently substitute.",
+  "offers": [
+    {
+      "seller": "Benewake manufacturer",
+      "label": "Exact NOVA20 technical product model and manufacturer inquiry",
+      "url": "https://ai.benewake.com/en/products/nova20/",
+      "match": "EXACT_SPEC",
+      "note": "Identified manufacturer exact model, not a store checkout. Request US delivery, quantity, current price, lead time, included 5-pin mating cable, pinout, commercial invoice and return terms."
+    },
+    {
+      "seller": "Benewake product specification",
+      "label": "Official V2.1 UART format, current and electrical reference",
+      "url": "https://ai.benewake.com/en/resources/technical-documents/nova20-datasheet/",
+      "match": "EXACT_SPEC",
+      "note": "Specification, not a vendor listing. 20 independent channels, no substitution with the similarly named TF-NOVA."
+    }
+  ]
+},
+"esp32-wroom32-devkit": {
+  "required": "ESP32-WROOM-32 development board, hardware UART accessible, GPIO16 RX and GPIO21/22 I2C available, 3.3 V GPIO and data-capable USB connection.",
+  "notes": "Select Rokland USB-C CH340C ESP32-WROOM-32 board; inspect the actual USB/boot/pinout and 5 V input. OpenELAB and Espressif DevKitC are backup candidates, not exact mechanical equivalents.",
+  "offers": [
+    {
+      "seller": "Rokland",
+      "label": "ESP32-WROOM-32 Type-C CH340C development board",
+      "url": "https://store.rokland.com/products/esp32-wroom-32-development-board-type-c-wifi-bluetooth-4-2-ble-ultra-low-power-iot-module-ch340c",
+      "match": "EXACT_SPEC",
+      "note": "Specific board, retail listing and published price. Maker controller suitable for NOVA20 UART or alternate VL53L5CX I2C after pinout validation. ZIP, variants, warranty and shipping must be verified."
+    },
+    {
+      "seller": "Espressif",
+      "label": "ESP32-DevKitC reference pinout and programming",
+      "url": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-devkitc.html",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Board/reference pin details. GPIO and 5V supply routing must be confirmed on actual selected CH340C board."
+    }
+  ]
+},
+"ssd1306-oled-096": {
+  "required": "0.96-inch 128x64 monochrome SSD1306 I2C OLED, 3.3V-safe, correct SDA/SCL contacts and fitted header or breakout.",
+  "notes": "Select exact I2C SSD1306 128x64 option, not SPI/SH1106 or 128x32. Adafruit 326 has STEMMA QT plus header breakout wiring, while direct four-pin AliExpress module needs its own pinout.",
+  "offers": [
+    {
+      "seller": "AliExpress",
+      "label": "EstarDyn 0.96-inch SSD1306 128x64 IIC module (seller SKU option)",
+      "url": "https://www.aliexpress.us/item/3256811668950492.html",
+      "match": "SELECT_VARIANT",
+      "note": "Physical listing identified; select 0.96-inch 128x64 IIC four-pin 3.3-5V option, not color/driver lookalike. AliExpress buyer ZIP shipping and exact checkout variant not tested."
+    },
+    {
+      "seller": "Adafruit",
+      "label": "Product 326: 0.96-inch 128x64 monochrome STEMMA QT OLED",
+      "url": "https://www.adafruit.com/product/326",
+      "match": "EXACT_SPEC",
+      "note": "Independent U.S. alternative; genuine display and documented I2C interface, but connector differs from generic four-pin board; verify delivery and wiring."
+    }
+  ]
+},
+"nova20-5pin-harness": {
+  "required": "One 1.25mm pitch 5-position NOVA20 mating harness, pin-1 orientation and all contact positions proven; sensor pin functions per installed revision.",
+  "notes": "Manufacturer datasheet establishes 1.25 mm 5-pin only, NOT JST GH mating family. SparkFun CAB-18078 is an identified GH candidate with breadboard male leads; compatibility remains unproven until physically matched.",
+  "offers": [
+    {
+      "seller": "SparkFun",
+      "label": "CAB-18078 5-pin JST GHR-05V 1.25mm to breadboard male pins",
+      "url": "https://www.sparkfun.com/breadboard-to-jst-ghr-05v-cable-5-pin-x-1-25mm-pitch.html",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Stocked, electrically plausible 5-pin 1.25mm breakout lead; manufacturer must confirm its connector housing mates with NOVA20. Verify orientation against sensor and 5V/GND/TX before powering."
+    },
+    {
+      "seller": "DigiKey / JST",
+      "label": "GHR-05V-S GH-series 5-position 1.25mm housing",
+      "url": "https://www.digikey.com/en/products/detail/jst-sales-america-inc/GHR-05V-S/807817",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Component-level reference housing only, contacts not included, and not established as the genuine sensor mating connector."
+    },
+    {
+      "seller": "Benewake",
+      "label": "Official NOVA20 electrical interface confirmation",
+      "url": "https://ai.benewake.com/en/resources/technical-documents/nova20-datasheet/",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Get the exact mating housing P/N, sample harness availability and pin order in writing. Third-party article says VCC=pin1, GND=2, TX=3, RX=4, TOF_EN=5; use only after vendor confirmation."
+    }
+  ]
+},
+"regulated-5v-2a-proto-kit": {
+  "required": "Regulated UL-listed U.S.-plug 5V 2A adapter, female 5.5mm OD/2.1mm ID center-positive barrel-to-screw terminals, safe preterminated wiring plus data USB cable for flashing ESP32.",
+  "notes": "Retail procurement bundle is two physical line items plus hookup/data cable: Adafruit 276 power adapter; Adafruit 368 or Altex LTA2013 DC adapter; compatible insulated low-voltage wiring. Not a single-source complete kit yet.",
+  "offers": [
+    {
+      "seller": "Adafruit",
+      "label": "Product 276 UL-listed regulated 5 V 2 A supply, positive-tip 5.5x2.1mm",
+      "url": "https://www.adafruit.com/product/276",
+      "match": "EXACT_SPEC",
+      "note": "Listed UL certified, 5V/2A, U.S. plug, 5.5x2.1mm center positive; a power SUPPLY ONLY. Do not connect 5V directly to ESP32 3.3V GPIO."
+    },
+    {
+      "seller": "Adafruit",
+      "label": "Product 368 female 2.1mm barrel to screw terminals",
+      "url": "https://www.adafruit.com/product/368",
+      "match": "EXACT_SPEC",
+      "note": "Separate female power converter, same barrel size; supplier stock may be inconsistent, confirm before purchase."
+    },
+    {
+      "seller": "Altex",
+      "label": "LTA2013 female 5.5x2.1mm to screw terminal alternative",
+      "url": "https://altex.com/products/lt-security-lta2013-5-5mm-x-2-1mm-female-dc-plug-in-connector-with-screw-terminals",
+      "match": "EXACT_SPEC",
+      "note": "Suitable terminal alternative if Adafruit 368 unavailable. Confirm +/-, strain relief, cable gauge, and 5V load distribution."
+    },
+    {
+      "seller": "Adafruit",
+      "label": "USB Type-A to USB-C data cable, Adafruit product 4474",
+      "url": "https://www.adafruit.com/product/4474",
+      "match": "EXACT_SPEC",
+      "note": "In-stock 1m data cable compatible with the chosen Type-C ESP32 board. Included in the planned multi-part MAKHEX power/prototyping bundle; not the LiDAR harness."
+    },
+    {
+      "seller": "Adafruit",
+      "label": "400-point solderless breadboard, product 64",
+      "url": "https://www.adafruit.com/product/64",
+      "match": "SELECT_VARIANT",
+      "note": "400-point 2.54mm breadboard option; availability fluctuates and some snapshots report out of stock. Check before final order; substitute an equivalent 400+ point board with bus rails if needed."
+    }
+  ]
+},
+"vl53l5cx-tof-8x8": {
+  "required": "Genuine VL53L5CX 8x8 64-zone Time-of-Flight carrier. Preferred Pololu 3417 with 3.3V regulator and I2C level shifter, VIN at 3.3V to match ESP32 logic.",
+  "notes": "Substitute kit only: not UART/connector/firmware compatible with NOVA20. Pololu 3417 uses I2C, 4x4 or 8x8 zones, up to 4 m typical and 65 deg diagonal FOV. Some AliExpress VL53L5X V2 listings may not state exact chip/revision.",
+  "offers": [
+    {
+       "seller": "DigiKey",
+      "label": "Pololu 3417 VL53L5CX 8x8 I2C carrier, 2183-3417-ND",
+      "url": "https://www.digikey.com/en/products/detail/pololu/3417/19199889",
+      "match": "EXACT_SPEC",
+      "note": "DigiKey Marketplace lists exact Pololu 3417 and reported 214 units in stock in a retrieved listing. Dynamic stock, tax, shipping and ZIP-specific delivery still require checkout verification."
+    },
+    {
+      "seller": "Pololu",
+      "label": "3417 genuine VL53L5CX carrier with voltage regulator",
+      "url": "https://www.pololu.com/product/3417",
+      "match": "EXACT_SPEC",
+      "note": "Manufacturer breakout specified, with logic-level shifter and included unsoldered header. Availability/US freight require cart test; no paid order or approved variant yet."
+    },
+    {
+       "seller": "SparkFun",
+      "label": "SEN-19013 Qwiic Mini genuine VL53L5CX 8x8 I2C carrier",
+      "url": "https://www.sparkfun.com/sparkfun-qwiic-mini-tof-imager-vl53l5cx.html",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source lists in stock; genuine VL53L5CX with different Qwiic connector and PCB layout. Firmware driver is similar, but solder/header cable kit must be reviewed separately."
+    },
+    {
+      "seller": "RobotShop",
+      "label": "Pololu 3417 VL53L5CX 8x8 carrier",
+      "url": "https://www.robotshop.com/products/vl53l5cx-tof-8x8-zone-distance-sensor-400-cm-carrier-w-voltage-regulator",
+      "match": "EXACT_SPEC",
+      "note": "RobotShop currently displays restocking soon; do not use as primary source until replenished."
+    },
+    {
+      "seller": "AliExpress",
+      "label": "VL53L5X V2 8x8 multi-zone breakout candidate",
+      "url": "https://www.aliexpress.us/item/3256806020856284.html",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "LOWER-COST ALTERNATIVE CANDIDATE only; the exact VL53L5CX silicon, reset pin, I2C levels, regulator and model photos must be inspected; not approved as equivalent to Pololu 3417."
+    }
+  ]
+},
+"nova20-capacitor-kit": {
+  "required": "ONE bundle consisting of 2 x 10uF polarized radial electrolytics >=25V and 4 x 0.1uF (100nF) radial ceramic >=50V. Original practical BOM calls for both types.",
+  "notes": "Primary source: DigiKey CDE 106RSS050M (2 polar 10uF/50V) and Kyocera AVX SR205C104KAR (4 ceramic 0.1uF/50V X7R); both previously reported in stock. Adafruit 2195 showed conflicting snapshots and should remain a fallback. Physical placement still requires an actual schematic review.",
+  "offers": [
+    {
+      "seller": "DigiKey",
+      "label": "CDE 106RSS050M 10uF 50V polarized radial capacitor (order 2)",
+      "url": "https://www.digikey.com/en/products/detail/cornell-dubilier-knowles/106RSS050M/5410679",
+      "match": "EXACT_SPEC",
+      "note": "Correct 10uF/50V polarized through-hole part; DigiKey reported 42k in stock. Order quantity two and verify pin spacing/polarity. This supplies ONLY the electrolytic half of the kit."
+    },
+    {
+      "seller": "DigiKey",
+      "label": "Kyocera AVX SR205C104KAR 100nF 50V X7R radial capacitor (order 4)",
+      "url": "https://www.digikey.com/en/products/detail/kyocera-avx/SR205C104KAR/936829",
+      "match": "EXACT_SPEC",
+      "note": "0.1uF/50V X7R radial 0.1-inch lead spacing, reported 17k available. Order four. This supplies ONLY the ceramic half of the two-value kit."
+    },
+    {
+      "seller": "Adafruit",
+      "label": "Product 2195 10uF 50V electrolytic 10-pack (use two)",
+      "url": "https://www.adafruit.com/product/2195",
+      "match": "EXACT_SPEC",
+      "note": "Contains at least two correct 10uF electrolytic capacitors; not the ceramic half of kit."
+    },
+    {
+      "seller": "Addicore",
+      "label": "0.1uF 50V through-hole ceramic (order four)",
+      "url": "https://www.addicore.com/products/0-1uf-100nf-capacitor-multilayer-ceramic-50v",
+      "match": "EXACT_SPEC",
+      "note": "Each item is one 100nF 50V radial ceramic; order quantity 4, separately from 10uF electrolytics."
+    },
+    {
+      "seller": "RobotShop",
+      "label": "SparkFun 0.1uF 50V ceramic backup (order four)",
+      "url": "https://www.robotshop.com/products/sparkfun-capacitor-ceramic-01uf",
+      "match": "EXACT_SPEC",
+      "note": "Alternative four single 100nF ceramics, subject to 50V nominal/pin pitch confirmation."
+    }
+  ]
+},
+"dupont-jumper-20cm-kit": {
+  "required": "At least four 2.54mm 0.1-inch insulated jumper leads matching ESP32, OLED and breakout header genders; 6in/15cm or 20cm acceptable for prototype.",
+  "notes": "Jumper wires are not a 1.25mm NOVA20 mating harness. Supplier may provide 20/40 pcs; choose M/F or M/M based on actual breakout headers. Verify power path wiring separately.",
+  "offers": [
+    {
+      "seller": "SparkFun",
+      "label": "PRT-12794 6in male/female jumper wires, 20-pack",
+      "url": "https://www.sparkfun.com/jumper-wires-connected-6-m-f-20-pack.html",
+      "match": "EXACT_SPEC",
+      "note": "Known 28AWG 2.54mm 20-pack with at least four leads; catalog snapshots show mixed stock and backorder, reconfirm before quoting."
+    },
+    {
+      "seller": "Get Hacking",
+      "label": "40 x 20cm Dupont jumper kit, select male/female option",
+      "url": "https://gethacking.com/products/dupont-jumper-wire-pack-of-40-x-20cm",
+      "match": "SELECT_VARIANT",
+      "note": "Pack provides at least four correctly terminated jumpers. Select M/F 20cm, not a misidentified JST sensor cable."
+    }
+  ]
+}
 } as const;
 
 export function supplierFor(slug:string):SupplierMatch|undefined{return supplierMatches[slug]}

@@ -5,7 +5,7 @@ import {mosaicoAssemblyParts,mosaicoCommercePlans} from '../data/mosaico-bom';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 import {supplierFor,offersFor} from '../data/supplier-matches';
 import {microduckPriceObservedAt,microduckRetailCautions} from '../data/microduck-price-plans';
-import {isMakhexAliExpress,preferredExternalOffer} from '../data/sourcing-policy';
+import {isMakhexRequestEligible,isMakhexQuoteOnly,preferredExternalOffer} from '../data/sourcing-policy';
 
 // Public buyer comparison links are separate from private supplier order credentials.
 // An external link does NOT establish MAKHEX fulfillment or in-stock checkout.
@@ -22,7 +22,7 @@ export const GET:APIRoute=()=>{
     checkoutRequestAvailable:true,
     paymentCaptureEnabled:false,
     exceptionApprovalRequired:true,
-    externalCheckoutMode:'DIRECT_FOR_NON_ALIEXPRESS',
+    externalCheckoutMode:'FIRST_PARTY_QUOTE_FOR_BUILD13_AND_VERIFIED_ALIEXPRESS_REQUESTS',
     researchSubcomponents:mosaicoAssemblyParts.map(part=>({
       slug:part.slug,title:part.title,variants:[],image:part.image,
       url:'https://makhex.com/projects/mosaico-learning-assistant/',
@@ -35,9 +35,24 @@ export const GET:APIRoute=()=>{
         note:part.includedInVisionCombo?'Select Core/camera/interaction revision. Bundle; not necessarily standalone.':'Select a data-capable cable and check the host connector.'
       }]
     })),
-    projectAlternativePlans:{'mosaico-learning-assistant':mosaicoCommercePlans.separate},
+    projectAlternativePlans:{
+      'mosaico-learning-assistant':mosaicoCommercePlans.separate,
+      'esp32-nova20-lidar-scanner-vl53l5cx':{
+        title:'ESP32 + VL53L5CX 8x8 alternative',
+        project:'esp32-nova20-lidar-scanner',
+        parts:[
+          {slug:'vl53l5cx-tof-8x8',qty:1,option:'Option pending'},
+          {slug:'esp32-wroom32-devkit',qty:1,option:'Option pending'},
+          {slug:'ssd1306-oled-096',qty:1,option:'Option pending'},
+          {slug:'dupont-jumper-20cm-kit',qty:1,option:'Option pending'},
+          {slug:'regulated-5v-2a-proto-kit',qty:1,option:'Option pending'}
+        ],
+        protocol:'I2C',firmware:'Independent VL53L5CX driver; NOVA20 UART firmware is incompatible',
+        benchVerified:false
+      }
+    },
     components:products.map(product=>{
-      const isAli=isMakhexAliExpress(product.slug);
+      const isAli=isMakhexRequestEligible(product.slug);
       const stage=isAli?stageFor(product.slug):undefined;
       const external=isAli?undefined:preferredExternalOffer(product.slug);
       const match=supplierFor(product.slug);
@@ -48,7 +63,7 @@ export const GET:APIRoute=()=>{
         priceStatus:isAli?'MAKHEX_PRICE_REVIEW':'EXTERNAL_SELLER',
         fulfillmentMode:isAli?'MAKHEX_OWNER_REVIEW':'EXTERNAL_VENDOR',
         directSupplierLink:external?.url??null,
-        supplierPriceReviewDate:isAli?microduckPriceObservedAt:null,
+        supplierPriceReviewDate:isAli&&!isMakhexQuoteOnly(product.slug)?microduckPriceObservedAt:null,
         sourcingNote:microduckRetailCautions[product.slug]??null,
         availability:isAli?'COMING_SOON':'EXTERNAL_REFERENCE',
         hardwareReview:stage?.technicalGate??'HOLD',
@@ -59,7 +74,7 @@ export const GET:APIRoute=()=>{
     }),
     projects:projectsNewestFirst.map(project=>{
       const parts=project.materials.map(m=>{
-        const isAli=isMakhexAliExpress(m.slug);
+        const isAli=isMakhexRequestEligible(m.slug);
         const v=isAli?plannedVariantForProject(m.slug,project.slug):undefined;
         return {
           slug:m.slug,qty:m.qty,sourceMode:isAli?'MAKHEX_CART':'EXTERNAL_LINK',directSupplierLink:isAli?null:preferredExternalOffer(m.slug,project.slug)?.url??null,selectedOption:v?.title??null,unitPriceUsd:v?.plannedRetailUsd??null,

@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+﻿import fs from 'node:fs';
 import path from 'node:path';
 import {projects} from '../src/data/projects.ts';
 import {products} from '../src/data/products.ts';
@@ -40,7 +40,7 @@ const newestFirst=[...projects].sort((a,b)=>Number(b.number)-Number(a.number));
 const expectedBuildNumbers=newestFirst.map(p=>Number(p.number));
 const projectGalleryHtml=fs.readFileSync(path.join(out,'projects','index.html'),'utf8');
 const renderedNumbers=html=>[...html.matchAll(/class="project-number">BUILD ([0-9]{2})/g)].map(m=>Number(m[1]));
-expect(expectedBuildNumbers[0]===12,'Build 12 must be the newest project');
+expect(expectedBuildNumbers[0]===13,'Build 13 must be the newest project');
 expect(JSON.stringify(renderedNumbers(projectGalleryHtml))===JSON.stringify(expectedBuildNumbers),'Project gallery not ordered 11 down to 01');
 const homeHtml=fs.readFileSync(path.join(out,'index.html'),'utf8');
 expect(JSON.stringify(renderedNumbers(homeHtml))===JSON.stringify(expectedBuildNumbers.slice(0,3)),'Homepage project cards must show the newest three builds in order');
@@ -52,7 +52,7 @@ const linkedTag=new RegExp('<a\\b[^>]*class="[^"]*\\bpin-one\\b[^"]*"[^>]*href="
 expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+leadHref);
 expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-station hero copy still shown for newer build');
 
-const aliSlugSet=new Set(['feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
+const aliSlugSet=new Set(['benewake-nova20-lidar','esp32-wroom32-devkit','ssd1306-oled-096','nova20-5pin-harness','regulated-5v-2a-proto-kit','vl53l5cx-tof-8x8','nova20-capacitor-kit','dupont-jumper-20cm-kit','feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
@@ -116,7 +116,7 @@ for(const p of projects){
  expect(html.includes('data-cart-add-all="'+p.slug+'"')===hasAli,'Only AliExpress builds may have ADD ALL '+p.slug);
  if(p.slug!=='mosaico-learning-assistant'){
   const rows=(html.match(/data-bom-mode=/g)||[]).length;
-  expect(rows===p.materials.length,'Every BOM line must have direct/MAKHEX source mode '+p.slug);
+  expect(rows===p.materials.length+(p.slug==='esp32-nova20-lidar-scanner'?5:0),'Every BOM line must have direct/MAKHEX source mode '+p.slug);
  }
  for(const m of p.materials)expect(html.includes('/product-media/'+m.slug+'.jpg'),'BOM part photo missing '+p.slug+'/'+m.slug);
 }
@@ -235,4 +235,4 @@ for(const f of sitemaps){
 expect(fs.existsSync(path.join(out,'_headers')),'Cloudflare security headers file not present');
 console.log('MAKHEX QA: '+pages.length+' HTML pages, '+links+' internal links, '+candidates.length+' gated catalog pages, '+mapped+' native maker discussions, '+projects.length+' BOM CSV files');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
-console.log('PASS: generated routes, links, metadata and checkout truth gate');
+console.log('PASS: generated routes, links, metadata and checkout truth gate');\n

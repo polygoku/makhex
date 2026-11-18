@@ -1,4 +1,4 @@
-// All sourcing choices have explicit vendor evidence and correct cart route.
+﻿// All sourcing choices have explicit vendor evidence and correct cart route.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {products} from '../src/data/products.ts';
@@ -7,9 +7,9 @@ import {supplierMatches,offersFor} from '../src/data/supplier-matches.ts';
 import {plannedVariantForProject} from '../src/data/catalog-staging.ts';
 import {isMakhexAliExpress,preferredExternalOffer} from '../src/data/sourcing-policy.ts';
 const allow=new Set(['EXACT_SPEC','SELECT_VARIANT','COMPATIBILITY_REVIEW','CUSTOM_ORDER']);
-assert.equal(products.length,30);
-assert.equal(projects.length,12);
-assert.equal(Object.keys(supplierMatches).length,30);
+assert.equal(products.length,38);
+assert.equal(projects.length,13);
+assert.equal(Object.keys(supplierMatches).length,38);
 let urls=0;
 for(const p of products){
  const match=supplierMatches[p.slug];
@@ -34,11 +34,11 @@ assert.equal(plannedVariantForProject('microduck-printed-parts','microduck-robot
 assert.equal(preferredExternalOffer('microduck-wiring-kit')?.seller,'Original maker BOM','External wiring kit must link to ALL THREE original source options, not only heat shrink');
 const source=JSON.parse(fs.readFileSync('dist/sourcing.json','utf8'));
 assert(!source.checkoutAvailable);
-assert.equal(source.components.filter(p=>p.buyingOptions.length>0).length,30);
-assert.equal(source.projects.length,12);
+assert.equal(source.components.filter(p=>p.buyingOptions.length>0).length,38);
+assert.equal(source.projects.length,13);
 for(const p of products){
  const html=fs.readFileSync('dist/shop/'+p.slug+'/index.html','utf8');
  assert(html.includes('id="buying-options"'));
  for(const o of supplierMatches[p.slug].offers)assert(html.includes(o.url.replaceAll('&','&amp;')),'Vendor reference missing '+p.slug);
 }
-console.log('SUPPLIER REFERENCES PASS:',products.length,'catalog families,',urls,'source links,',projects.length,'builds');
+console.log('SUPPLIER REFERENCES PASS:',products.length,'catalog families,',urls,'source links,',projects.length,'builds');\n
