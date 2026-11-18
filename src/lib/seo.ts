@@ -53,6 +53,10 @@ const projectSearchCopy: Record<string, {title: string; description: string}> = 
   'microduck-robot': {
     title: 'Microduck Walking Robot: BOM, Servos & CAD | MAKHEX',
     description: 'Explore the Microduck 15-servo walking robot by kissqy. Review original demo media, Radxa and STM32 hardware, the project BOM and gated CAD files.'
+  },
+  'atomdog-quadruped-robot': {
+    title: 'AtomDog ESP32 Quadruped Robot: Build Guide & BOM | MAKHEX',
+    description: 'Build AtomDog with M5Stack ATOM Lite, ATOMIC Motion Base and four FS90MG servos. See the 3D printing plan, browser calibration, firmware source and MAKHEX parts request.'
   }
 };
 
@@ -62,7 +66,8 @@ export function projectSeo(project: Project) {
     description: project.summary
   };
   const image = buildReferences[project.slug]?.image ??
-    (project.slug === 'microduck-robot' ? '/demo/microduck/microduck-hero.jpg' :
+    (project.slug === 'atomdog-quadruped-robot' ? '/demo/atomdog/hero.jpg' :
+    project.slug === 'microduck-robot' ? '/demo/microduck/microduck-hero.jpg' :
     project.slug === 'mosaico-learning-assistant' ? '/demo/build11-english-lifestyle-wide.jpg' : '/og.png');
   return {...copy, image};
 }

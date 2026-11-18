@@ -270,6 +270,31 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'Original maker supplier (Taobao)',label:'Heat shrink assortment source',url:'https://item.taobao.com/item.htm?id=945215173380',match:'SELECT_VARIANT',note:'Only heat shrink. Also order both silicone wire types via maker BOM links.'}
   ]
  },
+ 'm5stack-atom-lite':{
+  required:'M5Stack ATOM Lite ESP32, manufacturer SKU C008, ESP32-PICO-D4; no ATOMS3 substitute.',
+  notes:'Verify C008 rather than generic ATOM clones; confirm stocked unit, matching ATOMIC connector, USB-C flashing and US shipping.',
+  offers:[
+   {seller:'M5Stack',label:'ATOM Lite ESP32 official C008',url:'https://shop.m5stack.com/products/atom-lite-esp32-development-kit',match:'EXACT_SPEC',note:'Manufacturer hardware listing; not an AliExpress checkout qualification.'},
+   {seller:'M5Stack',label:'ATOM Lite technical specifications',url:'https://docs.m5stack.com/en/core/Atom-Lite',match:'COMPATIBILITY_REVIEW',note:'Official device spec, not a direct supplier order.'}
+  ]
+ },
+ 'm5stack-atomic-motion-v12':{
+  required:'M5Stack ATOMIC Motion Base A090-V12 with four 3-pin servo ports, current monitor, protected 18350 battery; original v1.1 A090-V11 is EOL.',
+  notes:'Source code mentions v1.2 but printed enclosure fit, horn clearance, battery load and revision-specific firmware have not been bench-tested. Do not sell as a proven drop-in replacement.',
+  offers:[
+   {seller:'M5Stack',label:'ATOMIC Motion Base v1.2 A090-V12 official',url:'https://shop.m5stack.com/products/atomic-motion-base-v1-2-with-power-monitor',match:'COMPATIBILITY_REVIEW',note:'Current manufacturer replacement; verify fit and firmware before qualification.'},
+   {seller:'M5Stack',label:'Original v1.1 EOL listing',url:'https://shop.m5stack.com/products/atomic-motion-base-v1-1',match:'EXACT_SPEC',note:'Historical original-project BOM part, now end-of-life and not a valid live inventory promise.'}
+  ]
+ },
+ 'feetech-fs90mg':{
+  required:'FEETECH FS90MG digital 180-degree metal-gear PWM micro servo, correct 3-wire plug, matching horn/screws, 4 units.',
+  notes:'Not FS90R (continuous rotation), FT90M, MG90S, SG90, FS90 (plastic) or servo cable-only packs. Verify actual servo model, horn spline, peak/stall current and delivered pack quantity.',
+  offers:[
+   {seller:'RobotShop',label:'Feetech FS90MG digital 2.2 kg.cm',url:'https://www.robotshop.com/products/feetech-9g-digital-servo-22kg-cm-fs90mg',match:'SELECT_VARIANT',note:'Independent U.S. retailer reference for genuine FS90MG; current inventory, included horn and U.S. delivery not independently qualified.'},
+   {seller:'FEETECH',label:'FS90MG manufacturer specification PDF',url:'https://www.feetechrc.com/Data/feetechrc/upload/file/20200612/6372758119731571407558713.pdf',match:'COMPATIBILITY_REVIEW',note:'Manufacturer dimensional/model evidence; not a checkout supplier.'}
+  ]
+ }
+
 } as const;
 
 export function supplierFor(slug:string):SupplierMatch|undefined{return supplierMatches[slug]}

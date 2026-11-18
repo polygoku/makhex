@@ -40,8 +40,8 @@ const newestFirst=[...projects].sort((a,b)=>Number(b.number)-Number(a.number));
 const expectedBuildNumbers=newestFirst.map(p=>Number(p.number));
 const projectGalleryHtml=fs.readFileSync(path.join(out,'projects','index.html'),'utf8');
 const renderedNumbers=html=>[...html.matchAll(/class="project-number">BUILD ([0-9]{2})/g)].map(m=>Number(m[1]));
-expect(expectedBuildNumbers[0]===12,'Build 12 must be the newest project');
-expect(JSON.stringify(renderedNumbers(projectGalleryHtml))===JSON.stringify(expectedBuildNumbers),'Project gallery not ordered 11 down to 01');
+expect(new Set(expectedBuildNumbers).size===expectedBuildNumbers.length&&expectedBuildNumbers[0]===Math.max(...expectedBuildNumbers),'Build numbers must be unique and newest-first');
+expect(JSON.stringify(renderedNumbers(projectGalleryHtml))===JSON.stringify(expectedBuildNumbers),'Project gallery must show all builds in descending number order');
 const homeHtml=fs.readFileSync(path.join(out,'index.html'),'utf8');
 expect(JSON.stringify(renderedNumbers(homeHtml))===JSON.stringify(expectedBuildNumbers.slice(0,3)),'Homepage project cards must show the newest three builds in order');
 const latest=newestFirst[0];
@@ -53,12 +53,15 @@ expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+lea
 expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-station hero copy still shown for newer build');
 
 const aliSlugSet=new Set(['feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
+const quoteOnlySlugs=new Set(['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg']);
+const cartSlugs=new Set([...aliSlugSet,...quoteOnlySlugs]);
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
  const slug=f.replaceAll('\\','/').split('/shop/')[1]?.split('/')[0];
- if(aliSlugSet.has(slug))expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'AliExpress item must use MAKHEX cart: '+slug);
+ if(cartSlugs.has(slug))expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'MAKHEX order request item must use internal cart: '+slug);
  else expect(html.includes('Buy from seller')&&!html.includes('data-cart-add'),'External must direct-link without MAKHEX cart: '+slug);
+ if(quoteOnlySlugs.has(slug))expect(html.includes('Price on request')&&!html.includes('clean-product-price">$'),'Quote-only part must not display an invented retail price: '+slug);
  expect(html.includes('supplier-last-resort')&&html.includes('SOURCE MATCHES'),'Supplier references must exist: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
@@ -87,8 +90,9 @@ for(const p of products){
  if(fs.existsSync(page)){
   const html=fs.readFileSync(page,'utf8');
   expect(html.includes('/product-media/'+p.slug+'.jpg'),'Product image not shown '+p.slug);
-  if(aliSlugSet.has(p.slug)){
-   expect(html.includes('data-cart-add')&&html.includes('CHECK OUT WITH MAKHEX'),'AliExpress items must have MAKHEX cart '+p.slug);
+  if(cartSlugs.has(p.slug)){
+   expect(html.includes('data-cart-add')&&html.includes('CHECK OUT WITH MAKHEX'),'MAKHEX order request part needs internal cart '+p.slug);
+   if(quoteOnlySlugs.has(p.slug))expect(html.includes('Price on request'),'Quote-only component cannot show a fixed checkout price: '+p.slug);
   }else expect(!html.includes('data-cart-add')&&!html.includes('MAKHEX plan $'),'External SKU cannot have MAKHEX cart/price '+p.slug);
  }
 }
@@ -112,8 +116,8 @@ const originalVid=path.join(out,'demo','build11-en-concept.mp4');
 if(fs.existsSync(originalVid)){const bytes=fs.readFileSync(originalVid);expect(bytes.toString('ascii',4,8)==='ftyp'&&bytes.length>5000,'Invalid MP4 asset');}
 for(const p of projects){
  const html=fs.readFileSync(path.join(out,'projects',p.slug,'index.html'),'utf8');
- const hasAli=p.materials.some(x=>aliSlugSet.has(x.slug));
- expect(html.includes('data-cart-add-all="'+p.slug+'"')===hasAli,'Only AliExpress builds may have ADD ALL '+p.slug);
+ const hasAli=p.materials.some(x=>cartSlugs.has(x.slug));
+ expect(html.includes('data-cart-add-all="'+p.slug+'"')===hasAli,'Only MAKHEX review-eligible builds may have ADD ALL '+p.slug);
  if(p.slug!=='mosaico-learning-assistant'){
   const rows=(html.match(/data-bom-mode=/g)||[]).length;
   expect(rows===p.materials.length,'Every BOM line must have direct/MAKHEX source mode '+p.slug);

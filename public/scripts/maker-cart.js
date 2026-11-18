@@ -93,7 +93,7 @@ document.addEventListener('click',async event=>{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
    const items=(project.cartPlan?.parts??project.parts).filter(p=>findPart(c,p.slug)?.priceStatus==='MAKHEX_PRICE_REVIEW').map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
-   if(!items.length)throw Error('This build has no AliExpress-qualified MAKHEX parts; use the direct supplier links in its parts list.');
+   if(!items.length)throw Error('This build has no MAKHEX-order-request parts yet; check its parts list.');
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
   }catch(e){flash(e.message||'Unable to add kit')}

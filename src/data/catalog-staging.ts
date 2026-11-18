@@ -50,5 +50,12 @@ export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
  'smart-desk-button':['Input pull-up/pull-down configuration, safe GPIO pin, resistor and enclosure mounting are not yet qualified.'],
  'rgb-matrix-clock':['Confirm UL/ETL-listed U.S.-plug supply, correct 5.5 × 2.1 mm barrel-to-terminal connection, fuse and logic level shifting. The exact adapter remains unqualified.'],
  'microduck-robot':['MAKHEX parts require confirmation of availability and U.S. delivery before payment; exact Radxa 2GB/no-eMMC with soldered GPIO is currently out of stock at checked U.S. vendors.','Original AMP2.0 HAT/IMU are maker-source or build-to-order candidates: verify Oct 15 revision, exact board power and FT6 IMU firmware/ID 200 at 1Mbps.','Authorized print design downloads are FREE for members, and no physical shell is shipped. Optional 623ZZ roller bearings are not included in the standard walking-foot BOM.'],
- 'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.']
+ 'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.'],
+ 'atomdog-quadruped-robot':[
+  'The published original A090-V11 ATOMIC Motion Base is end-of-life. Current A090-V12 must pass actual fit, I2C firmware and servo power validation before it can become a paid kit option.',
+  'The four genuine FS90MG servos must match the original horn spline, 180-degree motion and controller current limits. Exact AliExpress options, inventory, 11021 U.S. shipping, returns and automatic fulfillment have not been confirmed.',
+  'The original author provides seven printable 3MF pieces on Hackster. MAKHEX does not ship printed parts in this electronic BOM, and the source zip has not been mirrored or print-validated.',
+  'USB-C programming data cable and printer/PLA are workshop requirements, not included in the three-component electronics list.'
+ ]
+
 };

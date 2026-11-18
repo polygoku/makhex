@@ -1,0 +1,50 @@
+---
+/**
+ * AtomDog source library: attribution and access to original firmware/print files.
+ * Hackster attachment URLs are intentionally NOT mirrored without a separate rights review.
+ */
+---
+<section class="container atomdog-resources" id="atomdog-source">
+  <div class="atomdog-section-head">
+    <span class="eyebrow">BUILD 14 / SOURCE LIBRARY</span>
+    <h2>Print the shell. Flash the robot. Tune the gait.</h2>
+    <p>Original robot and firmware by <strong>se kino (kinosei)</strong> on Hackster. This page is an independent MAKHEX assembly and sourcing guide, not a MAKHEX-built prototype.</p>
+  </div>
+  <div class="atomdog-resource-grid">
+    <article>
+      <span>01 / FIRMWARE</span>
+      <h3>PlatformIO &amp; Wi-Fi setup</h3>
+      <p>Get the original <code>main.cpp</code>, <code>platformio.ini</code>, and <code>wifi_config.h</code> examples from the creator. Keep personal Wi-Fi credentials private.</p>
+      <a class="btn btn-outline" href="https://www.hackster.io/kinosei/atomdog-open-source-quadruped-robot-with-m5atommotion-aa540d" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL FIRMWARE ↗</a>
+    </article>
+    <article>
+      <span>02 / 3D DESIGN</span>
+      <h3>Seven printable components</h3>
+      <p>The creator provides <code>AtomDog_3mf.zip</code>: one body, head and tail, plus four legs. These design files are sourced from the original project; no printed shell is included in the MAKHEX electronics order.</p>
+      <a class="btn btn-outline" href="https://www.hackster.io/kinosei/atomdog-open-source-quadruped-robot-with-m5atommotion-aa540d" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL 3MF ↗</a>
+    </article>
+    <article>
+      <span>03 / CONTROLLER</span>
+      <h3>Motion Base compatibility</h3>
+      <p>The article specifies the original v1.1 base, now end-of-life. M5Stack sells A090-V12; code support is indicated, but it still needs physical clearance and loaded-servo validation.</p>
+      <a class="btn btn-outline" href="https://shop.m5stack.com/products/atomic-motion-base-v1-2-with-power-monitor" target="_blank" rel="noopener noreferrer">CHECK V1.2 SPECIFICATION ↗</a>
+    </article>
+  </div>
+  <div class="atomdog-pin-note">
+    <strong>Servo socket map:</strong> S1 right rear · S2 right front · S3 left rear · S4 left front. Unload and center every servo before attaching the linkages. Validate actual base port orientation against the original firmware.
+  </div>
+  <style>
+    .atomdog-resources{padding-top:clamp(2rem,5vw,4rem);padding-bottom:clamp(2rem,5vw,4rem)}
+    .atomdog-section-head{max-width:48rem;margin-bottom:1.5rem}
+    .atomdog-section-head h2{font-size:clamp(1.7rem,4vw,3rem);line-height:1.12;margin:.5rem 0 1rem}
+    .atomdog-section-head p{line-height:1.6}
+    .atomdog-resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .atomdog-resource-grid article{padding:1.35rem;background:#fffaf2;border:1px solid #dacbb3;border-radius:14px;display:flex;flex-direction:column;gap:.7rem}
+    .atomdog-resource-grid article>span{font-size:.72rem;font-weight:750;letter-spacing:.1em;color:#ad5b36}
+    .atomdog-resource-grid h3{font-size:1.4rem;line-height:1.2;margin:0}
+    .atomdog-resource-grid p{line-height:1.55;flex:1;margin:0}
+    .atomdog-resource-grid a{align-self:flex-start;margin-top:.3rem;white-space:normal;overflow-wrap:anywhere}
+    .atomdog-pin-note{margin-top:1.25rem;padding:1rem 1.3rem;border-left:4px solid #c15e33;background:#f7e9d5;line-height:1.6}
+    @media(max-width:800px){.atomdog-resource-grid{grid-template-columns:1fr}}
+  </style>
+</section>

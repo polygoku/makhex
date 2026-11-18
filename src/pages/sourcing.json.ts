@@ -5,7 +5,7 @@ import {mosaicoAssemblyParts,mosaicoCommercePlans} from '../data/mosaico-bom';
 import {catalogSnapshotDate,stageFor,plannedVariantForProject,projectBomMissingParts} from '../data/catalog-staging';
 import {supplierFor,offersFor} from '../data/supplier-matches';
 import {microduckPriceObservedAt,microduckRetailCautions} from '../data/microduck-price-plans';
-import {isMakhexAliExpress,preferredExternalOffer} from '../data/sourcing-policy';
+import {isMakhexAliExpress,isMakhexQuoteOnly,preferredExternalOffer} from '../data/sourcing-policy';
 
 // Public buyer comparison links are separate from private supplier order credentials.
 // An external link does NOT establish MAKHEX fulfillment or in-stock checkout.
@@ -48,7 +48,7 @@ export const GET:APIRoute=()=>{
         priceStatus:isAli?'MAKHEX_PRICE_REVIEW':'EXTERNAL_SELLER',
         fulfillmentMode:isAli?'MAKHEX_OWNER_REVIEW':'EXTERNAL_VENDOR',
         directSupplierLink:external?.url??null,
-        supplierPriceReviewDate:isAli?microduckPriceObservedAt:null,
+        supplierPriceReviewDate:isAli&&!isMakhexQuoteOnly(product.slug)?microduckPriceObservedAt:null,
         sourcingNote:microduckRetailCautions[product.slug]??null,
         availability:isAli?'COMING_SOON':'EXTERNAL_REFERENCE',
         hardwareReview:stage?.technicalGate??'HOLD',
