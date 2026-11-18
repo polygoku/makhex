@@ -53,7 +53,7 @@ expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+lea
 expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-station hero copy still shown for newer build');
 
 const aliSlugSet=new Set(['feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
-const quoteOnlySlugs=new Set(['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg']);
+const quoteOnlySlugs=new Set(['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg','usb-a-c-data-cable-1m','pla-filament-175-1kg']);
 const cartSlugs=new Set([...aliSlugSet,...quoteOnlySlugs]);
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){

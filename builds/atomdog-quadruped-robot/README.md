@@ -17,9 +17,11 @@ AtomDog is a real external maker project combining a M5Stack ESP32 ATOM Lite, a 
 | --- | --- | ---: | --- |
 | M5Stack ATOM Lite C008 ESP32 | `m5stack-atom-lite` | 1 | Actual ATOM Lite, not ATOMS3; USB-C data flashing |
 | ATOMIC Motion Base (original v1.1) | `m5stack-atomic-motion-v12` | 1 | A090-V12 replacement *candidate*: original v1.1 now EOL; bench check fit, I2C, controller and per-channel current before selling |
-| FEETECH FS90MG 180-degree metal-gear PWM micro servo | `feetech-fs90mg` | 4 | Exactly FS90MG; not FS90R continuous or generic MG90S; verify connector, horns, mount screws, current and travel |
+| FEETECH FS90MG 180-degree metal-gear PWM micro servo | `feetech-fs90mg` | 4 | Exactly FS90MG; not FS90R continuous or generic MG90S; RobotDoo supplier package includes horns/screws; verify connector, current and travel |
+| USB-A to USB-C 1m data cable | usb-a-c-data-cable-1m | 1 | True USB data cable for ATOM Lite flashing; use C-to-C alternative for a USB-C-only host |
+| 1.75mm PLA filament 1kg retail spool | pla-filament-175-1kg | 1 spool | Purchase unit for the original 7-piece 3MF; actual consumption is less than 1 kg |
 
-**3D-print source:** original Hackster attachment `AtomDog_3mf.zip`, seven printable components (body, head, tail and four legs). Download from source page, do not treat STL/3MF as commerce physical parts. Other workshop materials needed: PLA filament, 3D printer, USB-C **data** cable, hand tools and 2.4 GHz Wi-Fi. Verify whether cell, servo horns and screws are bundled with the actual base and servos before ordering extras. The manufacturer lists a rechargeable/protected 18350 cell with A090-V12; do not double-charge it by default.
+**3D-print source:** original Hackster attachment `AtomDog_3mf.zip`, seven printable components (body, head, tail and four legs). Download from source page, do not treat STL/3MF as commerce physical parts. The USB data cable and PLA retail spool are now listed in MAKHEX BOM. Additional workshop equipment: 3D printer, hand tools, and 2.4 GHz Wi-Fi. The official A090-V12 includes its 18350 cell; RobotDoo FS90MG pack includes horns and screws. Verify each package and do not bill twice. The manufacturer lists a rechargeable/protected 18350 cell with A090-V12; do not double-charge it by default.
 
 ### Why v1.2 is a conditional replacement
 

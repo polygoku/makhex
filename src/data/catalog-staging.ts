@@ -55,7 +55,7 @@ export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
   'The published original A090-V11 ATOMIC Motion Base is end-of-life. Current A090-V12 must pass actual fit, I2C firmware and servo power validation before it can become a paid kit option.',
   'The four genuine FS90MG servos must match the original horn spline, 180-degree motion and controller current limits. Exact AliExpress options, inventory, 11021 U.S. shipping, returns and automatic fulfillment have not been confirmed.',
   'The original author provides seven printable 3MF pieces on Hackster. MAKHEX does not ship printed parts in this electronic BOM, and the source zip has not been mirrored or print-validated.',
-  'USB-C programming data cable and printer/PLA are workshop requirements, not included in the three-component electronics list.'
+  'Five component families are in the MAKHEX unpriced order request. The official A090-V12 includes one 18350 battery; the selected RobotDoo servos include horns and screw sets. The original seven printable files are downloaded from the creator, not shipped as printed parts. A 3D printer is required but not included.'
  ]
 
 };

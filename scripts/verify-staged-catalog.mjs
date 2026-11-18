@@ -11,7 +11,7 @@ import {checkoutCatalog} from '../worker/checkout-catalog.mjs';
 const dist='dist';
 const prices={'feetech-hd1910':34.33,'imx219-160-camera':10.50,'vl53l5cx-v2':24,'npf550-power-kit':34.45,
  'bearing-6700':3.57,'bearing-et2216':6,'bearing-623zz':4.50,'microduck-speaker-3525':6.70};
-assert.equal(products.length,33);
+assert.equal(products.length,35);
 assert.equal(projects.length,13);
 assert.equal(MAKHEX_ALIEXPRESS_MARKUP,1.2);
 assert.equal(Object.keys(microduckPricePlans).length,8);
@@ -50,19 +50,19 @@ for(const p of products){
   assert(preferredExternalOffer(p.slug)?.url,'External item must have direct source '+p.slug);
  }
 }
-assert.equal(Object.values(checkoutCatalog.parts).filter(p=>p.shopEligible).length,11);
-assert.equal(Object.keys(checkoutCatalog.parts).length,33);
+assert.equal(Object.values(checkoutCatalog.parts).filter(p=>p.shopEligible).length,13);
+assert.equal(Object.keys(checkoutCatalog.parts).length,35);
 const source=JSON.parse(fs.readFileSync(path.join(dist,'sourcing.json'),'utf8'));
 assert.equal(source.schema,'makhex-catalog-v3');
 assert.equal(Object.hasOwn(source,'aliexpressPriceMarkupMultiplier'),false,'Never publish internal pricing multiplier');
 assert.equal(source.checkoutAvailable,false);
 assert.equal(source.paymentCaptureEnabled,false);
-assert.equal(source.components.length,33);
+assert.equal(source.components.length,35);
 assert.equal(source.projects.length,13);
 assert.equal(source.researchSubcomponents.length,4);
-assert.equal(source.components.filter(p=>p.priceStatus==='MAKHEX_PRICE_REVIEW').length,11);
+assert.equal(source.components.filter(p=>p.priceStatus==='MAKHEX_PRICE_REVIEW').length,13);
 assert.equal(source.components.filter(p=>p.priceStatus==='EXTERNAL_SELLER').length,22);
-assert.equal(source.components.filter(p=>p.variants.length===0).length,25);
+assert.equal(source.components.filter(p=>p.variants.length===0).length,27);
 assert.equal(source.components.flatMap(p=>p.variants).length,8);
 assert(!JSON.stringify(source).includes('microduck-printed-parts'),'No printed-part checkout or catalog JSON');
 for(const project of source.projects){
@@ -99,4 +99,4 @@ for(const relative of allPublishedFiles){
  const content=fs.readFileSync(path.join(dist,relative),'utf8');
  assert(!leaked.test(content),'Internal price formula disclosed to buyers: '+relative);
 }
-console.log('CUSTOMER PRICE PRIVACY PASS: 33 products, including three unpriced first-party quote-only components; all public files conceal internal pricing details.');
+console.log('CUSTOMER PRICE PRIVACY PASS: 35 products, including five unpriced first-party quote-only components; all public files conceal internal pricing details.');

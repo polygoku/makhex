@@ -58,8 +58,8 @@ const validBody=()=>({
   {slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}
  ]
 });
-test('all 33 catalog products are present and external parts are locked',()=>{
- assert.equal(Object.keys(checkoutCatalog.parts).length,33);
+test('all 35 catalog products are present and external parts are locked',()=>{
+ assert.equal(Object.keys(checkoutCatalog.parts).length,35);
  assert.equal(Object.keys(checkoutCatalog.projectParts).length,13);
  const bundle=checkoutInternals.validateLines([
   {slug:'feetech-hd1910',option:checkoutCatalog.parts['feetech-hd1910'].variants[0],quantity:15,project:'microduck-robot'},
@@ -67,8 +67,8 @@ test('all 33 catalog products are present and external parts are locked',()=>{
  ]);
  assert.equal(bundle.planningSubtotalCents,58695,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
  assert.equal(bundle.totalParts,27);
- assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,11);
- for(const slug of ['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg']){
+ assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,13);
+ for(const slug of ['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg','usb-a-c-data-cable-1m','pla-filament-175-1kg']){
    const part=checkoutCatalog.parts[slug];
    assert.equal(part.shopEligible,true,'AtomDog parts can only enter an owner-reviewed order request');
    assert.deepEqual(part.variants,[],'No invented variant');
@@ -84,10 +84,12 @@ test('AtomDog request contains all three unpriced hardware component types and n
  const c=checkoutInternals.validateLines([
   {slug:'m5stack-atom-lite',option:'Option pending',quantity:1,project:'atomdog-quadruped-robot'},
   {slug:'m5stack-atomic-motion-v12',option:'Option pending',quantity:1,project:'atomdog-quadruped-robot'},
-  {slug:'feetech-fs90mg',option:'Option pending',quantity:4,project:'atomdog-quadruped-robot'}
+  {slug:'feetech-fs90mg',option:'Option pending',quantity:4,project:'atomdog-quadruped-robot'},
+  {slug:'usb-a-c-data-cable-1m',option:'Option pending',quantity:1,project:'atomdog-quadruped-robot'},
+  {slug:'pla-filament-175-1kg',option:'Option pending',quantity:1,project:'atomdog-quadruped-robot'}
  ]);
  assert(c,'Complete AtomDog source-qualified order request must be accepted');
- assert.equal(c.totalParts,6);
+ assert.equal(c.totalParts,8);
  assert.equal(c.planningSubtotalCents,null,'Owner must supply actual delivered quote before payment');
  assert(c.lines.every(x=>x.requiresExceptionReview));
  assert.equal(checkoutInternals.validateLines([{slug:'feetech-fs90mg',option:'FS90R continuous',quantity:4,project:'atomdog-quadruped-robot'}]),null,'No silent servo substitution');

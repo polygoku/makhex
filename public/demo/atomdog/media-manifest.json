@@ -20,5 +20,17 @@
       "usage": "retail/manufacturer reference, not qualified variant"
     }
   },
-  "date": "2026-11-17"
+  "date": "2026-11-17",
+  "additional_product_images": {
+    "usb-a-c-data-cable-1m": {
+      "product_page": "https://www.adafruit.com/product/4474",
+      "source_image_url": "https://www.adafruit.com/images/480x360/4474-02.jpg",
+      "presentation": "reference retailer image, not verified physical stock or variant"
+    },
+    "pla-filament-175-1kg": {
+      "product_page": "https://shop.polymaker.com/products/polylite-pla/",
+      "source_image_url": "https://shop.polymaker.com/cdn/shop/files/PolyliteBlack_Isometric_Top.png?crop=center&height=1200&v=1726607613&width=1200",
+      "presentation": "reference retailer image, not verified physical stock or variant"
+    }
+  }
 }

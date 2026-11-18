@@ -264,6 +264,20 @@ export const checkoutCatalog={
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
+    },
+    "usb-a-c-data-cable-1m": {
+      "title": "USB-A to USB-C Data Cable 1 m",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "pla-filament-175-1kg": {
+      "title": "1.75 mm PLA Filament 1 kg Spool",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
     }
   },
   "researchSubcomponents": {
@@ -370,7 +384,9 @@ export const checkoutCatalog={
     "atomdog-quadruped-robot": [
       "m5stack-atom-lite",
       "m5stack-atomic-motion-v12",
-      "feetech-fs90mg"
+      "feetech-fs90mg",
+      "usb-a-c-data-cable-1m",
+      "pla-filament-175-1kg"
     ]
   }
 };

@@ -7,9 +7,9 @@ import {supplierMatches,offersFor} from '../src/data/supplier-matches.ts';
 import {plannedVariantForProject} from '../src/data/catalog-staging.ts';
 import {isMakhexAliExpress,preferredExternalOffer} from '../src/data/sourcing-policy.ts';
 const allow=new Set(['EXACT_SPEC','SELECT_VARIANT','COMPATIBILITY_REVIEW','CUSTOM_ORDER']);
-assert.equal(products.length,33);
+assert.equal(products.length,35);
 assert.equal(projects.length,13);
-assert.equal(Object.keys(supplierMatches).length,33);
+assert.equal(Object.keys(supplierMatches).length,35);
 let urls=0;
 for(const p of products){
  const match=supplierMatches[p.slug];
@@ -34,7 +34,7 @@ assert.equal(plannedVariantForProject('microduck-printed-parts','microduck-robot
 assert.equal(preferredExternalOffer('microduck-wiring-kit')?.seller,'Original maker BOM','External wiring kit must link to ALL THREE original source options, not only heat shrink');
 const source=JSON.parse(fs.readFileSync('dist/sourcing.json','utf8'));
 assert(!source.checkoutAvailable);
-assert.equal(source.components.filter(p=>p.buyingOptions.length>0).length,33);
+assert.equal(source.components.filter(p=>p.buyingOptions.length>0).length,35);
 assert.equal(source.projects.length,13);
 for(const p of products){
  const html=fs.readFileSync('dist/shop/'+p.slug+'/index.html','utf8');
