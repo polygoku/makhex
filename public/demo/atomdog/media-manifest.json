@@ -1,0 +1,36 @@
+{
+  "project": "AtomDog",
+  "creator": "se kino (kinosei)",
+  "source": "https://www.hackster.io/kinosei/atomdog-open-source-quadruped-robot-with-m5atommotion-aa540d",
+  "hero": "MAKHEX original illustration; no creator photo reused",
+  "product_references": {
+    "m5stack-atom-lite": {
+      "source_page": "https://shop.m5stack.com/products/atom-lite-esp32-development-kit",
+      "source_image": "https://shop.m5stack.com/cdn/shop/products/1_2_c215b5d9-d41a-4ab8-ad54-b2531930f075_1200x1200.jpg?v=1655692122",
+      "usage": "retail/manufacturer reference, not qualified variant"
+    },
+    "m5stack-atomic-motion-v12": {
+      "source_page": "https://shop.m5stack.com/products/atomic-motion-base-v1-2-with-power-monitor",
+      "source_image": "https://shop.m5stack.com/cdn/shop/files/1_6bc295d9-fd58-4b47-adb0-4b11b3d1bd36_1200x1200.webp?v=1749117312",
+      "usage": "retail/manufacturer reference, not qualified variant"
+    },
+    "feetech-fs90mg": {
+      "source_page": "https://robotdoo.com/products/feetech-fs90mg-9g-metal-gear-digital-micro-servo",
+      "source_image": "https://robotdoo.com/cdn/shop/files/01_44e57aa2-b2f6-4e0e-b5da-652eadc382f2.png?v=1778468828",
+      "usage": "retail/manufacturer reference, not qualified variant"
+    }
+  },
+  "date": "2026-11-17",
+  "additional_product_images": {
+    "usb-a-c-data-cable-1m": {
+      "product_page": "https://www.adafruit.com/product/4474",
+      "source_image_url": "https://www.adafruit.com/images/480x360/4474-02.jpg",
+      "presentation": "reference retailer image, not verified physical stock or variant"
+    },
+    "pla-filament-175-1kg": {
+      "product_page": "https://shop.polymaker.com/products/polylite-pla/",
+      "source_image_url": "https://shop.polymaker.com/cdn/shop/files/PolyliteBlack_Isometric_Top.png?crop=center&height=1200&v=1726607613&width=1200",
+      "presentation": "reference retailer image, not verified physical stock or variant"
+    }
+  }
+}

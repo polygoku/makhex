@@ -39,7 +39,7 @@ const labels:Record<string,string>={EXACT_SPEC:'Exact model / stated dimensions'
     <div class="detail-content">
       <h1>{stage?.supplierModel??product.title}</h1>
       <p class="detail-description">{product.description}</p>
-      <div class="clean-product-price">{isAli&&minimum!==null?formatUsd(minimum):'Buy from seller'}</div>
+      <div class="clean-product-price">{isAli?(minimum!==null?formatUsd(minimum):'Price on request'):'Buy from seller'}</div>
 
       {isAli&&microduckRetailCautions[product.slug]&&<p class="clean-compatibility">{microduckRetailCautions[product.slug]}</p>}
       <p class="clean-shipping">{isAli?'Add to your MAKHEX cart. Availability and delivery are confirmed before payment.':'Purchase directly from the linked seller. See their site for price and delivery.'}</p>

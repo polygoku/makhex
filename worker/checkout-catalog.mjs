@@ -243,6 +243,41 @@ export const checkoutCatalog={
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
+    },
+    "m5stack-atom-lite": {
+      "title": "M5Stack ATOM Lite ESP32 (C008)",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "m5stack-atomic-motion-v12": {
+      "title": "M5Stack ATOMIC Motion Base v1.2 (A090-V12)",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "feetech-fs90mg": {
+      "title": "FEETECH FS90MG 180° Metal-Gear Servo",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "usb-a-c-data-cable-1m": {
+      "title": "USB-A to USB-C Data Cable 1 m",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "pla-filament-175-1kg": {
+      "title": "1.75 mm PLA Filament 1 kg Spool",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
     }
   },
   "researchSubcomponents": {
@@ -345,6 +380,13 @@ export const checkoutCatalog={
       "microduck-fasteners",
       "amp20-servo-cables",
       "microduck-wiring-kit"
+    ],
+    "atomdog-quadruped-robot": [
+      "m5stack-atom-lite",
+      "m5stack-atomic-motion-v12",
+      "feetech-fs90mg",
+      "usb-a-c-data-cable-1m",
+      "pla-filament-175-1kg"
     ]
   }
 };

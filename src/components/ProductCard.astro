@@ -19,7 +19,7 @@ const external=isAli?undefined:preferredExternalOffer(product.slug,projectSlug);
   <div class="simple-product-info">
     <a class="product-title-link" href={productUrl(product.slug)}><h3>{stage?.supplierModel??product.title}</h3></a>
     <div class="simple-product-price">
-      <strong>{isAli&&minimum!==null?formatUsd(minimum):'Buy from seller'}</strong>
+      <strong>{isAli?(minimum!==null?formatUsd(minimum):'Price on request'):'Buy from seller'}</strong>
       {isAli&&stage&&stage.variants.length>1&&<span>from</span>}
     </div>
     <a href={productUrl(product.slug)} class="text-link">PART DETAILS ↗</a>

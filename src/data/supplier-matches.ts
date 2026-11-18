@@ -270,6 +270,50 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'Original maker supplier (Taobao)',label:'Heat shrink assortment source',url:'https://item.taobao.com/item.htm?id=945215173380',match:'SELECT_VARIANT',note:'Only heat shrink. Also order both silicone wire types via maker BOM links.'}
   ]
  },
+ 'm5stack-atom-lite':{
+  required:'M5Stack ATOM Lite ESP32, manufacturer SKU C008, ESP32-PICO-D4; no ATOMS3 substitute.',
+  notes:'Verify C008 rather than generic ATOM clones; confirm stocked unit, matching ATOMIC connector, USB-C flashing and US shipping.',
+  offers:[
+   {seller:'M5Stack',label:'ATOM Lite ESP32 official C008',url:'https://shop.m5stack.com/products/atom-lite-esp32-development-kit',match:'EXACT_SPEC',note:'Manufacturer hardware listing; not an AliExpress checkout qualification.'},
+   {seller:'M5Stack',label:'ATOM Lite technical specifications',url:'https://docs.m5stack.com/en/core/Atom-Lite',match:'COMPATIBILITY_REVIEW',note:'Official device spec, not a direct supplier order.'}
+  ]
+ },
+ 'm5stack-atomic-motion-v12':{
+  required:'M5Stack ATOMIC Motion Base A090-V12 with four 3-pin servo ports, current monitor, protected 18350 battery; original v1.1 A090-V11 is EOL.',
+  notes:'Source code mentions v1.2 but printed enclosure fit, horn clearance, battery load and revision-specific firmware have not been bench-tested. Do not sell as a proven drop-in replacement.',
+  offers:[
+   {seller:'M5Stack',label:'ATOMIC Motion Base v1.2 A090-V12 official',url:'https://shop.m5stack.com/products/atomic-motion-base-v1-2-with-power-monitor',match:'COMPATIBILITY_REVIEW',note:'Current manufacturer replacement; verify fit and firmware before qualification.'},
+   {seller:'OpenELAB',label:'ATOMIC Motion Base v1.2 M5-A090-V12',url:'https://openelab.com/products/m5stack-atomic-motion-base-v1-2-ina226aidgsr',match:'COMPATIBILITY_REVIEW',note:'Second vendor with live available variant on 2026-11-17. Confirm protected 18350 packaging, delivery and firmware fit.'},
+   {seller:'M5Stack',label:'Original v1.1 EOL listing',url:'https://shop.m5stack.com/products/atomic-motion-base-v1-1',match:'EXACT_SPEC',note:'Historical original-project BOM part, now end-of-life and not a valid live inventory promise.'}
+  ]
+ },
+ 'feetech-fs90mg':{
+  required:'FEETECH FS90MG digital 180-degree metal-gear PWM micro servo, correct 3-wire plug, matching horn/screws, 4 units.',
+  notes:'Not FS90R (continuous rotation), FT90M, MG90S, SG90, FS90 (plastic) or servo cable-only packs. Verify actual servo model, horn spline, peak/stall current and delivered pack quantity.',
+  offers:[
+   {seller:'RobotShop',label:'Feetech FS90MG digital 2.2 kg.cm',url:'https://www.robotshop.com/products/feetech-9g-digital-servo-22kg-cm-fs90mg',match:'SELECT_VARIANT',note:'Independent U.S. retailer reference for genuine FS90MG; current inventory, included horn and U.S. delivery not independently qualified.'},
+   {seller:'RobotDoo',label:'Genuine FS90MG 180-degree digital with horns/screws',url:'https://robotdoo.com/products/feetech-fs90mg-9g-metal-gear-digital-micro-servo',match:'EXACT_SPEC',note:'Shopify product endpoint listed SKU FS90MG available on 2026-11-17; destination shipping and order quantity four still need checkout verification.'},
+   {seller:'FEETECH',label:'FS90MG manufacturer specification PDF',url:'https://www.feetechrc.com/Data/feetechrc/upload/file/20200612/6372758119731571407558713.pdf',match:'COMPATIBILITY_REVIEW',note:'Manufacturer dimensional/model evidence; not a checkout supplier.'}
+  ]
+ }
+,
+ 'usb-a-c-data-cable-1m':{
+  required:'USB-A to USB-C about 1m, data capable and appropriate for ATOM Lite flashing. Not charge-only.',
+  notes:'Adafruit 4474 is a manufacturer-documented programming-data cable. Alternative 4199 is USB-C to USB-C and requires a suitable host.',
+  offers:[
+   {seller:'Adafruit',label:'USB-A to USB-C 1m data cable, product 4474',url:'https://www.adafruit.com/product/4474',match:'EXACT_SPEC',note:'Manufacturer page states data lines and 5V current capability, current stock shown; U.S. delivered price and shipping not confirmed.'},
+   {seller:'Adafruit',label:'USB-C to USB-C 1m data cable, product 4199',url:'https://www.adafruit.com/product/4199',match:'COMPATIBILITY_REVIEW',note:'Alternative for USB-C equipped host computers; not for old USB-A-only ports.'}
+  ]
+ },
+ 'pla-filament-175-1kg':{
+  required:'One retail spool 1.75mm PLA filament / 1kg pack for printing original seven-piece AtomDog shell.',
+  notes:'Actual material consumed is much less than 1kg. Color can vary; check slicer profile and US shipping, do not substitute unsupported 2.85mm PLA.',
+  offers:[
+   {seller:'Polymaker',label:'PolyLite PLA 1.75mm 1kg, select color',url:'https://shop.polymaker.com/products/polylite-pla/',match:'SELECT_VARIANT',note:'Several color/pack options are sold out/backordered; select available 1.75mm 1kg variant and verify destination freight.'},
+   {seller:'Polymaker',label:'Panchroma Matte PLA 1.75mm 1kg alternative',url:'https://eu-wholesale.polymaker.com/products/panchroma-matte',match:'COMPATIBILITY_REVIEW',note:'Former PolyTerra PLA family. EU stock listing does not establish US fulfillment.'}
+  ]
+ }
+
 } as const;
 
 export function supplierFor(slug:string):SupplierMatch|undefined{return supplierMatches[slug]}
