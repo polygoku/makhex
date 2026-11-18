@@ -16,7 +16,9 @@ const generated={schema:'makhex-order-parts-v1',
    sellerCheckoutVerified:false
  }])),
  researchSubcomponents:Object.fromEntries(mosaicoAssemblyParts.map(p=>[p.slug,{title:p.title,shopEligible:false,variants:[],plannedRetailCents:[],sellerCheckoutVerified:false}])),
- projectParts:Object.fromEntries(projects.map(p=>[p.slug,p.materials.map(m=>m.slug)]))
+ projectParts:Object.fromEntries(projects.map(p=>[p.slug,p.slug==='rebot-b601-dev-arm'
+    ?[...new Set([...p.materials.map(m=>m.slug),...products.filter(x=>x.slug.startsWith('rebot-')).map(x=>x.slug)])]
+    :p.materials.map(m=>m.slug)]))
 };
 const text='// Generated from MAKHEX catalog by scripts/build-order-catalog.mjs. DO NOT EDIT.\nexport const checkoutCatalog='+JSON.stringify(generated,null,2)+';\n';
 const dest='worker/checkout-catalog.mjs';

@@ -278,6 +278,153 @@ export const checkoutCatalog={
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-full-kit": {
+      "title": "Seeed reBot B601-DM Full Arm & Gripper Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-full-kit": {
+      "title": "Seeed reBot B601-RS Full Arm & Gripper Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-power-kit": {
+      "title": "reBot B601-DM 24 V Power Adapter Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-power-kit": {
+      "title": "reBot B601-RS 48 V Power Adapter Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-can-usb": {
+      "title": "reBot B601-DM CAN-USB Interface",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-can-usb": {
+      "title": "reBot B601-RS USB-to-CAN Interface",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-mount-clamps": {
+      "title": "reBot Arm Desk Clamp Pair",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-discharge-module": {
+      "title": "B601-DM Circuit Protection / Discharge Module",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-bleeder-module": {
+      "title": "B601-RS Bleeder / Stop Module",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-body-motor-kit": {
+      "title": "B601-DM Body Motor & Harness Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-body-structure-kit": {
+      "title": "B601-DM Body Structural Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-gripper-kit": {
+      "title": "B601-DM Complete Gripper Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-body-motor-kit": {
+      "title": "B601-RS Body Motor & Harness Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-body-structure-kit": {
+      "title": "B601-RS Body Structural Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-gripper-kit": {
+      "title": "B601-RS Complete Gripper Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-dm4310-v4": {
+      "title": "Damiao DM4310(V4) Actuator",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-dm4340p-v4": {
+      "title": "Damiao DM4340P(V4) Actuator",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-robstride-rs00": {
+      "title": "RobStride RS00 Actuator",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-robstride-rs06": {
+      "title": "RobStride RS06 Actuator",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-dm-hardware-pack": {
+      "title": "B601-DM Mechanical Fasteners & Bearings Pack",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "rebot-b601-rs-hardware-pack": {
+      "title": "B601-RS Mechanical Fasteners & Bearings Pack",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
     }
   },
   "researchSubcomponents": {
@@ -387,6 +534,29 @@ export const checkoutCatalog={
       "feetech-fs90mg",
       "usb-a-c-data-cable-1m",
       "pla-filament-175-1kg"
+    ],
+    "rebot-b601-dev-arm": [
+      "rebot-b601-dm-full-kit",
+      "rebot-b601-dm-power-kit",
+      "rebot-b601-dm-can-usb",
+      "rebot-b601-mount-clamps",
+      "rebot-b601-dm-discharge-module",
+      "rebot-b601-rs-full-kit",
+      "rebot-b601-rs-power-kit",
+      "rebot-b601-rs-can-usb",
+      "rebot-b601-rs-bleeder-module",
+      "rebot-b601-dm-body-motor-kit",
+      "rebot-b601-dm-body-structure-kit",
+      "rebot-b601-dm-gripper-kit",
+      "rebot-b601-rs-body-motor-kit",
+      "rebot-b601-rs-body-structure-kit",
+      "rebot-b601-rs-gripper-kit",
+      "rebot-dm4310-v4",
+      "rebot-dm4340p-v4",
+      "rebot-robstride-rs00",
+      "rebot-robstride-rs06",
+      "rebot-b601-dm-hardware-pack",
+      "rebot-b601-rs-hardware-pack"
     ]
   }
 };

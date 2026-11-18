@@ -1,0 +1,75 @@
+---
+import {productBySlug} from '../lib/catalog';
+const rsItems=[
+ {slug:'rebot-b601-rs-full-kit',qty:1,role:'Complete RobStride B601-RS mechanical arm + gripper'},
+ {slug:'rebot-b601-rs-power-kit',qty:1,role:'48V / 12.5A RS supply (if not included in selected factory bundle)'},
+ {slug:'rebot-b601-rs-can-usb',qty:1,role:'RS-compatible USB/CAN interface (deduplicate if supplied)'},
+ {slug:'rebot-b601-mount-clamps',qty:1,role:'Pair of suitable desk clamps'},
+ {slug:'rebot-b601-rs-bleeder-module',qty:1,role:'Optional RS-specific protective bleeder/stop module'}
+];
+const extras=[
+ ['rebot-b601-dm-body-motor-kit','DM motor subkit'],['rebot-b601-dm-body-structure-kit','DM structure subkit'],['rebot-b601-dm-gripper-kit','DM gripper subkit'],
+ ['rebot-b601-rs-body-motor-kit','RS motor subkit'],['rebot-b601-rs-body-structure-kit','RS structure subkit'],['rebot-b601-rs-gripper-kit','RS gripper subkit'],
+ ['rebot-dm4310-v4','DM4310(V4) replacement'],['rebot-dm4340p-v4','DM4340P(V4) replacement'],
+ ['rebot-robstride-rs00','RS00 replacement'],['rebot-robstride-rs06','RS06 replacement'],
+ ['rebot-b601-dm-hardware-pack','DM fastener/bearing pack'],['rebot-b601-rs-hardware-pack','RS fastener/bearing pack']
+];
+const dmSource='https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_DM/readme.md';
+const rsSource='https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_RS/README.md';
+---
+<section class="container rebot-resource-section" id="rebot-models">
+  <span class="eyebrow">BUILD 15 / CHOOSE YOUR ACTUATOR PLATFORM</span>
+  <h2>One open design. Two different arm systems.</h2>
+  <p>The B601-DM and B601-RS look similar but have <strong>different motors, bus integration and DC power requirements</strong>. Do not mix model-specific parts. The standard BOM on this page is the <strong>B601-DM (24V)</strong> configuration. Use the alternative control below for <strong>B601-RS (48V)</strong>.</p>
+  <div class="rebot-compare">
+    <article><h3>B601-DM / Damiao</h3><p>24V / 14.6A &middot; 1.5kg payload &middot; 767mm reach &middot; 4x DM4310(V4) + 3x DM4340P(V4) (source BOM)</p><p>Use the main project parts list below to request the DM configuration with MAKHEX. Confirm the original vendor's complete-kit option and accessory contents before payment.</p><a class="btn btn-outline" href="#bill-of-materials">SEE DM PARTS LIST</a></article>
+    <article><h3>B601-RS / RobStride</h3><p>48V / 12.5A &middot; 2.5kg payload &middot; 754mm reach &middot; 4x RS00 + 3x RS06 (source BOM)</p><p>Five separate request lines below; an RS full-kit bundle may already include power. Owner review will remove any duplicate components.</p><button type="button" class="btn btn-primary" data-cart-add-plan="rebot-b601-rs-kit">ADD RS KIT TO MAKHEX CART +</button></article>
+  </div>
+  <div class="rebot-variant-lines">
+    {rsItems.map(item=><div class="rebot-variant-line">
+      <a href={'/shop/'+item.slug+'/'}>{productBySlug(item.slug)?.title}</a>
+      <span>{item.role}</span>
+      <span>Qty {item.qty} · Quote required</span>
+    </div>)}
+  </div>
+  <p data-cart-flash role="status" aria-live="polite"></p>
+  <h3>Complete maker BOMs — free source documentation</h3>
+  <p>Every source item is inventoried, including individual fasteners, motors, CNC files, printed parts and the optional power-supply enclosure. These detailed CSVs are engineering inventories, not a claim that each bare part is stocked or that the factory's shipped kit exactly matches the open-source BOM.</p>
+  <div class="rebot-links">
+    <a class="btn btn-outline" href="/bom/rebot-b601-dm-detailed.csv">DOWNLOAD DM BOM — 79 ROWS</a>
+    <a class="btn btn-outline" href="/bom/rebot-b601-rs-detailed.csv">DOWNLOAD RS BOM — 75 ROWS</a>
+  </div>
+  <h3>Original CAD, fabrication drawings and setup guides</h3>
+  <div class="rebot-links">
+    <a href="https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_DM/reBot_B601_DM_v1.1_20260625.step" target="_blank" rel="noopener noreferrer">DM full STEP assembly (v1.1, 2026-06-25)</a>
+    <a href="https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_RS/reBot_B601_RS_v1.0_20260625.step" target="_blank" rel="noopener noreferrer">RS full STEP assembly (v1.0, 2026-06-25)</a>
+    <a href={dmSource} target="_blank" rel="noopener noreferrer">Original DM source BOM and fabrication files</a>
+    <a href={rsSource} target="_blank" rel="noopener noreferrer">Original RS source BOM and fabrication files</a>
+    <a href="https://wiki.seeedstudio.com/rebot_b601_dm_getting_started/" target="_blank" rel="noopener noreferrer">DM safety and assembly guide</a>
+    <a href="https://wiki.seeedstudio.com/rebot_b601_rs_getting_started/" target="_blank" rel="noopener noreferrer">RS safety and assembly guide</a>
+    <a href="https://seeed-projects.github.io/reBot_RS_Sim" target="_blank" rel="noopener noreferrer">Original developer's online robot simulation</a>
+  </div>
+  <p class="rebot-licensing">Original design: Seeed Studio / Seeed-Projects. Hardware CERN-OHL-W-2.0; software Apache-2.0; confirm notices/source obligations when manufacturing. CAD stays freely accessible, not a charged MAKHEX STL or STEP item. Seeed media and trademarks do not imply an authorized MAKHEX reseller arrangement. MAKHEX has not bench-tested or safety-certified these high-power arms.</p>
+  <h3>Order individual source-matched subkits and replacements through MAKHEX</h3>
+  <div class="rebot-replacements">
+    {extras.map(([slug,label])=><a href={'/shop/'+slug+'/'}>{label} · Request quote</a>)}
+  </div>
+</section>
+<style>
+.rebot-resource-section{padding-block:2.6rem}
+.rebot-resource-section h2{max-width:65rem}
+.rebot-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:1.1rem;margin:1.4rem 0}
+.rebot-compare article{border:1px solid #c8d3c8;background:#fafaf3;border-radius:14px;padding:1.4rem;display:flex;flex-direction:column;gap:.7rem}
+.rebot-compare article p{line-height:1.55;margin:0}
+.rebot-compare article a,.rebot-compare article button{align-self:flex-start;margin-top:auto}
+.rebot-variant-lines{border-top:1px solid #c4cbc3;margin:1rem 0}
+.rebot-variant-line{display:grid;grid-template-columns:minmax(160px,1fr) minmax(240px,2fr) 140px;align-items:center;gap:1rem;border-bottom:1px solid #d4dad1;padding:.85rem 0;font-size:.88rem}
+.rebot-variant-line a{font-weight:700}
+.rebot-variant-line span:last-child{color:#676e65}
+.rebot-links{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+.rebot-links a{font-size:.84rem}
+.rebot-replacements{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin:1.2rem 0}
+.rebot-replacements a{padding:1rem;border:1px solid #d3d9cf;border-radius:10px;background:#fffaf2;text-decoration:none;font-size:.88rem}
+.rebot-licensing{font-size:.82rem;color:#6c736d;line-height:1.65}
+@media(max-width:720px){.rebot-variant-line{grid-template-columns:1fr;gap:.3rem}}
+</style>

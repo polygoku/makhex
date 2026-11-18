@@ -35,7 +35,22 @@ export const GET:APIRoute=()=>{
         note:part.includedInVisionCombo?'Select Core/camera/interaction revision. Bundle; not necessarily standalone.':'Select a data-capable cable and check the host connector.'
       }]
     })),
-    projectAlternativePlans:{'mosaico-learning-assistant':mosaicoCommercePlans.separate},
+    projectAlternativePlans:{
+      'mosaico-learning-assistant':mosaicoCommercePlans.separate,
+      'rebot-b601-rs-kit':{
+        title:'B601-RS RobStride 48V arm + gripper configuration',
+        project:'rebot-b601-dev-arm',
+        parts:[
+          {slug:'rebot-b601-rs-full-kit',qty:1,option:'Option pending'},
+          {slug:'rebot-b601-rs-power-kit',qty:1,option:'Option pending'},
+          {slug:'rebot-b601-rs-can-usb',qty:1,option:'Option pending'},
+          {slug:'rebot-b601-mount-clamps',qty:1,option:'Option pending'},
+          {slug:'rebot-b601-rs-bleeder-module',qty:1,option:'Option pending'}
+        ],
+        sourceVerified:false,paymentCaptureEnabled:false,
+        caution:'Different actuator family and 48V DC supply; never mix with Damiao 24V. Verify RS kit bundle already includes optional power before quoting.'
+      }
+    },
     components:products.map(product=>{
       const isAli=isMakhexAliExpress(product.slug);
       const stage=isAli?stageFor(product.slug):undefined;

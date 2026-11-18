@@ -1,0 +1,19 @@
+{
+  "source": "https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/",
+  "model_counts": {
+    "B601-DM": {
+      "3d-printed": 20,
+      "optional-camera-mount": 1,
+      "cnc-metal": 21,
+      "standard-purchased": 27,
+      "power-supply-bom": 10
+    },
+    "B601-RS": {
+      "3d-printed": 13,
+      "cnc-metal": 27,
+      "standard-purchased": 25,
+      "power-supply-bom": 10
+    }
+  },
+  "claim": "Source author BOM, not verified manufacturer shipped-kit packing list; no customer prices shown."
+}

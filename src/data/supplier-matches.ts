@@ -312,8 +312,427 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'Polymaker',label:'PolyLite PLA 1.75mm 1kg, select color',url:'https://shop.polymaker.com/products/polylite-pla/',match:'SELECT_VARIANT',note:'Several color/pack options are sold out/backordered; select available 1.75mm 1kg variant and verify destination freight.'},
    {seller:'Polymaker',label:'Panchroma Matte PLA 1.75mm 1kg alternative',url:'https://eu-wholesale.polymaker.com/products/panchroma-matte',match:'COMPATIBILITY_REVIEW',note:'Former PolyTerra PLA family. EU stock listing does not establish US fulfillment.'}
   ]
- }
-
+ },
+"rebot-b601-dm-full-kit": {
+  "required": "Model-matched b601 dm full kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "Source maker offers five possible variants on a category page; confirm actual Complete Full Kit SKU and gripper, exact revision, accessories, stock, U.S. shipping, warranty and returns before quoting. Page price may show a small accessory instead of full arm.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-DM unassembled bundle; explicitly choose Full Kit",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-DM-Bundle.html",
+      "match": "SELECT_VARIANT",
+      "note": "Source maker offers five possible variants on a category page; confirm actual Complete Full Kit SKU and gripper, exact revision, accessories, stock, U.S. shipping, warranty and returns before quoting. Page price may show a small accessory instead of full arm."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-full-kit": {
+  "required": "Model-matched b601 rs full kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "A source official landing page explicitly says Power Supply Bundle; verify option and included adapter so MAKHEX does not double-charge power. Exact RobStride actuator set and U.S. freight not confirmed.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-RS unassembled/disassembly bundle with power selection",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-RS-Disassembly-Kit-Version-with-Power-Supply-Bundle.html",
+      "match": "SELECT_VARIANT",
+      "note": "A source official landing page explicitly says Power Supply Bundle; verify option and included adapter so MAKHEX does not double-charge power. Exact RobStride actuator set and U.S. freight not confirmed."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-power-kit": {
+  "required": "Model-matched b601 dm power kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "Select original 24 V / 14.6 A supply. Verify UL/ETL U.S. electrical listing, preassembled safe mains wiring, earth and stop/isolation connection. 48 V RS supply is unsafe for this arm.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-DM matched 24V / 14.6A power adapter kit",
+      "url": "https://www.seeedstudio.com/Power-Adapter-Kit-for-reBot-Arm-B601-DM-p-6874.html",
+      "match": "EXACT_SPEC",
+      "note": "Select original 24 V / 14.6 A supply. Verify UL/ETL U.S. electrical listing, preassembled safe mains wiring, earth and stop/isolation connection. 48 V RS supply is unsafe for this arm."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-power-kit": {
+  "required": "Model-matched b601 rs power kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "48 V / 12.5 A source official supply. Avoid unguarded AC power connections and verify NRTL listing and preassembled enclosure, cable/XT polarity and U.S. plug.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-RS matched 48V / 12.5A power adapter kit",
+      "url": "https://www.seeedstudio.com/Power-Adapter-Kit-for-reBot-Arm-B601-RS-p-6873.html",
+      "match": "EXACT_SPEC",
+      "note": "48 V / 12.5 A source official supply. Avoid unguarded AC power connections and verify NRTL listing and preassembled enclosure, cable/XT polarity and U.S. plug."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-can-usb": {
+  "required": "Model-matched b601 dm can usb; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "Source motor board reference only; check if already included in full set; confirm USB host driver, DM firmware, CAN termination and actual cable.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "DM-CAN-USB Driver Board, product 6706",
+      "url": "https://www.seeedstudio.com/DM-CAN-USB-Driver-Borad-p-6706.html",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source motor board reference only; check if already included in full set; confirm USB host driver, DM firmware, CAN termination and actual cable."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-can-usb": {
+  "required": "Model-matched b601 rs can usb; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "Source RS BOM links to a PCAN-compatible example that does not establish tested firmware or shipping. Request manufacturer-confirmed RS USB-to-CAN module and bit rate before supplying.",
+  "offers": [
+    {
+      "seller": "Original source BOM",
+      "label": "PCAN-compatible USB CAN converter from RS BOM (not qualified)",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_RS/README.md",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source RS BOM links to a PCAN-compatible example that does not establish tested firmware or shipping. Request manufacturer-confirmed RS USB-to-CAN module and bit rate before supplying."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-mount-clamps": {
+  "required": "Model-matched b601 mount clamps; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "Source maker cites two 6-in G clamps; confirmed retailer product shape, but customer bench thickness, load path, claw clearance and clamp strength remain to validate.",
+  "offers": [
+    {
+      "seller": "Original maker BOM supplier",
+      "label": "Two 6-inch G clamps; original maker reference option",
+      "url": "https://www.amazon.com/dp/B092J1YW2M",
+      "match": "SELECT_VARIANT",
+      "note": "Source maker cites two 6-in G clamps; confirmed retailer product shape, but customer bench thickness, load path, claw clearance and clamp strength remain to validate."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-discharge-module": {
+  "required": "Model-matched b601 dm discharge module; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-DM energy discharge / emergency-stop module 6988",
+      "url": "https://www.seeedstudio.com/Rebotic-Power-Discharge-Module-for-reBot-Arm-B601-DM-p-6988.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-bleeder-module": {
+  "required": "Model-matched b601 rs bleeder module; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-RS bleeder / emergency-stop module 6987",
+      "url": "https://www.seeedstudio.com/Rebotic-Bleeder-Module-for-reBot-Arm-B601-RS-p-6987.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-body-motor-kit": {
+  "required": "Model-matched b601 dm body motor kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-DM body motor and harness set 6752",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-DM-Body-Motor-Kit-p-6752.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-body-structure-kit": {
+  "required": "Model-matched b601 dm body structure kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-DM structural components set 6753",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-DM-Body-Structure-Kit-p-6753.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-gripper-kit": {
+  "required": "Model-matched b601 dm gripper kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-DM gripper complete kit 6751",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-DM-Gripper-Kit-p-6751.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-body-motor-kit": {
+  "required": "Model-matched b601 rs body motor kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-RS body motor and harness set 6867",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-RS-Body-Motor-Kit-p-6867.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-body-structure-kit": {
+  "required": "Model-matched b601 rs body structure kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-RS structural components set 6866",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-RS-Body-Structure-Kit-p-6866.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-gripper-kit": {
+  "required": "Model-matched b601 rs gripper kit; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "B601-RS gripper complete kit 6868",
+      "url": "https://www.seeedstudio.com/reBot-Arm-B601-RS-Gripper-Kit-p-6868.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-dm4310-v4": {
+  "required": "Model-matched dm4310 v4; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "Damiao DM4310 V4 actuator 6823",
+      "url": "https://www.seeedstudio.com/Damiao-4310-Actuator-Motor-p-6823.html",
+      "match": "SELECT_VARIANT",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-dm4340p-v4": {
+  "required": "Model-matched dm4340p v4; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "Damiao DM4340P V4 actuator 6663",
+      "url": "https://www.seeedstudio.com/DM4340P-Actuator-p-6663.html",
+      "match": "SELECT_VARIANT",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-robstride-rs00": {
+  "required": "Model-matched robstride rs00; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "RobStride RS00 actuator 6664",
+      "url": "https://www.seeedstudio.com/Robostride-00-Actuator-p-6664.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-robstride-rs06": {
+  "required": "Model-matched robstride rs06; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment.",
+  "offers": [
+    {
+      "seller": "Seeed Studio",
+      "label": "RobStride RS06 actuator 6668",
+      "url": "https://www.seeedstudio.com/Robostride-06-Actuator-p-6668.html",
+      "match": "EXACT_SPEC",
+      "note": "This is a concrete manufacturer or original-source reference, not a purchased, stocked or U.S. delivered MAKHEX item. Confirm current selected variant, quantity, completeness, shipping, return terms and exact model before accepting payment."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-dm-hardware-pack": {
+  "required": "Model-matched b601 dm hardware pack; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "The source offers a full per-screw and bearing BOM, but no complete OEM standard-parts-only retail kit. MAKHEX must assemble a custom source-exact pack after reviewing CSV quantities, bearing fits, motor-independent fasteners, U.S. shipping and overlap with full vendor structure.",
+  "offers": [
+    {
+      "seller": "Seeed source BOM",
+      "label": "Exact DM standard-part specifications and per-item source links",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_DM/readme.md",
+      "match": "CUSTOM_ORDER",
+      "note": "The source offers a full per-screw and bearing BOM, but no complete OEM standard-parts-only retail kit. MAKHEX must assemble a custom source-exact pack after reviewing CSV quantities, bearing fits, motor-independent fasteners, U.S. shipping and overlap with full vendor structure."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+},
+"rebot-b601-rs-hardware-pack": {
+  "required": "Model-matched b601 rs hardware pack; exact Seeed B601-DM/B601-RS revision and original BOM quantities must be checked. Do not mix Damiao/RobStride parts.",
+  "notes": "The source offers a full per-screw and bearing BOM, but no complete OEM standard-parts-only retail kit. MAKHEX must assemble a custom source-exact pack after reviewing CSV quantities, bearing fits, motor-independent fasteners, U.S. shipping and overlap with full vendor structure.",
+  "offers": [
+    {
+      "seller": "Seeed source BOM",
+      "label": "Exact RS standard-part specifications and per-item source links",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm/blob/main/hardware/reBot_B601_RS/README.md",
+      "match": "CUSTOM_ORDER",
+      "note": "The source offers a full per-screw and bearing BOM, but no complete OEM standard-parts-only retail kit. MAKHEX must assemble a custom source-exact pack after reviewing CSV quantities, bearing fits, motor-independent fasteners, U.S. shipping and overlap with full vendor structure."
+    },
+    {
+      "seller": "Seeed-Projects engineering source",
+      "label": "Official reBot DevArm design and model-specific BOM",
+      "url": "https://github.com/Seeed-Projects/reBot-DevArm",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Source specifications and mechanical design only; not a retail supplier checkout or proof of MAKHEX distributor authorization."
+    }
+  ]
+}
 } as const;
 
 export function supplierFor(slug:string):SupplierMatch|undefined{return supplierMatches[slug]}
