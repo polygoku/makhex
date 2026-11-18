@@ -58,16 +58,16 @@ const validBody=()=>({
   {slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}
  ]
 });
-test('all 30 catalog products are present and external parts are locked',()=>{
- assert.equal(Object.keys(checkoutCatalog.parts).length,30);
- assert.equal(Object.keys(checkoutCatalog.projectParts).length,12);
+test('all 35 catalog products are present, including unpriced quote-only options, and external parts are locked',()=>{
+ assert.equal(Object.keys(checkoutCatalog.parts).length,35);
+ assert.equal(Object.keys(checkoutCatalog.projectParts).length,13);
  const bundle=checkoutInternals.validateLines([
   {slug:'feetech-hd1910',option:checkoutCatalog.parts['feetech-hd1910'].variants[0],quantity:15,project:'microduck-robot'},
   {slug:'bearing-et2216',option:checkoutCatalog.parts['bearing-et2216'].variants[0],quantity:12,project:'microduck-robot'}
  ]);
  assert.equal(bundle.planningSubtotalCents,58695,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
  assert.equal(bundle.totalParts,27);
- assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,8);
+ assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,13);
  assert.equal(checkoutCatalog.parts['microduck-hat'].shopEligible,false);
  assert.equal(checkoutCatalog.parts['esp32-s3-devkit'].shopEligible,false);
  assert.equal(checkoutCatalog.parts['microduck-printed-parts'],undefined);

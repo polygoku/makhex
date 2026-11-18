@@ -32,5 +32,86 @@ export const products:Product[]=[
 {"slug": "microduck-speaker-3525", "title": "Microduck 3525 4 Ohm 3 W Speaker", "descriptor": "3525 cavity with 2-pin HP1.25 plug for robot HAT", "category": "Audio", "visual": "audio", "chip": "3525 4R 3W", "status": "Research", "description": "Microduck-specific 3525 cavity loudspeaker: 4 ohms, 3 watts, with 1.25 mm 2-pin connector for HAT J1. Separate from the 28 mm voice-node speaker.", "specs": ["3525 cavity / 4 ohm / 3 W", "2-pin 1.25 mm audio connector", "HAT J1 SPK_R_P and SPK_R_N; confirm polarity"], "notes": "Select supplier image YZ3525 4Ω 3 W, 2P 1.25 connector. Do not substitute an 8Ω 2 W option; seller shipping and audio polarity need checkout verification."},
 {"slug": "microduck-fasteners", "title": "Microduck M2/M2.6 Fastener Set", "descriptor": "Assorted mechanical fasteners and mounting screws", "category": "Mechanical", "visual": "sensor", "chip": "M2 / M2.6", "status": "Research", "description": "Assorted mechanical fasteners and mounting screws. Exact-source hardware candidate for the independent Microduck build.", "specs": ["M2x4, M2x5, M2x6, M2x8, M2x12", "M2.6x8", "Verify actual installed quantities"], "notes": "One pack of each length in the author's historical purchase is not the assembly count. Verify thread type against printed material and pilot holes."},
 {"slug": "amp20-servo-cables", "title": "AMP2.0 3-Pin Servo Cable Set", "descriptor": "Matching serial bus servo harnesses", "category": "Controls", "visual": "audio", "chip": "AMP 2.0", "status": "Research", "description": "Matching serial bus servo harnesses. Exact-source hardware candidate for the independent Microduck build.", "specs": ["3-pin AMP2.0", "10 cm and 20 cm variants", "24AWG source specification"], "notes": "Connector pin order, pitch and wire gauge must match the October 15 AMP2.0 HAT/IMU revision; EH2.5 parts are not drop-in."},
-{"slug": "microduck-wiring-kit", "title": "Microduck 22AWG Wiring & Heat Shrink", "descriptor": "Robot harness finishing", "category": "Power", "visual": "power", "chip": "22 AWG", "status": "Research", "description": "Robot harness finishing. Exact-source hardware candidate for the independent Microduck build.", "specs": ["22 AWG silicone wire", "3-core and single-core", "Heat shrink assortment"], "notes": "Check wire cross section and current demand, protected joints, strain relief and fuse location."}
+{"slug": "microduck-wiring-kit", "title": "Microduck 22AWG Wiring & Heat Shrink", "descriptor": "Robot harness finishing", "category": "Power", "visual": "power", "chip": "22 AWG", "status": "Research", "description": "Robot harness finishing. Exact-source hardware candidate for the independent Microduck build.", "specs": ["22 AWG silicone wire", "3-core and single-core", "Heat shrink assortment"], "notes": "Check wire cross section and current demand, protected joints, strain relief and fuse location."},
+{
+  "slug": "benewake-nova20-lidar",
+  "title": "Benewake NOVA20 20-Channel LiDAR",
+  "descriptor": "Short-range 40-degree solid-state distance fan",
+  "category": "Sensors",
+  "visual": "sensor",
+  "chip": "NOVA20",
+  "status": "Research",
+  "description": "Exact Benewake NOVA20 sensor used for multi-channel near-field object ranging in the ESP32 LiDAR experiment. Source availability is still under review.",
+  "specs": [
+    "20 distance channels in up-to-40-degree field of view",
+    "10 Hz nominal output; 921600 baud UART default",
+    "5 V +/-5% supply; less than 850 mA startup peak",
+    "1.25 mm 5-position electrical connector"
+  ],
+  "notes": "Do not substitute TF-NOVA, TFmini or VL53 devices. Verify voltage logic, exact harness mating, manufacturer revision, U.S. delivery, returns and genuine sensor ID before order acceptance."
+},
+{
+  "slug": "esp32-wroom32-devkit",
+  "title": "ESP32-WROOM-32 Development Board",
+  "descriptor": "Wi-Fi microcontroller for high-baud-rate UART",
+  "category": "Boards",
+  "visual": "chip",
+  "chip": "ESP32",
+  "status": "Research",
+  "description": "Classic ESP32 controller candidate for reading LiDAR UART frames, driving an I2C OLED and serving a local Wi-Fi dashboard.",
+  "specs": [
+    "ESP32-WROOM-32 class SoC",
+    "Hardware UART port; GPIO16 RX candidate varies by board",
+    "2.4 GHz Wi-Fi and 3.3 V GPIO"
+  ],
+  "notes": "Dev boards have different USB bridges, power input, PSRAM, pins and mounting holes. Confirm UART wiring and pin allocation against purchased board and test 921600 baud reception."
+},
+{
+  "slug": "ssd1306-oled-096",
+  "title": "0.96-inch SSD1306 OLED Display",
+  "descriptor": "128x64 local LiDAR status screen",
+  "category": "Displays",
+  "visual": "screen",
+  "chip": "SSD1306",
+  "status": "Research",
+  "description": "Monochrome 128x64 OLED display candidate for status, last-seen readings and Wi-Fi address. Maker wiring assumes I2C-capable 0.96-inch variant.",
+  "specs": [
+    "128x64 monochrome pixels",
+    "I2C SSD1306 controller or proven firmware-compatible chip",
+    "Verify 0x3C/0x3D address and voltage"
+  ],
+  "notes": "Adafruit Product 326 is an I2C-capable reference; generic lookalikes can use SH1106 or different I2C wiring. Confirm physical connector/headers and firmware driver."
+},
+{
+  "slug": "nova20-5pin-harness",
+  "title": "NOVA20 5-Pin Sensor Harness",
+  "descriptor": "Mating 1.25 mm 5-position cable for NOVA20",
+  "category": "Controls",
+  "visual": "adapter",
+  "chip": "1.25 / 5P",
+  "status": "Research",
+  "description": "A verified NOVA20-compatible cable assembly for 5 V, common ground and UART breakout. An off-the-shelf JST-style plug is not automatically compatible.",
+  "specs": [
+    "1.25 mm nominal connector pitch",
+    "5 positions; keying/orientation must match NOVA20",
+    "Correct pin-1, contact crimp and strain relief required"
+  ],
+  "notes": "Manufacturer documentation specifies connector pitch only. Pin function and exact mating connector family must be validated before selecting, crimping or charging for a harness."
+},
+{
+  "slug": "regulated-5v-2a-proto-kit",
+  "title": "Regulated 5 V / 2 A LiDAR Bench Supply Kit",
+  "descriptor": "Power adapter and breakout for NOVA20 test bench",
+  "category": "Power",
+  "visual": "power",
+  "chip": "5V / 2A",
+  "status": "Research",
+  "description": "Proposed regulated 5 V power adapter and safe terminal breakout, with low-voltage interconnection for the LiDAR prototype. Contents require supplier qualification.",
+  "specs": [
+    "5 V nominal regulated DC output",
+    "At least 2 A adapter rating; LiDAR startup peak under 850 mA",
+    "Correct DC polarity and mating barrel/terminal connector needed"
+  ],
+  "notes": "Adafruit Product 276 is a UL-listed reference 5 V/2 A adapter with 5.5x2.1 mm positive-tip barrel; the MAKHEX bundle, terminal converter, jumper wiring, cable length and shipping are not validated. Never connect AC wiring directly."
+}
 ];

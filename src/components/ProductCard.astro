@@ -3,12 +3,13 @@ import type {Product} from '../data/products';
 import ProductPhoto from './ProductPhoto.astro';
 import {productUrl} from '../lib/catalog';
 import {stageFor,plannedVariantForProject,formatUsd} from '../data/catalog-staging';
-import {isMakhexAliExpress,preferredExternalOffer} from '../data/sourcing-policy';
+import {isMakhexRequestEligible,isMakhexQuoteOnly,preferredExternalOffer} from '../data/sourcing-policy';
 interface Props{product:Product;projectSlug?:string}
 const {product,projectSlug}=Astro.props;
-const isAli=isMakhexAliExpress(product.slug);
+const isAli=isMakhexRequestEligible(product.slug);
+const quoteOnly=isMakhexQuoteOnly(product.slug);
 const stage=isAli?stageFor(product.slug):undefined;
-const minimum=stage?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
+const minimum=stage&&stage.variants.length?Math.min(...stage.variants.map(v=>v.plannedRetailUsd)):null;
 const intended=isAli?plannedVariantForProject(product.slug,projectSlug):undefined;
 const external=isAli?undefined:preferredExternalOffer(product.slug,projectSlug);
 ---
@@ -19,7 +20,7 @@ const external=isAli?undefined:preferredExternalOffer(product.slug,projectSlug);
   <div class="simple-product-info">
     <a class="product-title-link" href={productUrl(product.slug)}><h3>{stage?.supplierModel??product.title}</h3></a>
     <div class="simple-product-price">
-      <strong>{isAli&&minimum!==null?formatUsd(minimum):'Buy from seller'}</strong>
+      <strong>{quoteOnly?'Final price on approval':isAli&&minimum!==null?formatUsd(minimum):'Buy from seller'}</strong>
       {isAli&&stage&&stage.variants.length>1&&<span>from</span>}
     </div>
     <a href={productUrl(product.slug)} class="text-link">PART DETAILS ↗</a>

@@ -243,6 +243,41 @@ export const checkoutCatalog={
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
+    },
+    "benewake-nova20-lidar": {
+      "title": "Benewake NOVA20 20-Channel LiDAR",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "esp32-wroom32-devkit": {
+      "title": "ESP32-WROOM-32 Development Board",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "ssd1306-oled-096": {
+      "title": "0.96-inch SSD1306 OLED Display",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "nova20-5pin-harness": {
+      "title": "NOVA20 5-Pin Sensor Harness",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "regulated-5v-2a-proto-kit": {
+      "title": "Regulated 5 V / 2 A LiDAR Bench Supply Kit",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
     }
   },
   "researchSubcomponents": {
@@ -345,6 +380,13 @@ export const checkoutCatalog={
       "microduck-fasteners",
       "amp20-servo-cables",
       "microduck-wiring-kit"
+    ],
+    "esp32-nova20-lidar-scanner": [
+      "benewake-nova20-lidar",
+      "esp32-wroom32-devkit",
+      "ssd1306-oled-096",
+      "nova20-5pin-harness",
+      "regulated-5v-2a-proto-kit"
     ]
   }
 };

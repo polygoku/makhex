@@ -270,6 +270,78 @@ export const supplierMatches:Readonly<Record<string,SupplierMatch>>={
    {seller:'Original maker supplier (Taobao)',label:'Heat shrink assortment source',url:'https://item.taobao.com/item.htm?id=945215173380',match:'SELECT_VARIANT',note:'Only heat shrink. Also order both silicone wire types via maker BOM links.'}
   ]
  },
+"benewake-nova20-lidar": {
+  "required": "Genuine Benewake NOVA20 20-channel 40-degree solid-state LiDAR with UART, 5 V supply and 1.25 mm 5-position connector.",
+  "notes": "No exact NOVA20 AliExpress or U.S. retail SKU, delivered quote and shipping verified as of 2026-11-17; TF-NOVA is a different sensor.",
+  "offers": [
+    {
+      "seller": "Benewake",
+      "label": "NOVA20 official manufacturer product and specifications",
+      "url": "https://ai.benewake.com/en/products/nova20/",
+      "match": "EXACT_SPEC",
+      "note": "Manufacturer specification evidence, not a confirmed retail checkout or supplier reservation."
+    },
+    {
+      "seller": "Benewake",
+      "label": "Manufacturer sourcing and distributor inquiry",
+      "url": "https://ai.benewake.com/en/contact/",
+      "match": "CUSTOM_ORDER",
+      "note": "Request exact NOVA20 variant, connector/cable and U.S. delivery terms before offering a paid sale."
+    }
+  ]
+},
+"esp32-wroom32-devkit": {
+  "required": "ESP32-WROOM-32 DevKit classic ESP32 with accessible UART RX GPIO and 3.3 V logic; not ESP32-C3 or an unrelated S3 camera board.",
+  "notes": "A compatible DevKitC-32E candidate can require GPIO changes from a generic ESP32 Dev V1 tutorial. No supplier option or U.S. shipping yet approved.",
+  "offers": [
+    {
+      "seller": "Espressif",
+      "label": "ESP32-DevKitC hardware and pin documentation",
+      "url": "https://docs.espressif.com/projects/esp-idf/en/stable/esp32/hw-reference/esp32/get-started-devkitc.html",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Manufacturer board reference, not a validated MAKHEX supplier; verify GPIO16 and USB/power with chosen revision."
+    }
+  ]
+},
+"ssd1306-oled-096": {
+  "required": "0.96 inch 128x64 SSD1306 monochrome I2C OLED with 3.3 V-safe interface and matching display driver.",
+  "notes": "The Adafruit STEMMA QT variant supports I2C, but wiring/board outline differs from inexpensive 4-pin generic breakouts. No exact supplier option approved.",
+  "offers": [
+    {
+      "seller": "Adafruit",
+      "label": "0.96 inch 128x64 OLED I2C reference (product 326)",
+      "url": "https://www.adafruit.com/product/326",
+      "match": "SELECT_VARIANT",
+      "note": "Known supplier/display reference. Confirm I2C jumpers, chip, pin order, header adapter and U.S. shipping before use."
+    }
+  ]
+},
+"nova20-5pin-harness": {
+  "required": "NOVA20-specific 1.25 mm pitch 5-position mating harness with verified housing, keying, polarity and wire function.",
+  "notes": "Nominal pitch and pin count do not establish JST family or wiring order; manufacturer matching cable evidence required.",
+  "offers": [
+    {
+      "seller": "Benewake",
+      "label": "NOVA20 connector interface and pinout specification",
+      "url": "https://ai.benewake.com/en/resources/technical-documents/nova20-datasheet/",
+      "match": "COMPATIBILITY_REVIEW",
+      "note": "Technical source, not a retail cable. Contact Benewake for mating part number and wiring pin definition."
+    }
+  ]
+},
+"regulated-5v-2a-proto-kit": {
+  "required": "Regulated, verified 5 V 2 A US supply plus matching 5.5x2.1 mm barrel-to-screw-terminal adapter and safe low-voltage wiring.",
+  "notes": "Do not call the kit complete when only the power adapter has a source listing. Electrical connector and jumper subparts still require quotation.",
+  "offers": [
+    {
+      "seller": "Adafruit",
+      "label": "5 V 2 A UL-listed power adapter, product 276",
+      "url": "https://www.adafruit.com/product/276",
+      "match": "SELECT_VARIANT",
+      "note": "US-plug 5 V/2 A center-positive adapter only; additional mating terminal and wiring are needed for a complete bench kit."
+    }
+  ]
+}
 } as const;
 
 export function supplierFor(slug:string):SupplierMatch|undefined{return supplierMatches[slug]}

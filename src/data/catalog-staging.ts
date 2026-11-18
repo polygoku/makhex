@@ -50,5 +50,11 @@ export const projectBomMissingParts:Readonly<Record<string,readonly string[]>>={
  'smart-desk-button':['Input pull-up/pull-down configuration, safe GPIO pin, resistor and enclosure mounting are not yet qualified.'],
  'rgb-matrix-clock':['Confirm UL/ETL-listed U.S.-plug supply, correct 5.5 × 2.1 mm barrel-to-terminal connection, fuse and logic level shifting. The exact adapter remains unqualified.'],
  'microduck-robot':['MAKHEX parts require confirmation of availability and U.S. delivery before payment; exact Radxa 2GB/no-eMMC with soldered GPIO is currently out of stock at checked U.S. vendors.','Original AMP2.0 HAT/IMU are maker-source or build-to-order candidates: verify Oct 15 revision, exact board power and FT6 IMU firmware/ID 200 at 1Mbps.','Authorized print design downloads are FREE for members, and no physical shell is shipped. Optional 623ZZ roller bearings are not included in the standard walking-foot BOM.'],
- 'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.']
+ 'mosaico-learning-assistant':['Commercial rights to the original PolyForm Noncommercial application are not included.','English-localized firmware and U.S.-hosted compatible cloud model are not verified.','Original firmware only supports legacy Recovery ABI 1 / layout 4; it is incompatible with Vibe Mode 0.2 / ABI 2.','Confirm exact U.S.-shippable Vision Combo Kit variant, freight, taxes, source stock and orderability.'],
+"esp32-nova20-lidar-scanner": [
+  "Exact Benewake NOVA20 20-channel hardware has no verified AliExpress match, stock, landed price or U.S. delivery; do not substitute TF-NOVA.",
+  "A 1.25 mm 5-position mating harness with proven pinout/logic-level compatibility must be sourced before powering the sensor.",
+  "The 5 V / 2 A power kit must include compatible connectors, and a safety-rated U.S. adapter must be verified before quoting.",
+  "The original Seeed post contains a video but not a released, licensed end-to-end firmware/BOM package; MAKHEX firmware and physical testing remain pending."
+]
 };

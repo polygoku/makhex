@@ -8,6 +8,7 @@ const SLUGS = new Set([
   "indoor-voc-explorer","rgb-matrix-clock","espnow-remote","smart-desk-button",
   "mosaico-learning-assistant",
   "microduck-robot",
+  "esp32-nova20-lidar-scanner",
 ]);
 const DAY = 86400000;
 const json = (obj, status=200, extra={}) => new Response(JSON.stringify(obj), {
