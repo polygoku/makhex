@@ -1,0 +1,33 @@
+---
+import {productBySlug} from '../lib/catalog';
+const parts=[
+ {slug:'vl53l5cx-tof-8x8',qty:1,role:'64-zone sensor (8x8 I2C); replaces NOVA20'},
+ {slug:'esp32-wroom32-devkit',qty:1,role:'Shared ESP32 Wi-Fi controller'},
+ {slug:'ssd1306-oled-096',qty:1,role:'Shared I2C display, unique address required'},
+ {slug:'dupont-jumper-20cm-kit',qty:1,role:'I2C power and SDA/SCL jumper connections'},
+ {slug:'regulated-5v-2a-proto-kit',qty:1,role:'Sourced 5V bench adapter kit; supply carrier at supported 3.3 V from ESP32'}
+];
+---
+<section class="container nova20-alternative" id="alternative-lidar-kit">
+  <span class="eyebrow">ALTERNATIVE CONFIGURATION / SOURCE-IDENTIFIED</span>
+  <h2>Can't source the NOVA20? Choose an 8x8 ToF version.</h2>
+  <p><strong>Alternative sensor: VL53L5CX 64-zone carrier.</strong> Pololu 3417 is a documented U.S.-retail hardware candidate. It is I2C-based with an 8x8 zone matrix, up to 4 m typical ranging, and different geometry from the NOVA20's 20-channel 40-degree fan. <strong>Not pin-, protocol-, or firmware-compatible.</strong> The original 921600-baud NOVA20 UART sketch cannot operate this sensor. Use the separate I2C build notes and new firmware.</p>
+  <div class="bom-table">
+    <div class="bom-row bom-heading"><span>COMPONENT</span><span>ROLE</span><span>QTY / ADD</span></div>
+    {parts.map(p=><div class="bom-row" data-bom-mode="MAKHEX_CART">
+      <span class="bom-name-with-photo"><img src={'/product-media/'+p.slug+'.jpg'} alt={'MAKHEX technical illustration for '+productBySlug(p.slug)?.title} width="46" height="46" loading="lazy"/>
+      <a href={'/shop/'+p.slug+'/'}>{productBySlug(p.slug)?.title}</a><small><a href={'/shop/'+p.slug+'/'}>PART DETAILS</a></small></span>
+      <span>{p.role}<small class="bom-line-estimate">Final price on sourcing approval</small></span>
+      <div class="bom-line-cart"><strong>{String(p.qty).padStart(2,'0')}</strong>
+        <button type="button" data-cart-add data-cart-project="esp32-nova20-lidar-scanner" data-cart-slug={p.slug} data-cart-option="Option pending" data-cart-quantity={p.qty}>ADD +</button>
+      </div>
+    </div>)}
+  </div>
+  <div class="project-cart-bar">
+    <button type="button" class="btn btn-primary" data-cart-add-plan="esp32-nova20-lidar-scanner-vl53l5cx">ADD 8x8 ALTERNATIVE KIT TO MAKHEX CART +</button>
+    <a class="btn btn-outline" href="/cart/">REVIEW MAKHEX CART</a>
+    <a class="btn btn-primary" href="/checkout/">REQUEST CHECKOUT WITH MAKHEX</a>
+  </div>
+  <p data-cart-flash role="status" aria-live="polite"></p>
+  <p class="project-price-note">This selection replaces the exact NOVA20 kit in your project cart. The original NOVA20 and its proprietary 5-pin cable and supplemental capacitor set are <strong>excluded</strong>. All remaining items are requested from MAKHEX; no payment or stock promise until final sourcing approval.</p>
+</section>

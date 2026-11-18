@@ -103,19 +103,23 @@ export const projectGuides: Record<string, ProjectGuide> = {
   "beforeYouStart": [
     "NOVA20 has a 40-degree fan (20 channels), not mechanical 360-degree rotation or volumetric 3D mapping. Keep that limitation visible in the UI.",
     "Use a 5 V regulated supply with sufficient transient headroom; never assume the connector pinout, UART logic levels or USB input capabilities.",
-    "The original Seeed post only embeds a video; third-party firmware and a fully verified source BOM were not provided as redistributable project assets."
+    "The original Seeed post only embeds a video; third-party firmware and a fully verified source BOM were not provided as redistributable project assets.",
+    "The original practical tutorial explicitly lists 2 x 10uF and 4 x 100nF capacitors plus four jumper wires; all are now separate accounted-for BOM items. Confirm actual placement and ratings from a verified schematic.",
+    "Alternate VL53L5CX 64-zone uses I2C, not NOVA20 UART. Pick an independent firmware path and do not attach a 5 V supply to ESP32 I2C logic."
   ],
   "demoGoals": [
     "All 20 channel IDs can be decoded with checksum validation from genuine sensor serial frames.",
     "A 20-bin dashboard updates without stale data appearing as valid readings; disconnects become visible warnings.",
     "OLED shows sensor state, and tested distances in the specified near-field range are documented.",
-    "Any pseudo-3D visualization is clearly identified as a history view over time, not actual 3D point-cloud geometry."
+    "Any pseudo-3D visualization is clearly identified as a history view over time, not actual 3D point-cloud geometry.",
+    "Substitute build renders 8x8 measured zones with SparkFun VL53L5CX support library, correctly handling invalid and stale zones."
   ],
   "agentTasks": [
     "Verify the official Benewake datasheet V2.1 and shipped serial framing before coding.",
     "Build a minimal independently authored UART parser with a checksum test fixture and a local-only web UI.",
     "Obtain the exact NOVA20 sensor and mating cable, confirm power/pinout and record real readings.",
-    "Keep source/media licensing and third-party author attribution with the build; never imply MAKHEX assembled the demo."
+    "Keep source/media licensing and third-party author attribution with the build; never imply MAKHEX assembled the demo.",
+    "Keep exact-source and alternate kit order lists mutually exclusive, and avoid using the original UART sketch on an I2C ToF breakout."
   ],
   "video": {
     "url": "https://www.youtube.com/watch?v=r8egFYK296M",

@@ -30,7 +30,7 @@ The NOVA20 measures distances across **20 channels over a field up to 40 degrees
 
 ## MAKHEX bill of materials — first-party sourcing review
 
-All five entries are research-stage catalog parts; MAKHEX does **not** yet have a verified sensor supplier, price or shipping quote. They can be added to a single first-party **order request**, but no customer card is charged before sourcing approval.
+All seven exact-NOVA20 entries are research-stage catalog parts; MAKHEX does **not** yet have a verified sensor supplier, price or shipping quote. They can be added to a single first-party **order request**, but no customer card is charged before sourcing approval.
 
 | Qty | MAKHEX component slug | Engineering requirement |
 | ---: | --- | --- |
@@ -39,6 +39,8 @@ All five entries are research-stage catalog parts; MAKHEX does **not** yet have 
 | 1 | `ssd1306-oled-096` | Optional local 128×64 I2C OLED display |
 | 1 | `nova20-5pin-harness` | Correctly keyed mating 1.25 mm 5-position cable assembly |
 | 1 | `regulated-5v-2a-proto-kit` | Regulated 5 V 2 A adapter, safe breakout/terminal wiring |
+| 1 | `nova20-capacitor-kit` | Two 10uF electrolytics and four 100nF ceramic bypass capacitors from the source how-to; verify exact placement |
+| 1 | `dupont-jumper-20cm-kit` | Four or more 2.54mm insulated header jumper wires; distinct from the NOVA20 1.25mm mating cable |
 
 No exact NOVA20 AliExpress listing, live inventory, complete harness, landed U.S. cost, return terms or controlled purchase was qualified as of **November 17, 2026**. Do not invent price; do not replace NOVA20 with TF-NOVA or a different ToF sensor.
 
@@ -67,3 +69,7 @@ No exact NOVA20 AliExpress listing, live inventory, complete harness, landed U.S
 - [ ] Only after these checks, authorize a customer-visible price, Squarespace checkout and fulfillment.
 
 Neither the original video nor Adafruit's editorial page grants blanket redistribution rights. Use source links and attribution, not downloaded copies.
+
+## Fully sourced component shortlist and replacement option
+
+See [SOURCING.md](SOURCING.md) for the seven-line original BOM, five-line VL53L5CX alternative kit, precise supplier model numbers, URLs, pack-quantity breakdown, known restocks, connector compatibility and the remaining supplier purchase checks. The 8x8 replacement uses [vl53l5cx_i2c_dashboard.ino](firmware/vl53l5cx_i2c_dashboard.ino) and the SparkFun VL53L5CX Arduino library, **not** the 20-channel NOVA20 UART sketch. Both are experimental and await hardware testing.

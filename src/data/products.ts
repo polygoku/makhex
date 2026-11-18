@@ -113,5 +113,54 @@ export const products:Product[]=[
     "Correct DC polarity and mating barrel/terminal connector needed"
   ],
   "notes": "Adafruit Product 276 is a UL-listed reference 5 V/2 A adapter with 5.5x2.1 mm positive-tip barrel; the MAKHEX bundle, terminal converter, jumper wiring, cable length and shipping are not validated. Never connect AC wiring directly."
+},
+{
+  "slug": "vl53l5cx-tof-8x8",
+  "title": "VL53L5CX Multi-Zone ToF Sensor 8x8",
+  "descriptor": "64-zone I2C substitute for NOVA20 range visualization",
+  "category": "Sensors",
+  "visual": "sensor",
+  "chip": "VL53L5CX",
+  "status": "Research",
+  "description": "Alternative to the scarce NOVA20: a VL53L5CX 64-zone I2C ranging breakout. Preferred manufacturer carrier Pololu 3417 integrates a 3.3 V regulator and I2C level translation; purchase exact carrier variant, not bare BGA chip.",
+  "specs": [
+    "8 x 8 zones (64); 65 degree diagonal field, up to 4 m typical max",
+    "I2C interface, different from NOVA20 921600-baud UART",
+    "Pololu 3417 uses VIN 2.5-5.5 V, 3.3 V logic when driven at 3.3 V VIN",
+    "Requires separate VL53L5CX driver/library and firmware"
+  ],
+  "notes": "Not a drop-in NOVA20 substitute. Match actual carrier revision and package, VIN, SDA/SCL pullups, header soldering, I2C load and supply. ESP32 should use 3.3 V logic: power Pololu 3417 VIN at 3.3 V for correct I2C level. Do not present 64-zone grid as a rotating 360-degree scan."
+},
+{
+  "slug": "nova20-capacitor-kit",
+  "title": "NOVA20 Prototype Capacitor Set (2+4)",
+  "descriptor": "10uF 25-50 V electrolytics and 100nF ceramic bypass parts",
+  "category": "Controls",
+  "visual": "adapter",
+  "chip": "2+4 CAPS",
+  "status": "Research",
+  "description": "A procurement bundle for all the passives explicitly specified by the independent ESP32/NOVA20 tutorial: two polarized 10uF electrolytic capacitors and four 0.1uF ceramic capacitors.",
+  "specs": [
+    "2 x 10uF radial electrolytic 25 V or higher, polarity marked",
+    "4 x 0.1uF (100nF), 50 V ceramic capacitors, breadboard lead pitch",
+    "Original tutorial quantities included; full schematic placement still to verify"
+  ],
+  "notes": "Bundle contents require separate seller items; do not select only one value. Never reverse electrolytic polarity. 100nF Adafruit 753 currently out of stock; source from another in-stock seller before confirming the kit. These passives are required in the source BOM, though a validated integrated breakout may already include local decoupling."
+},
+{
+  "slug": "dupont-jumper-20cm-kit",
+  "title": "Dupont 0.1-inch Jumper Lead Set",
+  "descriptor": "At least 4 test leads; includes male/female compatibility",
+  "category": "Controls",
+  "visual": "adapter",
+  "chip": "JUMPERS",
+  "status": "Research",
+  "description": "A maker hookup wire kit with at least four usable Dupont 2.54 mm jumper leads for connecting the ESP32, display and breakout terminals.",
+  "specs": [
+    "At least 4 individual insulated low-voltage leads",
+    "Male-to-female leads for 0.1-inch headers; additional types may be needed",
+    "15-20 cm typical cable length (SparkFun PRT-12794: 6 inches, 20-pack)"
+  ],
+  "notes": "The source tutorial specifies four jumper wires. This kit is distinct from the LiDAR's 1.25 mm 5-pin mated harness. Verify physical header type, wire gauge, breadboard needs, strain relief and polarity before shipping."
 }
 ];

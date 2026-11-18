@@ -278,6 +278,27 @@ export const checkoutCatalog={
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
+    },
+    "vl53l5cx-tof-8x8": {
+      "title": "VL53L5CX Multi-Zone ToF Sensor 8x8",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "nova20-capacitor-kit": {
+      "title": "NOVA20 Prototype Capacitor Set (2+4)",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
+    },
+    "dupont-jumper-20cm-kit": {
+      "title": "Dupont 0.1-inch Jumper Lead Set",
+      "shopEligible": true,
+      "variants": [],
+      "plannedRetailCents": [],
+      "sellerCheckoutVerified": false
     }
   },
   "researchSubcomponents": {
@@ -386,7 +407,10 @@ export const checkoutCatalog={
       "esp32-wroom32-devkit",
       "ssd1306-oled-096",
       "nova20-5pin-harness",
-      "regulated-5v-2a-proto-kit"
+      "regulated-5v-2a-proto-kit",
+      "nova20-capacitor-kit",
+      "dupont-jumper-20cm-kit",
+      "vl53l5cx-tof-8x8"
     ]
   }
 };

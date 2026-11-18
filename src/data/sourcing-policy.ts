@@ -6,7 +6,8 @@ export const MAKHEX_ALIEXPRESS_MARKUP=1.20 as const;
  // No supplier is treated as verified and no card is charged. This is not an AliExpress match.
 export const makhexQuoteOnlySlugs:ReadonlySet<string>=new Set([
  'benewake-nova20-lidar','esp32-wroom32-devkit','ssd1306-oled-096',
- 'nova20-5pin-harness','regulated-5v-2a-proto-kit'
+ 'nova20-5pin-harness','regulated-5v-2a-proto-kit',
+ 'vl53l5cx-tof-8x8','nova20-capacitor-kit','dupont-jumper-20cm-kit'
 ]);
 export const isMakhexQuoteOnly=(slug:string)=>makhexQuoteOnlySlugs.has(slug);
 // Legacy helper name retained for checkout compatibility; also accepts quote-only parts.

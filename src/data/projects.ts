@@ -21,7 +21,7 @@ export const projects:Project[]=[
   "number": "13",
   "title": "ESP32 NOVA20 Multi-Point LiDAR Scanner",
   "eyebrow": "LIDAR / ROBOTIC SENSING",
-  "summary": "Visualize the NOVA20 solid-state LiDAR 20-channel distance fan on a local ESP32 dashboard. A source-inspired research build; no rotating 360-degree scan or genuine 3D reconstruction.",
+  "summary": "Build a local ESP32 LiDAR ranging dashboard. Exact 20-channel Benewake NOVA20 UART design and separately sourced VL53L5CX 8x8 I2C substitute kit; these require different firmware.",
   "level": "Intermediate",
   "time": "Weekend prototype",
   "category": "Sensors",
@@ -53,11 +53,23 @@ export const projects:Project[]=[
       "slug": "regulated-5v-2a-proto-kit",
       "qty": 1,
       "why": "Regulated 5 V, 2 A bench supply and connector/breadboard adaptation"
+    },
+    {
+      "slug": "nova20-capacitor-kit",
+      "qty": 1,
+      "why": "Complete source tutorial passives: 2 x 10uF electrolytic and 4 x 0.1uF/100nF ceramic capacitors"
+    },
+    {
+      "slug": "dupont-jumper-20cm-kit",
+      "qty": 1,
+      "why": "Source tutorial's four 0.1-inch jumper leads; kit includes at least four compatible connections"
     }
   ],
   "steps": [
     "Read the current NOVA20 datasheet and confirm the exact 1.25 mm 5-pin connector, wire polarity, output logic levels and physical orientation.",
     "Qualify a regulated 5 V source with a startup-current allowance of at least 850 mA for the LiDAR; supply the ESP32 through its supported input and connect common ground.",
+    "Install two 10uF electrolytic and four 100nF ceramic bypass capacitors only per a validated source-derived 5 V/3.3 V power schematic; check polarity, ratings and positioning.",
+    "Use verified 0.1-inch jumper leads for the four required connections and bench wiring; the 1.25 mm five-pin sensor cable is a distinct mating assembly.",
     "Connect NOVA20 UART TX to a verified ESP32 hardware UART RX using suitable logic-level protection if the sensor signal voltage requires it. Start at 921600 bps.",
     "Parse channel-tagged serial frames (0x59 0x59 header) with checksum validation; reject malformed, missing and stale frames before drawing a dashboard.",
     "Connect and test the 128x64 I2C OLED separately; confirm its driver, voltage and SDA/SCL pins against the actual board.",
@@ -65,7 +77,7 @@ export const projects:Project[]=[
     "Measure response to known distances within the specified field of view, then test loss of signal, power restart and a blocked channel.",
     "Document real sensor data, firmware version, actual wiring and measured voltage before calling this a MAKHEX-verified kit."
   ],
-  "caution": "Prototype only. NOVA20 is a 20-channel 40-degree fan sensor, NOT a 360-degree rotating scanner or true 3D LiDAR. Use 5 V +/-5% at the sensor; peak startup current is specified below 850 mA. Confirm UART logic levels and 5-pin connector from the shipped revision. Original demo and third-party tutorial do not license their code/media for reuse automatically. No MAKHEX bench or fulfillment verification yet.",
+  "caution": "Prototype only. NOVA20 is a 20-channel 40-degree fan sensor, NOT a 360-degree rotating scanner or true 3D LiDAR. Use 5 V +/-5% at the sensor; peak startup current is specified below 850 mA. Confirm UART logic levels and 5-pin connector from the shipped revision. Original demo and third-party tutorial do not license their code/media for reuse automatically. No MAKHEX bench or fulfillment verification yet. A stocked VL53L5CX 8x8 breakout is an independently documented functional alternative but NOT connector, protocol, angle, power or firmware compatible with the NOVA20. Choose only one kit path.",
   "tech": [
     "ESP32",
     "Benewake NOVA20",

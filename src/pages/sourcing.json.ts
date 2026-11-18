@@ -35,7 +35,22 @@ export const GET:APIRoute=()=>{
         note:part.includedInVisionCombo?'Select Core/camera/interaction revision. Bundle; not necessarily standalone.':'Select a data-capable cable and check the host connector.'
       }]
     })),
-    projectAlternativePlans:{'mosaico-learning-assistant':mosaicoCommercePlans.separate},
+    projectAlternativePlans:{
+      'mosaico-learning-assistant':mosaicoCommercePlans.separate,
+      'esp32-nova20-lidar-scanner-vl53l5cx':{
+        title:'ESP32 + VL53L5CX 8x8 alternative',
+        project:'esp32-nova20-lidar-scanner',
+        parts:[
+          {slug:'vl53l5cx-tof-8x8',qty:1,option:'Option pending'},
+          {slug:'esp32-wroom32-devkit',qty:1,option:'Option pending'},
+          {slug:'ssd1306-oled-096',qty:1,option:'Option pending'},
+          {slug:'dupont-jumper-20cm-kit',qty:1,option:'Option pending'},
+          {slug:'regulated-5v-2a-proto-kit',qty:1,option:'Option pending'}
+        ],
+        protocol:'I2C',firmware:'Independent VL53L5CX driver; NOVA20 UART firmware is incompatible',
+        benchVerified:false
+      }
+    },
     components:products.map(product=>{
       const isAli=isMakhexRequestEligible(product.slug);
       const stage=isAli?stageFor(product.slug):undefined;

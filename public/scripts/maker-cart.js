@@ -8,9 +8,17 @@ const key=item=>item.slug+'\u001f'+item.option+'\u001f'+(item.project??'');
 let catalogPromise,volatile=[];
 const findPart=(catalog,slug)=>catalog.components.find(p=>p.slug===slug)||(catalog.researchSubcomponents??[]).find(p=>p.slug===slug);
 const separateMosaico=new Set(['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module']);
+const novaAlternate='vl53l5cx-tof-8x8';
 function excludeAlternative(items,added){
  const newParts=new Set(added.map(x=>x.slug));
  const replacingPlanCable=newParts.has('usb-c-data-cable');
+ // A sensor change changes the *entire* Build 13 kit, not just the sensor.
+ if(newParts.has(novaAlternate)){
+   return items.filter(p=>p.project!=='esp32-nova20-lidar-scanner');
+ }
+ if(newParts.has('benewake-nova20-lidar')){
+   return items.filter(p=>p.project!=='esp32-nova20-lidar-scanner');
+ }
  if(newParts.has('esp-mosaico-vision-combo-kit'))return items.filter(x=>!separateMosaico.has(x.slug)&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
  if([...newParts].some(slug=>separateMosaico.has(slug)))return items.filter(x=>x.slug!=='esp-mosaico-vision-combo-kit'&&!(replacingPlanCable&&x.slug==='usb-c-data-cable'));
  return items;
@@ -106,7 +114,8 @@ document.addEventListener('click',async event=>{
    const c=await catalog(),name=b.getAttribute('data-cart-add-plan');
    const plan=c.projectAlternativePlans?.[name];
    if(!plan)throw Error('Unrecognized component plan');
-   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty,project:name}));
+   const projectSlug=plan.project??name;
+   const items=plan.parts.map(p=>({slug:p.slug,option:p.option??'Option pending',quantity:p.qty,project:projectSlug}));
    save(insert(migrateLegacyOptions(c),items,c));
    flash('Added '+items.length+' separate research components. Bundle duplicates removed.');
   }catch(e){flash(e.message||'Could not add individual research components')}
