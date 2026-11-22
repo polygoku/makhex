@@ -4,112 +4,112 @@ export const checkoutCatalog={
   "parts": {
     "esp32-s3-devkit": {
       "title": "ESP32-S3 Dev Board",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp32-c3-supermini": {
       "title": "ESP32-C3 SuperMini",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp32-c6-devkit": {
       "title": "ESP32-C6 Dev Board",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp32-s3-touch-35": {
       "title": "ESP32-S3 3.5″ Touch Display",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp32-s3-camera": {
       "title": "ESP32-S3 Camera Board",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "i2s-mems-mic": {
       "title": "I²S MEMS Microphone",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "i2s-amplifier": {
       "title": "I²S Speaker Amplifier",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "bme280-sensor": {
       "title": "BME280 Environment Sensor",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "sgp40-voc": {
       "title": "SGP40 VOC Sensor",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "epaper-29": {
       "title": "2.9″ E-Paper Display",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "ws2812-leds": {
       "title": "Addressable RGB LEDs",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "usb-c-power-kit": {
       "title": "USB-C Prototyping Kit",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp-mosaico-vision-combo-kit": {
       "title": "ESP-Mosaico Vision Combo Kit",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "speaker-4ohm-3w": {
       "title": "Mini 4 Ω / 3 W Speaker",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "momentary-tactile-switch": {
       "title": "6 mm Momentary Pushbutton",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "5v-5a-led-power": {
       "title": "5 V / 5 A LED Power Adapter (U.S. Plug)",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
@@ -127,21 +127,21 @@ export const checkoutCatalog={
     },
     "radxa-zero-3w": {
       "title": "Radxa ZERO 3W, 2GB (no eMMC)",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "microduck-hat": {
       "title": "Microduck HAT Custom Controller PCB",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "microduck-imu": {
       "title": "Microduck STM32 IMU Controller PCB",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
@@ -225,21 +225,21 @@ export const checkoutCatalog={
     },
     "microduck-fasteners": {
       "title": "Microduck M2/M2.6 Fastener Set",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "amp20-servo-cables": {
       "title": "AMP2.0 3-Pin Servo Cable Set",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "microduck-wiring-kit": {
       "title": "Microduck 22AWG Wiring & Heat Shrink",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
@@ -283,28 +283,28 @@ export const checkoutCatalog={
   "researchSubcomponents": {
     "esp-mosaico-core-unit": {
       "title": "ESP-Mosaico ESP32-S31 Core Unit V1.2",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp-mosaico-camera-module": {
       "title": "ESP-Mosaico H2 Camera Module",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "esp-mosaico-interaction-module": {
       "title": "ESP-Mosaico Interaction Module",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false
     },
     "usb-c-data-cable": {
       "title": "USB-C Data Cable (1 m)",
-      "shopEligible": false,
+      "shopEligible": true,
       "variants": [],
       "plannedRetailCents": [],
       "sellerCheckoutVerified": false

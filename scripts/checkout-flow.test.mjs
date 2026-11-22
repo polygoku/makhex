@@ -5,7 +5,7 @@ import {checkoutCatalog} from '../worker/checkout-catalog.mjs';
 const origin='https://makhex.com';
 
 function setup(){
- const requests=new Map(), events=[];
+ const requests=new Map(), events=[], metrics=[];
  const db={
   prepare(sql){
    let args=[];
@@ -16,6 +16,7 @@ function setup(){
       const [id,hash,email,zip,state,lines,sub,created,updated,expires]=args;
       requests.set(id,{id,access_hash:hash,email,shipping_zip:zip,shipping_state:state,status:'PENDING_REVIEW',lines_json:lines,planning_subtotal_cents:sub,approved_total_cents:null,payment_url:null,merchant_order_id:null,tracking_reference:null,owner_note:null,created_at:created,updated_at:updated,expires_at:expires});
      }else if(sql.startsWith('INSERT INTO makhex_checkout_events'))events.push(args);
+     else if(sql.startsWith('INSERT INTO makhex_project_funnel_daily'))metrics.push(args);
      else throw Error('unexpected run '+sql);
      return {success:true};
     },
@@ -49,7 +50,7 @@ function setup(){
    ...(admin?{authorization:'Bearer test-owner-token'}:{})};
   return checkoutApi(new Request(origin+'/api/v1/checkout/'+path,{method,headers,body:body?JSON.stringify(body):undefined}),env,helpers);
  };
- return {requests,events,call,env,h};
+ return {requests,events,metrics,call,env,h};
 }
 const validBody=()=>({
  email:'buyer@example.com',shippingZip:'11021',shippingState:'NY',acceptTerms:true,turnstileToken:'verified',
@@ -58,7 +59,7 @@ const validBody=()=>({
   {slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}
  ]
 });
-test('all 35 catalog products are present and external parts are locked',()=>{
+test('all 35 catalog products are requestable without implying supplier qualification or payment',()=>{
  assert.equal(Object.keys(checkoutCatalog.parts).length,35);
  assert.equal(Object.keys(checkoutCatalog.projectParts).length,13);
  const bundle=checkoutInternals.validateLines([
@@ -67,17 +68,18 @@ test('all 35 catalog products are present and external parts are locked',()=>{
  ]);
  assert.equal(bundle.planningSubtotalCents,58695,'15 servos and 12 ET bearings must normalize supplier multi-packs once, not multiply pack prices per item');
  assert.equal(bundle.totalParts,27);
- assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,13);
+ assert.equal(Object.values(checkoutCatalog.parts).filter(x=>x.shopEligible).length,35);
  for(const slug of ['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg','usb-a-c-data-cable-1m','pla-filament-175-1kg']){
    const part=checkoutCatalog.parts[slug];
    assert.equal(part.shopEligible,true,'AtomDog parts can only enter an owner-reviewed order request');
    assert.deepEqual(part.variants,[],'No invented variant');
    assert.deepEqual(part.plannedRetailCents,[],'No invented price');
  }
- assert.equal(checkoutCatalog.parts['microduck-hat'].shopEligible,false);
- assert.equal(checkoutCatalog.parts['esp32-s3-devkit'].shopEligible,false);
+ assert.equal(checkoutCatalog.parts['microduck-hat'].shopEligible,true);
+ assert.equal(checkoutCatalog.parts['esp32-s3-devkit'].shopEligible,true);
  assert.equal(checkoutCatalog.parts['microduck-printed-parts'],undefined);
  assert.equal(Object.keys(checkoutCatalog.researchSubcomponents).length,4);
+ assert(Object.values(checkoutCatalog.researchSubcomponents).every(x=>x.shopEligible===true));
  assert(Object.values(checkoutCatalog.parts).every(p=>p.sellerCheckoutVerified===false));
 });
 test('AtomDog request contains all three unpriced hardware component types and never invents a charge',()=>{
@@ -103,11 +105,11 @@ test('cart whitelist protects source options and project BOM',()=>{
  assert.equal(checkoutInternals.validateLines([{slug:'nonexistent',option:'Option pending',quantity:1}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'feetech-hd1910',option:'Option pending',quantity:99,project:'smart-desk-button'}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N4',quantity:1}]),null);
- assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'N8 · 8 MB flash',quantity:1}]),null,'External-only former merchant SKU is not checkout eligible');
+ assert.equal(checkoutInternals.validateLines([{slug:'esp32-c6-devkit',option:'Option pending',quantity:1}])?.planningSubtotalCents,null,'Former external SKU must now be requestable only without a price');
  assert.equal(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'28 mm / 4 ohm / 3 W',quantity:1,project:'microduck-robot'}]),null);
  assert.equal(checkoutInternals.validateLines([{slug:'speaker-4ohm-3w',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Never let the voice-node speaker into Microduck cart');
  assert.equal(checkoutInternals.validateLines([{slug:'microduck-speaker-3525',option:checkoutCatalog.parts['microduck-speaker-3525'].variants[0],quantity:1,project:'microduck-robot'}])?.planningSubtotalCents,670);
- assert.equal(checkoutInternals.validateLines([{slug:'microduck-hat',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Non-AliExpress HAT must not be sold through MAKHEX');
+ assert.equal(checkoutInternals.validateLines([{slug:'microduck-hat',option:'Option pending',quantity:1,project:'microduck-robot'}])?.planningSubtotalCents,null,'Unqualified HAT may be requested but cannot be sold at an invented price');
  assert.equal(checkoutInternals.validateLines([{slug:'microduck-printed-parts',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Removed STL cannot be billed');
 });
 test('intake requires same origin, consent, Turnstile and US ZIP',async()=>{
@@ -142,6 +144,8 @@ test('one MAKHEX order requires owner price exception approval then secure provi
  assert.equal((await f.call('admin/requests/'+receipt.orderId,'POST',{action:'fulfill',tracking:'USPS 9400 1022 1234 5678 90',note:'Carrier handoff recorded'},true)).status,200);
  assert.equal((await (await f.call('status','POST',{accessToken:receipt.accessToken})).json()).status,'FULFILLED');
  assert.equal(f.events.length,5);
+ assert.equal(f.metrics.filter(x=>x[2]==='order_request_created').length,1,'Only a successful server submission counts as an order request');
+ assert.equal(f.metrics.filter(x=>x[2]==='paid_checkout_verified').length,1,'Only a matching owner-verified merchant receipt counts as a paid checkout');
 });
 test('existing community moderator credential can review exceptions until dedicated owner key exists',async()=>{
  const f=setup();
@@ -158,4 +162,29 @@ test('buyer cannot forge internal prices or attach arbitrary redirect',()=>{
  assert.equal(checkoutInternals.safePayLink('http://shop.makhex.com/pay/abc'),false);
  assert.equal(checkoutInternals.safePayLink('https://evil.com/pay/abc'),false);
  assert.equal(checkoutInternals.safePayLink('https://checkout.squarespace.com/s/123'),true);
+});
+
+test('complete Microduck physical BOM and Mosaico bundle/alternative remain unpaid MAKHEX requests',()=>{
+ const microSlugs=checkoutCatalog.projectParts['microduck-robot'];
+ assert.equal(microSlugs.length,13,'Microduck has 13 physical component types');
+ const microLines=microSlugs.map(slug=>({slug,option:checkoutCatalog.parts[slug]?.variants?.[0]??'Option pending',quantity:1,project:'microduck-robot'}));
+ const micro=checkoutInternals.validateLines(microLines);
+ assert(micro&&micro.lines.length===13,'All 13 Microduck types including HAT and IMU must survive the cart validator');
+ assert.equal(micro.planningSubtotalCents,null,'No invented total when custom PCB/IMU require a quote');
+ assert(micro.lines.every(x=>x.requiresExceptionReview),'Full kit is still subject to owner sourcing review');
+ for(const name of ['microduck-hat','microduck-imu'])assert(micro.lines.some(p=>p.slug===name));
+ assert(!micro.lines.some(p=>p.slug.includes('printed')),'Printable files are not sold as physical items');
+
+ const combo=checkoutInternals.validateLines([
+  {slug:'esp-mosaico-vision-combo-kit',option:'Option pending',quantity:1,project:'mosaico-learning-assistant'},
+  {slug:'usb-c-data-cable',option:'Option pending',quantity:1,project:'mosaico-learning-assistant'}
+ ]);
+ assert(combo&&combo.lines.length===2&&combo.totalParts===2,'Mosaico kit and data cable are one request');
+ assert.equal(combo.planningSubtotalCents,null,'Neither kit nor cable is payment-qualified');
+ assert(combo.lines.every(x=>x.requiresExceptionReview));
+
+ const modules=['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module','usb-c-data-cable'];
+ const separate=checkoutInternals.validateLines(modules.map(slug=>({slug,option:'Option pending',quantity:1,project:'mosaico-learning-assistant'})));
+ assert(separate&&separate.lines.length===4&&separate.planningSubtotalCents===null,'Four separate research components require owner review');
+ assert.equal(checkoutInternals.validateLines([{slug:'esp-mosaico-camera-module',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Mosaico research parts cannot be added to another project');
 });

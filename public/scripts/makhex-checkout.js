@@ -18,14 +18,14 @@ async function loadLines(){
  try{
   cart=getCart();
   if(!cart.length){list.textContent='Your MAKHEX cart is empty.';summary.textContent='Add a project kit or component to start checkout.';return;}
-  const resp=await fetch('/sourcing.json?v=retail-display-20261028',{cache:'no-store'});
+  const resp=await fetch('/sourcing.json?v=maker-request-20261122',{cache:'no-store'});
   if(!resp.ok)throw Error('MAKHEX catalog is temporarily unavailable');
   const catalog=await resp.json();
   list.replaceChildren();
   let total=0,missing=0,count=0;
   for(const item of cart){
    const product=[...catalog.components,...catalog.researchSubcomponents].find(p=>p.slug===item.slug);
-   if(!product)throw Error('An old cart item needs review before checkout: '+item.slug);
+   if(!product||!['MAKHEX_PRICE_REVIEW','MAKHEX_QUOTE_REQUIRED'].includes(product.priceStatus))throw Error('An old cart item needs review before checkout: '+item.slug);
    const row=document.createElement('div');row.className='checkout-item';
    const left=document.createElement('div'),title=document.createElement('strong'),variant=document.createElement('div'),price=document.createElement('span');
    title.textContent=product.title+' × '+item.quantity;
@@ -36,7 +36,7 @@ async function loadLines(){
    else{missing++;price.textContent='Final price on approval'}
    row.append(left,price);list.append(row);count+=item.quantity;
   }
-  summary.textContent=count+' parts in one order · '+(total>0?'subtotal $'+total.toFixed(2)+' · ':'')+(missing?missing+' lines need owner sourcing approval before payment':'final amount verified before payment');
+  summary.textContent=count+' parts in one sourcing request · '+(total>0?'planning subtotal $'+total.toFixed(2)+' · ':'')+(missing?missing+' lines need owner quotations before payment':'all amounts require final supplier approval before payment');
  }catch(e){list.textContent=e.message||'Cart could not be loaded';cart=[]}
 }
 async function loadTurnstile(){
@@ -73,6 +73,7 @@ form.addEventListener('submit',async e=>{
   const body=await result.json();
   if(!result.ok)throw Error(body.error||'MAKHEX could not record the order');
   statusLink=new URL(body.statusUrl,location.origin).href;
+  window.dispatchEvent(new CustomEvent('makhex:track',{detail:{event:'order_request_created',project:cart.length===1?cart[0].project||'':''}}));
   document.getElementById('makhex-checkout-id').textContent='Order '+body.orderId;
   document.getElementById('makhex-checkout-status-link').href=statusLink;
   form.hidden=true;document.getElementById('makhex-checkout-success').hidden=false;

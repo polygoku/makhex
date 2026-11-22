@@ -8,14 +8,14 @@ import {isMakhexAliExpress} from '../src/data/sourcing-policy.ts';
 const generated={schema:'makhex-order-parts-v1',
  parts:Object.fromEntries(products.map(p=>[p.slug,{
    title:p.title,
-   shopEligible:isMakhexAliExpress(p.slug),
+   shopEligible:true, // Every real BOM component may enter an unpaid MAKHEX sourcing request.
    variants:(isMakhexAliExpress(p.slug)?stageFor(p.slug)?.variants??[]:[]).map(x=>x.title),
    // Prices are private *draft display only* and never authoritative charges.
    // Approval must still establish a delivered supplier quote and payment link.
    plannedRetailCents:(isMakhexAliExpress(p.slug)?stageFor(p.slug)?.variants??[]:[]).map(x=>Math.round(x.plannedRetailUsd*100)),
    sellerCheckoutVerified:false
  }])),
- researchSubcomponents:Object.fromEntries(mosaicoAssemblyParts.map(p=>[p.slug,{title:p.title,shopEligible:false,variants:[],plannedRetailCents:[],sellerCheckoutVerified:false}])),
+ researchSubcomponents:Object.fromEntries(mosaicoAssemblyParts.map(p=>[p.slug,{title:p.title,shopEligible:true,variants:[],plannedRetailCents:[],sellerCheckoutVerified:false}])),
  projectParts:Object.fromEntries(projects.map(p=>[p.slug,p.materials.map(m=>m.slug)]))
 };
 const text='// Generated from MAKHEX catalog by scripts/build-order-catalog.mjs. DO NOT EDIT.\nexport const checkoutCatalog='+JSON.stringify(generated,null,2)+';\n';

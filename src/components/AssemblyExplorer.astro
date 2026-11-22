@@ -1,0 +1,62 @@
+---
+import type {Project} from '../data/projects';
+import type {Product} from '../data/products';
+import type {Qualification} from '../lib/qualification';
+interface MaterialView{
+ slug:string;qty:number;why:string;
+ product?:Product;
+ planned?:{title:string};
+ qualification:Qualification;
+}
+interface Props{project:Project;materials:MaterialView[]}
+const {project,materials}=Astro.props;
+const parts=materials.map(m=>({
+ slug:m.slug,qty:m.qty,title:m.product?.title??m.slug,why:m.why,
+ qualification:m.qualification.status,
+ label:m.qualification.label
+}));
+---
+<section class="container assembly-section" id="assembly-explorer" aria-labelledby={'assembly-title-'+project.slug} data-assembly-project={project.slug}>
+ <div class="assembly-heading">
+  <div><span class="eyebrow">INTERACTIVE / COMPONENT MAP</span><h2 id={'assembly-title-'+project.slug}>Explore the build in 3D.</h2>
+   <p>Drag to orbit the system diagram. Select a component to locate it in the bill of materials and request it from MAKHEX.</p>
+  </div>
+  <span class="assembly-bom-stamp">{materials.length} TYPES / {project.materials.reduce((n,m)=>n+m.qty,0)} ITEMS</span>
+ </div>
+ <div class="assembly-layout">
+  <div class="assembly-render-column">
+    <div class="assembly-viewer" data-assembly-viewer data-project={project.slug} data-parts={JSON.stringify(parts)} role="group" aria-label={'Illustrative 3D component map for '+project.title}>
+      <div class="assembly-placeholder" data-assembly-fallback>
+        <svg viewBox="0 0 500 300" width="100%" height="100%" aria-hidden="true">
+          <defs><pattern id={'assembly-grid-'+project.number} width="25" height="25" patternUnits="userSpaceOnUse"><path d="M25 0H0V25" fill="none" stroke="#a3bfa6" stroke-opacity=".2"/></pattern></defs>
+          <rect width="500" height="300" fill="#142820"/><rect width="500" height="300" fill={'url(#assembly-grid-'+project.number+')'}/>
+          <path d="M250 100L360 158 250 218 140 158Z" fill="#5f916d" stroke="#d2e7b0" stroke-width="3"/>
+          <path d="M140 158L250 218V244L140 182Z" fill="#284936"/><path d="M360 158L250 218V244L360 182Z" fill="#3c6949"/>
+          <circle cx="250" cy="172" r="17" fill="#eeba76"/><circle cx="250" cy="172" r="6" fill="#263a2a"/>
+          <path d="M140 158L80 95M360 158L421 95M250 218L250 270" stroke="#afbf9a" stroke-dasharray="5 7" stroke-width="2"/>
+          <circle cx="80" cy="95" r="17" fill="#eeba76"/><circle cx="421" cy="95" r="17" fill="#eeba76"/>
+        </svg>
+        <span>Interactive component diagram loads when visible</span>
+      </div>
+    </div>
+    <div class="assembly-toolbar"><span>SCHEMATIC TOPOLOGY · NOT ORIGINAL CAD</span><div><button type="button" data-assembly-reset aria-label="Reset 3D view">Reset view</button><button type="button" data-assembly-explode aria-pressed="false">Explode view</button></div></div>
+    <p class="assembly-accuracy">This 3D visualization is a schematic component map, not a dimensionally accurate assembly, wiring diagram, manufacturer model, or proof of physical compatibility. Use the credited upstream CAD and electrical drawings for fabrication.</p>
+  </div>
+  <div class="assembly-part-panel">
+    <div class="assembly-panel-top"><span class="eyebrow">COMPONENT INDEX</span><span>SELECT PART ↗</span></div>
+    <div class="assembly-selected" aria-live="polite" data-assembly-selected>Select a component to inspect its function and sourcing status.</div>
+    <ol class="assembly-part-list">
+     {materials.map((m,i)=><li>
+       <button type="button" data-assembly-select={m.slug} aria-pressed={i===0?'true':'false'} class={i===0?'is-active':''}>
+         <span class="assembly-part-number">{String(i+1).padStart(2,'0')}</span>
+         <span class="assembly-part-identity"><strong>{m.product?.title??m.slug}</strong><small>{m.qty}× · {m.qualification.label}</small></span>
+       </button>
+       <button type="button" class="assembly-part-add" data-cart-add data-cart-slug={m.slug} data-cart-project={project.slug} data-cart-option={m.planned?.title??'Option pending'} data-cart-quantity={m.qty} aria-label={'Request '+m.qty+' '+(m.product?.title??m.slug)+' from MAKHEX'} title="Add to MAKHEX request cart">ADD +</button>
+      </li>)}
+    </ol>
+    <p class="assembly-bottom-note" data-assembly-status role="status" aria-live="polite">Select any component. Unverified parts remain an unpaid sourcing request.</p>
+    <a class="btn btn-primary" href="#bill-of-materials">VIEW COMPLETE BOM ↓</a>
+  </div>
+ </div>
+</section>
+<script>import '../scripts/assembly-explorer.ts';</script>

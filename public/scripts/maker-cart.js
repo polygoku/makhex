@@ -2,6 +2,7 @@
 (()=>{
 'use strict';
 const STORE_KEY='makhex-parts-cart-v1',MAX_LINES=80,MAX_QUANTITY=99;
+const canRequest=part=>part&&(part.priceStatus==='MAKHEX_PRICE_REVIEW'||part.priceStatus==='MAKHEX_QUOTE_REQUIRED');
 const okSlug=s=>typeof s==='string'&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s);
 const okOption=s=>typeof s==='string'&&s.length>0&&s.length<=160;
 const key=item=>item.slug+'\u001f'+item.option+'\u001f'+(item.project??'');
@@ -34,12 +35,12 @@ function save(items){
 }
 function flash(message){document.querySelectorAll('[data-cart-flash]').forEach(e=>e.textContent=message)}
 async function catalog(){
- if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=retail-display-20261028',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
+ if(!catalogPromise) catalogPromise=fetch('/sourcing.json?v=maker-request-20261122',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Component catalog is temporarily unavailable');return r.json()}).then(d=>{if(!Array.isArray(d.components)||!Array.isArray(d.projects))throw Error('Invalid catalog');return d}).catch(e=>{catalogPromise=null;throw e});
  return catalogPromise;
 }
 function check(c,item){
  const part=findPart(c,item.slug);
- if(!part||part.priceStatus!=='MAKHEX_PRICE_REVIEW'||!okOption(item.option))throw Error('External-only products cannot enter MAKHEX checkout');
+ if(!canRequest(part)||!okOption(item.option))throw Error('This component is unavailable for a MAKHEX sourcing request');
  const options=part.variants??[];
  if(options.length&&!options.some(v=>v.title===item.option)&&!(item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot'&&item.option==='Option pending'))throw Error('Choose a listed option');
  if(!options.length&&item.option!=='Option pending')throw Error('Option qualification pending');
@@ -52,7 +53,7 @@ function migrateLegacyOptions(c){
  let changed=false;
  for(const item of stored){
   const part=findPart(c,item.slug),variants=part?.variants??[];
-  if(!part||part.priceStatus!=='MAKHEX_PRICE_REVIEW'){changed=true;continue;} // Drop previously saved external items
+  if(!canRequest(part)){changed=true;continue;} // Only physical components may enter the request cart.
   const isMicroduckSpeaker=item.slug==='speaker-4ohm-3w'&&item.project==='microduck-robot';
   const next=variants.length===0&&item.option!=='Option pending'?{...item,option:'Option pending'}:item.option==='Option pending'&&variants.length===1&&!isMicroduckSpeaker?{...item,option:variants[0].title}:item;
   if(next!==item)changed=true;
@@ -80,7 +81,8 @@ async function add(items,button){
   const c=await catalog();
   save(insert(migrateLegacyOptions(c),items,c));
   const count=items.reduce((n,p)=>n+p.quantity,0);
-  flash('Added '+count+' part'+(count===1?'':'s')+' to your cart.');
+  flash('Added '+count+' part'+(count===1?'':'s')+' to your MAKHEX request cart.');
+  window.dispatchEvent(new CustomEvent('makhex:track',{detail:{event:'add_to_cart',project:items[0]?.project??''}}));
  }catch(e){flash(e.message||'Could not add parts')}
  finally{button.disabled=false}
 }
@@ -92,10 +94,11 @@ document.addEventListener('click',async event=>{
   try{
    const c=await catalog(),project=c.projects.find(p=>p.slug===b.getAttribute('data-cart-add-all'));
    if(!project)throw Error('Project not found');
-   const items=(project.cartPlan?.parts??project.parts).filter(p=>findPart(c,p.slug)?.priceStatus==='MAKHEX_PRICE_REVIEW').map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
-   if(!items.length)throw Error('This build has no MAKHEX-order-request parts yet; check its parts list.');
+   const items=(project.cartPlan?.parts??project.parts).filter(p=>canRequest(findPart(c,p.slug))).map(p=>({slug:p.slug,option:p.option??p.selectedOption??'Option pending',quantity:p.qty,project:project.slug}));
+   if(!items.length)throw Error('This build has no physical parts available to request.');
    save(insert(migrateLegacyOptions(c),items,c));
-   flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'.');
+   flash('Added all '+items.reduce((sum,p)=>sum+p.quantity,0)+' parts for '+project.title+'. Unqualified items remain review-only until approved.');
+   window.dispatchEvent(new CustomEvent('makhex:track',{detail:{event:'add_to_cart',project:project.slug}}));
   }catch(e){flash(e.message||'Unable to add kit')}
   finally{b.disabled=false}
   return;
@@ -153,7 +156,7 @@ async function render(){
   const info=document.createElement('div');info.className='cart-line-info';
   const name=document.createElement('a');name.href=imgLink.href;name.className='cart-line-title';name.textContent=part.title;
   const option=document.createElement('p');option.textContent=item.option==='Option pending'&&part.exactRequirements?part.exactRequirements:item.option;
-  const note=document.createElement('small');note.textContent='MAKHEX handles sourcing, shipping and exception approval.';
+  const note=document.createElement('small');note.textContent=part.qualificationNote||'MAKHEX handles sourcing, shipping and exception approval.';
   info.append(name,option,note);
   // Source procurement is a MAKHEX back-office task. Buyer should not have to shop elsewhere.
   const details=document.createElement('a');details.href=imgLink.href;details.className='text-link cart-seller-link';details.textContent='MAKHEX part details ↗';info.append(details);
@@ -172,7 +175,7 @@ async function render(){
   n+=item.quantity;if(price===null)unknown++;else known+=price*item.quantity;
  }
  if(countLabel)countLabel.textContent=n+' parts · '+cart.length+' selections';
- if(totalLabel)totalLabel.textContent=unknown?(known>0?'Subtotal: $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' need sourcing approval':unknown+' part'+(unknown===1?'':'s')+' · pricing confirmed before payment'):'Subtotal: $'+known.toFixed(2);
+ if(totalLabel)totalLabel.textContent=unknown?(known>0?'Planning subtotal: $'+known.toFixed(2)+' · '+unknown+' part'+(unknown===1?'':'s')+' need sourcing approval':unknown+' part'+(unknown===1?'':'s')+' · pricing confirmed before payment'):'Planning subtotal: $'+known.toFixed(2);
 }
 document.addEventListener('makhex:cart-updated',render);
 updateCount();render();

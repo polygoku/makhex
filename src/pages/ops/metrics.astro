@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout noindex title="Project Funnel · MAKHEX Owner" description="Owner-only anonymous project engagement and sourcing-request report.">
+<div class="container breadcrumb"><a href="/">HOME</a><span>/</span><span>OWNER / PROJECT FUNNEL</span></div>
+<section class="container funnel-dashboard">
+ <span class="eyebrow">MAKHEX / OWNER / PROJECT FUNNEL</span>
+ <h1>From build to basket.</h1>
+ <p>Aggregated interaction counts by project; not unique visitors or automatic commerce attribution. Paid events require manually matched merchant receipts. Results require the existing owner credential and are never indexed.</p>
+ <form id="funnel-report-form">
+  <label>Owner access token <input type="password" name="token" autocomplete="off" placeholder="Owner-only token" required /></label>
+  <label>Report window <select name="days"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option></select></label>
+  <button type="submit" class="btn btn-primary">LOAD REPORT</button>
+ </form>
+ <p id="funnel-report-status" aria-live="polite">No project or buyer data is shown until authenticated.</p>
+ <div id="funnel-report-results" hidden>
+  <div class="funnel-report-snapshot" id="funnel-report-summary"></div>
+  <div class="funnel-report-scroll">
+   <table><caption>Project events within selected period</caption><thead><tr><th>Project</th><th>Views</th><th>Demo plays</th><th>3D interactions</th><th>Cart adds</th><th>Checkout starts</th><th>Order requests</th><th>Paid verified</th><th>Requests / views*</th><th>Paid / requests*</th></tr></thead><tbody id="funnel-report-body"></tbody></table>
+  </div>
+  <p>*Indicative ratio of anonymous events, not a user-cohort conversion rate. Paid verification is counted only when the owner records a matching Squarespace merchant receipt. Actual fulfillment must be reconciled separately through supplier shipment records.</p>
+ </div>
+</section>
+<script is:inline src="/scripts/makhex-metrics-owner.js"></script>
+</BaseLayout>
+<style>
+.funnel-dashboard{padding:40px 0 100px;color:#31503d}.funnel-dashboard h1{font-size:clamp(35px,5vw,64px);line-height:1.1;letter-spacing:-.05em;margin:0 0 12px}.funnel-dashboard>p{max-width:770px;line-height:1.6}
+#funnel-report-form{display:flex;flex-wrap:wrap;align-items:end;gap:12px;padding:20px;background:#fffaf2;border:1px solid #d4c8b6;border-radius:14px;margin:22px 0}
+#funnel-report-form label{display:grid;gap:7px;flex:1;min-width:190px;font-size:13px;font-weight:700}
+#funnel-report-form input,#funnel-report-form select{width:100%;padding:12px;background:#fff;border:1px solid #bdbeaf;border-radius:8px;font:inherit;color:#22382b}
+.funnel-report-scroll{max-width:100%;overflow-x:auto;background:#fffaf2;border-radius:14px;border:1px solid #d4c8b6}
+.funnel-report-scroll table{border-collapse:collapse;min-width:890px;width:100%}
+.funnel-report-scroll th,.funnel-report-scroll td{padding:14px 12px;text-align:right;border-bottom:1px solid #e8e4d8;font-size:13px;white-space:nowrap}
+.funnel-report-scroll th:first-child,.funnel-report-scroll td:first-child{text-align:left;font-weight:700}
+.funnel-report-scroll thead{background:#e3ecdd}
+.funnel-report-scroll caption{text-align:left;padding:14px;font-weight:700}
+.funnel-report-snapshot{font-size:15px;line-height:1.6;padding:17px 0;font-weight:650}
+@media(max-width:620px){#funnel-report-form{flex-direction:column;align-items:stretch}}
+</style>
