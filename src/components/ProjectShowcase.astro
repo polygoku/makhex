@@ -1,0 +1,41 @@
+---
+import type {Project} from '../data/projects';
+import {buildReferences} from '../data/build-references';
+interface Props{project:Project}
+const {project}=Astro.props;
+const reference=buildReferences[project.slug];
+const isDuck=project.slug==='microduck-robot';
+const isDog=project.slug==='atomdog-quadruped-robot';
+const isMosaico=project.slug==='mosaico-learning-assistant';
+const poster=isDuck?'/demo/microduck/microduck-demo-01.jpg':isDog?'/demo/atomdog/hero.jpg':isMosaico?'/demo/build11-english-lifestyle-wide.jpg':reference?.image;
+const isReal=isDuck||!!reference;
+const provenance=isDuck?'Original robot demonstration by kissqy; not a MAKHEX-built prototype.':isDog?'Illustrative component layout. Original maker demonstrated a working robot; MAKHEX has not filmed or bench-tested one.':isMosaico?'AI-assisted concept illustration, not verified working hardware.':reference?'Photograph of an independent maker build credited to '+reference.builder+'. Not evidence of a MAKHEX-tested kit.':'Engineering concept, not a hardware demonstration.';
+const source=isDuck?'https://github.com/kissqy/Microduck-kissqy':isDog?'https://www.hackster.io/kinosei/atomdog-open-source-quadruped-robot-with-m5atommotion-aa540d':reference?.sourceUrl;
+---
+<section class="container showroom-section" id="project-showcase" data-showcase-project={project.slug} aria-labelledby={'showcase-'+project.slug}>
+  <div class="showroom-heading">
+    <div><span class="eyebrow">THE SHOWROOM / {project.number}</span><h2 id={'showcase-'+project.slug}>See the project. Understand the build.</h2><p>Watch the working hardware when creator-approved footage is available, then explore every physical component and its buying status.</p></div>
+    <span class="showroom-tag">{isReal?'INDEPENDENT REAL BUILD':isDog?'SOURCE DEMONSTRATION PENDING':'ILLUSTRATIVE PREVIEW'}</span>
+  </div>
+  <div class="showroom-grid">
+    <div class="showroom-media">
+      {isDuck ? <video controls playsinline preload="none" poster={poster} aria-label="Microduck walking robot, real footage by kissqy" data-showcase-video>
+        <source src="/demo/microduck/microduck-demo-01.mp4" type="video/mp4"/>
+        Your browser does not support HTML5 video.
+      </video> : poster ? <img src={poster} width="1080" height="760" loading="lazy" alt={isDog?'Illustrative AtomDog component layout, not physical test photography':isMosaico?'Illustrative English learning assistant concept':reference?.alt??'Project reference'} /> : <div class="showroom-no-media" role="img" aria-label="No real hardware demonstration licensed yet"><span>WORKBENCH PREVIEW</span><strong>Reference demo pending</strong></div>}
+      <div class="showroom-credit">{provenance}</div>
+    </div>
+    <div class="showroom-notes">
+      <span class="eyebrow">FROM IDEA TO WORKBENCH</span>
+      <h3>{project.output}</h3>
+      <p>{project.summary}</p>
+      <ol>{project.steps.slice(0,3).map((step,i)=><li><span>{String(i+1).padStart(2,'0')}</span><p>{step}</p></li>)}</ol>
+      <div class="showroom-ctas">
+        <a class="btn btn-primary" href="#assembly-explorer">EXPLORE COMPONENTS ↓</a>
+        {source&&<a class="btn btn-outline" href={source} target="_blank" rel="noopener noreferrer">ORIGINAL MAKER SOURCE ↗</a>}
+        {isDog&&<a class="text-link" href={source} target="_blank" rel="noopener noreferrer">View the creator’s original robot demonstration</a>}
+        {isMosaico&&<a class="text-link" href="#video">Watch the labeled concept walkthrough ↓</a>}
+      </div>
+    </div>
+  </div>
+</section>

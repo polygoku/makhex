@@ -53,15 +53,13 @@ expect(linkedTag.test(homeHtml),'Homepage featured part label must link to '+lea
 expect(!homeHtml.includes('A little screen. A couple of sensors.'),'Old weather-station hero copy still shown for newer build');
 
 const aliSlugSet=new Set(['feetech-hd1910','imx219-160-camera','vl53l5cx-v2','npf550-power-kit','bearing-6700','bearing-et2216','bearing-623zz','microduck-speaker-3525']);
-const quoteOnlySlugs=new Set(['m5stack-atom-lite','m5stack-atomic-motion-v12','feetech-fs90mg','usb-a-c-data-cable-1m','pla-filament-175-1kg']);
-const cartSlugs=new Set([...aliSlugSet,...quoteOnlySlugs]);
+const cartSlugs=new Set(products.map(p=>p.slug));
 const candidates=pages.filter(f=>/[/\\]shop[/\\][^/\\]+[/\\]index.html$/.test(f));
 for(const f of candidates){
  const html=fs.readFileSync(f,'utf8');
  const slug=f.replaceAll('\\','/').split('/shop/')[1]?.split('/')[0];
- if(cartSlugs.has(slug))expect(html.includes('CHECK OUT WITH MAKHEX')&&html.includes('data-cart-add'),'MAKHEX order request item must use internal cart: '+slug);
- else expect(html.includes('Buy from seller')&&!html.includes('data-cart-add'),'External must direct-link without MAKHEX cart: '+slug);
- if(quoteOnlySlugs.has(slug))expect(html.includes('Price on request')&&!html.includes('clean-product-price">$'),'Quote-only part must not display an invented retail price: '+slug);
+ expect(cartSlugs.has(slug)&&html.includes('REVIEW MAKHEX CART')&&html.includes('data-cart-add'),'Every physical component must support a MAKHEX order request: '+slug);
+ if(!aliSlugSet.has(slug))expect(html.includes('Price on request')&&!html.includes('clean-product-price">$'),'Quote-required part cannot display a fabricated price: '+slug);
  expect(html.includes('supplier-last-resort')&&html.includes('SOURCE MATCHES'),'Supplier references must exist: '+f);
  expect(!html.includes('VIEW PRODUCT ON SQUARESPACE')&&!html.includes('CHECK OUT AT SQUARESPACE'),'Unverified Squarespace purchase link on '+f);
 }
@@ -72,7 +70,7 @@ expect(fs.existsSync(cart),'Parts-cart route missing');
 if(fs.existsSync(cart)){
  const cartHtml=fs.readFileSync(cart,'utf8');
  expect(cartHtml.includes('data-cart-lines')&&cartHtml.includes('data-cart-copy')&&cartHtml.includes('data-cart-clear'),'Cart controls missing');
- expect(cartHtml.includes('CHECK OUT WITH MAKHEX')&&cartHtml.includes('href="/checkout/"'),'Cart missing first-party MAKHEX checkout CTA');
+ expect(cartHtml.includes('SUBMIT MAKHEX ORDER REQUEST')&&cartHtml.includes('href="/checkout/"'),'Cart missing first-party MAKHEX checkout CTA');
  expect(!cartHtml.includes('BROWSE ALL COMPONENT SELLERS'),'External retailers must not be the main checkout option');
  const checkoutHtml=fs.readFileSync(path.join(out,'checkout','index.html'),'utf8');
  expect(checkoutHtml.includes('does not charge my card yet')&&checkoutHtml.includes('makhex-order-request-form'),'Checkout must disclose payment-after-review');
@@ -90,10 +88,8 @@ for(const p of products){
  if(fs.existsSync(page)){
   const html=fs.readFileSync(page,'utf8');
   expect(html.includes('/product-media/'+p.slug+'.jpg'),'Product image not shown '+p.slug);
-  if(cartSlugs.has(p.slug)){
-   expect(html.includes('data-cart-add')&&html.includes('CHECK OUT WITH MAKHEX'),'MAKHEX order request part needs internal cart '+p.slug);
-   if(quoteOnlySlugs.has(p.slug))expect(html.includes('Price on request'),'Quote-only component cannot show a fixed checkout price: '+p.slug);
-  }else expect(!html.includes('data-cart-add')&&!html.includes('MAKHEX plan $'),'External SKU cannot have MAKHEX cart/price '+p.slug);
+  expect(html.includes('data-cart-add')&&html.includes('REVIEW MAKHEX CART'),'Every catalog component must support first-party unpaid requests '+p.slug);
+  if(!aliSlugSet.has(p.slug))expect(html.includes('Price on request'),'Unqualified component cannot display a fixed checkout price '+p.slug);
  }
 }
 const build11Html=fs.readFileSync(path.join(out,'projects','mosaico-learning-assistant','index.html'),'utf8');
@@ -107,7 +103,7 @@ for(const name of ['build11-english-lifestyle.jpg','build11-english-lifestyle-wi
 expect(homeHtml.includes('/demo/microduck/microduck-hero.jpg'),'Home must feature credited real Microduck footage still');
 expect(build11Html.includes('<video')&&build11Html.includes('/demo/build11-en-concept.mp4'),'Build 11 must have a locally served HTML5 video, not an X link');
 expect(build11Html.includes('ILLUSTRATIVE')||build11Html.includes('concept walkthrough'),'Build 11 video must be clearly marked as a simulation');
-expect(build11Html.includes('COMPARE EXTERNAL SUPPLIER')&&!build11Html.includes('data-cart-add-plan'),'Build 11 should link externally only');
+expect(build11Html.includes('data-cart-add-all="mosaico-learning-assistant"'),'Build 11 combo and cable must be requestable within MAKHEX');
 for(const name of ['build11-en-poster.jpg','build11-en-concept.mp4','build11-en.vtt','build11-scene-01.jpg','build11-scene-02.jpg','build11-scene-03.jpg']){
  const file=path.join(out,'demo',name);
  expect(fs.existsSync(file),'Self-hosted Build 11 asset missing: '+name);
@@ -116,8 +112,7 @@ const originalVid=path.join(out,'demo','build11-en-concept.mp4');
 if(fs.existsSync(originalVid)){const bytes=fs.readFileSync(originalVid);expect(bytes.toString('ascii',4,8)==='ftyp'&&bytes.length>5000,'Invalid MP4 asset');}
 for(const p of projects){
  const html=fs.readFileSync(path.join(out,'projects',p.slug,'index.html'),'utf8');
- const hasAli=p.materials.some(x=>cartSlugs.has(x.slug));
- expect(html.includes('data-cart-add-all="'+p.slug+'"')===hasAli,'Only MAKHEX review-eligible builds may have ADD ALL '+p.slug);
+ expect(html.includes('data-cart-add-all="'+p.slug+'"'),'Complete BOM must be available for first-party request '+p.slug);
  if(p.slug!=='mosaico-learning-assistant'){
   const rows=(html.match(/data-bom-mode=/g)||[]).length;
   expect(rows===p.materials.length,'Every BOM line must have direct/MAKHEX source mode '+p.slug);
@@ -157,7 +152,7 @@ if(fs.existsSync(mosaicoPage)){
 const microduckHtml=fs.readFileSync(path.join(out,'projects','microduck-robot','index.html'),'utf8');
 expect(!microduckHtml.includes('/shop/microduck-printed-parts/'),'STL/3MF must not be a purchasable part');
 expect(microduckHtml.includes('/members/microduck-designs/'),'Authorized free print models remain in build resources');
-for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','MAKHEX parts subtotal','does not redistribute']){
+for(const marker of ['Microduck','kissqy','/demo/microduck/microduck-hero.jpg','id="microduck-demo"','id="microduck-cad"','/shop/feetech-hd1910/','/shop/radxa-zero-3w/','/shop/bearing-623zz/','/members/microduck-designs/','AMP2.0','TPU','Parts planning subtotal','does not redistribute']){
  expect(microduckHtml.includes(marker),'Build 12 missing real-robot/sourcing/CAD requirement: '+marker);
 }
 const memberPage=fs.readFileSync(path.join(out,'members','microduck-designs','index.html'),'utf8');

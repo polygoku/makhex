@@ -1,6 +1,7 @@
 // First-party MAKHEX order-intent / owner-exception queue.
 // No card processing, no supplier order and no automatic paid flag in this service.
 import {checkoutCatalog} from './checkout-catalog.mjs';
+import {recordProjectEvent} from './metrics.mjs';
 
 const DAY=86400000;
 const US_STATES=new Set('AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' '));
@@ -24,7 +25,7 @@ function validateLines(lines){
   const qty=item.quantity;
   if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)||!Number.isInteger(qty)||qty<1||qty>99)return null;
   const part=checkoutCatalog.parts[slug]??checkoutCatalog.researchSubcomponents[slug];
-  if(!part||part.shopEligible!==true)return null; // External supplier parts never enter MAKHEX orders.
+  if(!part||part.shopEligible!==true)return null; // Unpaid request only; never imply supplier qualification.
   if(project){
    const allowed=checkoutCatalog.projectParts[project];
    if(!allowed || (!allowed.includes(slug)&&!(project==='mosaico-learning-assistant'&&slug in checkoutCatalog.researchSubcomponents)))return null;
@@ -114,6 +115,10 @@ export async function checkoutApi(req,env,h={}){
   await env.COMMUNITY_DB.prepare(
    'INSERT INTO makhex_checkout_events(id,request_id,actor,action,created_at,note) VALUES (?,?,\'CUSTOMER\',\'SUBMITTED\',?,\'Awaiting sourcing and owner exception review\')'
   ).bind(crypto.randomUUID(),id,now).run();
+  // Metrics never block valid orders and store only anonymous daily per-project counts.
+  const projects=new Set(validated.lines.map(line=>line.project).filter(Boolean));
+  const funnelProject=projects.size===1?[...projects][0]:'mixed';
+  try{await recordProjectEvent(env,'order_request_created',funnelProject)}catch{}
   return response({orderId:id,accessToken:secret,status:'PENDING_REVIEW',
     statusUrl:'/checkout/status/#'+secret,
     requestedParts:validated.totalParts,quoteStatus:'REVIEW_REQUIRED',
@@ -175,6 +180,14 @@ export async function checkoutApi(req,env,h={}){
   await env.COMMUNITY_DB.prepare(
    'INSERT INTO makhex_checkout_events(id,request_id,actor,action,created_at,note) VALUES (?,?,\'OWNER\',?,?,?)'
   ).bind(crypto.randomUUID(),id,body.action,now,note).run();
+  if(body.action==='record_paid_verified'){
+   // Only the existing authenticated owner workflow with a matching Squarespace receipt can count paid checkout.
+   try{
+    const lines=JSON.parse(old.lines_json);
+    const projectSlugs=new Set(lines.map(line=>line.project).filter(Boolean));
+    await recordProjectEvent(env,'paid_checkout_verified',projectSlugs.size===1?[...projectSlugs][0]:'mixed');
+   }catch{} // Optional analytics never impede a verified payment state transition.
+  }
   return response({orderId:id,status,updatedAt:now});
  }
  return fail(404,'MAKHEX checkout endpoint not found');

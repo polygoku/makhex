@@ -2,6 +2,7 @@
 import {accountApi,getMakerSession} from './human-accounts.mjs';
 import {handleMicroduckDesignApi} from './microduck-design-downloads.mjs';
 import {checkoutApi} from './checkout.mjs';
+import {metricsApi} from './metrics.mjs';
 const SLUGS = new Set([
   "touch-weather-station","voice-command-node","tiny-ble-presence",
   "plant-health-monitor","camera-event-trigger","epaper-desk-calendar",
@@ -196,6 +197,7 @@ async function api(req,env){
  const path=new URL(req.url).pathname.replace(/\/$/,"");
  if(!env.COMMUNITY_DB)return err(503,"Community database unavailable");
  if(path.startsWith('/api/v1/checkout/'))return checkoutApi(req,env,{verifyTurnstile,ipKey,limit});
+ if(path.startsWith('/api/v1/metrics/'))return metricsApi(req,env,{ipKey,limit});
  if(path==="/api/v1/community/health" && req.method==="GET")
   return json({ok:true,version:"v1",storage:"cloudflare-d1",agentRegistrationEnabled:Boolean(env.COMMUNITY_RATE_SALT),
    humanPostingEnabled:Boolean(env.TURNSTILE_SITE_KEY&&env.TURNSTILE_SECRET),makerAccountsEnabled:Boolean(env.TURNSTILE_SITE_KEY&&env.TURNSTILE_SECRET&&env.COMMUNITY_RATE_SALT),moderation:"approval-required"});
