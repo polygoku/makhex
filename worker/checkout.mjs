@@ -4,6 +4,8 @@ import {checkoutCatalog} from './checkout-catalog.mjs';
 import {recordProjectEvent} from './metrics.mjs';
 
 const DAY=86400000;
+const MOSAICO_COMBO='esp-mosaico-vision-combo-kit';
+const MOSAICO_COMBO_MODULES=new Set(['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module']);
 const US_STATES=new Set('AL AK AZ AR CA CO CT DE DC FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(' '));
 const textEncoder=new TextEncoder();
 const hash=async x=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',textEncoder.encode(x)))].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -18,7 +20,7 @@ const constantCompare=(a,b)=>{
 function validateLines(lines){
  if(!Array.isArray(lines)||lines.length<1||lines.length>60)return null;
  const seen=new Set(),out=[];
- let totalParts=0,subtotal=0,missingPrices=false;
+ let totalParts=0,subtotal=0,missingPrices=false,hasMosaicoCombo=false,hasMosaicoModule=false;
  for(const item of lines){
   if(!item||typeof item!=='object'||Array.isArray(item))return null;
   const slug=safeText(item.slug,64),project=safeText(item.project??'',64),option=safeText(item.option??'',160);
@@ -37,6 +39,11 @@ function validateLines(lines){
   if(!part.variants.length&&option!=='Option pending')return null;
   const id=slug+'|'+project+'|'+option;
   if(seen.has(id))return null;
+  // Match the cart's alternatives by SKU, independent of optional project labels.
+  // The separate USB-C cable is valid alongside either model.
+  if(slug===MOSAICO_COMBO)hasMosaicoCombo=true;
+  if(MOSAICO_COMBO_MODULES.has(slug))hasMosaicoModule=true;
+  if(hasMosaicoCombo&&hasMosaicoModule)return null;
   seen.add(id);totalParts+=qty;
   const ix=part.variants.indexOf(option);
   const cents=isDuckSpeaker||ix<0?null:part.plannedRetailCents[ix]??null;

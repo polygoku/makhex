@@ -23,11 +23,15 @@
    v.addEventListener('play',()=>track('demo_play',project),{once:true});
   });
  }
- if(location.pathname.startsWith('/checkout/')){
+ if((location.pathname==='/checkout/'||location.pathname==='/checkout')&&document.querySelector('form#makhex-order-request-form')){
   try{
    const items=JSON.parse(localStorage.getItem('makhex-parts-cart-v1')||'[]');
-   const entries=Array.isArray(items)?[...new Set(items.map(x=>x.project).filter(Boolean))]:[];
-   track('checkout_start',entries.length===1&&projects.has(entries[0])?entries[0]:'mixed');
-  }catch{track('checkout_start','mixed');}
+   // Match checkout's minimum cart-line requirements without sending cart contents.
+   const lines=Array.isArray(items)?items.filter(i=>i&&typeof i.slug==='string'&&/^[a-z0-9-]+$/.test(i.slug)&&Number.isInteger(i.quantity)&&i.quantity>0):[];
+   if(lines.length){
+    const entries=[...new Set(lines.map(i=>i.project).filter(Boolean))];
+    track('checkout_start',entries.length===1&&projects.has(entries[0])?entries[0]:'mixed');
+   }
+  }catch{}
  }
 })();

@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {runInNewContext} from 'node:vm';
 import {allowedEvent,recordProjectEvent,metricsApi} from '../worker/metrics.mjs';
 
 const ORIGIN='https://makhex.com';
@@ -71,4 +73,58 @@ test('owner-only report returns aggregated counts without visitor information',a
  assert.equal(data.rows.length,3);
  assert(data.rows.every(row=>Number.isInteger(row.count)&&!Object.hasOwn(row,'ip')));
  assert(!JSON.stringify(data).includes('owner-test-only'));
+});
+
+const browserMetrics=readFileSync(new URL('../public/scripts/makhex-metrics.js',import.meta.url),'utf8');
+const checkoutMarkup=readFileSync(new URL('../src/pages/checkout/index.astro',import.meta.url),'utf8');
+const statusMarkup=readFileSync(new URL('../src/pages/checkout/status/index.astro',import.meta.url),'utf8');
+const cartLine={slug:'fixture-controller',quantity:1,project:'microduck-robot'};
+
+function interceptBrowserMetrics(pathname,markup,storage){
+ const posts=[];
+ const context={
+  location:{pathname},
+  document:{querySelector(selector){
+   if(selector==='form#makhex-order-request-form')return /<form\b[^>]*\bid="makhex-order-request-form"/.test(markup)?{}:null;
+   if(selector==='[data-showcase-project]')return null;
+   throw Error('Unexpected selector '+selector);
+  }},
+  localStorage:{getItem(key){
+   assert.equal(key,'makhex-parts-cart-v1');
+   return typeof storage==='function'?storage():storage;
+  }},
+  window:{addEventListener(){}},
+  fetch:async(url,options)=>{
+   posts.push({url,method:options.method,body:JSON.parse(options.body)});
+   return {ok:true};
+  }
+ };
+ runInNewContext(browserMetrics,context,{filename:'makhex-metrics.js'});
+ return posts;
+}
+
+test('a genuine checkout form sends exactly one checkout start for a nonempty cart',()=>{
+ for(const pathname of ['/checkout/','/checkout']){
+  assert.deepEqual(interceptBrowserMetrics(pathname,checkoutMarkup,JSON.stringify([cartLine,cartLine])),[
+   {url:'/api/v1/metrics/events',method:'POST',body:{event:'checkout_start',project:'microduck-robot'}}
+  ]);
+ }
+ assert.deepEqual(interceptBrowserMetrics('/checkout/',checkoutMarkup,JSON.stringify([cartLine,{...cartLine,project:'atomdog-quadruped-robot'}]))[0]?.body,
+  {event:'checkout_start',project:'mixed'});
+});
+
+test('checkout refresh on an empty cart or invalid/unavailable storage sends no event',()=>{
+ for(const storage of [null,'[]','{}','{',JSON.stringify([null,{}, {...cartLine,quantity:0}]),()=>{throw Error('Unavailable storage')}]){
+  assert.deepEqual(interceptBrowserMetrics('/checkout/',checkoutMarkup,storage),[]);
+ }
+});
+
+test('order-status revisits and nested checkout routes never send checkout_start',()=>{
+ const cart=JSON.stringify([cartLine]);
+ for(const pathname of ['/checkout/status/','/checkout/status','/checkout/unrelated/','/cart/']){
+  assert.deepEqual(interceptBrowserMetrics(pathname,statusMarkup,cart),[]);
+ }
+ assert.deepEqual(interceptBrowserMetrics('/checkout/status/',statusMarkup,'[]'),[]);
+ assert.deepEqual(interceptBrowserMetrics('/checkout/status/',checkoutMarkup,cart),[],'Route gate applies even if form markup appears on a nested route');
+ assert.deepEqual(interceptBrowserMetrics('/checkout/',statusMarkup,cart),[],'Form gate applies even on an exact route');
 });
