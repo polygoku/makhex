@@ -188,3 +188,24 @@ test('complete Microduck physical BOM and Mosaico bundle/alternative remain unpa
  assert(separate&&separate.lines.length===4&&separate.planningSubtotalCents===null,'Four separate research components require owner review');
  assert.equal(checkoutInternals.validateLines([{slug:'esp-mosaico-camera-module',option:'Option pending',quantity:1,project:'microduck-robot'}]),null,'Mosaico research parts cannot be added to another project');
 });
+test('Mosaico combo and any included module conflict across the entire request',async()=>{
+ const f=setup();
+ const line=(slug,project)=>({slug,project,option:'Option pending',quantity:1});
+ const project='mosaico-learning-assistant';
+ const combo=line('esp-mosaico-vision-combo-kit',project);
+ const cable=line('usb-c-data-cable',project);
+ const unrelated=validBody().lines[0];
+ for(const slug of ['esp-mosaico-core-unit','esp-mosaico-camera-module','esp-mosaico-interaction-module']){
+  const module=line(slug,project);
+  const unlabelled=line(slug);
+  assert.equal(checkoutInternals.validateLines([combo,module]),null,'Even a single overlapping module is a conflict');
+  assert.equal(checkoutInternals.validateLines([unlabelled,cable,{...combo,project:undefined}]),null,'Cart labels and row order cannot bypass the invariant');
+  assert.equal(checkoutInternals.validateLines([module,cable,unrelated])?.totalParts,17,'Standalone modules, cable and other builds are still requestable');
+  const rejected=await f.call('requests','POST',{...validBody(),lines:[unlabelled,combo,cable]});
+  assert.equal(rejected.status,422);
+ }
+ assert.equal(f.requests.size,0,'No mixed-plan request persisted');
+ assert.equal(f.events.length,0,'No mixed-plan checkout event written');
+ assert.equal(f.metrics.length,0,'No mixed-plan request metric written');
+ assert.equal(checkoutInternals.validateLines([combo,cable,unrelated])?.totalParts,17,'Bundle, cable and other builds remain requestable together');
+});
